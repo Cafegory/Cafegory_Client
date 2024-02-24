@@ -1,7 +1,12 @@
 import React from 'react';
+import Logo from '../image/logo.jpg';
 
 const Header = () => {
-  return <div>헤더 컴포넌트</div>;
+  return (
+    <div>
+      <img src={Logo} alt="로고" />
+    </div>
+  );
 };
 
 export default Header;
