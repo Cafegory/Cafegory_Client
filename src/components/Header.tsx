@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../image/logo.jpg';
 import styled from 'styled-components';
-import { useStore } from '../hooks/store';
+import { useStore, StoreState } from '../hooks/store';
 import SearchIcon from '../image/searchIcon.png';
 
 const HeaderContainer = styled.div`
@@ -83,8 +83,8 @@ const SearchImg = styled.img`
   margin-right: 0.5em;
 `;
 
-const Header = () => {
-  const isLoggined = useStore((state) => state.isLoggined);
+const Header: React.FC = () => {
+  const isLogged = useStore((state: StoreState) => state.isLogged);
 
   return (
     <HeaderContainer>
@@ -94,7 +94,7 @@ const Header = () => {
       </LogoDiv>
       <RightDiv>
         <UserLoggedIn>
-          {isLoggined ? (
+          {isLogged ? (
             <>
               ooo님 환영합니다!
               <LoginSignupLink href="">로그아웃</LoginSignupLink>
