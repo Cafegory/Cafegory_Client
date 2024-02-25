@@ -1,4 +1,3 @@
-// Header.style.ts
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
@@ -9,7 +8,7 @@ export const HeaderContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-  @media screen and (max-width: 48em) {
+  @media screen and (max-width: 500px) {
     flex-direction: column;
     height: auto;
   }
@@ -22,7 +21,7 @@ export const LogoDiv = styled.div`
 
 export const LogoImage = styled.img`
   border-radius: 100%;
-  width: 3.33rem;
+  width: 20%;
   height: 3.33rem;
   margin-right: 1em;
 `;
@@ -38,7 +37,7 @@ export const RightDiv = styled.div`
   align-items: center;
   margin-left: auto;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 500px) {
     margin: 1rem 0;
   }
 `;
@@ -74,8 +73,8 @@ export const InputField = styled.input`
 `;
 
 export const SearchImg = styled.img`
-  width: 1.68rem;
+  width: 10%;
   height: 1.68rem;
   cursor: pointer;
-  margin-right: 0.5em;
+  margin-right: 2em;
 `;
