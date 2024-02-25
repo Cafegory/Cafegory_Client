@@ -11,7 +11,11 @@ const HeaderContainer = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   align-items: center;
   justify-content: space-between;
-  padding: 0em 2em;
+  padding: 0 2rem;
+  @media screen and (max-width: 48em) {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 const LogoDiv = styled.div`
@@ -35,41 +39,48 @@ const LogoFont = styled.div`
 const RightDiv = styled.div`
   display: flex;
   align-items: center;
+  margin-left: auto;
+
+  @media screen and (max-width: 768px) {
+    margin: 1rem 0;
+  }
 `;
 
 const UserLoggedIn = styled.div`
-  font-size: 1.35rem;
+  font-size: 1.1rem;
 `;
 
 const LoginSignupLink = styled.a`
-  margin-left: 1em;
+  margin-left: 2.5em;
   text-decoration: none;
   color: inherit;
 `;
 
 const InputContainer = styled.div`
-  margin-left: 5em;
-  border-radius: 8.04px;
-  border: 1px solid #ccc;
   display: flex;
   align-items: center;
+  margin-left: 4em;
+  border-radius: 8.04px;
+  border: 1px solid #ccc;
 `;
 
 const InputField = styled.input`
-  padding: 0em 0em 0em 0.5em;
+  padding: 0.5em;
   border: none;
   font-size: 1rem;
-  width: 16.75rem;
-  height: 3.03rem;
+  flex: 1;
+  height: 2rem;
   &:focus {
     outline: none;
   }
+  margin-left: 0.5em;
 `;
 
 const SearchImg = styled.img`
   width: 1.68rem;
   height: 1.68rem;
   cursor: pointer;
+  margin-right: 0.5em;
 `;
 
 const Header = () => {
@@ -83,7 +94,6 @@ const Header = () => {
       </LogoDiv>
       <RightDiv>
         <UserLoggedIn>
-          {' '}
           {isLoggined ? (
             <>
               ooo님 환영합니다!
