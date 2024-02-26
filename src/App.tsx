@@ -1,7 +1,6 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './components/Header';
+import PageRoutes from './routes';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,11 +15,7 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <Routes>
-          <Route path="/header" element={<Header />} />
-        </Routes>
-      </Router>
+      <PageRoutes />
     </QueryClientProvider>
   );
 }
