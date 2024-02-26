@@ -1,5 +1,5 @@
 export interface HeaderProps {}
 
-export interface StoreState {
-  isLogged: boolean;
+export interface UserState {
+  isLoggedIn: boolean;
 }

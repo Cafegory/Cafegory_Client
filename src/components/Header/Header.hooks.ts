@@ -1,6 +1,6 @@
-import { useStore } from '../../store/store';
-import { StoreState } from './Header.type';
+import { useUser } from '../../store/store';
+import { UserState } from './Header.type';
 
 export const useHeader = () => {
-  return useStore((state: StoreState) => state.isLogged);
+  return useUser((state: UserState) => state.isLoggedIn);
 };
