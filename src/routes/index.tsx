@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Header from '../components/Header';
+import Main from '../pages/Main';
 
 const Router: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/header" element={<Header />} />
+        <Route path="/" element={<Main />} />
       </Routes>
     </BrowserRouter>
   );
