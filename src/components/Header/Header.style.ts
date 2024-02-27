@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
+  position:fixed;
   display: flex;
   height: 6.75rem;
+  width: 100%;
   flex-direction: row;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   align-items: center;
