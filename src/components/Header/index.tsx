@@ -10,6 +10,7 @@ import {
   InputContainer,
   InputField,
   SearchImg,
+  WelcomeMessageBox,
 } from './Header.style';
 import { useHeader } from './Header.hooks';
 import { HeaderProps } from './Header.type';
@@ -30,19 +31,19 @@ const Header: React.FC<HeaderProps> = () => {
         <LogoFont>Cafegory.</LogoFont>
       </LogoDiv>
       <RightDiv>
-        <UserLoggedIn>
-          {isLogged ? (
-            <>
-              ooo님 환영합니다!
+        {isLogged ? (
+          <>
+            <WelcomeMessageBox>ooo님 환영합니다!</WelcomeMessageBox>
+            <UserLoggedIn>
               <LoginSignupLink href="">로그아웃</LoginSignupLink>
-            </>
-          ) : (
-            <>
-              <LoginSignupLink href="">회원가입</LoginSignupLink>
-              <LoginSignupLink href="">로그인</LoginSignupLink>
-            </>
-          )}
-        </UserLoggedIn>
+            </UserLoggedIn>
+          </>
+        ) : (
+          <UserLoggedIn>
+            <LoginSignupLink href="">회원가입</LoginSignupLink>
+            <LoginSignupLink href="">로그인</LoginSignupLink>
+          </UserLoggedIn>
+        )}
         <InputContainer>
           <InputField type="text" placeholder="검색하기" />
           <SearchImg src="/assets/searchIcon.png" alt="검색 아이콘" />

@@ -3,13 +3,12 @@ import styled from 'styled-components';
 export const HeaderContainer = styled.div`
   position:fixed;
   display: flex;
-  height: 6.75rem;
+  height: 7%;
   width: 100%;
   flex-direction: row;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
   @media screen and (max-width: 500px) {
     flex-direction: column;
     height: auto;
@@ -18,27 +17,32 @@ export const HeaderContainer = styled.div`
 
 export const LogoDiv = styled.div`
   display: flex;
+  height:100%;
+  width:10%;
   align-items: center;
+  justify-content: space-around;
   cursor: pointer;
 `;
 
 export const LogoImage = styled.img`
   border-radius: 100%;
-  width: 20%;
-  height: 3.33rem;
-  margin-right: 1em;
+  width: 1.9rem;
+  height: 1.9rem;
+  margin: 0 0 0 0.5em;
 `;
 
 export const LogoFont = styled.div`
   display: flex;
-  font-size: 2.34rem;
-  font-weight: 500;
+  font-size: 1.4rem;
+  font-weight: 450;
 `;
 
 export const RightDiv = styled.div`
   display: flex;
   align-items: center;
-  margin-left: auto;
+  justify-content: space-around;
+  width:25%;
+  height:100%;
 
   @media screen and (max-width: 500px) {
     margin: 1rem 0;
@@ -46,38 +50,47 @@ export const RightDiv = styled.div`
 `;
 
 export const UserLoggedIn = styled.div`
-  font-size: 1.1rem;
+  width:40%;
+  height:100%;
+  display: flex;
+  justify-content:space-around;
 `;
 
 export const LoginSignupLink = styled.a`
-  margin-left: 2.5em;
+  font-size: 0.9rem;
+  display: flex;
+  align-items:center;
   text-decoration: none;
-  color: inherit;
+`;
+
+export const WelcomeMessageBox = styled.div`
+  width:40%;
+  font-size: 0.9rem;
+  display: flex;
+  align-items:center;
 `;
 
 export const InputContainer = styled.div`
+  width : 45%;
+  height : 50%;
   display: flex;
   align-items: center;
-  margin-left: 4em;
-  border-radius: 8.04px;
+  justify-content:space-around;
+  border-radius: 10px;
   border: 1px solid #ccc;
 `;
 
 export const InputField = styled.input`
-  padding: 0.5em;
+  width: 100%;
   border: none;
-  font-size: 1rem;
-  flex: 1;
-  height: 2rem;
+  font-size: 0.7rem;
   &:focus {
     outline: none;
   }
-  margin-left: 0.5em;
 `;
 
 export const SearchImg = styled.img`
-  width: 10%;
-  height: 1.68rem;
+  width: 1.3rem;
+  height: 1.3rem;
   cursor: pointer;
-  margin-right: 2em;
 `;
