@@ -13,13 +13,19 @@ import {
 } from './Header.style';
 import { useHeader } from './Header.hooks';
 import { HeaderProps } from './Header.type';
+import { useNavigate } from 'react-router-dom';
 
 const Header: React.FC<HeaderProps> = () => {
   const isLogged = useHeader();
+  const navigate = useNavigate();
 
   return (
     <HeaderContainer>
-      <LogoDiv>
+      <LogoDiv
+        onClick={() => {
+          navigate('/');
+        }}
+      >
         <LogoImage src="/assets/logo.jpg" alt="로고" />
         <LogoFont>Cafegory.</LogoFont>
       </LogoDiv>

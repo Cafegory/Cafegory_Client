@@ -17,6 +17,7 @@ export const HeaderContainer = styled.div`
 export const LogoDiv = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const LogoImage = styled.img`
