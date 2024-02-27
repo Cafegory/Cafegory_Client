@@ -35,13 +35,13 @@ const Header: React.FC<HeaderProps> = () => {
           <>
             <WelcomeMessageBox>ooo님 환영합니다!</WelcomeMessageBox>
             <UserLoggedIn>
-              <LoginSignupLink href="">로그아웃</LoginSignupLink>
+              <LoginSignupLink>로그아웃</LoginSignupLink>
             </UserLoggedIn>
           </>
         ) : (
           <UserLoggedIn>
-            <LoginSignupLink href="">회원가입</LoginSignupLink>
-            <LoginSignupLink href="">로그인</LoginSignupLink>
+            <LoginSignupLink>회원가입</LoginSignupLink>
+            <LoginSignupLink>로그인</LoginSignupLink>
           </UserLoggedIn>
         )}
         <InputContainer>

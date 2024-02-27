@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
-  position:fixed;
+  position: fixed;
   display: flex;
   height: 7%;
   width: 100%;
@@ -17,8 +17,8 @@ export const HeaderContainer = styled.div`
 
 export const LogoDiv = styled.div`
   display: flex;
-  height:100%;
-  width:10%;
+  height: 100%;
+  width: 10%;
   align-items: center;
   justify-content: space-around;
   cursor: pointer;
@@ -41,8 +41,8 @@ export const RightDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width:25%;
-  height:100%;
+  width: 25%;
+  height: 100%;
 
   @media screen and (max-width: 500px) {
     margin: 1rem 0;
@@ -50,32 +50,32 @@ export const RightDiv = styled.div`
 `;
 
 export const UserLoggedIn = styled.div`
-  width:40%;
-  height:100%;
+  width: 40%;
+  height: 100%;
   display: flex;
-  justify-content:space-around;
+  justify-content: space-around;
+  cursor: pointer;
 `;
 
-export const LoginSignupLink = styled.a`
+export const LoginSignupLink = styled.div`
   font-size: 0.9rem;
   display: flex;
-  align-items:center;
-  text-decoration: none;
+  align-items: center;
 `;
 
 export const WelcomeMessageBox = styled.div`
-  width:40%;
+  width: 40%;
   font-size: 0.9rem;
   display: flex;
-  align-items:center;
+  align-items: center;
 `;
 
 export const InputContainer = styled.div`
-  width : 45%;
-  height : 50%;
+  width: 45%;
+  height: 50%;
   display: flex;
   align-items: center;
-  justify-content:space-around;
+  justify-content: space-around;
   border-radius: 10px;
   border: 1px solid #ccc;
 `;
