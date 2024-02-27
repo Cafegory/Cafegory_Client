@@ -1,15 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from '../components/Header';
 
-const PageRoutes: React.FC = () => {
+const Router: React.FC = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/header" element={<Header />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 };
 
-export default PageRoutes;
+export default Router;
