@@ -1,4 +1,4 @@
-import { useUser } from '../../store/store';
+import { useUser } from '../../store/users/store';
 import { UserState } from './Header.type';
 
 export const useHeader = () => {
