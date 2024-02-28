@@ -1,3 +1,5 @@
+// Button.type.ts
 export interface ButtonProps {
-  message: string; // 메시지 prop 정의
+  message: string;
+  color: 'black' | 'gray' | 'red';
 }
