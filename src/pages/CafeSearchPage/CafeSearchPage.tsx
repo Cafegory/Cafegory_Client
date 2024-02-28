@@ -1,9 +1,9 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
-import { MainScreen } from './MainPage.style';
+import { MainScreen } from '../MainPage/MainPage.style';
 
-const Main: React.FC = () => {
+const CafeSearch: React.FC = () => {
   return (
     <MainScreen>
       <Sidebar buttonColors={['white', ,]} />
@@ -12,4 +12,4 @@ const Main: React.FC = () => {
   );
 };
 
-export default Main;
+export default CafeSearch;
