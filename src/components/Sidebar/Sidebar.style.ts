@@ -6,3 +6,4 @@ export const SidebarContainer = styled.div`
   height: 100%;
   width: 16%;
 `;
+
