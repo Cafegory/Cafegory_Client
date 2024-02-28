@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   HeaderContainer,
   LogoDiv,
@@ -21,6 +21,11 @@ const Header: React.FC<HeaderProps> = () => {
   const isLogged = useHeader();
   const navigate = useNavigate();
   const userName = '박소정';
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
+  const handleLoginLinkClick = () => {
+    setIsLoginModalOpen(true);
+  };
 
   return (
     <>
@@ -36,11 +41,16 @@ const Header: React.FC<HeaderProps> = () => {
               <UserLoggedIn>
                 <LoginSignupLink>로그아웃</LoginSignupLink>
               </UserLoggedIn>
+              s
             </>
           ) : (
             <UserLoggedIn>
-              <LoginSignupLink>회원가입</LoginSignupLink>
-              <LoginSignupLink>로그인</LoginSignupLink>
+              <LoginSignupLink onClick={handleLoginLinkClick}>
+                회원가입
+              </LoginSignupLink>
+              <LoginSignupLink onClick={handleLoginLinkClick}>
+                로그인
+              </LoginSignupLink>
             </UserLoggedIn>
           )}
           <InputContainer>
@@ -49,7 +59,7 @@ const Header: React.FC<HeaderProps> = () => {
           </InputContainer>
         </RightDiv>
       </HeaderContainer>
-      <Login />
+      {isLoginModalOpen && <Login />}
     </>
   );
 };
