@@ -11,6 +11,10 @@ export interface FilterState {
   setDrinkPrice: (price: string) => void;
   setMaxUsageTime: (time: string) => void;
   setSearchKeyword: (keyword: string) => void; // 검색어 상태를 업데이트하는 함수 추가
+  setStartTime: (time: string) => void;
+  setEndTime: (time: string) => void;
+  startTime: string;
+  endTime: string;
 }
 
 export const useFilter = create<FilterState>((set) => ({
@@ -25,4 +29,9 @@ export const useFilter = create<FilterState>((set) => ({
   setMaxUsageTime: (time) => set((state) => ({ ...state, maxUsageTime: time })),
   setSearchKeyword: (keyword) =>
     set((state) => ({ ...state, searchKeyword: keyword })), // 검색어 상태 업데이트 함수 추가
+  setStartTime: (time) => set((state) => ({ ...state, startTime: time })),
+  setEndTime: (time) => set((state) => ({ ...state, endTime: time })),
+
+  startTime: '09:00',
+  endTime: '17:00',
 }));

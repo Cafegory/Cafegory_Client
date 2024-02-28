@@ -125,3 +125,24 @@ export const Option = styled.div<{ active?: boolean }>`
   font-size: 0.9rem;
   cursor: pointer;
 `;
+export const startTime = '';
+
+export const endTime = '';
+
+export const setStartTime = (time: string) => {};
+
+export const setEndTime = (time: string) => {};
+
+export const SelectContainer = styled.select`
+  background-color: rgba(0, 0, 0, 0.05);
+  border: none;
+  width: 13%;
+  height: 80%;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 1.5%;
+`;

@@ -21,6 +21,11 @@ import {
   ChooseFont,
   Choose,
   Option,
+  setStartTime,
+  setEndTime,
+  startTime,
+  endTime,
+  SelectContainer,
 } from './MainPage.style';
 
 import { useFilter } from './MainPage.hooks';
@@ -53,7 +58,13 @@ const Main: React.FC = () => {
     setDrinkPrice,
     maxUsageTime,
     setMaxUsageTime,
+    setSearchKeyword,
+    searchKeyword,
   } = useFilter();
+
+  const handleSearch = () => {
+    console.log('검색어:', searchKeyword);
+  };
 
   const renderDrinkPriceOptions = () => {
     return drinkPrices.map((price, index) => (
@@ -93,16 +104,18 @@ const Main: React.FC = () => {
         <CafeSearch>
           <TitleFont>카페 검색</TitleFont>
           <SideFont>행정동 기반으로 검색합니다.</SideFont>
+
           <InputContainer>
             <InputField
               type="text"
               placeholder="검색어를 입력하세요 (예: 역삼동, 서초동)"
+              onChange={(e) => setSearchKeyword(e.target.value)}
             />
             <PlaceImg src="/assets/place-icon.png" alt="검색 아이콘" />
           </InputContainer>
           <ButtonContainer>
             <ShortButton message="필터" color="white" />
-            <ShortButton message="검색" color="black" />
+            <ShortButton message="검색" color="black" onClick={handleSearch} />
           </ButtonContainer>
         </CafeSearch>
         <FitterContainer>
@@ -134,9 +147,35 @@ const Main: React.FC = () => {
             <StudyAvailability>
               <ChooseFont>영업 시간</ChooseFont>
               <Choose>
-                <Option>09:00</Option>
+                <SelectContainer
+                  value={startTime}
+                  onChange={(e) => setStartTime(e.target.value)}
+                >
+                  {[...Array(24)].map((_, index) => {
+                    const hour = index.toString().padStart(2, '0');
+                    return (
+                      <option
+                        key={index}
+                        value={`${hour}:00`}
+                      >{`${hour}:00`}</option>
+                    );
+                  })}
+                </SelectContainer>
                 부터
-                <Option>18:00</Option>
+                <SelectContainer
+                  value={endTime}
+                  onChange={(e) => setEndTime(e.target.value)}
+                >
+                  {[...Array(24)].map((_, index) => {
+                    const hour = index.toString().padStart(2, '0');
+                    return (
+                      <option
+                        key={index}
+                        value={`${hour}:00`}
+                      >{`${hour}:00`}</option>
+                    );
+                  })}
+                </SelectContainer>
                 까지
               </Choose>
             </StudyAvailability>
