@@ -1,4 +1,3 @@
-//Button.style.ts
 import styled from 'styled-components';
 
 export const ButtonContainer = styled.div`
@@ -10,7 +9,7 @@ export const ButtonContainer = styled.div`
 `;
 
 export const ButtonStyle = styled.div`
-  height: 6%;
+  height: 60px;
   width: 70%;
   display: flex;
   justify-content: center;
@@ -28,6 +27,11 @@ export const ButtonStyle = styled.div`
         return '#000000';
     }
   }};
+  cursor: pointer;
+  transition: opacity 0.3s;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 export const Font = styled.div`
   font-size: 1.6rem;

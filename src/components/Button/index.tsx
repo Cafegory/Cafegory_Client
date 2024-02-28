@@ -1,5 +1,3 @@
-// Button.tsx
-
 import React from 'react';
 import { ButtonContainer, ButtonStyle, Font } from './Button.style';
 import { ButtonProps } from './Button.type';
