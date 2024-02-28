@@ -1,3 +1,4 @@
+// MainPage.tsx
 import React from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
@@ -22,7 +23,68 @@ import {
   Option,
 } from './MainPage.style';
 
+import { useFilter } from './MainPage.hooks';
+
+const drinkPrices = [
+  '무관',
+  '1,000원',
+  '2,000원',
+  '3,000원',
+  '4,000원',
+  '5,000원',
+  '10,000원 이상',
+];
+
+const usageTimes = [
+  '무관',
+  '1시간',
+  '2시간',
+  '3시간',
+  '4시간',
+  '5시간',
+  '6시간 이상',
+];
+
 const Main: React.FC = () => {
+  const {
+    studyAvailability,
+    setStudyAvailability,
+    drinkPrice,
+    setDrinkPrice,
+    maxUsageTime,
+    setMaxUsageTime,
+  } = useFilter();
+
+  const renderDrinkPriceOptions = () => {
+    return drinkPrices.map((price, index) => (
+      <Option
+        key={index}
+        onClick={() => {
+          console.log(`${price} 클릭됨`);
+          setDrinkPrice(price);
+        }}
+        active={drinkPrice === price}
+      >
+        {price}
+      </Option>
+    ));
+  };
+
+  const renderUsageTimeOptions = () => {
+    return usageTimes.map((time, index) => (
+      <Option
+        key={index}
+        onClick={() => {
+          console.log(`${time} 클릭됨`);
+          setMaxUsageTime(time);
+        }}
+        active={maxUsageTime === time}
+      >
+        {time}
+      </Option>
+    ));
+  };
+
   return (
     <MainScreen>
       <Sidebar buttonColors={['white', ,]} />
@@ -49,8 +111,24 @@ const Main: React.FC = () => {
             <StudyAvailability>
               <ChooseFont>카페에서 공부?</ChooseFont>
               <Choose>
-                <Option>가능</Option>
-                <Option>불가</Option>
+                <Option
+                  onClick={() => {
+                    console.log('가능 옵션 클릭됨');
+                    setStudyAvailability('가능');
+                  }}
+                  active={studyAvailability === '가능'}
+                >
+                  가능
+                </Option>
+                <Option
+                  onClick={() => {
+                    console.log('불가능 옵션 클릭됨');
+                    setStudyAvailability('불가능');
+                  }}
+                  active={studyAvailability === '불가능'}
+                >
+                  불가능
+                </Option>
               </Choose>
             </StudyAvailability>
             <StudyAvailability>
@@ -64,27 +142,11 @@ const Main: React.FC = () => {
             </StudyAvailability>
             <StudyAvailability>
               <ChooseFont>음료 최저가</ChooseFont>
-              <Choose>
-                <Option>무관</Option>
-                <Option>1,000원</Option>
-                <Option>2,000원</Option>
-                <Option>3,000원</Option>
-                <Option>4,000원</Option>
-                <Option>5,000원</Option>
-                <Option>10,000원 이상</Option>
-              </Choose>
+              <Choose>{renderDrinkPriceOptions()}</Choose>
             </StudyAvailability>
             <StudyAvailability>
               <ChooseFont>최대 이용 가능 시간</ChooseFont>
-              <Choose>
-                <Option>무관</Option>
-                <Option>1시간</Option>
-                <Option>2시간</Option>
-                <Option>3시간</Option>
-                <Option>4시간</Option>
-                <Option>5시간</Option>
-                <Option>6시간 이상</Option>
-              </Choose>
+              <Choose>{renderUsageTimeOptions()}</Choose>
             </StudyAvailability>
           </ChooseOption>
           <ShortButton message="적용" color="black" />

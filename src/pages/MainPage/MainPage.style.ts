@@ -9,7 +9,6 @@ export const MainScreen = styled.div`
 `;
 
 export const SearchContainer = styled.div`
-  // background-color: pink;
   width: 84%;
   margin-left: auto;
   display: flex;
@@ -18,7 +17,6 @@ export const SearchContainer = styled.div`
 `;
 
 export const CafeSearch = styled.div`
-  // background-color: gray;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -74,7 +72,6 @@ export const ButtonContainer = styled.div`
 `;
 
 export const FitterContainer = styled.div`
-  // background-color: pink;
   height: 52%;
   display: flex;
   flex-direction: column;
@@ -116,7 +113,7 @@ export const Choose = styled.div`
   align-items: center;
 `;
 
-export const Option = styled.div`
+export const Option = styled.div<{ active?: boolean }>`
   display: flex;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;
@@ -126,4 +123,5 @@ export const Option = styled.div`
   font-weight: bold;
   align-items: center;
   font-size: 0.9rem;
+  cursor: pointer;
 `;
