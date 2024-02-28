@@ -10,9 +10,9 @@ const Router: React.FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/" element={<My />} />
-        <Route path="/" element={<CafeSearch />} />
-        <Route path="/" element={<StudySearch />} />
+        <Route path="/my" element={<My />} />
+        <Route path="/cafe" element={<CafeSearch />} />
+        <Route path="/study" element={<StudySearch />} />
       </Routes>
     </BrowserRouter>
   );
