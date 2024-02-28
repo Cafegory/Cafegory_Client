@@ -1,6 +1,6 @@
 import React from 'react';
-import { ButtonContainer, ButtonStyle, Font } from './Button.style';
-import { ButtonProps } from './Button.type';
+import { ButtonContainer, ButtonStyle, Font } from './LongButton.style';
+import { ButtonProps } from './LongButton.type';
 
 const Button: React.FC<ButtonProps> = ({ message, color }) => {
   return (
