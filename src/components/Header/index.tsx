@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 const Header: React.FC<HeaderProps> = () => {
   const isLogged = useHeader();
   const navigate = useNavigate();
+  const userName = '박소정';
 
   return (
     <HeaderContainer>
@@ -33,7 +34,7 @@ const Header: React.FC<HeaderProps> = () => {
       <RightDiv>
         {isLogged ? (
           <>
-            <WelcomeMessageBox>ooo님 환영합니다!</WelcomeMessageBox>
+            <WelcomeMessageBox>{`${userName}님 환영합니다!`}</WelcomeMessageBox>
             <UserLoggedIn>
               <LoginSignupLink>로그아웃</LoginSignupLink>
             </UserLoggedIn>
