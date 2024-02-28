@@ -46,7 +46,7 @@ const Header: React.FC<HeaderProps> = () => {
         )}
         <InputContainer>
           <InputField type="text" placeholder="검색하기" />
-          <SearchImg src="/assets/searchIcon.png" alt="검색 아이콘" />
+          <SearchImg src="/assets/search-icon.png" alt="검색 아이콘" />
         </InputContainer>
       </RightDiv>
     </HeaderContainer>
