@@ -1,8 +1,8 @@
 import React from 'react';
 import { ButtonContainer, ButtonStyle, Font } from './LongButton.style';
-import { ButtonProps } from './LongButton.type';
+import { LongButtonProps } from './LongButton.type';
 
-const Button: React.FC<ButtonProps> = ({ message, color }) => {
+const LongButton: React.FC<LongButtonProps> = ({ message, color }) => {
   return (
     <ButtonContainer>
       <ButtonStyle color={color}>
@@ -12,4 +12,4 @@ const Button: React.FC<ButtonProps> = ({ message, color }) => {
   );
 };
 
-export default Button;
+export default LongButton;
