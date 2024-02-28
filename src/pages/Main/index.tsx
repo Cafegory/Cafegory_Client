@@ -4,7 +4,7 @@ import Header from '../../components/Header';
 const Main: React.FC = () => {
   return (
     <div>
-      <Header></Header>
+      <Header />
     </div>
   );
 };
