@@ -9,10 +9,6 @@ export const HeaderContainer = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   align-items: center;
   justify-content: space-between;
-  @media screen and (max-width: 500px) {
-    flex-direction: column;
-    height: auto;
-  }
 `;
 
 export const LogoDiv = styled.div`
@@ -43,10 +39,6 @@ export const RightDiv = styled.div`
   justify-content: space-around;
   width: 25%;
   height: 100%;
-
-  @media screen and (max-width: 500px) {
-    margin: 1rem 0;
-  }
 `;
 
 export const UserLoggedIn = styled.div`
