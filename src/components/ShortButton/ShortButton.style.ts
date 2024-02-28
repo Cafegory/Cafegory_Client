@@ -1,12 +1,6 @@
 import styled from 'styled-components';
 import { ShortButtonProps } from './ShortButton.type';
 
-export const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-`;
-
 export const ButtonStyle = styled.div<ShortButtonProps>`
   height: 50px;
   width: 14%;
