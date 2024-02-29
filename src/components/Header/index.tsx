@@ -12,11 +12,11 @@ import {
   SearchImg,
   WelcomeMessageBox,
 } from './Header.style';
-import Login from '../Login';
+import Login from '../LoginModal';
 import { useHeader } from './Header.hooks';
-import { HeaderProps } from './Header.type';
+import { HeaderProps } from './Header.types';
 import { useNavigate } from 'react-router-dom';
-import { useStore } from './Header.hooks';
+import { useStore } from '../LoginModal/LoginModal.hooks';
 
 const Header: React.FC<HeaderProps> = () => {
   const isLogged = useHeader();

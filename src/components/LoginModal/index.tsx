@@ -1,4 +1,3 @@
-//src\components\Login\index.tsx
 import React from 'react';
 import {
   LoginModal,
@@ -8,8 +7,8 @@ import {
   LoginButtonContainer,
   NaverLogo,
   KakaoLogo,
-} from './Login.style';
-import { useStore } from '../Header/Header.hooks';
+} from './LoginModal.style';
+import { useStore } from './LoginModal.hooks';
 
 const Login: React.FC = () => {
   const toggleLoginModal = useStore((state) => state.toggleLoginModal);

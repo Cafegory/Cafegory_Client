@@ -5,3 +5,9 @@ export interface LoginButtonProps {
 export interface FontColorProps {
     fontColor?: string;
   }
+
+
+  export default interface StoreState {
+    isLoginModalOpen: boolean;
+    toggleLoginModal: () => void;
+  }

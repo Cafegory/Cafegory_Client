@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { LoginButtonProps, FontColorProps } from './Login.types';
+import { LoginButtonProps, FontColorProps } from './LoginModal.types';
 
 export const LoginModal = styled.div`
   padding: 2.5rem 5.5rem 0 4.5rem;
