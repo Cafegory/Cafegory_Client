@@ -44,7 +44,6 @@ const Header: React.FC<HeaderProps> = () => {
             </>
           ) : (
             <UserLoggedIn>
-              <LoginSignupLink>회원가입</LoginSignupLink>
               <LoginSignupLink onClick={toggleLoginModal}>
                 로그인
               </LoginSignupLink>

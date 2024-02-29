@@ -2,16 +2,16 @@ import styled from 'styled-components';
 import { LoginButtonProps, FontColorProps } from './Login.types';
 
 export const LoginModal = styled.div`
-  padding: 4rem 9rem 3rem 8rem;
+  padding: 2.5rem 5.5rem 0 4.5rem;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40%;
-  height: 50%;
+  width: 20%;
+  height: 30%;
   background-color: white;
   z-index: 100;
-  border-radius:10px
+  border-radius:20px
 `;
 
 export const ModalBackdrop = styled.div`
@@ -26,38 +26,11 @@ export const ModalBackdrop = styled.div`
 export const LoginTextContainer = styled.div`
   display: flex;
   justify-content: center;
-  font-size:2.7rem;
+  font-size:1.9rem;
   font-weight:600;
-  margin-bottom:1rem;
+  margin-bottom:1.5rem;
 `;
 
-export const InputContainer = styled.div`   
-    width:100%;
-    margin-bottom:1rem;
-`
-export const InputBorder = styled.div`
-  width:100%;
-  background-color:white;
-  border: 1px solid lightgray;
-  border-radius:6px;
-  margin-bottom:1rem;
-`
-
-export const LoginInput = styled.input`
-  display: flex;
-  justify-content: center;
-  height:1.7rem;
-  border: none;
-  border-width:0;
-  outline: none;
-`;
-
-export const LoginInputLabel = styled.div`
-  height:5%;
-  margin:0.3rem 0 0.5rem 0;
-  font-weight:550;
-  font-size:0.9rem;
-`;
 
 export const LoginButtonContainer = styled.div`
   width:100%;
@@ -68,7 +41,7 @@ export const LoginButtonContainer = styled.div`
 
 export const LoginButton = styled.div<LoginButtonProps & FontColorProps>`
   height:2.6rem;
-  width:29%;
+  width:60%;
   font-size:0.8rem;
   background-color: ${props => props.backgroundColor || 'black'};
   border-radius: 8px;
