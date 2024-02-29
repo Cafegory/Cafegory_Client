@@ -16,16 +16,15 @@ import Login from '../Login';
 import { useHeader } from './Header.hooks';
 import { HeaderProps } from './Header.type';
 import { useNavigate } from 'react-router-dom';
+import { useStore } from './Header.hooks';
 
 const Header: React.FC<HeaderProps> = () => {
   const isLogged = useHeader();
   const navigate = useNavigate();
   const userName = '박소정';
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
-  const handleLoginLinkClick = () => {
-    setIsLoginModalOpen(true);
-  };
+  const isLoginModalOpen = useStore((state) => state.isLoginModalOpen);
+  const toggleLoginModal = useStore((state) => state.toggleLoginModal);
 
   return (
     <>
@@ -45,10 +44,8 @@ const Header: React.FC<HeaderProps> = () => {
             </>
           ) : (
             <UserLoggedIn>
-              <LoginSignupLink onClick={handleLoginLinkClick}>
-                회원가입
-              </LoginSignupLink>
-              <LoginSignupLink onClick={handleLoginLinkClick}>
+              <LoginSignupLink>회원가입</LoginSignupLink>
+              <LoginSignupLink onClick={toggleLoginModal}>
                 로그인
               </LoginSignupLink>
             </UserLoggedIn>
