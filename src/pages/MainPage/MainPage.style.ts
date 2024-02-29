@@ -129,10 +129,6 @@ export const startTime = '';
 
 export const endTime = '';
 
-export const setStartTime = (time: string) => {};
-
-export const setEndTime = (time: string) => {};
-
 export const SelectContainer = styled.select`
   background-color: rgba(0, 0, 0, 0.05);
   border: none;

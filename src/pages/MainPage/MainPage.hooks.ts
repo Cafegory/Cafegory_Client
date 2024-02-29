@@ -1,22 +1,6 @@
-import create from 'zustand';
-
-export interface FilterState {
-  selectedOption: string;
-  studyAvailability: '가능' | '불가능';
-  drinkPrice: string;
-  maxUsageTime: string;
-  searchKeyword: string;
-  setStudyAvailability: (availability: '가능' | '불가능') => void;
-  setDrinkPrice: (price: string) => void;
-  setMaxUsageTime: (time: string) => void;
-  setSearchKeyword: (keyword: string) => void;
-  setStartTime: (time: string) => void;
-  setEndTime: (time: string) => void;
-  startTime: string;
-  endTime: string;
-  showFitter: boolean;
-  setShowFitter: (show: boolean) => void;
-}
+//MainPage.hooks.ts
+import { create } from 'zustand';
+import { FilterState } from './MainPage.type';
 
 export const useFilter = create<FilterState>((set) => ({
   selectedOption: '',
@@ -37,3 +21,7 @@ export const useFilter = create<FilterState>((set) => ({
   showFitter: false,
   setShowFitter: (show) => set((state) => ({ ...state, showFitter: show })),
 }));
+
+export const setStartTime = (time: string) => {};
+
+export const setEndTime = (time: string) => {};
