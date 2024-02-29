@@ -59,7 +59,6 @@ const Main: React.FC = () => {
           console.log(`${price} 클릭됨`);
           setDrinkPrice(price);
         }}
-        active={drinkPrice === price}
       >
         {price}
       </Option>
@@ -74,7 +73,6 @@ const Main: React.FC = () => {
           console.log(`${time} 클릭됨`);
           setMaxUsageTime(time);
         }}
-        active={maxUsageTime === time}
       >
         {time}
       </Option>
@@ -123,7 +121,6 @@ const Main: React.FC = () => {
                       console.log('가능 옵션 클릭됨');
                       setStudyAvailability('가능');
                     }}
-                    active={studyAvailability === '가능'}
                   >
                     가능
                   </Option>
@@ -132,7 +129,6 @@ const Main: React.FC = () => {
                       console.log('불가능 옵션 클릭됨');
                       setStudyAvailability('불가능');
                     }}
-                    active={studyAvailability === '불가능'}
                   >
                     불가능
                   </Option>

@@ -114,7 +114,7 @@ export const Choose = styled.div`
   align-items: center;
 `;
 
-export const Option = styled.div<{ active?: boolean }>`
+export const Option = styled.div`
   display: flex;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;

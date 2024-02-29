@@ -1,4 +1,3 @@
-//MainPage.hooks.ts
 import { create } from 'zustand';
 import { FilterState } from './MainPage.type';
 
@@ -22,6 +21,10 @@ export const useFilter = create<FilterState>((set) => ({
   setShowFitter: (show) => set((state) => ({ ...state, showFitter: show })),
 }));
 
-export const setStartTime = (time: string) => {};
+export const setStartTime = (time: string) => {
+  useFilter.getState().setStartTime(time);
+};
 
-export const setEndTime = (time: string) => {};
+export const setEndTime = (time: string) => {
+  useFilter.getState().setEndTime(time);
+};
