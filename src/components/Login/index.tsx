@@ -9,8 +9,15 @@ import {
   NaverLogo,
   KakaoLogo,
 } from './Login.style';
+import { useStore } from '../Header/Header.hooks';
 
 const Login: React.FC = () => {
+  const toggleLoginModal = useStore((state) => state.toggleLoginModal);
+
+  const closeModal = () => {
+    toggleLoginModal();
+  };
+
   return (
     <>
       <LoginModal>
@@ -30,7 +37,7 @@ const Login: React.FC = () => {
           </LoginButtonContainer>
         </>
       </LoginModal>
-      <ModalBackdrop></ModalBackdrop>
+      <ModalBackdrop onClick={closeModal}></ModalBackdrop>
     </>
   );
 };
