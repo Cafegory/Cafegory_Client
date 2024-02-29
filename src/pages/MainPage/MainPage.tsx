@@ -23,26 +23,7 @@ import {
   SelectContainer as StyledSelectContainer,
 } from './MainPage.style';
 import { useFilter } from './MainPage.hooks';
-
-const drinkPrices = [
-  '무관',
-  '1,000원',
-  '2,000원',
-  '3,000원',
-  '4,000원',
-  '5,000원',
-  '10,000원 이상',
-];
-
-const usageTimes = [
-  '무관',
-  '1시간',
-  '2시간',
-  '3시간',
-  '4시간',
-  '5시간',
-  '6시간 이상',
-];
+import { drinkPrices, usageTimes, TimeFormat } from './MainPage.type';
 
 const Main: React.FC = () => {
   const {
@@ -99,6 +80,11 @@ const Main: React.FC = () => {
       </Option>
     ));
   };
+
+  // 영업 시간 선택이 변경될 때마다 console.log에 출력
+  React.useEffect(() => {
+    console.log(`영업 시간: ${startTime}부터 ${endTime}까지`);
+  }, [startTime, endTime]);
 
   return (
     <MainScreen>

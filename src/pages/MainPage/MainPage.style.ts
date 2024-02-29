@@ -1,3 +1,4 @@
+//MainPage.style.ts
 import styled from 'styled-components';
 
 export const MainScreen = styled.div`
@@ -125,6 +126,7 @@ export const Option = styled.div<{ active?: boolean }>`
   font-size: 0.9rem;
   cursor: pointer;
 `;
+
 export const startTime = '';
 
 export const endTime = '';
