@@ -1,9 +1,8 @@
 // MainPage.tsx
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import ShortButton from 'components/ShortButton';
-
 import {
   MainScreen,
   CafeSearch,
@@ -23,7 +22,7 @@ import {
   Option,
   SelectContainer as StyledSelectContainer,
 } from './MainPage.style';
-import { useFilter, setStartTime, setEndTime } from './MainPage.hooks';
+import { useFilter } from './MainPage.hooks';
 
 const drinkPrices = [
   '무관',
@@ -55,16 +54,17 @@ const Main: React.FC = () => {
     setMaxUsageTime,
     setSearchKeyword,
     searchKeyword,
+    startTime,
+    endTime,
+    setStartTime,
+    setEndTime,
+    showFitter,
+    setShowFitter,
   } = useFilter();
-
-  const [startTime, setStartTimeState] = useState('00:00');
-  const [endTime, setEndTimeState] = useState('00:00');
 
   const handleSearch = () => {
     console.log('검색어:', searchKeyword);
   };
-
-  const [showFitter, setShowFitter] = useState(false);
 
   const handleFilterButtonClick = () => {
     setShowFitter(!showFitter);
@@ -157,10 +157,7 @@ const Main: React.FC = () => {
                 <Choose>
                   <StyledSelectContainer
                     value={startTime}
-                    onChange={(e) => {
-                      setStartTime(e.target.value);
-                      setStartTimeState(e.target.value);
-                    }}
+                    onChange={(e) => setStartTime(e.target.value)}
                   >
                     {[...Array(24)].map((_, index) => {
                       const hour = index.toString().padStart(2, '0');
@@ -175,10 +172,7 @@ const Main: React.FC = () => {
                   부터
                   <StyledSelectContainer
                     value={endTime}
-                    onChange={(e) => {
-                      setEndTime(e.target.value);
-                      setEndTimeState(e.target.value);
-                    }}
+                    onChange={(e) => setEndTime(e.target.value)}
                   >
                     {[...Array(24)].map((_, index) => {
                       const hour = index.toString().padStart(2, '0');

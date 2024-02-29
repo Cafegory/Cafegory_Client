@@ -1,4 +1,3 @@
-// MainPage.hooks.ts
 import create from 'zustand';
 
 export interface FilterState {
@@ -15,6 +14,8 @@ export interface FilterState {
   setEndTime: (time: string) => void;
   startTime: string;
   endTime: string;
+  showFitter: boolean;
+  setShowFitter: (show: boolean) => void;
 }
 
 export const useFilter = create<FilterState>((set) => ({
@@ -31,10 +32,8 @@ export const useFilter = create<FilterState>((set) => ({
     set((state) => ({ ...state, searchKeyword: keyword })),
   setStartTime: (time) => set((state) => ({ ...state, startTime: time })),
   setEndTime: (time) => set((state) => ({ ...state, endTime: time })),
-
   startTime: '09:00',
   endTime: '17:00',
+  showFitter: false,
+  setShowFitter: (show) => set((state) => ({ ...state, showFitter: show })),
 }));
-
-export const setStartTime = (time: string) => {};
-export const setEndTime = (time: string) => {};
