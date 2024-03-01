@@ -21,8 +21,16 @@ import {
   Option,
   SelectContainer as StyledSelectContainer,
 } from './CafeSearchPage.style';
+
 import { useFilter } from './CafeSearchPage.hooks';
-import { drinkPrices, usageTimes } from './CafeSearchPage.type';
+
+import {
+  drinkPrices,
+  usageTimes,
+  CAN_STUDY,
+  CANNOT_STUDY,
+  NOT_SPECIFIED,
+} from './CafeSearchPage.type';
 const CafeSearchPage: React.FC = () => {
   const {
     setArea,
@@ -45,7 +53,7 @@ const CafeSearchPage: React.FC = () => {
   };
 
   const handlePriceClick = (price: string) => {
-    if (price === '무관') {
+    if (price === NOT_SPECIFIED) {
       setMinBeveragePrice('0');
     } else {
       setMinBeveragePrice(price);
@@ -53,14 +61,16 @@ const CafeSearchPage: React.FC = () => {
   };
 
   const handleTimeClick = (time: string) => {
-    if (time === '무관') {
+    if (time === NOT_SPECIFIED) {
       setMaxTime('0');
     } else {
       setMaxTime(time);
     }
   };
 
-  const handleAvailabilityClick = (availability: '가능' | '불가능') => {
+  const handleAvailabilityClick = (
+    availability: typeof CAN_STUDY | typeof CANNOT_STUDY,
+  ) => {
     setCanStudy(availability);
   };
 
@@ -121,16 +131,16 @@ const CafeSearchPage: React.FC = () => {
                 <ChooseFont>카페에서 공부?</ChooseFont>
                 <Choose>
                   <Option
-                    onClick={() => handleAvailabilityClick('가능')}
-                    className={canStudy === '가능' ? 'selected' : ''}
+                    onClick={() => handleAvailabilityClick(CAN_STUDY)}
+                    className={canStudy === CAN_STUDY ? 'selected' : ''}
                   >
-                    가능
+                    {CAN_STUDY}
                   </Option>
                   <Option
-                    onClick={() => handleAvailabilityClick('불가능')}
-                    className={canStudy === '불가능' ? 'selected' : ''}
+                    onClick={() => handleAvailabilityClick(CANNOT_STUDY)}
+                    className={canStudy === CANNOT_STUDY ? 'selected' : ''}
                   >
-                    불가능
+                    {CANNOT_STUDY}
                   </Option>
                 </Choose>
               </StudyAvailability>

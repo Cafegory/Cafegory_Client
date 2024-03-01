@@ -1,11 +1,11 @@
 import { create } from 'zustand';
-import { FilterState } from './CafeSearchPage.type';
+import { FilterState, NOT_SPECIFIED } from './CafeSearchPage.type';
 
 export const useFilter = create<FilterState>((set) => ({
   selectedOption: '',
   canStudy: null,
-  drinkPrice: '무관',
-  maxUsageTime: '무관',
+  drinkPrice: NOT_SPECIFIED,
+  maxUsageTime: NOT_SPECIFIED,
   area: '',
   setCanStudy: (availability) =>
     set((state) => ({ ...state, canStudy: availability })),
@@ -19,8 +19,8 @@ export const useFilter = create<FilterState>((set) => ({
   showFitter: false,
   setShowFitter: (show) => set((state) => ({ ...state, showFitter: show })),
 
-  minBeveragePrice: '무관',
-  maxTime: '무관',
+  minBeveragePrice: NOT_SPECIFIED,
+  maxTime: NOT_SPECIFIED,
   setMinBeveragePrice: (price) => set({ minBeveragePrice: price }),
   setMaxTime: (time) => set({ maxTime: time }),
 }));
