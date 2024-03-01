@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
-import { MainScreen } from '../MainPage/MainPage.style';
+import { MainScreen } from '../CafeSearchPage/CafeSearchPage.style';
 
 const StudySearch: React.FC = () => {
   return (
