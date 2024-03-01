@@ -25,7 +25,7 @@ import {
 import { useFilter } from './CafeSearchPage.hooks';
 import { drinkPrices, usageTimes, TimeFormat } from './CafeSearchPage.type';
 
-const Main: React.FC = () => {
+const CafeSearchPage: React.FC = () => {
   const {
     studyAvailability,
     setStudyAvailability,
@@ -185,4 +185,4 @@ const Main: React.FC = () => {
   );
 };
 
-export default Main;
+export default CafeSearchPage;
