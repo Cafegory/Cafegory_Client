@@ -1,4 +1,3 @@
-//CafeSearchPage.style.ts
 import styled from 'styled-components';
 
 export const MainScreen = styled.div`
@@ -6,13 +5,11 @@ export const MainScreen = styled.div`
   min-height: 100vh;
   width: 100%;
   display: flex;
-  overflow-y: auto;
 `;
 
 export const SearchContainer = styled.div`
   width: 84%;
   margin-left: auto;
-  display: flex;
   flex-direction: column;
   justify-content: space-around;
 `;
@@ -21,7 +18,7 @@ export const CafeSearch = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 48%;
+  height: 50%;
   justify-content: center;
   gap: 5%;
 `;
@@ -74,7 +71,7 @@ export const ButtonContainer = styled.div`
 `;
 
 export const FitterContainer = styled.div`
-  height: 52%;
+  height: 65%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,10 +87,10 @@ export const FitterTitle = styled.div`
 
 export const ChooseOption = styled.div`
   width: 60%;
-  height: 65%;
+  height: 70%;
   display: flex;
   flex-direction: column;
-  gap: 3%;
+  gap: 5%;
 `;
 
 export const StudyAvailability = styled.div`
@@ -122,29 +119,26 @@ export const Option = styled.div`
   border-radius: 0.5rem;
   justify-content: center;
   width: 13%;
-  height: 90%;
+  height: 70%;
   font-weight: bold;
   align-items: center;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.3s; /* hover 효과에 대한 transition 추가 */
-
+  transition: background-color 0.3s;
   &:hover,
   &.selected {
-    /* 선택된 상태일 때의 스타일 추가 */
-    background-color: rgba(0, 0, 0, 0.1); /* 선택된 상태일 때의 색상 */
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  &:active {
+    background-color: darkgray;
   }
 `;
 
-export const startTime = '';
-
-export const endTime = '';
-
 export const SelectContainer = styled.select`
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.2);
   border: none;
   width: 13%;
-  height: 90%;
+  height: 70%;
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
@@ -152,4 +146,7 @@ export const SelectContainer = styled.select`
   font-weight: bold;
   font-size: 0.9rem;
   padding: 1.5%;
+  &:active {
+    background-color: darkgray;
+  }
 `;

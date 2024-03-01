@@ -20,6 +20,9 @@ export const ButtonStyle = styled.div<ShortButtonProps>`
       props.color === 'white' ? 'rgba(0, 0, 0, 0.8)' : 'white'};
   }
   background-color: ${(props) => (props.color === 'black' ? 'black' : 'white')};
+  &:active {
+    background-color: darkgray;
+  }
 `;
 
 export const Font = styled.div<{ color: 'white' | 'black' }>`
