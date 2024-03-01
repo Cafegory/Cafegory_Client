@@ -9,14 +9,20 @@ export const ButtonStyle = styled.div<ShortButtonProps>`
   align-items: center;
   border-radius: 0.9rem;
   cursor: pointer;
-  transition: opacity 0.3s;
+  border: 2px solid black;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
   &:hover {
-    opacity: 0.8;
+    background-color: ${(props) =>
+      props.color === 'white' ? '#e0e0e0' : 'rgba(0, 0, 0, 0.8)'};
+    color: ${(props) =>
+      props.color === 'white' ? 'rgba(0, 0, 0, 0.8)' : 'white'};
   }
-  background-color: green;
   background-color: ${(props) => (props.color === 'black' ? 'black' : 'white')};
-  border: ${(props) =>
-    props.color === 'black' ? '2px solid black' : '2px solid black'};
+  &:active {
+    background-color: darkgray;
+  }
 `;
 
 export const Font = styled.div<{ color: 'white' | 'black' }>`

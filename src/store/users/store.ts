@@ -1,3 +1,4 @@
+//stroe.ts
 import create from 'zustand';
 
 export interface UserState {
