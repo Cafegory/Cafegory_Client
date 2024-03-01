@@ -1,20 +1,24 @@
-//CafeSearchPage.type.ts
 export interface FilterState {
   selectedOption: string;
-  studyAvailability: '가능' | '불가능';
+  canStudy: '가능' | '불가능' | null;
   drinkPrice: string;
   maxUsageTime: string;
-  searchKeyword: string;
-  setStudyAvailability: (availability: '가능' | '불가능') => void;
+  area: string;
+  setCanStudy: (availability: '가능' | '불가능') => void;
   setDrinkPrice: (price: string) => void;
   setMaxUsageTime: (time: string) => void;
-  setSearchKeyword: (keyword: string) => void;
+  setArea: (keyword: string) => void;
   setStartTime: (time: string) => void;
   setEndTime: (time: string) => void;
   startTime: string;
   endTime: string;
   showFitter: boolean;
   setShowFitter: (show: boolean) => void;
+
+  minBeveragePrice: string;
+  maxTime: string;
+  setMinBeveragePrice: (price: string) => void;
+  setMaxTime: (time: string) => void;
 }
 
 export const drinkPrices: string[] = [
@@ -36,5 +40,3 @@ export const usageTimes: string[] = [
   '5시간',
   '6시간 이상',
 ];
-
-export type TimeFormat = 'HH:mm' | 'HH:mm:ss';

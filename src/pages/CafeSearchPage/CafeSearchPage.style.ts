@@ -29,6 +29,7 @@ export const CafeSearch = styled.div`
 export const TitleFont = styled.div`
   font-size: 2.3rem;
   font-weight: 550;
+  padding: 1.2%;
 `;
 
 export const SideFont = styled.div`
@@ -84,14 +85,15 @@ export const FitterContainer = styled.div`
 export const FitterTitle = styled.div`
   font-size: 2.3rem;
   font-weight: 550;
+  padding: 1.2%;
 `;
 
 export const ChooseOption = styled.div`
   width: 60%;
-  height: 70%;
+  height: 65%;
   display: flex;
   flex-direction: column;
-  gap: 4%;
+  gap: 3%;
 `;
 
 export const StudyAvailability = styled.div`
@@ -120,11 +122,18 @@ export const Option = styled.div`
   border-radius: 0.5rem;
   justify-content: center;
   width: 13%;
-  height: 80%;
+  height: 90%;
   font-weight: bold;
   align-items: center;
   font-size: 0.9rem;
   cursor: pointer;
+  transition: background-color 0.3s; /* hover 효과에 대한 transition 추가 */
+
+  &:hover,
+  &.selected {
+    /* 선택된 상태일 때의 스타일 추가 */
+    background-color: rgba(0, 0, 0, 0.1); /* 선택된 상태일 때의 색상 */
+  }
 `;
 
 export const startTime = '';
@@ -132,10 +141,10 @@ export const startTime = '';
 export const endTime = '';
 
 export const SelectContainer = styled.select`
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.1);
   border: none;
   width: 13%;
-  height: 80%;
+  height: 90%;
   border-radius: 0.5rem;
   display: flex;
   align-items: center;

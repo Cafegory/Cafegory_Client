@@ -1,4 +1,3 @@
-// CafeSearchPage.tsx
 import React from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
@@ -23,42 +22,54 @@ import {
   SelectContainer as StyledSelectContainer,
 } from './CafeSearchPage.style';
 import { useFilter } from './CafeSearchPage.hooks';
-import { drinkPrices, usageTimes, TimeFormat } from './CafeSearchPage.type';
-
+import { drinkPrices, usageTimes } from './CafeSearchPage.type';
 const CafeSearchPage: React.FC = () => {
   const {
-    studyAvailability,
-    setStudyAvailability,
-    drinkPrice,
-    setDrinkPrice,
-    maxUsageTime,
-    setMaxUsageTime,
-    setSearchKeyword,
-    searchKeyword,
+    setArea,
     startTime,
     endTime,
     setStartTime,
     setEndTime,
     showFitter,
     setShowFitter,
+    minBeveragePrice,
+    maxTime,
+    setMinBeveragePrice,
+    setMaxTime,
+    canStudy,
+    setCanStudy,
   } = useFilter();
-
-  const handleSearch = () => {
-    console.log('검색어:', searchKeyword);
-  };
 
   const handleFilterButtonClick = () => {
     setShowFitter(!showFitter);
+  };
+
+  const handlePriceClick = (price: string) => {
+    if (price === '무관') {
+      setMinBeveragePrice('0');
+    } else {
+      setMinBeveragePrice(price);
+    }
+  };
+
+  const handleTimeClick = (time: string) => {
+    if (time === '무관') {
+      setMaxTime('0');
+    } else {
+      setMaxTime(time);
+    }
+  };
+
+  const handleAvailabilityClick = (availability: '가능' | '불가능') => {
+    setCanStudy(availability);
   };
 
   const renderDrinkPriceOptions = () => {
     return drinkPrices.map((price, index) => (
       <Option
         key={index}
-        onClick={() => {
-          console.log(`${price} 클릭됨`);
-          setDrinkPrice(price);
-        }}
+        onClick={() => handlePriceClick(price)}
+        className={minBeveragePrice === price ? 'selected' : ''}
       >
         {price}
       </Option>
@@ -69,19 +80,13 @@ const CafeSearchPage: React.FC = () => {
     return usageTimes.map((time, index) => (
       <Option
         key={index}
-        onClick={() => {
-          console.log(`${time} 클릭됨`);
-          setMaxUsageTime(time);
-        }}
+        onClick={() => handleTimeClick(time)}
+        className={maxTime === time ? 'selected' : ''}
       >
         {time}
       </Option>
     ));
   };
-
-  React.useEffect(() => {
-    console.log(`영업 시간: ${startTime}부터 ${endTime}까지`);
-  }, [startTime, endTime]);
 
   return (
     <MainScreen>
@@ -95,7 +100,7 @@ const CafeSearchPage: React.FC = () => {
             <InputField
               type="text"
               placeholder="검색어를 입력하세요 (예: 역삼동, 서초동)"
-              onChange={(e) => setSearchKeyword(e.target.value)}
+              onChange={(e) => setArea(e.target.value)}
             />
             <PlaceImg src="/assets/place-icon.png" alt="검색 아이콘" />
           </InputContainer>
@@ -105,7 +110,7 @@ const CafeSearchPage: React.FC = () => {
               color="white"
               onClick={handleFilterButtonClick}
             />
-            <ShortButton message="검색" color="black" onClick={handleSearch} />
+            <ShortButton message="검색" color="black" />
           </ButtonContainer>
         </CafeSearch>
         {showFitter && (
@@ -116,18 +121,14 @@ const CafeSearchPage: React.FC = () => {
                 <ChooseFont>카페에서 공부?</ChooseFont>
                 <Choose>
                   <Option
-                    onClick={() => {
-                      console.log('가능 옵션 클릭됨');
-                      setStudyAvailability('가능');
-                    }}
+                    onClick={() => handleAvailabilityClick('가능')}
+                    className={canStudy === '가능' ? 'selected' : ''}
                   >
                     가능
                   </Option>
                   <Option
-                    onClick={() => {
-                      console.log('불가능 옵션 클릭됨');
-                      setStudyAvailability('불가능');
-                    }}
+                    onClick={() => handleAvailabilityClick('불가능')}
+                    className={canStudy === '불가능' ? 'selected' : ''}
                   >
                     불가능
                   </Option>
@@ -140,8 +141,9 @@ const CafeSearchPage: React.FC = () => {
                     value={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
                   >
-                    {[...Array(24)].map((_, index) => {
-                      const hour = index.toString().padStart(2, '0');
+                    {[...Array(25)].map((_, index) => {
+                      const hour =
+                        index === 24 ? '24' : index.toString().padStart(2, '0');
                       return (
                         <option
                           key={index}
@@ -155,8 +157,9 @@ const CafeSearchPage: React.FC = () => {
                     value={endTime}
                     onChange={(e) => setEndTime(e.target.value)}
                   >
-                    {[...Array(24)].map((_, index) => {
-                      const hour = index.toString().padStart(2, '0');
+                    {[...Array(25)].map((_, index) => {
+                      const hour =
+                        index === 24 ? '24' : index.toString().padStart(2, '0');
                       return (
                         <option
                           key={index}
