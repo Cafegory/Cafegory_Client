@@ -2,16 +2,19 @@ import styled from 'styled-components';
 import { LoginButtonProps, FontColorProps } from './LoginModal.types';
 
 export const LoginModal = styled.div`
-  padding: 2.5rem 5.5rem 0 4.5rem;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 20%;
-  height: 30%;
+  width: 30%;
+  height: 35%;
   background-color: white;
   z-index: 100;
-  border-radius:20px
+  display:flex;
+  justify-content:center;
+  flex-direction: column;
+  border-radius:20px;
+  gap:1rem;
 `;
 
 export const ModalBackdrop = styled.div`
@@ -28,20 +31,21 @@ export const LoginTextContainer = styled.div`
   justify-content: center;
   font-size:1.9rem;
   font-weight:600;
-  margin-bottom:1.5rem;
 `;
 
 
 export const LoginButtonContainer = styled.div`
   width:100%;
   display:flex;
+  flex-direction:column;
+  align-items:center;
   justify-content:center;
-  margin:0.5rem 0 0.5rem 0;
+  gap:0.5rem;
 `
 
 export const LoginButton = styled.div<LoginButtonProps & FontColorProps>`
   height:2.6rem;
-  width:60%;
+  width:45%;
   font-size:0.8rem;
   background-color: ${props => props.backgroundColor || 'black'};
   border-radius: 8px;

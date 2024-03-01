@@ -40,24 +40,20 @@ const Login: React.FC = () => {
     <>
       <LoginModal>
         <LoginTextContainer>로그인</LoginTextContainer>
-        <>
-          <LoginButtonContainer>
-            <LoginButton backgroundColor="#1EC800" onClick={naverLoginHandler}>
-              <NaverLogo src="/assets/naver-logo.png" alt="네이버로고" />
-              네이버 로그인
-            </LoginButton>
-          </LoginButtonContainer>
-          <LoginButtonContainer>
-            <LoginButton
-              backgroundColor="#FFEB00"
-              fontColor="black"
-              onClick={kakaoLoginHandler}
-            >
-              <KakaoLogo src="/assets/kakao-logo.png" alt="네이버로고" />
-              카카오 로그인
-            </LoginButton>
-          </LoginButtonContainer>
-        </>
+        <LoginButtonContainer>
+          <LoginButton backgroundColor="#1EC800" onClick={naverLoginHandler}>
+            <NaverLogo src="/assets/naver-logo.png" alt="네이버로고" />
+            네이버 로그인
+          </LoginButton>
+          <LoginButton
+            backgroundColor="#FFEB00"
+            fontColor="black"
+            onClick={kakaoLoginHandler}
+          >
+            <KakaoLogo src="/assets/kakao-logo.png" alt="네이버로고" />
+            카카오 로그인
+          </LoginButton>
+        </LoginButtonContainer>
       </LoginModal>
       <ModalBackdrop onClick={closeModal}></ModalBackdrop>
     </>
