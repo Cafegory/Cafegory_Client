@@ -6,7 +6,7 @@ export const CafeSearch = styled.div`
   align-items: center;
   flex-direction: column;
   height: 25rem;
-  gap: 8%;
+  gap: 7%;
 `;
 
 export const TitleFont = styled.div`
@@ -20,17 +20,17 @@ export const SideFont = styled.div`
 
 export const InputContainer = styled.div`
   display: flex;
-  border-radius: 6px;
+  border-radius: 10px;
   border: 1px solid #ccc;
   width: 32%;
-  height: 15%;
+  height: 11%;
   justify-content: space-around;
   background-color: #ffffff;
   align-items: center;
 `;
 
 export const InputField = styled.input`
-  width: 80%;
+  width: 60%;
   border: none;
   font-size: 0.7rem;
   height: 80%;
