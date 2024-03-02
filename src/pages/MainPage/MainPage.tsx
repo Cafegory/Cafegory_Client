@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
-import { Screen } from 'components/Basic/Screen/PageContainer.style';
+import Screen from 'components/Basic/Screen';
 import Container from 'components/Basic/Container';
 
 const Main: React.FC = () => {

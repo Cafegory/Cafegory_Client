@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Screen = styled.div`
+export const ScreenStyle = styled.div`
   background-color: white;
   min-height: 100vh;
   height:100%;

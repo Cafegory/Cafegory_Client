@@ -1,19 +1,5 @@
 import styled from 'styled-components';
 
-export const MainScreen = styled.div`
-  background-color: white;
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-`;
-
-export const SearchContainer = styled.div`
-  width: 84%;
-  margin-left: auto;
-  flex-direction: column;
-  justify-content: space-around;
-`;
-
 export const CafeSearch = styled.div`
   display: flex;
   align-items: center;

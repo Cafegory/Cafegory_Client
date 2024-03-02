@@ -1,8 +1,10 @@
 import { ContainerStyle } from './Container.style';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-const Container: React.FC = () => {
-  return <ContainerStyle />;
+interface ScreenProps {}
+
+const Container: React.FC<PropsWithChildren<ScreenProps>> = ({ children }) => {
+  return <ContainerStyle>{children}</ContainerStyle>;
 };
 
 export default Container;

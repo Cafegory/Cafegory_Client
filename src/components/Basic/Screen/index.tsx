@@ -1,8 +1,10 @@
-import { Screen } from './PageContainer.style';
-import React from 'react';
+import { ScreenStyle } from './PageContainer.style';
+import React, { PropsWithChildren } from 'react';
 
-const PageContainer: React.FC = () => {
-  return <Screen />;
+interface ScreenProps {}
+
+const Screen: React.FC<PropsWithChildren<ScreenProps>> = ({ children }) => {
+  return <ScreenStyle>{children}</ScreenStyle>;
 };
 
-export default PageContainer;
+export default Screen;
