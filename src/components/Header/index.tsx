@@ -41,6 +41,10 @@ const Header: React.FC<HeaderProps> = () => {
             <>
               <WelcomeMessageBox>{`${userName}님 환영합니다!`}</WelcomeMessageBox>
               <LoginSignupLink>로그아웃</LoginSignupLink>
+              <InputContainer>
+                <InputField type="text" placeholder="검색하기" />
+                <SearchImg src="/assets/search-icon.png" alt="검색 아이콘" />
+              </InputContainer>
             </>
           ) : (
             <LoginSignupLink onClick={toggleLoginModal}>로그인</LoginSignupLink>

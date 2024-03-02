@@ -46,17 +46,17 @@ export const RightDiv = styled.div`
   display: flex;
   align-items: center;
   margin-right:1rem;
-  width: 18%;
   height: 100%;
-  justify-content:space-between;
+  gap:2rem;
 `;
 
 export const LoginSignupLink = styled.div`
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   display: flex;
   height:50%;
   align-items: center;
   border-radius:20px;
+  cursor:pointer;
 
   &:hover {
     background-color:lightgray;
@@ -67,14 +67,13 @@ export const LoginSignupLink = styled.div`
 `;
 
 export const WelcomeMessageBox = styled.div`
-  width: 40%;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   display: flex;
   align-items: center;
 `;
 
 export const InputContainer = styled.div`
-  width: 70%;
+  width: 11rem;
   height: 50%;
   display: flex;
   align-items: center;

@@ -30,9 +30,9 @@ export const InputContainer = styled.div`
 `;
 
 export const InputField = styled.input`
-  width: 60%;
+  width: 80%;
   border: none;
-  font-size: 0.7rem;
+  font-size: 1rem;
   height: 80%;
   &:focus {
     outline: none;
@@ -62,6 +62,7 @@ export const FitterContainer = styled.div`
   align-items: center;
   width: 100%;
   gap: 3%;
+  margin-bottom:5rem;
 `;
 
 export const FitterTitle = styled.div`
