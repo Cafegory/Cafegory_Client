@@ -14,18 +14,26 @@ export const HeaderContainer = styled.div`
 
 export const LogoDiv = styled.div`
   display: flex;
-  height: 100%;
-  width: 10%;
+  height: 70%;
+  width: 10.6%;
   align-items: center;
   justify-content: space-around;
   cursor: pointer;
+  border-radius:20px;
+  margin-left:1rem;
+
+  &:hover {
+    background-color:lightgray;
+  }
+  &:active {
+    background-color:gray;
+  }
 `;
 
 export const LogoImage = styled.img`
   border-radius: 100%;
   width: 1.9rem;
   height: 1.9rem;
-  margin: 0 0 0 0.5em;
 `;
 
 export const LogoFont = styled.div`
@@ -37,23 +45,25 @@ export const LogoFont = styled.div`
 export const RightDiv = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  width: 25%;
+  margin-right:1rem;
+  width: 18%;
   height: 100%;
-`;
-
-export const UserLoggedIn = styled.div`
-  width: 40%;
-  height: 100%;
-  display: flex;
-  justify-content: space-around;
-  cursor: pointer;
+  justify-content:space-between;
 `;
 
 export const LoginSignupLink = styled.div`
   font-size: 0.9rem;
   display: flex;
+  height:50%;
   align-items: center;
+  border-radius:20px;
+
+  &:hover {
+    background-color:lightgray;
+  }
+  &:active {
+    background-color:gray;
+  }
 `;
 
 export const WelcomeMessageBox = styled.div`
@@ -64,7 +74,7 @@ export const WelcomeMessageBox = styled.div`
 `;
 
 export const InputContainer = styled.div`
-  width: 45%;
+  width: 70%;
   height: 50%;
   display: flex;
   align-items: center;

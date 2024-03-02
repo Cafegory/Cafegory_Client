@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   HeaderContainer,
   LogoDiv,
   LogoImage,
   LogoFont,
   RightDiv,
-  UserLoggedIn,
   LoginSignupLink,
   InputContainer,
   InputField,
@@ -41,17 +40,10 @@ const Header: React.FC<HeaderProps> = () => {
           {isLogged ? (
             <>
               <WelcomeMessageBox>{`${userName}님 환영합니다!`}</WelcomeMessageBox>
-              <UserLoggedIn>
-                <LoginSignupLink>로그아웃</LoginSignupLink>
-              </UserLoggedIn>
-              s
+              <LoginSignupLink>로그아웃</LoginSignupLink>
             </>
           ) : (
-            <UserLoggedIn>
-              <LoginSignupLink onClick={toggleLoginModal}>
-                로그인
-              </LoginSignupLink>
-            </UserLoggedIn>
+            <LoginSignupLink onClick={toggleLoginModal}>로그인</LoginSignupLink>
           )}
           <InputContainer>
             <InputField type="text" placeholder="검색하기" />
