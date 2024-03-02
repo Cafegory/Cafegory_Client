@@ -2,17 +2,16 @@ import styled from 'styled-components';
 
 export const CafeSearch = styled.div`
   display: flex;
+  width: 100%;
   align-items: center;
   flex-direction: column;
-  height: 50%;
-  justify-content: center;
-  gap: 5%;
+  height: 25rem;
+  gap: 8%;
 `;
 
 export const TitleFont = styled.div`
   font-size: 2.3rem;
   font-weight: 550;
-  padding: 1.2%;
 `;
 
 export const SideFont = styled.div`
@@ -24,7 +23,7 @@ export const InputContainer = styled.div`
   border-radius: 6px;
   border: 1px solid #ccc;
   width: 32%;
-  height: 10%;
+  height: 15%;
   justify-content: space-around;
   background-color: #ffffff;
   align-items: center;
@@ -57,7 +56,7 @@ export const ButtonContainer = styled.div`
 `;
 
 export const FitterContainer = styled.div`
-  height: 65%;
+  height: 32rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -66,9 +65,9 @@ export const FitterContainer = styled.div`
 `;
 
 export const FitterTitle = styled.div`
+  margin-bottom:2.5rem;
   font-size: 2.3rem;
   font-weight: 550;
-  padding: 1.2%;
 `;
 
 export const ChooseOption = styled.div`
@@ -131,7 +130,6 @@ export const SelectContainer = styled.select`
   justify-content: center;
   font-weight: bold;
   font-size: 0.9rem;
-  padding: 1.5%;
   &:active {
     background-color: darkgray;
   }
