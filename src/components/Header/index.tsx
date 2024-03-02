@@ -29,7 +29,11 @@ const Header: React.FC<HeaderProps> = () => {
   return (
     <>
       <HeaderContainer>
-        <LogoDiv>
+        <LogoDiv
+          onClick={() => {
+            navigate('/');
+          }}
+        >
           <LogoImage src="/assets/logo.jpg" alt="로고" />
           <LogoFont>Cafegory.</LogoFont>
         </LogoDiv>
