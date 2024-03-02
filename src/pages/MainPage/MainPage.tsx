@@ -1,14 +1,16 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
-import { MainScreen } from './MainPage.style';
+import { Screen } from 'components/Basic/Screen/PageContainer.style';
+import Container from 'components/Basic/Container';
 
 const Main: React.FC = () => {
   return (
-    <MainScreen>
-      <Sidebar buttonColors={['white', ,]} />
-      <Header />
-    </MainScreen>
+    <Screen>
+      <Sidebar buttonColors={[, ,]}></Sidebar>
+      <Container></Container>
+      <Header></Header>
+    </Screen>
   );
 };
 
