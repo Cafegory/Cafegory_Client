@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import ShortButton from 'components/ShortButton';
+import { useNavigate } from 'react-router-dom';
 import {
   MainScreen,
   CafeSearch,
@@ -32,6 +33,8 @@ import {
   NOT_SPECIFIED,
 } from './CafeSearchPage.type';
 const CafeSearchPage: React.FC = () => {
+  const navigate = useNavigate();
+
   const {
     setArea,
     startTime,
@@ -120,7 +123,13 @@ const CafeSearchPage: React.FC = () => {
               color="white"
               onClick={handleFilterButtonClick}
             />
-            <ShortButton message="검색" color="black" />
+            <ShortButton
+              message="검색"
+              color="black"
+              onClick={() => {
+                navigate('/cafeSearchResult');
+              }}
+            />
           </ButtonContainer>
         </CafeSearch>
         {showFitter && (

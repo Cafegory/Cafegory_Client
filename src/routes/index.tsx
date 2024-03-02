@@ -4,6 +4,7 @@ import Main from '../pages/MainPage/MainPage';
 import My from '../pages/MyPage/MyPage';
 import CafeSearch from '../pages/CafeSearchPage/CafeSearchPage';
 import StudySearch from '../pages/StudySearchPage/StudySearchPage';
+import CafeSearchResult from '../pages/CafeSearchResultPage/CafeSearchResultPage';
 
 const Router: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const Router: React.FC = () => {
         <Route path="/" element={<Main />} />
         <Route path="/my" element={<My />} />
         <Route path="/cafe" element={<CafeSearch />} />
+        <Route path="/cafeSearchResult" element={<CafeSearchResult />} />
         <Route path="/study" element={<StudySearch />} />
       </Routes>
     </BrowserRouter>
