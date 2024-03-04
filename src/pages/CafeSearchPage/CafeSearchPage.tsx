@@ -4,10 +4,8 @@ import Sidebar from '../../components/Sidebar';
 import ShortButton from 'components/ShortButton';
 import { useNavigate } from 'react-router-dom';
 import {
-  MainScreen,
   CafeSearch,
   FitterContainer,
-  SearchContainer,
   TitleFont,
   SideFont,
   InputContainer,
@@ -22,6 +20,8 @@ import {
   Option,
   SelectContainer as StyledSelectContainer,
 } from './CafeSearchPage.style';
+import Screen from '../../components/Basic/Screen';
+import Container from 'components/Basic/Container';
 
 import { useFilter } from './CafeSearchPage.hooks';
 
@@ -102,10 +102,8 @@ const CafeSearchPage: React.FC = () => {
   };
 
   return (
-    <MainScreen>
-      <Sidebar buttonColors={['white', ,]} />
-      <Header />
-      <SearchContainer>
+    <Screen>
+      <Container>
         <CafeSearch>
           <TitleFont>카페 검색</TitleFont>
           <SideFont>행정동 기반으로 검색합니다.</SideFont>
@@ -202,8 +200,10 @@ const CafeSearchPage: React.FC = () => {
             <ShortButton message="적용" color="black" />
           </FitterContainer>
         )}
-      </SearchContainer>
-    </MainScreen>
+      </Container>
+      <Sidebar buttonColors={['white', ,]} />
+      <Header />
+    </Screen>
   );
 };
 

@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   HeaderContainer,
   LogoDiv,
   LogoImage,
   LogoFont,
   RightDiv,
-  UserLoggedIn,
   LoginSignupLink,
   InputContainer,
   InputField,
@@ -29,7 +28,11 @@ const Header: React.FC<HeaderProps> = () => {
   return (
     <>
       <HeaderContainer>
-        <LogoDiv>
+        <LogoDiv
+          onClick={() => {
+            navigate('/');
+          }}
+        >
           <LogoImage src="/assets/logo.jpg" alt="로고" />
           <LogoFont>Cafegory.</LogoFont>
         </LogoDiv>
@@ -37,17 +40,14 @@ const Header: React.FC<HeaderProps> = () => {
           {isLogged ? (
             <>
               <WelcomeMessageBox>{`${userName}님 환영합니다!`}</WelcomeMessageBox>
-              <UserLoggedIn>
-                <LoginSignupLink>로그아웃</LoginSignupLink>
-              </UserLoggedIn>
-              s
+              <LoginSignupLink>로그아웃</LoginSignupLink>
+              <InputContainer>
+                <InputField type="text" placeholder="검색하기" />
+                <SearchImg src="/assets/search-icon.png" alt="검색 아이콘" />
+              </InputContainer>
             </>
           ) : (
-            <UserLoggedIn>
-              <LoginSignupLink onClick={toggleLoginModal}>
-                로그인
-              </LoginSignupLink>
-            </UserLoggedIn>
+            <LoginSignupLink onClick={toggleLoginModal}>로그인</LoginSignupLink>
           )}
           <InputContainer>
             <InputField type="text" placeholder="검색하기" />
