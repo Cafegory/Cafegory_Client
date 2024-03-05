@@ -10,11 +10,11 @@ export const LoginModal = styled.div`
   height: 35%;
   background-color: white;
   z-index: 100;
-  display:flex;
-  justify-content:center;
+  display: flex;
+  justify-content: center;
   flex-direction: column;
-  border-radius:20px;
-  gap:1rem;
+  border-radius: 20px;
+  gap: 1rem;
 `;
 
 export const ModalBackdrop = styled.div`
@@ -29,36 +29,35 @@ export const ModalBackdrop = styled.div`
 export const LoginTextContainer = styled.div`
   display: flex;
   justify-content: center;
-  font-size:1.9rem;
-  font-weight:600;
+  font-size: 1.9rem;
+  font-weight: 600;
 `;
 
-
 export const LoginButtonContainer = styled.div`
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:0.5rem;
-`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+`;
 
 export const LoginButton = styled.div<LoginButtonProps & FontColorProps>`
-  height:2.6rem;
-  width:45%;
-  font-size:0.8rem;
-  background-color: ${props => props.backgroundColor || 'black'};
+  height: 2.6rem;
+  width: 45%;
+  font-size: 0.8rem;
+  background-color: ${(props) => props.backgroundColor || 'black'};
   border-radius: 8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:${props => props.fontColor || 'white'};
-  font-weight:700;
-  gap:0.4rem;
-  cursor:pointer;
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${(props) => props.fontColor || 'white'};
+  font-weight: 700;
+  gap: 0.4rem;
+  cursor: pointer;
+
   &:hover {
-    border : 3px solid red;
+    border: 3px solid red;
   }
 `;
 
