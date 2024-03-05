@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ButtonStyle = styled.div`
   height: 60px;
-  width: 70%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
