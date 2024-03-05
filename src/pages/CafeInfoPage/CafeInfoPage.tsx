@@ -42,9 +42,14 @@ import {
   IsEndFalse,
   MoreButton,
 } from './CafeInfoPage.style';
+import Review from 'components/ReviewModal';
 import LongButton from 'components/LongButton';
+import { useStore } from 'components/ReviewModal/ReviewModal.hooks';
 
 const CafeInfo: React.FC = () => {
+  const isReviewModalOpen = useStore((state) => state.isReviewModalOpen);
+  const toggleReviewModal = useStore((state) => state.toggleReviewModal);
+
   const api = {
     basicInfo: {
       id: 1,
@@ -131,6 +136,7 @@ const CafeInfo: React.FC = () => {
       },
     ],
   };
+
   return (
     <Screen>
       <Container>
@@ -223,7 +229,7 @@ const CafeInfo: React.FC = () => {
                 </ReviewsBox>
               )}
             </ReviewsBoxContainer>
-            <MoreButton>더보기</MoreButton>
+            <MoreButton onClick={toggleReviewModal}>더보기</MoreButton>
           </ReviewsContainer>
           <StudyContainer>
             <TitleFont>카공 그룹</TitleFont>
@@ -292,6 +298,7 @@ const CafeInfo: React.FC = () => {
       </Container>
       <Sidebar buttonColors={['white', ,]} />
       <Header />
+      {isReviewModalOpen && <Review />}
     </Screen>
   );
 };

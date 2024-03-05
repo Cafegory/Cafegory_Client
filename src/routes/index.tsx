@@ -5,7 +5,7 @@ import My from '../pages/MyPage/MyPage';
 import CafeSearch from '../pages/CafeSearchPage/CafeSearchPage';
 import StudySearch from '../pages/StudySearchPage/StudySearchPage';
 import CafeSearchResult from '../pages/CafeSearchResultPage/CafeSearchResultPage';
-import CafeInfo from 'pages/CafeInfo/CafeInfoPage';
+import CafeInfo from 'pages/CafeInfoPage/CafeInfoPage';
 
 const Router: React.FC = () => {
   return (
