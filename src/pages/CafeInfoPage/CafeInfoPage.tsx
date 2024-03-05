@@ -43,12 +43,17 @@ import {
   MoreButton,
 } from './CafeInfoPage.style';
 import Review from 'components/ReviewModal';
+import Study from 'components/StudyModal';
 import LongButton from 'components/LongButton';
-import { useStore } from 'components/ReviewModal/ReviewModal.hooks';
+import { reviewUseStore } from 'components/ReviewModal/ReviewModal.hooks';
+import { studyUseStore } from 'components/StudyModal/StudyModal.hooks';
 
 const CafeInfo: React.FC = () => {
-  const isReviewModalOpen = useStore((state) => state.isReviewModalOpen);
-  const toggleReviewModal = useStore((state) => state.toggleReviewModal);
+  const isReviewModalOpen = reviewUseStore((state) => state.isReviewModalOpen);
+  const toggleReviewModal = reviewUseStore((state) => state.toggleReviewModal);
+
+  const isStudyModalOpen = studyUseStore((state) => state.isStudyModalOpen);
+  const toggleStudyModal = studyUseStore((state) => state.toggleStudyModal);
 
   const api = {
     basicInfo: {
@@ -291,7 +296,7 @@ const CafeInfo: React.FC = () => {
                 </StudyBox>
               )}
             </StudyBoxContainer>
-            <MoreButton>더보기</MoreButton>
+            <MoreButton onClick={toggleStudyModal}>더보기</MoreButton>
           </StudyContainer>
           <LongButton message="카공 그룹 생성하기" color="black"></LongButton>
         </CafeInfoContainer>
@@ -299,6 +304,7 @@ const CafeInfo: React.FC = () => {
       <Sidebar buttonColors={['white', ,]} />
       <Header />
       {isReviewModalOpen && <Review />}
+      {isStudyModalOpen && <Study />}
     </Screen>
   );
 };

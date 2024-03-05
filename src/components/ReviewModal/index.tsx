@@ -1,9 +1,9 @@
 import React from 'react';
 import { ReviewModal, ModalBackdrop } from './ReviewModal.style';
-import { useStore } from './ReviewModal.hooks';
+import { reviewUseStore } from './ReviewModal.hooks';
 
 const Review: React.FC = () => {
-  const toggleReviewModal = useStore((state) => state.toggleReviewModal);
+  const toggleReviewModal = reviewUseStore((state) => state.toggleReviewModal);
 
   const closeModal = () => {
     toggleReviewModal();
