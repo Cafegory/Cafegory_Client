@@ -42,7 +42,37 @@ import {
 } from './CafeCreateRecruitment.style';
 
 const CafeCreateRecruitment: React.FC = () => {
-  const { selectedDate, setSelectedDate } = useDatePickerStore();
+  const {
+    selectedDate,
+    setSelectedDate,
+    name,
+    setName,
+    maxMemberCount,
+    setMaxMemberCount,
+    canTalk,
+    setCanTalk,
+    startTime,
+    setStartTime,
+    endTime,
+    setEndTime,
+  } = useDatePickerStore();
+
+  const handleCreateGroup = () => {};
+
+  const handleCanTalkButtonClick = (isCanTalk) => {
+    const buttonIds = ['canTalkButton', 'cannotTalkButton'];
+    buttonIds.forEach((id) => {
+      const button = document.getElementById(id);
+      if (button) {
+        if (id === (isCanTalk ? 'canTalkButton' : 'cannotTalkButton')) {
+          button.classList.add('selected');
+        } else {
+          button.classList.remove('selected');
+        }
+      }
+    });
+    setCanTalk(isCanTalk);
+  };
 
   return (
     <Screen>
@@ -60,7 +90,13 @@ const CafeCreateRecruitment: React.FC = () => {
             <GroupName>
               <DetailName>그룹명</DetailName>
               <InputContainer>
-                <InputField type="text" placeholder="그룹명을 입력해주세요." />
+                <InputField
+                  type="text"
+                  placeholder="그룹명을 입력해주세요."
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                />
+
                 <EditImg src="/assets/edit-icon.png" alt="수정 아이콘" />
               </InputContainer>
             </GroupName>
@@ -87,8 +123,9 @@ const CafeCreateRecruitment: React.FC = () => {
             <Time>
               <DetailName>카공시간</DetailName>
               <Choose>
-                <StyledSelectContainer>
-                  {' '}
+                <StyledSelectContainer
+                  onChange={(e) => setStartTime(e.target.value)}
+                >
                   {[...Array(25)].map((_, index) => {
                     const hour =
                       index === 24 ? '24' : index.toString().padStart(2, '0');
@@ -101,8 +138,9 @@ const CafeCreateRecruitment: React.FC = () => {
                   })}
                 </StyledSelectContainer>
                 부터
-                <StyledSelectContainer>
-                  {' '}
+                <StyledSelectContainer
+                  onChange={(e) => setEndTime(e.target.value)}
+                >
                   {[...Array(25)].map((_, index) => {
                     const hour =
                       index === 24 ? '24' : index.toString().padStart(2, '0');
@@ -120,20 +158,50 @@ const CafeCreateRecruitment: React.FC = () => {
             <Maximum>
               <DetailName>최대 인원</DetailName>
               <MaximumInputContainer>
-                <MaximumInput />명
+                <MaximumInput
+                  value={maxMemberCount}
+                  onChange={(event) =>
+                    setMaxMemberCount(parseInt(event.target.value))
+                  }
+                />
+                명
               </MaximumInputContainer>
             </Maximum>
             <CanTalk>
               <DetailName>구성원 간 소통 여부</DetailName>
               <CanTalkButtonContainer>
-                <CanTalkButton>가능</CanTalkButton>
-                <CanTalkButton>불가</CanTalkButton>
+                <CanTalkButton
+                  id="canTalkButton"
+                  onClick={() => {
+                    setCanTalk(true);
+                    handleCanTalkButtonClick(true);
+                  }}
+                >
+                  가능
+                </CanTalkButton>
+                <CanTalkButton
+                  id="cannotTalkButton"
+                  onClick={() => {
+                    setCanTalk(false);
+                    handleCanTalkButtonClick(false);
+                  }}
+                >
+                  불가
+                </CanTalkButton>
               </CanTalkButtonContainer>
             </CanTalk>
           </Detail>
           <ButtonContainer>
-            <LongButton color="black" message="그룹 생성하기" />
-            <LongButton color="red" message="뒤로가기" />
+            <LongButton
+              color="black"
+              message="그룹 생성하기"
+              onClick={handleCreateGroup}
+            />
+            <LongButton
+              color="red"
+              message="뒤로가기"
+              onClick={handleCreateGroup}
+            />
           </ButtonContainer>
         </ContainerDetail>
       </Container>

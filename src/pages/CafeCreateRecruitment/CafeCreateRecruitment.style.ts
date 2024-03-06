@@ -172,9 +172,11 @@ export const CanTalkButton = styled.div`
   border-radius: 10px;
   font-size: 1.1rem;
   cursor: pointer;
-  &:hover,
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
   &.selected {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.5);
   }
   &:active {
     background-color: darkgray;

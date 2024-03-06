@@ -62,11 +62,11 @@ export const FitterContainer = styled.div`
   align-items: center;
   width: 100%;
   gap: 3%;
-  margin-bottom:5rem;
+  margin-bottom: 5rem;
 `;
 
 export const FitterTitle = styled.div`
-  margin-bottom:2.5rem;
+  margin-bottom: 2.5rem;
   font-size: 2.3rem;
   font-weight: 550;
 `;
