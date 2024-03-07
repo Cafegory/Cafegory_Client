@@ -7,13 +7,13 @@ import LongButton from 'components/LongButton';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDatePickerStore } from './CafeCreateRecruitment.type';
 import ko from 'date-fns/locale/ko';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Title,
   Detail,
   ButtonContainer,
   ContainerDetail,
-  Profile,
   GroupName,
   Location,
   Date,
@@ -21,9 +21,6 @@ import {
   Maximum,
   CanTalk,
   DetailName,
-  PhotoContaioner,
-  Photo,
-  EditGuideMessage,
   InputContainer,
   EditImg,
   InputField,
@@ -57,7 +54,22 @@ const CafeCreateRecruitment: React.FC = () => {
     setEndTime,
   } = useDatePickerStore();
 
-  const handleCreateGroup = () => {};
+  const MAX_NAME_LENGTH = 10;
+
+  const MAX_MaxMemberCount_LENGTH = 10;
+
+  const handleCreateGroup = () => {
+    if (name.length > MAX_NAME_LENGTH || name.length === 0) {
+      alert('그룹명은 1~10자 이내로 적어주세요.');
+    }
+    if (
+      maxMemberCount > MAX_MaxMemberCount_LENGTH ||
+      maxMemberCount === 0 ||
+      maxMemberCount === null
+    ) {
+      alert('최대 인원은 1~10명 이내로 적어주세요.');
+    }
+  };
 
   const handleCanTalkButtonClick = (isCanTalk) => {
     const buttonIds = ['canTalkButton', 'cannotTalkButton'];
@@ -73,20 +85,16 @@ const CafeCreateRecruitment: React.FC = () => {
     });
     setCanTalk(isCanTalk);
   };
-
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1);
+  };
   return (
     <Screen>
       <Container>
         <ContainerDetail>
           <Title>그룹 생성하기</Title>
           <Detail>
-            <Profile>
-              <DetailName>프로필 사진</DetailName>
-              <PhotoContaioner>
-                <Photo src="/assets/basic-profile.jpg" alt="기본 프로필 사진" />
-                <EditGuideMessage>편집하려면 클릭하세요.</EditGuideMessage>
-              </PhotoContaioner>
-            </Profile>
             <GroupName>
               <DetailName>그룹명</DetailName>
               <InputContainer>
@@ -96,7 +104,6 @@ const CafeCreateRecruitment: React.FC = () => {
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                 />
-
                 <EditImg src="/assets/edit-icon.png" alt="수정 아이콘" />
               </InputContainer>
             </GroupName>
@@ -197,11 +204,7 @@ const CafeCreateRecruitment: React.FC = () => {
               message="그룹 생성하기"
               onClick={handleCreateGroup}
             />
-            <LongButton
-              color="red"
-              message="뒤로가기"
-              onClick={handleCreateGroup}
-            />
+            <LongButton color="red" message="뒤로가기" onClick={handleGoBack} />
           </ButtonContainer>
         </ContainerDetail>
       </Container>

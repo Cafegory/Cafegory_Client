@@ -28,24 +28,6 @@ export const DetailName = styled.div`
   margin-bottom: 0.5rem;
 `;
 
-export const Profile = styled.div``;
-
-export const PhotoContaioner = styled.div`
-  display: flex;
-  gap: 1%;
-  align-items: center;
-`;
-
-export const Photo = styled.img`
-  width: 5rem;
-  height: 5rem;
-  border-radius: 100%;
-`;
-
-export const EditGuideMessage = styled.div`
-  font-size: 1.3rem;
-`;
-
 export const GroupName = styled.div``;
 
 export const InputContainer = styled.div`
@@ -110,6 +92,7 @@ export const CustomDatePicker = styled(DatePicker)`
   background-color: transparent;
   font-size: 1.1rem;
   caret-color: transparent;
+  cursor: pointer;
 `;
 
 export const DateImg = styled.img`

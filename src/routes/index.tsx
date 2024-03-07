@@ -16,7 +16,7 @@ const Router: React.FC = () => {
         <Route path="/cafe" element={<CafeSearch />} />
         <Route path="/cafeSearchResult" element={<CafeSearchResult />} />
         <Route path="/study" element={<StudySearch />} />
-        <Route path="/write" element={<CafeCreateRecruitment />} />
+        <Route path="/studyRecruiting" element={<CafeCreateRecruitment />} />
       </Routes>
     </BrowserRouter>
   );
