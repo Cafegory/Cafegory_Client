@@ -228,8 +228,8 @@ const CafeSearchResult: React.FC = () => {
           <ShortButton message="검색" color="black" />
         </ResearchContainer>
         <CafeList>
-          {API.map((cafe, index) => (
-            <List key={index}>
+          {API.map((cafe) => (
+            <List>
               {cafe.isOpen ? (
                 <IsOpenImg src="/assets/isOpen.png" alt="영업중" />
               ) : null}

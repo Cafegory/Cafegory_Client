@@ -91,6 +91,12 @@ export const List = styled.div`
   border-radius: 0.5rem;
   cursor: pointer;
   margin-bottom: 1.5rem;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  &:active {
+    background-color: darkgray;
+  }
 `;
 
 export const CafeImg = styled.img`
