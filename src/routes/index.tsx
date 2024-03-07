@@ -5,6 +5,7 @@ import My from '../pages/MyPage/MyPage';
 import CafeSearch from '../pages/CafeSearchPage/CafeSearchPage';
 import StudySearch from '../pages/StudySearchPage/StudySearchPage';
 import CafeSearchResult from '../pages/CafeSearchResultPage/CafeSearchResultPage';
+import CafeCreateRecruitment from '../pages/CafeCreateRecruitment/CafeCreateRecruitment';
 
 const Router: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const Router: React.FC = () => {
         <Route path="/cafe" element={<CafeSearch />} />
         <Route path="/cafeSearchResult" element={<CafeSearchResult />} />
         <Route path="/study" element={<StudySearch />} />
+        <Route path="/studyRecruiting" element={<CafeCreateRecruitment />} />
       </Routes>
     </BrowserRouter>
   );

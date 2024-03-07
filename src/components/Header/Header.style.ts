@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
-  background-color:white;
+  background-color: white;
   position: fixed;
   display: flex;
   height: 7%;
@@ -19,14 +19,14 @@ export const LogoDiv = styled.div`
   align-items: center;
   justify-content: space-around;
   cursor: pointer;
-  border-radius:20px;
-  margin-left:1rem;
+  border-radius: 20px;
+  margin-left: 1rem;
 
   &:hover {
-    background-color:lightgray;
+    background-color: lightgray;
   }
   &:active {
-    background-color:gray;
+    background-color: gray;
   }
 `;
 
@@ -45,24 +45,24 @@ export const LogoFont = styled.div`
 export const RightDiv = styled.div`
   display: flex;
   align-items: center;
-  margin-right:1rem;
+  margin-right: 1rem;
   height: 100%;
-  gap:2rem;
+  gap: 2rem;
 `;
 
 export const LoginSignupLink = styled.div`
   font-size: 0.85rem;
   display: flex;
-  height:50%;
+  height: 50%;
   align-items: center;
-  border-radius:20px;
-  cursor:pointer;
+  border-radius: 20px;
+  cursor: pointer;
 
   &:hover {
-    background-color:lightgray;
+    background-color: lightgray;
   }
   &:active {
-    background-color:gray;
+    background-color: gray;
   }
 `;
 
