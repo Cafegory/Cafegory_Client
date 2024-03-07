@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
+import Screen from '../../components/Basic/Screen';
+import Container from '../../components/Basic/Container';
 import {
   AreaTextFont,
-  Container,
   InputContainer,
   InputField,
-  MainScreen,
   PlaceImg,
   ResearchContainer,
   ResultTextFont,
@@ -213,7 +213,7 @@ const CafeSearchResult: React.FC = () => {
   };
 
   return (
-    <MainScreen>
+    <Screen>
       <Container>
         <TitleTextContainer>
           <AreaTextFont>{AREA}</AreaTextFont>
@@ -250,7 +250,7 @@ const CafeSearchResult: React.FC = () => {
       </Container>
       <Sidebar buttonColors={['white', ,]} />
       <Header />
-    </MainScreen>
+    </Screen>
   );
 };
 

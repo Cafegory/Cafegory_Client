@@ -7,7 +7,7 @@ export const LoginModal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 30%;
-  height: 35%;
+  height: 31%;
   background-color: white;
   z-index: 100;
   display: flex;
@@ -48,22 +48,25 @@ export const LoginButton = styled.div<LoginButtonProps & FontColorProps>`
   font-size: 0.8rem;
   background-color: ${(props) => props.backgroundColor || 'black'};
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${(props) => props.fontColor || 'white'};
-  font-weight: 700;
-  gap: 0.4rem;
-  cursor: pointer;
-
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:${props => props.fontColor || 'white'};
+  font-weight:700;
+  gap:0.5rem;
+  cursor:pointer;
+  
   &:hover {
-    border: 3px solid red;
+    background-color:lightgray;
+  }
+  &:active {
+    background-color:gray;
   }
 `;
 
 export const NaverLogo = styled.img`
-  width: 1.9rem;
-  height: 1.8rem;
+  width: 1.5rem;
+  height: 1.4rem;
 `;
 
 export const KakaoLogo = styled.img`

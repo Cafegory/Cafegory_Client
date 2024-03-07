@@ -1,32 +1,17 @@
 import styled from 'styled-components';
 
-export const MainScreen = styled.div`
-  background-color: white;
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-`;
-
-export const SearchContainer = styled.div`
-  width: 84%;
-  margin-left: auto;
-  flex-direction: column;
-  justify-content: space-around;
-`;
-
 export const CafeSearch = styled.div`
   display: flex;
+  width: 100%;
   align-items: center;
   flex-direction: column;
-  height: 50%;
-  justify-content: center;
-  gap: 5%;
+  height: 25rem;
+  gap: 7%;
 `;
 
 export const TitleFont = styled.div`
   font-size: 2.3rem;
   font-weight: 550;
-  padding: 1.2%;
 `;
 
 export const SideFont = styled.div`
@@ -35,10 +20,10 @@ export const SideFont = styled.div`
 
 export const InputContainer = styled.div`
   display: flex;
-  border-radius: 6px;
+  border-radius: 10px;
   border: 1px solid #ccc;
   width: 32%;
-  height: 10%;
+  height: 11%;
   justify-content: space-around;
   background-color: #ffffff;
   align-items: center;
@@ -47,7 +32,7 @@ export const InputContainer = styled.div`
 export const InputField = styled.input`
   width: 80%;
   border: none;
-  font-size: 0.7rem;
+  font-size: 1rem;
   height: 80%;
   &:focus {
     outline: none;
@@ -71,18 +56,19 @@ export const ButtonContainer = styled.div`
 `;
 
 export const FitterContainer = styled.div`
-  height: 65%;
+  height: 32rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   gap: 3%;
+  margin-bottom:5rem;
 `;
 
 export const FitterTitle = styled.div`
+  margin-bottom:2.5rem;
   font-size: 2.3rem;
   font-weight: 550;
-  padding: 1.2%;
 `;
 
 export const ChooseOption = styled.div`
@@ -145,7 +131,6 @@ export const SelectContainer = styled.select`
   justify-content: center;
   font-weight: bold;
   font-size: 0.9rem;
-  padding: 1.5%;
   &:active {
     background-color: darkgray;
   }

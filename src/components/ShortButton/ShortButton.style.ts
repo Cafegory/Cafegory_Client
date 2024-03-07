@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import { ShortButtonProps } from './ShortButton.type';
 
 export const ButtonStyle = styled.div<ShortButtonProps>`
-  height: 50px;
-  width: 14%;
+  height: 3rem;
+  width: 14.5%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 0.9rem;
+  border-radius: 0.6rem;
   cursor: pointer;
   border: 2px solid black;
   transition:
@@ -26,6 +26,6 @@ export const ButtonStyle = styled.div<ShortButtonProps>`
 `;
 
 export const Font = styled.div<{ color: 'white' | 'black' }>`
-  font-size: 1.3rem;
+  font-size: 1rem;
   color: ${(props) => (props.color === 'white' ? 'black' : 'white')};
 `;
