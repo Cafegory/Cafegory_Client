@@ -121,26 +121,26 @@ const CafeInfo: React.FC = () => {
       },
     ],
     meetings: [
-      // {
-      //   cafeId: 1,
-      //   id: 1,
-      //   name: '알아서 공부하자',
-      //   startDateTime: 'yyyy-MM-ddThh:mm:ss',
-      //   endDateTime: 'yyyy-MM-ddThh:mm:ss',
-      //   maxMemberCount: 7,
-      //   nowMemberCount: 3,
-      //   isEnd: true,
-      // },
-      // {
-      //   cafeId: 2,
-      //   id: 2,
-      //   name: '코코모',
-      //   startDateTime: 'yyyy-MM-ddThh:mm:ss',
-      //   endDateTime: 'yyyy-MM-ddThh:mm:ss',
-      //   maxMemberCount: 7,
-      //   nowMemberCount: 7,
-      //   isEnd: false,
-      // },
+      {
+        cafeId: 1,
+        id: 1,
+        name: '알아서 공부하자',
+        startDateTime: 'yyyy-MM-ddThh:mm:ss',
+        endDateTime: 'yyyy-MM-ddThh:mm:ss',
+        maxMemberCount: 7,
+        nowMemberCount: 3,
+        isEnd: true,
+      },
+      {
+        cafeId: 2,
+        id: 2,
+        name: '코코모',
+        startDateTime: 'yyyy-MM-ddThh:mm:ss',
+        endDateTime: 'yyyy-MM-ddThh:mm:ss',
+        maxMemberCount: 7,
+        nowMemberCount: 7,
+        isEnd: false,
+      },
     ],
     canMakeMeeting: [
       {
@@ -167,7 +167,6 @@ const CafeInfo: React.FC = () => {
               <AddressFont>{api.basicInfo.address}</AddressFont>
             </CafeNameContainer>
           </CafeProfileContainer>
-
           <BusinessHoursContainer>
             <BusinessHoursTitleContainer>
               <TitleFont>영업 시간</TitleFont>
