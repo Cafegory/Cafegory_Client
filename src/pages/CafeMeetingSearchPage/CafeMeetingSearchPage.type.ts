@@ -23,12 +23,12 @@ interface DatePickerState {
 }
 
 export const useDatePickerStore = create<DatePickerState>((set) => ({
-  maxMemberCount: null,
-  setMaxMemberCount: (count: number | null) => {
-    if (count !== null && count >= 1 && Number.isInteger(count)) {
+  maxMemberCount: 0,
+  setMaxMemberCount: (count: number | 0) => {
+    if (count !== 0 && count >= 1 && Number.isInteger(count)) {
       set({ maxMemberCount: count });
     } else {
-      set({ maxMemberCount: null });
+      set({ maxMemberCount: 0 });
     }
   },
   canTalk: true,

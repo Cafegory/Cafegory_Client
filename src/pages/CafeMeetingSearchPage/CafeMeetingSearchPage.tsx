@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
@@ -44,20 +44,41 @@ const CafeCreateRecruitment: React.FC = () => {
   const handleFilterButtonClick = () => {
     setShowFitter(!showFitter);
   };
-
   const ApplyFilter = () => {
+    console.log('카공 참여 기본값', onlyJoinAble);
+    console.log('최대인원 기본값', maxMemberCount);
+
     if (participation === CAN_STUDY) {
       setOnlyJoinAble(true);
     } else if (participation === CANNOT_STUDY) {
       setOnlyJoinAble(false);
     }
-    console.log('카공 참여 가능한지', onlyJoinAble);
+
+    const inputElement = document.getElementById(
+      'maxMemberCount',
+    ) as HTMLInputElement;
+    if (inputElement) {
+      const parsedValue = parseInt(inputElement.value);
+      setMaxMemberCount(Number.isNaN(parsedValue) ? 0 : parsedValue);
+    }
+  };
+
+  const handleApplyButtonClick = () => {
+    ApplyFilter();
+    const inputElement = document.getElementById(
+      'maxMemberCount',
+    ) as HTMLInputElement;
+    setMaxMemberCount(parseInt(inputElement.value) || 0);
   };
 
   useEffect(() => {
-    ApplyFilter();
-  }, [participation]);
+    console.log('상태 변경 후 카공 참여 가능한지', onlyJoinAble);
+    console.log('상태 변경 후 최대인원', maxMemberCount);
+  }, [onlyJoinAble, maxMemberCount]);
 
+  useEffect(() => {
+    ApplyFilter();
+  }, []);
   return (
     <Screen>
       <Container>
@@ -67,7 +88,6 @@ const CafeCreateRecruitment: React.FC = () => {
             <InputField
               type="text"
               placeholder="검색어를 입력하세요 (예: 역삼동, 스타벅스 강남R점)"
-              // onChange={(e) => setArea(e.target.value)}
             />
           </InputContainer>
           <ButtonContainer>
@@ -98,10 +118,9 @@ const CafeCreateRecruitment: React.FC = () => {
                 <ChooseFont>카공 최대 인원</ChooseFont>
                 <MaximumInputContainer>
                   <MaximumInput
-                    value={maxMemberCount}
-                    onChange={(event) =>
-                      setMaxMemberCount(parseInt(event.target.value))
-                    }
+                    id="maxMemberCount"
+                    type="number"
+                    defaultValue={0}
                   />
                   명
                 </MaximumInputContainer>
@@ -115,7 +134,11 @@ const CafeCreateRecruitment: React.FC = () => {
                 </Choose>
               </StudyAvailability>
             </ChooseOption>
-            <ShortButton message="적용" color="black" onClick={ApplyFilter} />
+            <ShortButton
+              message="적용"
+              color="black"
+              onClick={handleApplyButtonClick}
+            />
           </FitterContainer>
         )}
       </Container>

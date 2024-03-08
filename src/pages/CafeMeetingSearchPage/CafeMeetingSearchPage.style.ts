@@ -121,7 +121,7 @@ export const MaximumInputContainer = styled.div`
 `;
 
 export const MaximumInput = styled.input`
-  width: 3%;
+  width: 5%;
   height: 40%;
   border: none;
   &:focus {
