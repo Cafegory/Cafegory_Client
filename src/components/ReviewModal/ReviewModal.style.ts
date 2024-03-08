@@ -15,7 +15,7 @@ export const ReviewModal = styled.div`
   scrollbar-width: thin;
   align-items:center;
   gap:0.8rem;
-  padding:2rem 0 1.5rem 0;
+  padding:3rem 0 1.5rem 0;
 `;
 
 export const ModalBackdrop = styled.div`
@@ -49,7 +49,7 @@ export const TitleFont = styled.div`
 `
 export const CloseButton = styled.div`
   font-size:1rem;
-  margin-right:3rem;
+  margin-right:1.8rem;
   cursor:pointer;
 `
 
