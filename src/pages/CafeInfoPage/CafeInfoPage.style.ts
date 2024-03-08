@@ -47,15 +47,18 @@ export const BusinessHoursContainer = styled.div`
 export const BusinessHoursTitleContainer = styled.div`
   width:100%;
   display:flex;
-  gap:0.3rem;
+  gap:0.5rem;
   margin-bottom:0.6rem;
 `
 
 export const TitleFont = styled.div`
   font-size:1.55rem;
-  width:10%;
+  width:fit-content;
   font-weight:550;
   margin-bottom:0.3rem;
+  display:flex;
+  align-items:center;
+  gap:0.3rem;
 `
 export const IsOpenContainer = styled.div`
     background-color:black;

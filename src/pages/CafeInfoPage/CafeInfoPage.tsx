@@ -43,6 +43,7 @@ import {
   MoreButton,
   NoContentContainer,
   NoContentText,
+  HomePageImg,
 } from './CafeInfoPage.style';
 import Review from 'components/ReviewModal';
 import Study from 'components/StudyModal';
@@ -194,11 +195,11 @@ const CafeInfo: React.FC = () => {
               {api.basicInfo.phone}
             </InfoBox>
             <InfoBox>
-              <InstagramImg
-                src="/assets/instagram-icon.png"
+              <HomePageImg
+                src="/assets/home-page-icon.png"
                 alt="인스타 아이콘"
               />
-              {api.basicInfo.sns[0].url}
+              {api.basicInfo.sns[0].name}|{api.basicInfo.sns[0].url}
             </InfoBox>
             <InfoBox>
               <KakaoImg src="/assets/kakao-logo.png" alt="카카오 아이콘" />
@@ -206,7 +207,11 @@ const CafeInfo: React.FC = () => {
             </InfoBox>
           </InfoBoxContainer>
           <ReviewsContainer>
-            <TitleFont>평점</TitleFont>
+            <TitleFont>
+              평점
+              <StarImg src="/assets/star-icon.png" alt="별 아이콘" />
+              {api.basicInfo.avgReviewRate}
+            </TitleFont>
             {api.reviews.length === 0 && (
               <NoContentContainer>
                 <NoContentText>작성된 리뷰가 없습니다.</NoContentText>
