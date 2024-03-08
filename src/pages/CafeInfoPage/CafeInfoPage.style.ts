@@ -193,6 +193,7 @@ export const StarImg = styled.img`
 `;
 
 export const ReviewsContentContainer = styled.div`
+word-wrap: break-word;
   font-size:1.1rem;
   width: 100%;
 `
@@ -269,4 +270,14 @@ export const MoreButton = styled.div`
   display:flex;
   justify-content:flex-end;
   padding-right:1rem;
+`
+
+export const NoContentContainer = styled.div`
+  width:100%;
+  display:flex;
+  align-items:center;
+`
+
+export const NoContentText = styled.div`
+  width:100%;
 `

@@ -41,6 +41,8 @@ import {
   StudyNameBox,
   IsEndFalse,
   MoreButton,
+  NoContentContainer,
+  NoContentText,
 } from './CafeInfoPage.style';
 import Review from 'components/ReviewModal';
 import Study from 'components/StudyModal';
@@ -93,6 +95,17 @@ const CafeInfo: React.FC = () => {
           thumbnailImg: 'https://~~',
         },
         rate: 4,
+        content:
+          '깔끔하고 친절해용!ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+      },
+      {
+        id: 1,
+        writer: {
+          id: 'hihi1122',
+          name: '안뇽',
+          thumbnailImg: 'https://~~',
+        },
+        rate: 4,
         content: '깔끔하고 친절해용!',
       },
       {
@@ -107,26 +120,26 @@ const CafeInfo: React.FC = () => {
       },
     ],
     meetings: [
-      {
-        cafeId: 1,
-        id: 1,
-        name: '알아서 공부하자',
-        startDateTime: 'yyyy-MM-ddThh:mm:ss',
-        endDateTime: 'yyyy-MM-ddThh:mm:ss',
-        maxMemberCount: 7,
-        nowMemberCount: 3,
-        isEnd: true,
-      },
-      {
-        cafeId: 2,
-        id: 2,
-        name: '코코모',
-        startDateTime: 'yyyy-MM-ddThh:mm:ss',
-        endDateTime: 'yyyy-MM-ddThh:mm:ss',
-        maxMemberCount: 7,
-        nowMemberCount: 7,
-        isEnd: false,
-      },
+      // {
+      //   cafeId: 1,
+      //   id: 1,
+      //   name: '알아서 공부하자',
+      //   startDateTime: 'yyyy-MM-ddThh:mm:ss',
+      //   endDateTime: 'yyyy-MM-ddThh:mm:ss',
+      //   maxMemberCount: 7,
+      //   nowMemberCount: 3,
+      //   isEnd: true,
+      // },
+      // {
+      //   cafeId: 2,
+      //   id: 2,
+      //   name: '코코모',
+      //   startDateTime: 'yyyy-MM-ddThh:mm:ss',
+      //   endDateTime: 'yyyy-MM-ddThh:mm:ss',
+      //   maxMemberCount: 7,
+      //   nowMemberCount: 7,
+      //   isEnd: false,
+      // },
     ],
     canMakeMeeting: [
       {
@@ -194,7 +207,11 @@ const CafeInfo: React.FC = () => {
           </InfoBoxContainer>
           <ReviewsContainer>
             <TitleFont>평점</TitleFont>
-
+            {api.reviews.length === 0 && (
+              <NoContentContainer>
+                <NoContentText>작성된 리뷰가 없습니다.</NoContentText>
+              </NoContentContainer>
+            )}
             <ReviewsBoxContainer>
               {api.reviews.length > 0 && (
                 <ReviewsBox>
@@ -234,10 +251,19 @@ const CafeInfo: React.FC = () => {
                 </ReviewsBox>
               )}
             </ReviewsBoxContainer>
-            <MoreButton onClick={toggleReviewModal}>더보기</MoreButton>
+            {api.reviews.length > 2 && (
+              <MoreButton onClick={toggleReviewModal}>
+                {api.reviews.length - 2}건 더보기
+              </MoreButton>
+            )}
           </ReviewsContainer>
           <StudyContainer>
             <TitleFont>카공 그룹</TitleFont>
+            {api.meetings.length === 0 && (
+              <NoContentContainer>
+                <NoContentText>생성된 카공 모임이 없습니다.</NoContentText>
+              </NoContentContainer>
+            )}
             <StudyBoxContainer>
               {api.meetings.length > 0 && (
                 <StudyBox>
@@ -296,7 +322,11 @@ const CafeInfo: React.FC = () => {
                 </StudyBox>
               )}
             </StudyBoxContainer>
-            <MoreButton onClick={toggleStudyModal}>더보기</MoreButton>
+            {api.meetings.length > 2 && (
+              <MoreButton onClick={toggleStudyModal}>
+                {api.meetings.length - 2}건 더보기
+              </MoreButton>
+            )}
           </StudyContainer>
           <LongButton message="카공 그룹 생성하기" color="black"></LongButton>
         </CafeInfoContainer>
