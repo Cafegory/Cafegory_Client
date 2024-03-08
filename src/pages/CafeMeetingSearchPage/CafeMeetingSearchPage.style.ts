@@ -112,22 +112,6 @@ export const Option = styled.div`
   }
 `;
 
-// export const SelectContainer = styled.select`
-//   background-color: rgba(0, 0, 0, 0.2);
-//   border: none;
-//   width: 13%;
-//   height: 70%;
-//   border-radius: 0.5rem;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   font-weight: bold;
-//   font-size: 0.9rem;
-//   &:active {
-//     background-color: darkgray;
-//   }
-// `;
-
 export const MaximumInputContainer = styled.div`
   display: flex;
   align-items: center;

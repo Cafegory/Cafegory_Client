@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
@@ -19,7 +19,6 @@ import {
   ChooseFont,
   Choose,
   Option,
-  // SelectContainer as StyledSelectContainer,
   MaximumInputContainer,
   MaximumInput,
 } from './CafeMeetingSearchPage.style';
@@ -31,56 +30,33 @@ import {
 } from './CafeMeetingSearchPage.type';
 
 const CafeCreateRecruitment: React.FC = () => {
-  const {
-    // setArea,
-    // startTime,
-    // endTime,
-    // setStartTime,
-    // setEndTime,
-    showFitter,
-    setShowFitter,
-    // minBeveragePrice,
-    //maxTime,
-    //setMinBeveragePrice,
-    //setMaxTime,
-    // canStudy,
-    // setCanStudy,
-  } = useFilter();
+  const { showFitter, setShowFitter } = useFilter();
 
   const {
-    selectedDate,
-    setSelectedDate,
-    name,
-    setName,
     maxMemberCount,
     setMaxMemberCount,
-    canTalk,
-    setCanTalk,
-    startTime,
-    setStartTime,
-    endTime,
-    setEndTime,
+    onlyJoinAble,
+    setOnlyJoinAble,
+    participation,
+    setParticipation,
   } = useDatePickerStore();
 
   const handleFilterButtonClick = () => {
     setShowFitter(!showFitter);
   };
 
-  const token =
-    'eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MDk5MDA2MDYsImV4cCI6MTcwOTkwNDIwNiwibWVtYmVySWQiOjYsInRva2VuVHlwZSI6ImFjY2VzcyJ9.eAqVtzFiA-ZIcz88bc1n418hrimWGc7PxUQ3oJssubUwhAOoTBgqpGBjr3QSz4tAvx9SaUD69VMIPiSTosf2Mg';
+  const ApplyFilter = () => {
+    if (participation === CAN_STUDY) {
+      setOnlyJoinAble(true);
+    } else if (participation === CANNOT_STUDY) {
+      setOnlyJoinAble(false);
+    }
+    console.log('카공 참여 가능한지', onlyJoinAble);
+  };
 
-  fetch('http://52.78.210.204/study/once/list?area=aa&page=1&canTalk=BOTH', {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((response) => {
-      // 응답 처리
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+  useEffect(() => {
+    ApplyFilter();
+  }, [participation]);
 
   return (
     <Screen>
@@ -110,16 +86,10 @@ const CafeCreateRecruitment: React.FC = () => {
               <StudyAvailability>
                 <ChooseFont>카공 참여 가능?</ChooseFont>
                 <Choose>
-                  <Option
-                  // onClick={() => handleAvailabilityClick(CAN_STUDY)}
-                  // className={canStudy === CAN_STUDY ? 'selected' : ''}
-                  >
+                  <Option onClick={() => setParticipation(CAN_STUDY)}>
                     {CAN_STUDY}
                   </Option>
-                  <Option
-                  // onClick={() => handleAvailabilityClick(CANNOT_STUDY)}
-                  // className={canStudy === CANNOT_STUDY ? 'selected' : ''}
-                  >
+                  <Option onClick={() => setParticipation(CANNOT_STUDY)}>
                     {CANNOT_STUDY}
                   </Option>
                 </Choose>
@@ -138,7 +108,6 @@ const CafeCreateRecruitment: React.FC = () => {
               </StudyAvailability>
               <StudyAvailability>
                 <ChooseFont>대화 가능?</ChooseFont>
-                {/*상태관리 이후에 추가*/}
                 <Choose>
                   <Option>{CAN_STUDY}</Option>
                   <Option>{CANNOT_STUDY}</Option>
@@ -146,7 +115,7 @@ const CafeCreateRecruitment: React.FC = () => {
                 </Choose>
               </StudyAvailability>
             </ChooseOption>
-            <ShortButton message="적용" color="black" />
+            <ShortButton message="적용" color="black" onClick={ApplyFilter} />
           </FitterContainer>
         )}
       </Container>
