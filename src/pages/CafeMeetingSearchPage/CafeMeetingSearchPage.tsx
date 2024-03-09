@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
 import Container from 'components/Basic/Container';
 import ShortButton from 'components/ShortButton';
-import { useFilter } from './CafeMeetingSearchPage.hooks';
-import { useDatePickerStore } from './CafeMeetingSearchPage.type';
 import {
   CafeSearch,
   TitleFont,
@@ -24,61 +22,47 @@ import {
 } from './CafeMeetingSearchPage.style';
 
 import {
-  CAN_STUDY,
-  CANNOT_STUDY,
-  NOT_SPECIFIED,
-} from './CafeMeetingSearchPage.type';
+  useFilter,
+  updateContent,
+  search,
+} from './CafeMeetingSearchPage.hooks';
 
 const CafeCreateRecruitment: React.FC = () => {
+  const NOT_SPECIFIED = '무관';
+  const CAN_STUDY = '가능';
+  const CANNOT_STUDY = '불가능';
+
   const { showFitter, setShowFitter } = useFilter();
 
   const {
-    maxMemberCount,
-    setMaxMemberCount,
     onlyJoinAble,
     setOnlyJoinAble,
-    participation,
-    setParticipation,
-  } = useDatePickerStore();
+    onlyJoinAbleState,
+    setOnlyJoinAbleState,
+    maxMemberCount,
+    setMaxMemberCount,
+    maxMemberCountState,
+    setMaxMemberCountState,
+    canTalk,
+    setCanTalk,
+    canTalkState,
+    setCanTalkState,
+  } = updateContent();
+
+  const { area, setArea } = search();
 
   const handleFilterButtonClick = () => {
     setShowFitter(!showFitter);
   };
+
   const ApplyFilter = () => {
-    console.log('카공 참여 기본값', onlyJoinAble);
-    console.log('최대인원 기본값', maxMemberCount);
-
-    if (participation === CAN_STUDY) {
-      setOnlyJoinAble(true);
-    } else if (participation === CANNOT_STUDY) {
-      setOnlyJoinAble(false);
-    }
-
-    const inputElement = document.getElementById(
-      'maxMemberCount',
-    ) as HTMLInputElement;
-    if (inputElement) {
-      const parsedValue = parseInt(inputElement.value);
-      setMaxMemberCount(Number.isNaN(parsedValue) ? 0 : parsedValue);
-    }
+    setOnlyJoinAble(onlyJoinAbleState);
+    setMaxMemberCount(maxMemberCountState);
+    setCanTalk(canTalkState);
   };
 
-  const handleApplyButtonClick = () => {
-    ApplyFilter();
-    const inputElement = document.getElementById(
-      'maxMemberCount',
-    ) as HTMLInputElement;
-    setMaxMemberCount(parseInt(inputElement.value) || 0);
-  };
+  useEffect(() => {}, [onlyJoinAble, maxMemberCount, canTalk, area]);
 
-  useEffect(() => {
-    console.log('상태 변경 후 카공 참여 가능한지', onlyJoinAble);
-    console.log('상태 변경 후 최대인원', maxMemberCount);
-  }, [onlyJoinAble, maxMemberCount]);
-
-  useEffect(() => {
-    ApplyFilter();
-  }, []);
   return (
     <Screen>
       <Container>
@@ -88,6 +72,8 @@ const CafeCreateRecruitment: React.FC = () => {
             <InputField
               type="text"
               placeholder="검색어를 입력하세요 (예: 역삼동, 스타벅스 강남R점)"
+              value={area}
+              onChange={(e) => setArea(e.target.value)}
             />
           </InputContainer>
           <ButtonContainer>
@@ -106,10 +92,10 @@ const CafeCreateRecruitment: React.FC = () => {
               <StudyAvailability>
                 <ChooseFont>카공 참여 가능?</ChooseFont>
                 <Choose>
-                  <Option onClick={() => setParticipation(CAN_STUDY)}>
+                  <Option onClick={() => setOnlyJoinAbleState(true)}>
                     {CAN_STUDY}
                   </Option>
-                  <Option onClick={() => setParticipation(CANNOT_STUDY)}>
+                  <Option onClick={() => setOnlyJoinAbleState(false)}>
                     {CANNOT_STUDY}
                   </Option>
                 </Choose>
@@ -118,9 +104,13 @@ const CafeCreateRecruitment: React.FC = () => {
                 <ChooseFont>카공 최대 인원</ChooseFont>
                 <MaximumInputContainer>
                   <MaximumInput
-                    id="maxMemberCount"
                     type="number"
                     defaultValue={0}
+                    min={0}
+                    max={10}
+                    onChange={(e) =>
+                      setMaxMemberCountState(parseInt(e.target.value))
+                    }
                   />
                   명
                 </MaximumInputContainer>
@@ -128,17 +118,19 @@ const CafeCreateRecruitment: React.FC = () => {
               <StudyAvailability>
                 <ChooseFont>대화 가능?</ChooseFont>
                 <Choose>
-                  <Option>{CAN_STUDY}</Option>
-                  <Option>{CANNOT_STUDY}</Option>
-                  <Option>{NOT_SPECIFIED}</Option>
+                  <Option onClick={() => setCanTalkState('YES')}>
+                    {CAN_STUDY}
+                  </Option>
+                  <Option onClick={() => setCanTalkState('NO')}>
+                    {CANNOT_STUDY}
+                  </Option>
+                  <Option onClick={() => setCanTalkState('BOTH')}>
+                    {NOT_SPECIFIED}
+                  </Option>
                 </Choose>
               </StudyAvailability>
             </ChooseOption>
-            <ShortButton
-              message="적용"
-              color="black"
-              onClick={handleApplyButtonClick}
-            />
+            <ShortButton message="적용" color="black" onClick={ApplyFilter} />
           </FitterContainer>
         )}
       </Container>
