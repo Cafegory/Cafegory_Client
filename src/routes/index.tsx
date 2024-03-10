@@ -6,6 +6,8 @@ import CafeSearch from '../pages/CafeSearchPage/CafeSearchPage';
 import CafeSearchResult from '../pages/CafeSearchResultPage/CafeSearchResultPage';
 import CafeCreateRecruitment from '../pages/CafeCreateRecruitment/CafeCreateRecruitment';
 import CafeMeetingSearchPage from '../pages/CafeMeetingSearchPage/CafeMeetingSearchPage';
+import CafeMeetingSearchResult from '../pages/CafeMeetingSearchResultPage/CafeMeetingSearchResultPage';
+
 
 const Router: React.FC = () => {
   return (
@@ -17,6 +19,10 @@ const Router: React.FC = () => {
         <Route path="/cafeSearchResult" element={<CafeSearchResult />} />
         <Route path="/studyRecruiting" element={<CafeCreateRecruitment />} />
         <Route path="/cafeMeetingSearch" element={<CafeMeetingSearchPage />} />
+        <Route
+          path="/cafeMeetingSearchResult"
+          element={<CafeMeetingSearchResult />}
+        />
       </Routes>
     </BrowserRouter>
   );
