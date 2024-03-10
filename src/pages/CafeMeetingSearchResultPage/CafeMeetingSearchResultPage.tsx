@@ -27,6 +27,7 @@ import {
   Option,
   MaximumInputContainer,
   MaximumInput,
+  Warning,
 } from './CafeMeetingSearchResultPage.style';
 
 import {
@@ -130,6 +131,9 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     },
   ];
 
+  const maxMember = 10;
+  const minMember = 0;
+
   return (
     <Screen>
       <Container>
@@ -191,18 +195,25 @@ const CafeMeetingSearchResultPage: React.FC = () => {
                 </Choose>
               </StudyAvailability>
               <StudyAvailability>
-                <ChooseFont>카공 최대 인원</ChooseFont>
                 <MaximumInputContainer>
                   <MaximumInput
                     type="number"
                     defaultValue={0}
-                    min={0}
-                    max={10}
-                    onChange={(e) =>
-                      setMaxMemberCountState(parseInt(e.target.value))
-                    }
+                    min={minMember}
+                    max={maxMember}
+                    onChange={(e) => {
+                      const newValue = parseInt(e.target.value);
+                      if (newValue > maxMember) {
+                        setMaxMemberCountState(null);
+                      } else {
+                        setMaxMemberCountState(newValue);
+                      }
+                    }}
                   />
                   명
+                  {maxMemberCountState === null && (
+                    <Warning>1~10 이하의 숫자로 입력해주세요.</Warning>
+                  )}
                 </MaximumInputContainer>
               </StudyAvailability>
               <StudyAvailability>

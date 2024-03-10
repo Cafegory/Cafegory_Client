@@ -200,3 +200,8 @@ export const MaximumInput = styled.input`
   padding: 1%;
   font-size: 1.1rem;
 `;
+
+export const Warning = styled.span`
+  color: red;
+  font-size: 0.9rem;
+`;
