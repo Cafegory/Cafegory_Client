@@ -19,12 +19,14 @@ import {
   Option,
   MaximumInputContainer,
   MaximumInput,
+  Warning,
 } from './CafeMeetingSearchPage.style';
 
 import {
   useFilter,
   updateContent,
   search,
+  useOption,
 } from './CafeMeetingSearchPage.hooks';
 
 const CafeCreateRecruitment: React.FC = () => {
@@ -61,7 +63,25 @@ const CafeCreateRecruitment: React.FC = () => {
     setCanTalk(canTalkState);
   };
 
+  const {
+    isSelectedOnlyJoinAble,
+    setSelectedOptionOnlyJoinAble,
+    isSelecteCanTalk,
+    setSelectedCanTalk,
+  } = useOption();
+
+  const handleOnlyJoinAbleOptionClick = (value: 'TRUE' | 'FALSE') => {
+    setSelectedOptionOnlyJoinAble(value);
+  };
+
+  const handleCanTalkOptionClick = (value: 'YES' | 'NO' | 'BOTH') => {
+    setSelectedCanTalk(value);
+  };
+
   useEffect(() => {}, [onlyJoinAble, maxMemberCount, canTalk, area]);
+
+  const maxMember = 10;
+  const minMember = 0;
 
   return (
     <Screen>
@@ -92,10 +112,32 @@ const CafeCreateRecruitment: React.FC = () => {
               <StudyAvailability>
                 <ChooseFont>카공 참여 가능?</ChooseFont>
                 <Choose>
-                  <Option onClick={() => setOnlyJoinAbleState(true)}>
+                  <Option
+                    onClick={() => {
+                      handleOnlyJoinAbleOptionClick('TRUE');
+                      setOnlyJoinAbleState(true);
+                    }}
+                    style={{
+                      backgroundColor:
+                        isSelectedOnlyJoinAble === 'TRUE'
+                          ? 'rgba(0, 0, 0, 0.2)'
+                          : 'rgba(0, 0, 0, 0.05)',
+                    }}
+                  >
                     {CAN_STUDY}
                   </Option>
-                  <Option onClick={() => setOnlyJoinAbleState(false)}>
+                  <Option
+                    onClick={() => {
+                      handleOnlyJoinAbleOptionClick('FALSE');
+                      setOnlyJoinAbleState(false);
+                    }}
+                    style={{
+                      backgroundColor:
+                        isSelectedOnlyJoinAble === 'FALSE'
+                          ? 'rgba(0, 0, 0, 0.2)'
+                          : 'rgba(0, 0, 0, 0.05)',
+                    }}
+                  >
                     {CANNOT_STUDY}
                   </Option>
                 </Choose>
@@ -106,25 +148,66 @@ const CafeCreateRecruitment: React.FC = () => {
                   <MaximumInput
                     type="number"
                     defaultValue={0}
-                    min={0}
-                    max={10}
-                    onChange={(e) =>
-                      setMaxMemberCountState(parseInt(e.target.value))
-                    }
+                    min={minMember}
+                    max={maxMember}
+                    onChange={(e) => {
+                      const newValue = parseInt(e.target.value);
+                      if (newValue > maxMember) {
+                        setMaxMemberCountState(null);
+                      } else {
+                        setMaxMemberCountState(newValue);
+                      }
+                    }}
                   />
                   명
+                  {maxMemberCountState === null && (
+                    <Warning>1~10 이하의 숫자로 입력해주세요.</Warning>
+                  )}
                 </MaximumInputContainer>
               </StudyAvailability>
               <StudyAvailability>
                 <ChooseFont>대화 가능?</ChooseFont>
                 <Choose>
-                  <Option onClick={() => setCanTalkState('YES')}>
+                  <Option
+                    onClick={() => {
+                      handleCanTalkOptionClick('YES');
+                      setCanTalkState('YES');
+                    }}
+                    style={{
+                      backgroundColor:
+                        isSelecteCanTalk === 'YES'
+                          ? 'rgba(0, 0, 0, 0.2)'
+                          : 'rgba(0, 0, 0, 0.05)',
+                    }}
+                  >
                     {CAN_STUDY}
                   </Option>
-                  <Option onClick={() => setCanTalkState('NO')}>
+                  <Option
+                    onClick={() => {
+                      handleCanTalkOptionClick('NO');
+                      setCanTalkState('NO');
+                    }}
+                    style={{
+                      backgroundColor:
+                        isSelecteCanTalk === 'NO'
+                          ? 'rgba(0, 0, 0, 0.2)'
+                          : 'rgba(0, 0, 0, 0.05)',
+                    }}
+                  >
                     {CANNOT_STUDY}
                   </Option>
-                  <Option onClick={() => setCanTalkState('BOTH')}>
+                  <Option
+                    onClick={() => {
+                      handleCanTalkOptionClick('BOTH');
+                      setCanTalkState('BOTH');
+                    }}
+                    style={{
+                      backgroundColor:
+                        isSelecteCanTalk === 'BOTH'
+                          ? 'rgba(0, 0, 0, 0.2)'
+                          : 'rgba(0, 0, 0, 0.05)',
+                    }}
+                  >
                     {NOT_SPECIFIED}
                   </Option>
                 </Choose>
@@ -134,7 +217,7 @@ const CafeCreateRecruitment: React.FC = () => {
           </FitterContainer>
         )}
       </Container>
-      <Sidebar buttonColors={['white', ,]} />
+      <Sidebar buttonColors={[, 'white']} />
       <Header />
     </Screen>
   );

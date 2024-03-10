@@ -21,7 +21,7 @@ const Header: React.FC<SidebarProps> = ({ buttonColors = [] }) => {
       <SidebarButton
         backgroundColor={buttonColors[1] || ''}
         onClick={() => {
-          navigate('/study');
+          navigate('/cafeMeetingSearch');
         }}
       >
         ☕ 카공 모임 검색

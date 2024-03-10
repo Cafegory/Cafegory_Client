@@ -3,6 +3,7 @@ import {
   FilterState,
   UpdateFilterContent,
   SearchContent,
+  OptionState,
 } from './CafeMeetingSearchPage.type';
 
 export const useFilter = create<FilterState>((set) => ({
@@ -33,4 +34,13 @@ export const updateContent = create<UpdateFilterContent>((set) => ({
 export const search = create<SearchContent>((set) => ({
   area: '',
   setArea: (value) => set({ area: value }),
+}));
+
+export const useOption = create<OptionState>((set) => ({
+  isSelectedOnlyJoinAble: null,
+  setSelectedOptionOnlyJoinAble: (value) =>
+    set({ isSelectedOnlyJoinAble: value }),
+
+  isSelecteCanTalk: null,
+  setSelectedCanTalk: (value) => set({ isSelecteCanTalk: value }),
 }));

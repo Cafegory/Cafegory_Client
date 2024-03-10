@@ -27,3 +27,11 @@ export interface SearchContent {
   area: string;
   setArea: (value: string) => void;
 }
+
+export interface OptionState {
+  isSelectedOnlyJoinAble: string | null;
+  setSelectedOptionOnlyJoinAble: (value: string | null) => void;
+
+  isSelecteCanTalk: string | null;
+  setSelectedCanTalk: (value: string | null) => void;
+}
