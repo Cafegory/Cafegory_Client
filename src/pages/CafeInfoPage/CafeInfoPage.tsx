@@ -207,7 +207,12 @@ const CafeInfo: React.FC = () => {
                 src="/assets/home-page-icon.png"
                 alt="인스타 아이콘"
               />
-              {api.basicInfo.sns[0].name}|{api.basicInfo.sns[0].url}
+              {api.basicInfo.sns.map((item, index) => (
+                <>
+                  {api.basicInfo.sns[index].url}({api.basicInfo.sns[index].name}
+                  )
+                </>
+              ))}
             </InfoBox>
             <InfoBox>
               <KakaoImg src="/assets/kakao-logo.png" alt="카카오 아이콘" />
@@ -226,43 +231,28 @@ const CafeInfo: React.FC = () => {
               </NoContentContainer>
             )}
             <ReviewsBoxContainer>
-              {api.reviews.length > 0 && (
-                <ReviewsBox>
+              {api.reviews.slice(0, 2).map((review, index) => (
+                <ReviewsBox key={index}>
                   <ReviewsUpContainer>
                     <ReviewsUserContainer>
                       <ProfileImg src="/assets/profile-image.png" alt="프사" />
-                      {api.reviews[0].writer.name}({api.reviews[0].writer.id})
+                      {review.writer.name}({review.writer.id})
                     </ReviewsUserContainer>
                     <RateContainer>
-                      {[...Array(api.reviews[0].rate)].map(() => (
-                        <StarImg src="/assets/star-icon.png" alt="별 아이콘" />
-                      ))}
-                    </RateContainer>
-                  </ReviewsUpContainer>
-
-                  <ReviewsContentContainer>
-                    {api.reviews[0].content}
-                  </ReviewsContentContainer>
-                </ReviewsBox>
-              )}
-              {api.reviews.length > 1 && (
-                <ReviewsBox>
-                  <ReviewsUpContainer>
-                    <ReviewsUserContainer>
-                      <ProfileImg src="/assets/profile-image.png" alt="프사" />
-                      {api.reviews[1].writer.name}({api.reviews[1].writer.id})
-                    </ReviewsUserContainer>
-                    <RateContainer>
-                      {[...Array(api.reviews[1].rate)].map(() => (
-                        <StarImg src="/assets/star-icon.png" alt="별 아이콘" />
+                      {[...Array(review.rate)].map((_, i) => (
+                        <StarImg
+                          key={i}
+                          src="/assets/star-icon.png"
+                          alt="별 아이콘"
+                        />
                       ))}
                     </RateContainer>
                   </ReviewsUpContainer>
                   <ReviewsContentContainer>
-                    {api.reviews[1].content}
+                    {review.content}
                   </ReviewsContentContainer>
                 </ReviewsBox>
-              )}
+              ))}
             </ReviewsBoxContainer>
             {api.reviews.length > 2 && (
               <MoreButton onClick={toggleReviewModal}>
@@ -278,62 +268,31 @@ const CafeInfo: React.FC = () => {
               </NoContentContainer>
             )}
             <StudyBoxContainer>
-              {api.meetings.length > 0 && (
-                <StudyBox>
+              {api.meetings.slice(0, 2).map((meeting, index) => (
+                <StudyBox key={index}>
                   <StudyNameBox>
-                    <StudyName>{api.meetings[0].name}</StudyName>
-                    {api.meetings[0].isEnd ? (
+                    <StudyName>{meeting.name}</StudyName>
+                    {meeting.isEnd ? (
                       <>
                         <IsEndTrue>
-                          {api.meetings[0].nowMemberCount}/
-                          {api.meetings[0].maxMemberCount}
+                          {meeting.nowMemberCount}/{meeting.maxMemberCount}
                         </IsEndTrue>
                         <IsEndTrue>모집중</IsEndTrue>
                       </>
                     ) : (
                       <>
                         <IsEndFalse>
-                          {api.meetings[0].nowMemberCount}/
-                          {api.meetings[0].maxMemberCount}
+                          {meeting.nowMemberCount}/{meeting.maxMemberCount}
                         </IsEndFalse>
                         <IsEndFalse>모집 마감</IsEndFalse>
                       </>
                     )}
                   </StudyNameBox>
                   <StudyDateFont>
-                    {api.meetings[0].startDateTime}~
-                    {api.meetings[0].endDateTime}
+                    {meeting.startDateTime}~{meeting.endDateTime}
                   </StudyDateFont>
                 </StudyBox>
-              )}
-              {api.meetings.length > 1 && (
-                <StudyBox>
-                  <StudyNameBox>
-                    <StudyName>{api.meetings[0].name}</StudyName>
-                    {api.meetings[1].isEnd ? (
-                      <>
-                        <IsEndTrue>
-                          {api.meetings[1].nowMemberCount}/
-                          {api.meetings[1].maxMemberCount}
-                        </IsEndTrue>
-                        <IsEndTrue>모집중</IsEndTrue>
-                      </>
-                    ) : (
-                      <>
-                        <IsEndFalse>
-                          {api.meetings[1].nowMemberCount}/
-                          {api.meetings[1].maxMemberCount}
-                        </IsEndFalse>
-                        <IsEndFalse>모집 마감</IsEndFalse>
-                      </>
-                    )}
-                  </StudyNameBox>
-                  <StudyDateFont>
-                    {api.meetings[1].startDateTime}~
-                    {api.meetings[1].endDateTime}
-                  </StudyDateFont>
-                </StudyBox>
-              )}
+              ))}
             </StudyBoxContainer>
             {api.meetings.length > 2 && (
               <MoreButton onClick={toggleStudyModal}>
