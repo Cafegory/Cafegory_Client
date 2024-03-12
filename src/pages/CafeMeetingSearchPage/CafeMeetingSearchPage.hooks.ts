@@ -37,10 +37,10 @@ export const search = create<SearchContent>((set) => ({
 }));
 
 export const useOption = create<OptionState>((set) => ({
-  isSelectedOnlyJoinAble: null,
+  isSelectedOnlyJoinAble: 'TRUE',
   setSelectedOptionOnlyJoinAble: (value) =>
     set({ isSelectedOnlyJoinAble: value }),
 
-  isSelecteCanTalk: null,
+  isSelecteCanTalk: 'BOTH',
   setSelectedCanTalk: (value) => set({ isSelecteCanTalk: value }),
 }));

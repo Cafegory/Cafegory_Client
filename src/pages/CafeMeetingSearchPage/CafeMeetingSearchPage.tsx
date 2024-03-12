@@ -31,8 +31,8 @@ import {
 
 const CafeCreateRecruitment: React.FC = () => {
   const NOT_SPECIFIED = '무관';
-  const CAN_STUDY = '가능';
-  const CANNOT_STUDY = '불가능';
+  const Possibility = '가능';
+  const Impossibility = '불가능';
 
   const { showFitter, setShowFitter } = useFilter();
 
@@ -124,7 +124,7 @@ const CafeCreateRecruitment: React.FC = () => {
                           : 'rgba(0, 0, 0, 0.05)',
                     }}
                   >
-                    {CAN_STUDY}
+                    {Possibility}
                   </Option>
                   <Option
                     onClick={() => {
@@ -138,7 +138,7 @@ const CafeCreateRecruitment: React.FC = () => {
                           : 'rgba(0, 0, 0, 0.05)',
                     }}
                   >
-                    {CANNOT_STUDY}
+                    {Impossibility}
                   </Option>
                 </Choose>
               </StudyAvailability>
@@ -180,7 +180,7 @@ const CafeCreateRecruitment: React.FC = () => {
                           : 'rgba(0, 0, 0, 0.05)',
                     }}
                   >
-                    {CAN_STUDY}
+                    {Possibility}
                   </Option>
                   <Option
                     onClick={() => {
@@ -194,7 +194,7 @@ const CafeCreateRecruitment: React.FC = () => {
                           : 'rgba(0, 0, 0, 0.05)',
                     }}
                   >
-                    {CANNOT_STUDY}
+                    {Impossibility}
                   </Option>
                   <Option
                     onClick={() => {

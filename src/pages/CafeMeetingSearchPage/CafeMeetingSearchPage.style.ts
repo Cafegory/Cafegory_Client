@@ -127,7 +127,7 @@ export const MaximumInput = styled.input`
   &:focus {
     outline: none;
   }
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   padding: 1%;
   font-size: 1.1rem;
