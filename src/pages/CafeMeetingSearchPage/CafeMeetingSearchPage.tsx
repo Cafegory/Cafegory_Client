@@ -31,8 +31,8 @@ import {
 
 const CafeCreateRecruitment: React.FC = () => {
   const NOT_SPECIFIED = '무관';
-  const CAN_STUDY = '가능';
-  const CANNOT_STUDY = '불가능';
+  const Possibility = '가능';
+  const Impossibility = '불가능';
 
   const { showFitter, setShowFitter } = useFilter();
 
@@ -61,6 +61,7 @@ const CafeCreateRecruitment: React.FC = () => {
     setOnlyJoinAble(onlyJoinAbleState);
     setMaxMemberCount(maxMemberCountState);
     setCanTalk(canTalkState);
+    setShowFitter(false);
   };
 
   const {
@@ -124,7 +125,7 @@ const CafeCreateRecruitment: React.FC = () => {
                           : 'rgba(0, 0, 0, 0.05)',
                     }}
                   >
-                    {CAN_STUDY}
+                    {Possibility}
                   </Option>
                   <Option
                     onClick={() => {
@@ -138,7 +139,7 @@ const CafeCreateRecruitment: React.FC = () => {
                           : 'rgba(0, 0, 0, 0.05)',
                     }}
                   >
-                    {CANNOT_STUDY}
+                    {Impossibility}
                   </Option>
                 </Choose>
               </StudyAvailability>
@@ -152,15 +153,15 @@ const CafeCreateRecruitment: React.FC = () => {
                     max={maxMember}
                     onChange={(e) => {
                       const newValue = parseInt(e.target.value);
-                      if (newValue > maxMember) {
-                        setMaxMemberCountState(null);
+                      if (newValue > maxMember || newValue < 0) {
+                        setMaxMemberCount(null);
                       } else {
-                        setMaxMemberCountState(newValue);
+                        setMaxMemberCount(newValue);
                       }
                     }}
                   />
                   명
-                  {maxMemberCountState === null && (
+                  {maxMemberCount === null && (
                     <Warning>1~10 이하의 숫자로 입력해주세요.</Warning>
                   )}
                 </MaximumInputContainer>
@@ -180,7 +181,7 @@ const CafeCreateRecruitment: React.FC = () => {
                           : 'rgba(0, 0, 0, 0.05)',
                     }}
                   >
-                    {CAN_STUDY}
+                    {Possibility}
                   </Option>
                   <Option
                     onClick={() => {
@@ -194,7 +195,7 @@ const CafeCreateRecruitment: React.FC = () => {
                           : 'rgba(0, 0, 0, 0.05)',
                     }}
                   >
-                    {CANNOT_STUDY}
+                    {Impossibility}
                   </Option>
                   <Option
                     onClick={() => {

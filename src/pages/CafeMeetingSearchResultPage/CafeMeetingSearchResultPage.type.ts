@@ -29,9 +29,9 @@ export interface SearchContent {
 }
 
 export interface OptionState {
-  isSelectedOnlyJoinAble: string | null;
-  setSelectedOptionOnlyJoinAble: (value: string | null) => void;
+  isSelectedOnlyJoinAble: string;
+  setSelectedOptionOnlyJoinAble: (value: string) => void;
 
-  isSelecteCanTalk: string | null;
-  setSelectedCanTalk: (value: string | null) => void;
+  isSelecteCanTalk: string;
+  setSelectedCanTalk: (value: string) => void;
 }

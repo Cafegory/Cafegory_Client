@@ -41,8 +41,8 @@ import ShortButton from 'components/ShortButton';
 
 const CafeMeetingSearchResultPage: React.FC = () => {
   const NOT_SPECIFIED = '무관';
-  const CAN_STUDY = '가능';
-  const CANNOT_STUDY = '불가능';
+  const Possibility = '가능';
+  const Impossibility = '불가능';
   const AREA = '역삼동';
 
   const { showFitter, setShowFitter } = useFilter();
@@ -176,7 +176,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
                           : 'rgba(0, 0, 0, 0.05)',
                     }}
                   >
-                    {CAN_STUDY}
+                    {Possibility}
                   </Option>
                   <Option
                     onClick={() => {
@@ -190,11 +190,12 @@ const CafeMeetingSearchResultPage: React.FC = () => {
                           : 'rgba(0, 0, 0, 0.05)',
                     }}
                   >
-                    {CANNOT_STUDY}
+                    {Impossibility}
                   </Option>
                 </Choose>
               </StudyAvailability>
               <StudyAvailability>
+                <ChooseFont>카공 최대 인원</ChooseFont>
                 <MaximumInputContainer>
                   <MaximumInput
                     type="number"
@@ -203,15 +204,15 @@ const CafeMeetingSearchResultPage: React.FC = () => {
                     max={maxMember}
                     onChange={(e) => {
                       const newValue = parseInt(e.target.value);
-                      if (newValue > maxMember) {
-                        setMaxMemberCountState(null);
+                      if (newValue > maxMember || newValue < 0) {
+                        setMaxMemberCount(null);
                       } else {
-                        setMaxMemberCountState(newValue);
+                        setMaxMemberCount(newValue);
                       }
                     }}
                   />
                   명
-                  {maxMemberCountState === null && (
+                  {maxMemberCount === null && (
                     <Warning>1~10 이하의 숫자로 입력해주세요.</Warning>
                   )}
                 </MaximumInputContainer>
@@ -231,7 +232,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
                           : 'rgba(0, 0, 0, 0.05)',
                     }}
                   >
-                    가능
+                    {Possibility}
                   </Option>
                   <Option
                     onClick={() => {
@@ -245,7 +246,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
                           : 'rgba(0, 0, 0, 0.05)',
                     }}
                   >
-                    불가능
+                    {Impossibility}
                   </Option>
                   <Option
                     onClick={() => {
@@ -259,7 +260,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
                           : 'rgba(0, 0, 0, 0.05)',
                     }}
                   >
-                    무관
+                    {NOT_SPECIFIED}
                   </Option>
                 </Choose>
               </StudyAvailability>
