@@ -37,9 +37,9 @@ import {
   CanTalkButton,
   CanTalkButtonContainer,
   Warning,
-} from './CafeCreateRecruitment.style';
+} from './CafeCreateRecruitmentPage.style';
 
-import { OptionContent, DateTime } from './CafeCreateRecruitment.hooks';
+import { OptionContent, DateTime } from './CafeCreateRecruitmentPage.hooks';
 
 const CafeCreateRecruitment: React.FC = () => {
   const {
@@ -68,16 +68,7 @@ const CafeCreateRecruitment: React.FC = () => {
   const minMember = 0;
   const maxLength = 10;
 
-  const creatingMeeting = () => {
-    console.log('name', name);
-    console.log('maxMemberCount', maxMemberCount);
-    console.log('canTalk', canTalk);
-    console.log('startTime', startTime);
-    console.log('endTime', endTime);
-    console.log('selectedDate', selectedDate);
-    console.log('starDateTime', starDateTime);
-    console.log('endDateTime', endDateTime);
-  };
+  const creatingMeeting = () => {};
 
   const combineDateTime = (date: Date, time: number): string => {
     const formattedDate = format(date, 'yyyy-MM-dd');

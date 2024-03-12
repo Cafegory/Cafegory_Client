@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import {
   OptionContentList,
   DateTimeCombine,
-} from './CafeCreateRecruitment.type';
+} from './CafeCreateRecruitmentPage.type';
 
 export const OptionContent = create<OptionContentList>((set) => ({
   name: '',

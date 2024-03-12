@@ -147,12 +147,7 @@ const CafeSearchPage: React.FC = () => {
     setShowFitter(false);
   };
 
-  useEffect(() => {
-    console.log('시작 출력:', startTime);
-    console.log('끝 출력:', endTime);
-    console.log('가장 저렴한 음료:', minBeveragePrice);
-    console.log('최대 이용 시간:', maxTime);
-  }, [startTime, endTime, minBeveragePrice, maxTime]);
+  useEffect(() => {}, [startTime, endTime, minBeveragePrice, maxTime]);
 
   return (
     <Screen>

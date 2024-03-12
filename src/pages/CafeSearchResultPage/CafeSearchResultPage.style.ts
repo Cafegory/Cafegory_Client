@@ -52,10 +52,11 @@ export const InputContainer = styled.div`
   border-radius: 6px;
   border: 1px solid #ccc;
   width: 30%;
-  height: 50%;
+  height: 3rem;
   justify-content: space-around;
   background-color: #ffffff;
   align-items: center;
+  margin: 1rem;
 `;
 
 export const InputField = styled.input`
@@ -136,4 +137,110 @@ export const IsOpenImg = styled.img`
   position: absolute;
   width: 3rem;
   height: 2rem;
+`;
+
+export const Option = styled.div`
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+  justify-content: center;
+  width: 13%;
+  height: 70%;
+  font-weight: bold;
+  align-items: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  &:hover,
+  &.selected {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  &:active {
+    background-color: darkgray;
+  }
+`;
+
+export const CafeSearch = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  height: 25rem;
+  gap: 7%;
+`;
+
+export const FitterContainer = styled.div`
+  height: 55rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 3%;
+  margin: 5rem;
+`;
+
+export const TitleFont = styled.div`
+  margin-bottom: 2.5rem;
+  font-size: 2.3rem;
+  font-weight: 550;
+`;
+
+export const SideFont = styled.div`
+  font-size: 0.8 rem;
+`;
+
+export const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1%;
+`;
+
+export const FitterTitle = styled.div`
+  margin-bottom: 2.5rem;
+  font-size: 2.3rem;
+  font-weight: 550;
+`;
+
+export const ChooseOption = styled.div`
+  width: 60%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+`;
+
+export const StudyAvailability = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ChooseFont = styled.div`
+  font-size: 0.9rem;
+  font-weight: bold;
+`;
+export const Choose = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  gap: 1%;
+  align-items: center;
+`;
+
+export const SelectContainer = styled.select`
+  background-color: rgba(0, 0, 0, 0.2);
+  border: none;
+  width: 13%;
+  height: 70%;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  &:active {
+    background-color: darkgray;
+  }
 `;
