@@ -1,37 +1,27 @@
-import create from 'zustand';
-
-interface DatePickerState {
-  selectedDate: Date;
-  setSelectedDate: (date: Date) => void;
+export interface OptionContentList {
   name: string;
-  setName: (name: string) => void;
-  maxMemberCount: number | null;
-  setMaxMemberCount: (count: number | null) => void;
+  setName: (value: string) => void;
+
+  maxMemberCount: number;
+  setMaxMemberCount: (value: number) => void;
+
   canTalk: boolean;
-  setCanTalk: (canTalk: boolean) => void;
-  startTime: string;
-  setStartTime: (time: string) => void;
-  endTime: string;
-  setEndTime: (time: string) => void;
+  setCanTalk: (value: boolean) => void;
+
+  startTime: number;
+  setStartTime: (value: number) => void;
+
+  endTime: number;
+  setEndTime: (value: number) => void;
+
+  selectedDate: Date;
+  setSelectedDate: (value: Date) => void;
 }
 
-export const useDatePickerStore = create<DatePickerState>((set) => ({
-  selectedDate: new Date(),
-  setSelectedDate: (date: Date) => set({ selectedDate: date }),
-  name: '',
-  setName: (name: string) => set({ name }),
-  maxMemberCount: null,
-  setMaxMemberCount: (count: number | null) => {
-    if (count !== null && count >= 1 && Number.isInteger(count)) {
-      set({ maxMemberCount: count });
-    } else {
-      set({ maxMemberCount: null });
-    }
-  },
-  canTalk: true,
-  setCanTalk: (canTalk: boolean) => set({ canTalk }),
-  startTime: '00:00',
-  setStartTime: (time: string) => set({ startTime: time }),
-  endTime: '00:00',
-  setEndTime: (time: string) => set({ endTime: time }),
-}));
+export interface DateTimeCombine {
+  starDateTime: string;
+  setStarDateTime: (value: string) => void;
+
+  endDateTime: string;
+  setEndDateTime: (value: string) => void;
+}

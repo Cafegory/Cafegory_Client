@@ -204,15 +204,15 @@ const CafeMeetingSearchResultPage: React.FC = () => {
                     max={maxMember}
                     onChange={(e) => {
                       const newValue = parseInt(e.target.value);
-                      if (newValue > maxMember) {
-                        setMaxMemberCountState(null);
+                      if (newValue > maxMember || newValue < 0) {
+                        setMaxMemberCount(null);
                       } else {
-                        setMaxMemberCountState(newValue);
+                        setMaxMemberCount(newValue);
                       }
                     }}
                   />
                   명
-                  {maxMemberCountState === null && (
+                  {maxMemberCount === null && (
                     <Warning>1~10 이하의 숫자로 입력해주세요.</Warning>
                   )}
                 </MaximumInputContainer>

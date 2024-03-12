@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import DatePicker from 'react-datepicker';
 
 export const ContainerDetail = styled.div`
@@ -117,6 +118,7 @@ export const SelectContainer = styled.select`
   font-weight: bold;
   font-size: 1.1rem;
   padding: 1%;
+  cursor: pointer;
 `;
 
 export const Maximum = styled.div``;
@@ -128,7 +130,7 @@ export const MaximumInputContainer = styled.div`
 `;
 
 export const MaximumInput = styled.input`
-  width: 1.5rem;
+  width: 2.5rem;
   border: none;
   &:focus {
     outline: none;
@@ -173,4 +175,9 @@ export const ButtonContainer = styled.div`
   height: 10rem;
   justify-content: space-around;
   padding: 4%;
+`;
+
+export const Warning = styled.span`
+  color: red;
+  font-size: 0.9rem;
 `;
