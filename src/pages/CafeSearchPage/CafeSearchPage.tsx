@@ -144,6 +144,7 @@ const CafeSearchPage: React.FC = () => {
     setEndTime(endTimeState);
     setMinBeveragePrice(minBeveragePriceState);
     setMaxTime(maxTimeState);
+    setShowFitter(false);
   };
 
   useEffect(() => {

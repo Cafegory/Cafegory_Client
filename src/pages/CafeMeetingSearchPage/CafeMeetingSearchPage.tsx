@@ -61,6 +61,7 @@ const CafeCreateRecruitment: React.FC = () => {
     setOnlyJoinAble(onlyJoinAbleState);
     setMaxMemberCount(maxMemberCountState);
     setCanTalk(canTalkState);
+    setShowFitter(false);
   };
 
   const {
