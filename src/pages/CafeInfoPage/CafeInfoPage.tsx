@@ -165,6 +165,8 @@ const CafeInfo: React.FC = () => {
     ],
   };
 
+  const CreateGroup = () => {};
+
   return (
     <Screen>
       <Container>
@@ -300,7 +302,11 @@ const CafeInfo: React.FC = () => {
               </MoreButton>
             )}
           </StudyContainer>
-          <LongButton message="카공 그룹 생성하기" color="black"></LongButton>
+          <LongButton
+            message="카공 그룹 생성하기"
+            color="black"
+            onClick={CreateGroup}
+          ></LongButton>
         </CafeInfoContainer>
       </Container>
       <Sidebar buttonColors={['white', ,]} />
