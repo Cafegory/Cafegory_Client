@@ -14,23 +14,20 @@ export const TitleFont = styled.div`
   font-weight: 550;
 `;
 
-export const SideFont = styled.div`
-  font-size: 0.8 rem;
-`;
-
 export const InputContainer = styled.div`
   display: flex;
   border-radius: 10px;
   border: 1px solid #ccc;
   width: 32%;
   height: 11%;
-  justify-content: space-around;
   background-color: #ffffff;
   align-items: center;
+  display: flex;
+  justify-content: center;
 `;
 
 export const InputField = styled.input`
-  width: 80%;
+  width: 95%;
   border: none;
   font-size: 1rem;
   height: 80%;
@@ -40,12 +37,7 @@ export const InputField = styled.input`
   &::placeholder {
     font-size: 1rem;
   }
-`;
-
-export const PlaceImg = styled.img`
-  width: 1.3rem;
-  height: 1.3rem;
-  cursor: pointer;
+  display: flex;
 `;
 
 export const ButtonContainer = styled.div`
@@ -120,18 +112,28 @@ export const Option = styled.div`
   }
 `;
 
-export const SelectContainer = styled.select`
-  background-color: rgba(0, 0, 0, 0.2);
-  border: none;
-  width: 13%;
-  height: 70%;
-  border-radius: 0.5rem;
+export const MaximumInputContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 0.9rem;
-  &:active {
-    background-color: darkgray;
+  gap: 1%;
+  width: 100%;
+  height: 100%;
+`;
+
+export const MaximumInput = styled.input`
+  width: 5%;
+  height: 40%;
+  border: none;
+  &:focus {
+    outline: none;
   }
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  padding: 1%;
+  font-size: 1.1rem;
+`;
+
+export const Warning = styled.span`
+  color: red;
+  font-size: 0.9rem;
 `;
