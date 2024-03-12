@@ -12,6 +12,7 @@ import {
   RateContainer,
   TitleFont,
   CloseButton,
+  ReviewBoxContainer,
 } from './ReviewModal.style';
 import { reviewUseStore } from './ReviewModal.hooks';
 
@@ -153,30 +154,33 @@ const Review: React.FC = () => {
   return (
     <>
       <ReviewModal>
-        {api.reviews.map((review, index) => (
-          <ReviewsBox>
-            <ReviewsUpContainer>
-              <ReviewsUserContainer>
-                <ProfileImg src="/assets/profile-image.png" alt="프사" />
-                {api.reviews[index].writer.name}({api.reviews[index].writer.id})
-              </ReviewsUserContainer>
-              <RateContainer>
-                {[...Array(api.reviews[index].rate)].map(() => (
-                  <StarImg src="/assets/star-icon.png" alt="별 아이콘" />
-                ))}
-              </RateContainer>
-            </ReviewsUpContainer>
+        <TitleContainer>
+          <TitleFont>전체 리뷰 {api.reviews.length}건</TitleFont>
+          <CloseButton onClick={closeModal}>닫기</CloseButton>
+        </TitleContainer>
+        <ReviewBoxContainer>
+          {api.reviews.map((review, index) => (
+            <ReviewsBox>
+              <ReviewsUpContainer>
+                <ReviewsUserContainer>
+                  <ProfileImg src="/assets/profile-image.png" alt="프사" />
+                  {api.reviews[index].writer.name}(
+                  {api.reviews[index].writer.id})
+                </ReviewsUserContainer>
+                <RateContainer>
+                  {[...Array(api.reviews[index].rate)].map(() => (
+                    <StarImg src="/assets/star-icon.png" alt="별 아이콘" />
+                  ))}
+                </RateContainer>
+              </ReviewsUpContainer>
 
-            <ReviewsContentContainer>
-              {api.reviews[index].content}
-            </ReviewsContentContainer>
-          </ReviewsBox>
-        ))}
+              <ReviewsContentContainer>
+                {api.reviews[index].content}
+              </ReviewsContentContainer>
+            </ReviewsBox>
+          ))}
+        </ReviewBoxContainer>
       </ReviewModal>
-      <TitleContainer>
-        <TitleFont>전체 리뷰 {api.reviews.length}건</TitleFont>
-        <CloseButton onClick={closeModal}>닫기</CloseButton>
-      </TitleContainer>
       <ModalBackdrop onClick={closeModal}></ModalBackdrop>
     </>
   );

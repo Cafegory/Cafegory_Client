@@ -11,11 +11,8 @@ export const ReviewModal = styled.div`
   z-index: 100;
   display:flex;
   flex-direction: column;
-  overflow-y: auto;
-  scrollbar-width: thin;
   align-items:center;
-  gap:0.8rem;
-  padding:3rem 0 1.5rem 0;
+  padding:0 0 1.5rem 0;
 `;
 
 export const ModalBackdrop = styled.div`
@@ -27,16 +24,21 @@ export const ModalBackdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-export const TitleContainer = styled.div`
-  position: fixed;
-  z-index:200;
-  top: -100%;
-  left: 0;
-  transform: translate(-50%, -600%);
+export const ReviewBoxContainer = styled.div`
+  width:98%;
+  height:98%;
   background-color:white;
-  width:70%;
-  top: 50%;
-  left: 50%;
+  display:flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  align-items:center;
+  gap:0.8rem;
+`
+
+export const TitleContainer = styled.div`
+  background-color:white;
+  width:100%;
   height:50px;
   font-size:1.2rem;
   display:flex;

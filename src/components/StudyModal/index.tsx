@@ -174,6 +174,10 @@ const Study: React.FC = () => {
   return (
     <>
       <StudyModal>
+        <TitleContainer>
+          <TitleFont>전체 카공 모임 {api.meetings.length}건</TitleFont>
+          <CloseButton onClick={closeModal}>닫기</CloseButton>
+        </TitleContainer>
         <StudyBoxContainer>
           {api.meetings.map((meeting, index) => (
             <StudyBox>
@@ -207,10 +211,6 @@ const Study: React.FC = () => {
         </StudyBoxContainer>
       </StudyModal>
       <ModalBackdrop onClick={closeModal}></ModalBackdrop>
-      <TitleContainer>
-        <TitleFont>전체 카공 모임 {api.meetings.length}건</TitleFont>
-        <CloseButton onClick={closeModal}>닫기</CloseButton>
-      </TitleContainer>
     </>
   );
 };

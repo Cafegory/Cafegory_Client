@@ -6,16 +6,12 @@ export const StudyModal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
-  height: 50%;
+  height: 70%;
   background-color: white;
   z-index: 100;
   display:flex;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  justify-content:space-around;
-  gap:0.8rem;
-  padding:0.5rem 0 1.5rem 0;
-  flex-wrap: wrap;
+  flex-direction:column;
+  padding:0 0 1.5rem 0;
 `;
 
 export const ModalBackdrop = styled.div`
@@ -27,16 +23,22 @@ export const ModalBackdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
+export const StudyBoxContainer = styled.div`
+  width:94%;
+  height:98%;
+  display:flex;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  justify-content:space-between;
+  gap:0.8rem;
+  padding:0.5rem 0 1.5rem 0;
+  flex-wrap: wrap;
+  padding:0 3% 0 3%;
+`
+
 export const TitleContainer = styled.div`
-  position: fixed;
-  z-index:200;
-  top: -100%;
-  left: 0;
-  transform: translate(-50%, -500%);
   background-color:white;
-  width:70%;
-  top: 50%;
-  left: 50%;
+  width:100%;
   height:50px;
   font-size:1.2rem;
   display:flex;
@@ -51,14 +53,6 @@ export const CloseButton = styled.div`
   font-size:1rem;
   margin-right:1.8rem;
   cursor:pointer;
-`
-
-export const StudyBoxContainer = styled.div`
-  width:95%;
-  display:flex;
-  padding:0 1rem 0 1rem;
-  justify-content:space-between;
-  flex-wrap: wrap;
 `
 
 export const StudyBox = styled.div`
