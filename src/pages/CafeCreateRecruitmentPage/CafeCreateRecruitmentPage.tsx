@@ -8,6 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import ko from 'date-fns/locale/ko';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
+import axios from 'axios';
 
 import {
   Title,
@@ -56,7 +57,7 @@ const CafeCreateRecruitment: React.FC = () => {
     selectedDate,
     setSelectedDate,
   } = OptionContent();
-  const { starDateTime, setStarDateTime, endDateTime, setEndDateTime } =
+  const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
     DateTime();
 
   const navigate = useNavigate();
@@ -68,20 +69,46 @@ const CafeCreateRecruitment: React.FC = () => {
   const minMember = 0;
   const maxLength = 10;
 
-  const creatingMeeting = () => {};
-
   const combineDateTime = (date: Date, time: number): string => {
     const formattedDate = format(date, 'yyyy-MM-dd');
-    const formattedTime = `${time}:00`;
+    const formattedTime = time.toString().padStart(2, '0') + ':00:00';
     return `${formattedDate}T${formattedTime}`;
   };
 
   useEffect(() => {
     const newStarDateTime = combineDateTime(selectedDate, startTime);
     const newEndDateTime = combineDateTime(selectedDate, endTime);
-    setStarDateTime(newStarDateTime);
+    setStartDateTime(newStarDateTime);
     setEndDateTime(newEndDateTime);
   }, [selectedDate, startTime, selectedDate, endTime]);
+
+  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+
+  const sendData = {
+    cafeId: 1,
+    name: name,
+    startDateTime: startDateTime,
+    endDateTime: endDateTime,
+    maxMemberCount: maxMemberCount,
+    canTalk: canTalk,
+  };
+
+  const createMeeting = async () => {
+    try {
+      const response = await axios.post('/study/once', sendData, {
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const CreateMeetingClick = () => {
+    createMeeting();
+  };
 
   return (
     <Screen>
@@ -206,9 +233,13 @@ const CafeCreateRecruitment: React.FC = () => {
             <LongButton
               color="black"
               message="그룹 생성하기"
-              onClick={creatingMeeting}
+              onClick={CreateMeetingClick}
             />
-            <LongButton color="red" message="뒤로가기" onClick={handleGoBack} />
+            <LongButton
+              color="red"
+              message="뒤로가기"
+              onClick={createMeeting}
+            />
           </ButtonContainer>
         </ContainerDetail>
       </Container>

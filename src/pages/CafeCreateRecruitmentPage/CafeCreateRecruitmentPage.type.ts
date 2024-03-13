@@ -19,8 +19,8 @@ export interface OptionContentList {
 }
 
 export interface DateTimeCombine {
-  starDateTime: string;
-  setStarDateTime: (value: string) => void;
+  startDateTime: string;
+  setStartDateTime: (value: string) => void;
 
   endDateTime: string;
   setEndDateTime: (value: string) => void;
