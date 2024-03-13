@@ -83,7 +83,6 @@ const CafeCreateRecruitment: React.FC = () => {
   }, [selectedDate, startTime, selectedDate, endTime]);
 
   const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
-  console.log(accessToken);
 
   const sendData = {
     cafeId: 1,
