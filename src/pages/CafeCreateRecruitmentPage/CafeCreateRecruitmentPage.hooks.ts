@@ -26,8 +26,8 @@ export const OptionContent = create<OptionContentList>((set) => ({
 }));
 
 export const DateTime = create<DateTimeCombine>((set) => ({
-  starDateTime: 'yyyy-MM-ddThh:mm:ss',
-  setStarDateTime: (value) => set({ starDateTime: value }),
+  startDateTime: 'yyyy-MM-ddThh:mm:ss',
+  setStartDateTime: (value) => set({ startDateTime: value }),
 
   endDateTime: 'yyyy-MM-ddThh:mm:ss',
   setEndDateTime: (value) => set({ endDateTime: value }),

@@ -57,7 +57,7 @@ const CafeCreateRecruitment: React.FC = () => {
     selectedDate,
     setSelectedDate,
   } = OptionContent();
-  const { starDateTime, setStarDateTime, endDateTime, setEndDateTime } =
+  const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
     DateTime();
 
   const navigate = useNavigate();
@@ -78,7 +78,7 @@ const CafeCreateRecruitment: React.FC = () => {
   useEffect(() => {
     const newStarDateTime = combineDateTime(selectedDate, startTime);
     const newEndDateTime = combineDateTime(selectedDate, endTime);
-    setStarDateTime(newStarDateTime);
+    setStartDateTime(newStarDateTime);
     setEndDateTime(newEndDateTime);
   }, [selectedDate, startTime, selectedDate, endTime]);
 
@@ -87,7 +87,7 @@ const CafeCreateRecruitment: React.FC = () => {
   const sendData = {
     cafeId: 1,
     name: name,
-    startDateTime: starDateTime,
+    startDateTime: startDateTime,
     endDateTime: endDateTime,
     maxMemberCount: maxMemberCount,
     canTalk: canTalk,
