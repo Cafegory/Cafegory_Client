@@ -24,8 +24,11 @@ import {
   UserNameFont,
   QuestionContentFont,
   ReplyBox,
+  QuestGenerate,
+  QuestInput,
 } from './CafeMeetingInfoPage.style';
 import LongButton from 'components/LongButton';
+import ShortButton from 'components/ShortButton';
 
 const CafeMeetingInfo: React.FC = () => {
   const api = {
@@ -139,6 +142,10 @@ const CafeMeetingInfo: React.FC = () => {
           </ButtonContainer>
           <TitleContainer>
             <TitleFont>QnA</TitleFont>
+            <QuestGenerate>
+              <QuestInput placeholder="궁금한 점이 있나요?" />
+              <ShortButton color="black" message="생성" />
+            </QuestGenerate>
             {qnaApi.questions.map((question, index) => (
               <QuestionBoxContainer>
                 <QuestionBox>
