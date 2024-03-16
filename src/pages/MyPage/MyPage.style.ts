@@ -26,7 +26,7 @@ export const NameFont = styled.div`
 
 export const IntroduceFont = styled.div`
   font-size:1.2rem;
-  width:30%;
+  width:100%;
   display:flex;
   justify-content:center;
 `
