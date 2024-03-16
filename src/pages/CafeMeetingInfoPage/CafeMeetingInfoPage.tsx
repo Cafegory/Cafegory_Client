@@ -26,11 +26,26 @@ import {
   ReplyBox,
   QuestGenerate,
   QuestInput,
+  State,
+  QuestionModify,
+  QuestionDelete,
+  AnswerModify,
+  AnswerDelete,
+  Reply,
+  ReplyContainer,
+  ReplyInput,
 } from './CafeMeetingInfoPage.style';
 import LongButton from 'components/LongButton';
 import ShortButton from 'components/ShortButton';
+import axios from 'axios';
+import { createQuestion, createAnswer } from './CafeMeetingInfoPage.hook';
 
 const CafeMeetingInfo: React.FC = () => {
+  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+
+  const { question, setQuestion } = createQuestion();
+  const { answer, setAnswer } = createAnswer();
+
   const api = {
     cafeId: 1,
     id: 1,
@@ -84,6 +99,9 @@ const CafeMeetingInfo: React.FC = () => {
 
   const hi = () => {};
 
+  const QuestGenerateOnClick = () => {};
+
+  const ReplyGenerateOnClick = () => {};
   return (
     <Screen>
       <Container>
@@ -144,7 +162,11 @@ const CafeMeetingInfo: React.FC = () => {
             <TitleFont>QnA</TitleFont>
             <QuestGenerate>
               <QuestInput placeholder="궁금한 점이 있나요?" />
-              <ShortButton color="black" message="생성" />
+              <ShortButton
+                color="black"
+                message="질문 작성"
+                onClick={QuestGenerateOnClick}
+              />
             </QuestGenerate>
             {qnaApi.questions.map((question, index) => (
               <QuestionBoxContainer>
@@ -159,13 +181,29 @@ const CafeMeetingInfo: React.FC = () => {
                     </UserNameFont>
                   </QuestionBoxUser>
                   <QuestionContentFont>
-                    {qnaApi.questions[index].questionInfo.content}
+                    {qnaApi.questions[index].questionInfo.content}{' '}
+                    <State>
+                      <QuestionModify>수정</QuestionModify>|
+                      <QuestionDelete>삭제</QuestionDelete>
+                    </State>
                   </QuestionContentFont>
                 </QuestionBox>
                 <ReplyBox>
                   <div>↳</div>
                   <div>{qnaApi.questions[index].reply.content}</div>
+                  <State>
+                    <AnswerModify>수정</AnswerModify>|
+                    <AnswerDelete>삭제</AnswerDelete>
+                  </State>
                 </ReplyBox>
+                <ReplyContainer>
+                  <ReplyInput placeholder="답글을 작성해주세요"></ReplyInput>
+                  <ShortButton
+                    color="black"
+                    message="답글 작성"
+                    onClick={ReplyGenerateOnClick}
+                  />
+                </ReplyContainer>
               </QuestionBoxContainer>
             ))}
           </TitleContainer>

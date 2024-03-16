@@ -125,6 +125,8 @@ export const UserNameFont = styled.div`
 `;
 export const QuestionContentFont = styled.div`
   font-size: 1.1rem;
+  display: flex;
+  gap: 1rem;
 `;
 
 export const ReplyBox = styled.div`
@@ -150,4 +152,53 @@ export const QuestInput = styled.input`
     font-size: 1rem;
   }
   font-size: 1rem;
+`;
+
+export const State = styled.div`
+  display: flex;
+  gap: 0.2rem;
+  font-size: 0.8rem;
+  align-items: center;
+`;
+
+export const QuestionModify = styled.div`
+  cursor: pointer;
+`;
+
+export const QuestionDelete = styled.div`
+  cursor: pointer;
+`;
+
+export const AnswerModify = styled.div`
+  cursor: pointer;
+`;
+
+export const AnswerDelete = styled.div`
+  cursor: pointer;
+`;
+
+export const Reply = styled.div`
+  cursor: pointer;
+  font-size: 0.8rem;
+`;
+
+export const ReplyContainer = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+`;
+
+export const ReplyInput = styled.input`
+  width: 100%;
+  &:focus {
+    outline: none;
+  }
+  border: none;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  &::placeholder {
+    font-size: 1rem;
+  }
+  padding: 1%;
 `;
