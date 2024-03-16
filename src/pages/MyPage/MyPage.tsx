@@ -11,6 +11,7 @@ import {
   TitleFont,
 } from './MyPage.style';
 import ShortButton from 'components/ShortButton';
+import { useNavigate } from 'react-router-dom';
 
 const My: React.FC = () => {
   const api = {
@@ -18,6 +19,8 @@ const My: React.FC = () => {
     thumbnailImg: 'https://~~',
     introduction: '안녕하세요 수연이에요 ',
   };
+
+  const navigate = useNavigate();
 
   return (
     <Screen>
@@ -27,7 +30,13 @@ const My: React.FC = () => {
           <ProfileImg src={api.thumbnailImg} alt="프로필 사진"></ProfileImg>
           <NameFont>{api.name}</NameFont>
           <IntroduceFont>{api.introduction}</IntroduceFont>
-          <ShortButton message="수정하기" color="black"></ShortButton>
+          <ShortButton
+            message="수정하기"
+            color="black"
+            onClick={() => {
+              navigate('/mypageEdit');
+            }}
+          ></ShortButton>
         </MypageContainer>
       </Container>
       <Sidebar buttonColors={[, , 'white']} />
