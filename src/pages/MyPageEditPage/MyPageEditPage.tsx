@@ -13,12 +13,15 @@ import {
   TitleFont,
 } from './MyPageEditPage.style';
 import ShortButton from 'components/ShortButton';
+import { useNameStore } from './MyPageEdit.hooks';
 
 const MyPageEdit: React.FC = () => {
+  const { name, setName } = useNameStore();
+
   const api = {
-    name: '취준생',
+    name: '짱구',
     thumbnailImg: 'https://~~',
-    introduction: '안녕하세요 수연이에요 ',
+    introduction: '안녕하세요 짱구에요 ',
   };
 
   return (
@@ -28,7 +31,10 @@ const MyPageEdit: React.FC = () => {
           <TitleFont>수정하기</TitleFont>
           <InputContainer>
             <InputLabelFont>이름</InputLabelFont>
-            <NameInput value={api.name}></NameInput>
+            <NameInput
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            ></NameInput>
           </InputContainer>
           <InputContainer>
             <InputLabelFont>자기 소개</InputLabelFont>
