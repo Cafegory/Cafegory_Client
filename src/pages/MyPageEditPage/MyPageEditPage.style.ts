@@ -45,3 +45,8 @@ export const ButtonContainer = styled.div`
   justify-content:center;
   padding-top:1.5rem;
 `
+
+export const AlertFont = styled.div`
+  color:red;
+  font-size:0.9rem;
+`
