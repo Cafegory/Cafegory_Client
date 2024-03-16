@@ -13,10 +13,11 @@ import {
   TitleFont,
 } from './MyPageEditPage.style';
 import ShortButton from 'components/ShortButton';
-import { useNameStore } from './MyPageEdit.hooks';
+import { useNameStore, useIntroductionStore } from './MyPageEdit.hooks';
 
 const MyPageEdit: React.FC = () => {
   const { name, setName } = useNameStore();
+  const { introduction, setIntroduction } = useIntroductionStore();
 
   const api = {
     name: '짱구',
@@ -38,7 +39,10 @@ const MyPageEdit: React.FC = () => {
           </InputContainer>
           <InputContainer>
             <InputLabelFont>자기 소개</InputLabelFont>
-            <IntroductionInput value={api.introduction}></IntroductionInput>
+            <IntroductionInput
+              value={introduction}
+              onChange={(e) => setIntroduction(e.target.value)}
+            ></IntroductionInput>
           </InputContainer>
           <ButtonContainer>
             <ShortButton message="프로필 사진 변경" color="white"></ShortButton>

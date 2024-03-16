@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { NameState } from './MyPageEdit.type';
+import { NameState, IntroductionState } from './MyPageEdit.type';
 
 const api = {
     name: '짱구',
@@ -10,4 +10,9 @@ const api = {
 export const useNameStore = create<NameState>((set) => ({
     name: api.name, 
     setName: (newName) => set({ name: newName }),
+  }));
+
+  export const useIntroductionStore = create<IntroductionState>((set) => ({
+    introduction: api.introduction, 
+    setIntroduction: (newIntroduction) => set({ introduction: newIntroduction }),
   }));
