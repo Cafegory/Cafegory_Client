@@ -2,10 +2,6 @@ export interface FilterState {
   showFitter: boolean;
   setShowFitter: (show: boolean) => void;
 }
-export interface FilterState {
-  showFitter: boolean;
-  setShowFitter: (show: boolean) => void;
-}
 
 export interface UpdateFilterContent {
   canStudy: boolean;
@@ -53,4 +49,15 @@ export interface OptionState {
 
   isSelectedMaxTime: number;
   setSelectedMaxTime: (value: number) => void;
+}
+
+export interface PageState {
+  nowPage: number;
+  setNowPage: (value: number) => void;
+
+  maxPage: number;
+  setMaxPage: (value: number) => void;
+
+  pageSize: number;
+  setPageSize: (value: number) => void;
 }

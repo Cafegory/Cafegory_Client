@@ -75,7 +75,6 @@ export const InputField = styled.input`
 export const PlaceImg = styled.img`
   width: 2.3rem;
   height: 2.3rem;
-  cursor: pointer;
 `;
 
 export const CafeList = styled.div`

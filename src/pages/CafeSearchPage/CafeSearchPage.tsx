@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import ShortButton from 'components/ShortButton';
@@ -32,7 +32,6 @@ import {
 
 const CafeSearchPage: React.FC = () => {
   const navigate = useNavigate();
-
   const { showFitter, setShowFitter } = useFilter();
   const {
     canStudy,
@@ -147,6 +146,10 @@ const CafeSearchPage: React.FC = () => {
     setShowFitter(false);
   };
 
+  const onClickSearch = () => {
+    navigate(`/cafeSearchResult`);
+  };
+
   useEffect(() => {}, [startTime, endTime, minBeveragePrice, maxTime]);
 
   return (
@@ -170,13 +173,7 @@ const CafeSearchPage: React.FC = () => {
               color="white"
               onClick={handleFilterButtonClick}
             />
-            <ShortButton
-              message="검색"
-              color="black"
-              onClick={() => {
-                navigate('/cafeSearchResult');
-              }}
-            />
+            <ShortButton message="검색" color="black" onClick={onClickSearch} />
           </ButtonContainer>
         </CafeSearch>
         {showFitter && (

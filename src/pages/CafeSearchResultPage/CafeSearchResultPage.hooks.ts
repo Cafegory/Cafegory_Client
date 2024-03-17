@@ -4,6 +4,7 @@ import {
   UpdateFilterContent,
   SearchContent,
   OptionState,
+  PageState,
 } from './CafeSearchResultPage.type';
 
 export const useFilter = create<FilterState>((set) => ({
@@ -58,4 +59,15 @@ export const useOption = create<OptionState>((set) => ({
 
   isSelectedMaxTime: 0,
   setSelectedMaxTime: (value) => set({ isSelectedMaxTime: value }),
+}));
+
+export const usePage = create<PageState>((set) => ({
+  nowPage: 0,
+  setNowPage: (value) => set({ nowPage: value }),
+
+  maxPage: 0,
+  setMaxPage: (value) => set({ maxPage: value }),
+
+  pageSize: 0,
+  setPageSize: (value) => set({ pageSize: value }),
 }));
