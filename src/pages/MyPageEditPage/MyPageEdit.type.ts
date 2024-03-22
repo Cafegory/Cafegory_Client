@@ -7,3 +7,8 @@ export interface NameState {
     introduction: string;
     setIntroduction: (newIntroduction: string) => void;
   }
+  
+  export interface ProfileState  {
+    profilePicture: string | null;
+    setProfilePicture: (pictureUrl: string) => void;
+  };

@@ -26,16 +26,18 @@ export const InputContainer =styled.div`
 export const InputLabelFont = styled.div`
   font-size:1rem;
 `
-export const NameInput = styled.input`
+export const NameInput = styled.textarea`
   width:25rem;
   height:1.5rem;
   font-size:0.9rem;
+  resize: none;
 `
 
-export const IntroductionInput = styled.input`
+export const IntroductionInput = styled.textarea`
   width:25rem;
   height:4rem;
   font-size:0.9rem;
+  resize: none;
 `
 
 export const ButtonContainer = styled.div`
@@ -49,4 +51,9 @@ export const ButtonContainer = styled.div`
 export const AlertFont = styled.div`
   color:red;
   font-size:0.9rem;
+`
+
+export const profileImg = styled.img`
+  width:15rem;
+  height:15rem;
 `
