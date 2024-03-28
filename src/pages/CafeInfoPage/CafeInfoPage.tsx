@@ -43,12 +43,14 @@ import {
   NoContentContainer,
   NoContentText,
   HomePageImg,
+  LongButtonContainer,
 } from './CafeInfoPage.style';
 import Review from 'components/ReviewModal';
 import Study from 'components/StudyModal';
 import LongButton from 'components/LongButton';
 import { reviewUseStore } from 'components/ReviewModal/ReviewModal.hooks';
 import { studyUseStore } from 'components/StudyModal/StudyModal.hooks';
+import { useNavigate } from 'react-router-dom';
 
 const CafeInfo: React.FC = () => {
   const isReviewModalOpen = reviewUseStore((state) => state.isReviewModalOpen);
@@ -56,6 +58,8 @@ const CafeInfo: React.FC = () => {
 
   const isStudyModalOpen = studyUseStore((state) => state.isStudyModalOpen);
   const toggleStudyModal = studyUseStore((state) => state.toggleStudyModal);
+
+  const navigate = useNavigate();
 
   const api = {
     basicInfo: {
@@ -302,11 +306,20 @@ const CafeInfo: React.FC = () => {
               </MoreButton>
             )}
           </StudyContainer>
-          <LongButton
-            message="카공 그룹 생성하기"
-            color="black"
-            onClick={CreateGroup}
-          ></LongButton>
+          <LongButtonContainer>
+            <LongButton
+              message="카공 그룹 생성하기"
+              color="black"
+              onClick={CreateGroup}
+            />
+            <LongButton
+              message="리뷰 작성하기"
+              color="red"
+              onClick={() => {
+                navigate('/writeReview');
+              }}
+            />
+          </LongButtonContainer>
         </CafeInfoContainer>
       </Container>
       <Sidebar buttonColors={['white', ,]} />

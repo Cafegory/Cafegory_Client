@@ -8,6 +8,7 @@ import CafeCreateRecruitmentPage from '../pages/CafeCreateRecruitmentPage/CafeCr
 import CafeInfo from 'pages/CafeInfoPage/CafeInfoPage';
 import CafeMeetingSearchPage from '../pages/CafeMeetingSearchPage/CafeMeetingSearchPage';
 import CafeMeetingSearchResultPage from '../pages/CafeMeetingSearchResultPage/CafeMeetingSearchResultPage';
+import WriteReview from '../pages/WriteReviewPage/WriteReviewPage';
 
 const Router: React.FC = () => {
   return (
@@ -27,6 +28,7 @@ const Router: React.FC = () => {
           path="/cafeMeetingSearchResult"
           element={<CafeMeetingSearchResultPage />}
         />
+        <Route path="/writeReview" element={<WriteReview />} />
       </Routes>
     </BrowserRouter>
   );
