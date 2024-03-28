@@ -10,10 +10,12 @@ import {
   StarContainer,
   StarImg,
   WriteReviewContainer,
+  AlertFont,
 } from './WriteReviewPage.style';
-import { useRatingStore } from './WriteReviewPage.hooks';
+import { useRatingStore, useContentStore } from './WriteReviewPage.hooks';
 
 const WriteReview: React.FC = () => {
+  const { content, setContent } = useContentStore();
   const maxContentLength = 200;
   const cancel = () => {
     window.history.back();
@@ -44,7 +46,14 @@ const WriteReview: React.FC = () => {
               ></StarImg>
             ))}
           </StarContainer>
-          <ReviewContent maxLength={maxContentLength}></ReviewContent>
+          <ReviewContent
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            maxLength={maxContentLength}
+          ></ReviewContent>
+          {content.length >= maxContentLength && (
+            <AlertFont>* {maxContentLength}글자 이하로 작성해주세요.</AlertFont>
+          )}
           <ButtonContainer>
             <ShortButton message="작성하기" color="black" />
             <ShortButton message="취소" color="white" onClick={cancel} />
