@@ -11,11 +11,20 @@ import {
   StarImg,
   WriteReviewContainer,
 } from './WriteReviewPage.style';
+import { useRatingStore } from './WriteReviewPage.hooks';
 
 const WriteReview: React.FC = () => {
   const maxContentLength = 200;
   const cancel = () => {
     window.history.back();
+  };
+  const { rating, setRating } = useRatingStore();
+  const handleRatingClick = (newRating: number) => {
+    if (newRating === rating) {
+      setRating(0);
+    } else {
+      setRating(newRating);
+    }
   };
 
   return (
@@ -23,11 +32,17 @@ const WriteReview: React.FC = () => {
       <Container>
         <WriteReviewContainer>
           <StarContainer>
-            <StarImg src="/assets/gray-star-icon.png"></StarImg>
-            <StarImg src="/assets/gray-star-icon.png"></StarImg>
-            <StarImg src="/assets/gray-star-icon.png"></StarImg>
-            <StarImg src="/assets/gray-star-icon.png"></StarImg>
-            <StarImg src="/assets/gray-star-icon.png"></StarImg>
+            {[1, 2, 3, 4, 5].map((value) => (
+              <StarImg
+                key={value}
+                onClick={() => handleRatingClick(value)}
+                src={
+                  value <= rating
+                    ? '/assets/star-icon.png'
+                    : '/assets/gray-star-icon.png'
+                }
+              ></StarImg>
+            ))}
           </StarContainer>
           <ReviewContent maxLength={maxContentLength}></ReviewContent>
           <ButtonContainer>
