@@ -12,21 +12,18 @@ import { useStore } from './LoginModal.hooks';
 
 const Login: React.FC = () => {
   const toggleLoginModal = useStore((state) => state.toggleLoginModal);
-
   const closeModal = () => {
     toggleLoginModal();
   };
 
-  //env
-  const KAKAO_REST_API_KEY = '42ae3036ca22f333fa7d8b01b74bacad';
-  const KAKAO_REDIRECT_URI = 'http://localhost:3000/';
-  const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+  const KAKAO_REST_API_KEY = 'dea99a8b573d3e7052b32772749fd70a';
+  const KAKAO_REDIRECT_URI = 'http://52.78.210.204/';
+  const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}/oauth2/kakao&response_type=code`;
 
   const kakaoLoginHandler = () => {
     window.location.href = KAKAO_URL;
   };
 
-  //env
   const NAVER_REST_API_KEY = 'xCfIxbbRWciauIoFEjvc';
   const NAVER_STATE = false;
   const NAVER_REDIRECT_URI = 'http://localhost:3000/';
