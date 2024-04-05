@@ -68,10 +68,9 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     setCanTalkState,
   } = updateContent();
 
-  const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
-    DateTime();
+  const { setStartDateTime, setEndDateTime } = DateTime();
 
-  const { nowPage, setNowPage, maxPage, setMaxPage, pageSize, setPageSize } =
+  const { nowPage, setNowPage, maxPage, setMaxPage, setPageSize, pageSize } =
     usePage();
 
   const { area, setArea } = search();
@@ -267,20 +266,22 @@ const CafeMeetingSearchResultPage: React.FC = () => {
           </FitterContainer>
         )}
         <CafeList>
-          {cafeStudys.map((cafeStudys) => (
-            <List>
-              <Detail>
-                <Name>{cafeStudys.name}</Name>
-                <Adress>{cafeStudys.address}</Adress>
-                <BusinessHours>시작: {cafeStudys.startDateTime}</BusinessHours>
-                <BusinessHours>끝: {cafeStudys.endDateTime}</BusinessHours>
-                <MinBeveragePrice>상세 정보 ▷</MinBeveragePrice>
-              </Detail>
-            </List>
-          ))}
+          {cafeStudys
+            .slice((nowPage - 1) * pageSize, nowPage * pageSize)
+            .map((cafeStudy) => (
+              <List key={cafeStudy.id}>
+                <Detail>
+                  <Name>{cafeStudy.name}</Name>
+                  <Adress>{cafeStudy.address}</Adress>
+                  <BusinessHours>시작: {cafeStudy.startDateTime}</BusinessHours>
+                  <BusinessHours>끝: {cafeStudy.endDateTime}</BusinessHours>
+                  <MinBeveragePrice>상세 정보 ▷</MinBeveragePrice>
+                </Detail>
+              </List>
+            ))}
         </CafeList>
         <Pagination
-          count={Math.ceil(cafeStudys.length / pageSize)}
+          count={maxPage}
           page={nowPage}
           onChange={handlePageChange}
         />
