@@ -126,7 +126,11 @@ const CafeMeetingSearchResultPage: React.FC = () => {
       .catch((error) => {
         console.error('요청 중 에러 발생:', error);
       });
-  });
+  }, [nowPage]);
+
+  const handlePageChange = (newPage) => {
+    setNowPage(newPage);
+  };
 
   return (
     <Screen>
@@ -275,6 +279,11 @@ const CafeMeetingSearchResultPage: React.FC = () => {
             </List>
           ))}
         </CafeList>
+        <Pagination
+          count={Math.ceil(cafeStudys.length / pageSize)}
+          page={nowPage}
+          onChange={handlePageChange}
+        />
       </Container>
       <Sidebar buttonColors={[, 'white', ,]} />
       <Header />
