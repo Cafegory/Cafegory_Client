@@ -41,6 +41,7 @@ import {
 
 import ShortButton from 'components/ShortButton';
 import axios from 'axios';
+import { Pagination } from '@mui/material';
 
 const CafeMeetingSearchResultPage: React.FC = () => {
   const [cafeStudys, setCafeStudys] = useState([]);
