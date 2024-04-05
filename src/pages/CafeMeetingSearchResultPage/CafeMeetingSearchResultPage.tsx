@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
@@ -35,15 +35,20 @@ import {
   updateContent,
   search,
   useOption,
+  usePage,
+  DateTime,
 } from './CafeMeetingSearchResultPage.hooks';
 
 import ShortButton from 'components/ShortButton';
+import axios from 'axios';
 
 const CafeMeetingSearchResultPage: React.FC = () => {
+  const [cafeStudys, setCafeStudys] = useState([]);
+  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+
   const NOT_SPECIFIED = '무관';
   const Possibility = '가능';
   const Impossibility = '불가능';
-  const AREA = '역삼동';
 
   const { showFitter, setShowFitter } = useFilter();
 
@@ -61,6 +66,12 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     canTalkState,
     setCanTalkState,
   } = updateContent();
+
+  const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
+    DateTime();
+
+  const { nowPage, setNowPage, maxPage, setMaxPage, pageSize, setPageSize } =
+    usePage();
 
   const { area, setArea } = search();
 
@@ -92,59 +103,41 @@ const CafeMeetingSearchResultPage: React.FC = () => {
 
   useEffect(() => {}, [onlyJoinAble, maxMemberCount, canTalk, area]);
 
-  const API: any = [
-    {
-      cafeId: 1,
-      id: 1,
-      name: '알아서 공부하자',
-      startDateTime: 'yyyy-MM-ddThh:mm:ss',
-      endDateTime: 'yyyy-MM-ddThh:mm:ss',
-      maxMemberCount: 7,
-      nowMemberCount: 3,
-      canTalk: true,
-      canJoin: true,
-      isEnd: false,
-    },
-    {
-      cafeId: 2,
-      id: 1,
-      name: '알아서 공부하자',
-      startDateTime: 'yyyy-MM-ddThh:mm:ss',
-      endDateTime: 'yyyy-MM-ddThh:mm:ss',
-      maxMemberCount: 7,
-      nowMemberCount: 3,
-      canTalk: true,
-      canJoin: true,
-      isEnd: false,
-    },
-    {
-      cafeId: 3,
-      id: 1,
-      name: '알아서 공부하자',
-      startDateTime: 'yyyy-MM-ddThh:mm:ss',
-      endDateTime: 'yyyy-MM-ddThh:mm:ss',
-      maxMemberCount: 7,
-      nowMemberCount: 3,
-      canTalk: true,
-      canJoin: true,
-      isEnd: false,
-    },
-  ];
-
   const maxMember = 10;
   const minMember = 0;
+
+  useEffect(() => {
+    axios
+      .get('/study/once/list?area=역삼동&page=1', {
+        headers: {
+          Authorization: accessToken,
+        },
+      })
+      .then((response) => {
+        setCafeStudys(response.data.list);
+        setNowPage(response.data.nowPage);
+        setMaxPage(response.data.maxPage);
+        setPageSize(response.data.pageSize);
+        setStartDateTime(response.data.list.startDateTime);
+        setEndDateTime(response.data.list.endDateTime);
+        setArea(response.data.list[0].area);
+      })
+      .catch((error) => {
+        console.error('요청 중 에러 발생:', error);
+      });
+  });
 
   return (
     <Screen>
       <Container>
         <TitleTextContainer>
-          <AreaTextFont>{AREA}</AreaTextFont>
+          <AreaTextFont>{area}</AreaTextFont>
           <ResultTextFont>기반 카공 모임 검색 결과</ResultTextFont>
         </TitleTextContainer>
         <ResearchContainer>
           <InputContainer>
             <InputField
-              placeholder={AREA}
+              placeholder={area}
               value={area}
               onChange={(e) => setArea(e.target.value)}
             ></InputField>
@@ -269,12 +262,13 @@ const CafeMeetingSearchResultPage: React.FC = () => {
           </FitterContainer>
         )}
         <CafeList>
-          {API.map((study) => (
+          {cafeStudys.map((cafeStudys) => (
             <List>
               <Detail>
-                <Name>{study.name}</Name>
-                <Adress>서울 강남구 역삼동 스타벅스 강남R점</Adress>
-                <BusinessHours>매주 주말 09:00~18:00</BusinessHours>
+                <Name>{cafeStudys.name}</Name>
+                <Adress>{cafeStudys.address}</Adress>
+                <BusinessHours>시작: {cafeStudys.startDateTime}</BusinessHours>
+                <BusinessHours>끝: {cafeStudys.endDateTime}</BusinessHours>
                 <MinBeveragePrice>상세 정보 ▷</MinBeveragePrice>
               </Detail>
             </List>
