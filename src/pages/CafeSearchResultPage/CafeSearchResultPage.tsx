@@ -205,11 +205,12 @@ const CafeSearchResult: React.FC = () => {
         setNowPage(response.data.nowPage);
         setMaxPage(response.data.maxPage);
         setPageSize(response.data.pageSize);
+        setArea(response.data.list[0].area);
       })
       .catch((error) => {
         console.error('요청 중 에러 발생:', error);
       });
-  }, [nowPage]);
+  });
 
   const handlePageChange = (newPage) => {
     setNowPage(newPage);
