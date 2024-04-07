@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   LoginModal,
   ModalBackdrop,
@@ -17,23 +17,21 @@ const Login: React.FC = () => {
     toggleLoginModal();
   };
 
-  //env
-  const KAKAO_REST_API_KEY = '42ae3036ca22f333fa7d8b01b74bacad';
+  const NAVER_REST_API_KEY = 'xCfIxbbRWciauIoFEjvc';
+  const NAVER_STATE = false;
+  const NAVER_REDIRECT_URI = 'http://localhost:3000/';
+  const NAVER_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=lCu2oE140nmA93yKzwjb&state=HJ8nwTnQ7h&redirect_uri=http://{서버 주소}/oauth2/naver`;
+
+  const naverLoginHandler = () => {
+    window.location.href = NAVER_URL;
+  };
+
+  const KAKAO_REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const KAKAO_REDIRECT_URI = 'http://localhost:3000/';
   const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
 
   const kakaoLoginHandler = () => {
     window.location.href = KAKAO_URL;
-  };
-
-  //env
-  const NAVER_REST_API_KEY = 'xCfIxbbRWciauIoFEjvc';
-  const NAVER_STATE = false;
-  const NAVER_REDIRECT_URI = 'http://localhost:3000/';
-  const NAVER_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_REST_API_KEY}&state=${NAVER_STATE}&redirect_uri=${NAVER_REDIRECT_URI}`;
-
-  const naverLoginHandler = () => {
-    window.location.href = NAVER_URL;
   };
 
   return (
