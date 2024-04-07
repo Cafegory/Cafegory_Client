@@ -17,14 +17,10 @@ const Login: React.FC = () => {
     toggleLoginModal();
   };
 
-  // const NAVER_REST_API_KEY = 'xCfIxbbRWciauIoFEjvc';
-  // const NAVER_STATE = false;
-  // const NAVER_REDIRECT_URI = 'http://localhost:3000/';
-  // const NAVER_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=lCu2oE140nmA93yKzwjb&state=HJ8nwTnQ7h&redirect_uri=http://{서버 주소}/oauth2/naver`;
   const NAVER_REST_API_KEY = 'xCfIxbbRWciauIoFEjvc';
   const NAVER_STATE = false;
   const NAVER_REDIRECT_URI = 'http://localhost:3000/';
-  const NAVER_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=lCu2oE140nmA93yKzwjb&state=HJ8nwTnQ7h&redirect_uri=${NAVER_REDIRECT_URI}`;
+  const NAVER_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=lCu2oE140nmA93yKzwjb&state=HJ8nwTnQ7h&redirect_uri=http://{서버 주소}/oauth2/naver`;
 
   const naverLoginHandler = () => {
     window.location.href = NAVER_URL;
