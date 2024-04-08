@@ -9,12 +9,13 @@ import CafeInfo from 'pages/CafeInfoPage/CafeInfoPage';
 import CafeMeetingSearchPage from '../pages/CafeMeetingSearchPage/CafeMeetingSearchPage';
 import CafeMeetingSearchResultPage from '../pages/CafeMeetingSearchResultPage/CafeMeetingSearchResultPage';
 import MyPageEdit from 'pages/MyPageEditPage/MyPageEditPage';
+import LoginState from 'pages/Login/LoginState';
 
 const Router: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/main" element={<Main />} />
         <Route path="/my" element={<My />} />
         <Route path="/cafe" element={<CafeSearch />} />
         <Route path="/cafeSearchResult" element={<CafeSearchResultPage />} />
@@ -29,6 +30,7 @@ const Router: React.FC = () => {
           element={<CafeMeetingSearchResultPage />}
         />
         <Route path="/mypageEdit" element={<MyPageEdit />} />
+        <Route path="/" element={<LoginState />} />
       </Routes>
     </BrowserRouter>
   );
