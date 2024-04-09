@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import { parseISO } from 'date-fns';
 import {
   Title,
   Detail,
@@ -53,7 +53,6 @@ import {
   OptionContent,
   DateTime,
   Member,
-  useOption,
 } from './CafeRecruitmentModifyPage.hooks';
 
 const CafeRecruitmentModify: React.FC = () => {
@@ -78,8 +77,6 @@ const CafeRecruitmentModify: React.FC = () => {
     DateTime();
 
   const { memberName, setMemberName, thumbnailImg, setThumbnailImg } = Member();
-
-  const { isSelectedCanStudy, setSelectedCanStudy } = useOption();
 
   const navigate = useNavigate();
 
@@ -108,10 +105,6 @@ const CafeRecruitmentModify: React.FC = () => {
 
   const cafeStudyDelete = () => {};
 
-  const handleCanTalkOptionClick = (value: 'TRUE' | 'FALSE') => {
-    setSelectedCanStudy(value);
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -131,6 +124,32 @@ const CafeRecruitmentModify: React.FC = () => {
 
     fetchData();
   }, [studyOnceId]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/study/once/${studyOnceId}`, {
+          headers: {
+            Authorization: accessToken,
+          },
+        });
+        console.log(`그룹 정보 불러오기:`, response.data);
+        setName(response.data.name);
+        setMaxMemberCount(parseInt(response.data.maxMemberCount));
+        setCanTalk(response.data.canTalk);
+        setSelectedDate(parseISO(response.data.startDateTime));
+        const startTimePart = response.data.startDateTime.split('T')[1];
+        const startTime = parseInt(startTimePart.split(':')[0]);
+        setStartTime(startTime);
+        const endTimePart = response.data.endDateTime.split('T')[1];
+        const endTime = parseInt(endTimePart.split(':')[0]);
+        setEndTime(endTime);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <Screen>
@@ -204,7 +223,7 @@ const CafeRecruitmentModify: React.FC = () => {
               <MaximumInputContainer>
                 <MaximumInput
                   type="number"
-                  defaultValue={0}
+                  value={maxMemberCount || '0'}
                   min={minMember}
                   max={maxMember}
                   onChange={(e) => {
@@ -229,28 +248,24 @@ const CafeRecruitmentModify: React.FC = () => {
               <CanTalkButtonContainer>
                 <CanTalkButton
                   onClick={() => {
-                    handleCanTalkOptionClick('TRUE');
                     setCanTalk(true);
                   }}
                   style={{
-                    backgroundColor:
-                      isSelectedCanStudy === 'TRUE'
-                        ? 'rgba(0, 0, 0, 0.2)'
-                        : 'rgba(0, 0, 0, 0.05)',
+                    backgroundColor: canTalk
+                      ? 'rgba(0, 0, 0, 0.2)'
+                      : 'rgba(0, 0, 0, 0.05)',
                   }}
                 >
                   가능
                 </CanTalkButton>
                 <CanTalkButton
                   onClick={() => {
-                    handleCanTalkOptionClick('FALSE');
                     setCanTalk(false);
                   }}
                   style={{
-                    backgroundColor:
-                      isSelectedCanStudy === 'FALSE'
-                        ? 'rgba(0, 0, 0, 0.2)'
-                        : 'rgba(0, 0, 0, 0.05)',
+                    backgroundColor: !canTalk
+                      ? 'rgba(0, 0, 0, 0.2)'
+                      : 'rgba(0, 0, 0, 0.05)',
                   }}
                 >
                   불가

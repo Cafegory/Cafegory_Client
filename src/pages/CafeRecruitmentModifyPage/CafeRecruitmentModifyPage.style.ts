@@ -2,26 +2,11 @@ import styled from 'styled-components';
 
 import DatePicker from 'react-datepicker';
 
-// export const ContainerDetail = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   width: 85%;
-//   height: 100%;
-//   justify-content: space-around;
-// `;
-
 export const Title = styled.div`
   font-size: 2.4rem;
   font-weight: bold;
   margin-bottom: 4rem;
 `;
-
-// export const Detail = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-around;
-//   height: 80rem;
-// `;
 
 export const DetailName = styled.div`
   font-size: 1.3rem;
@@ -166,15 +151,6 @@ export const CanTalkButton = styled.div`
     background-color: darkgray;
   }
 `;
-
-// export const ButtonContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   height: 15rem;
-//   justify-content: space-around;
-//   padding: 4%;
-// `;
 
 export const Warning = styled.span`
   color: red;

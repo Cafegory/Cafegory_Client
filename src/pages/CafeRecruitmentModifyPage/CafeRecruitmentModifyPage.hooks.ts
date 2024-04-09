@@ -4,7 +4,6 @@ import {
   OptionContentList,
   DateTimeCombine,
   MemberList,
-  OptionState,
 } from './CafeRecruitmentModifyPage.type';
 
 export const OptionContent = create<OptionContentList>((set) => ({
@@ -41,9 +40,4 @@ export const Member = create<MemberList>((set) => ({
 
   thumbnailImg: '',
   setThumbnailImg: (value) => set({ thumbnailImg: value }),
-}));
-
-export const useOption = create<OptionState>((set) => ({
-  isSelectedCanStudy: 'TRUE',
-  setSelectedCanStudy: (value) => set({ isSelectedCanStudy: value }),
 }));

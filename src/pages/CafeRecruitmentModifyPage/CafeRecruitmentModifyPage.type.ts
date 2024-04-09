@@ -33,8 +33,3 @@ export interface MemberList {
   thumbnailImg: string;
   setThumbnailImg: (value: string) => void;
 }
-
-export interface OptionState {
-  isSelectedCanStudy: string;
-  setSelectedCanStudy: (value: string) => void;
-}
