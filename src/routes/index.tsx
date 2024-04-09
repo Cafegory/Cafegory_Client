@@ -29,7 +29,7 @@ const Router: React.FC = () => {
           element={<CafeMeetingSearchResultPage />}
         />
         <Route
-          path="/studyRecruitingModify"
+          path="/studyRecruitingModify/:studyOnceId"
           element={<CafeRecruitmentModify />}
         />
       </Routes>

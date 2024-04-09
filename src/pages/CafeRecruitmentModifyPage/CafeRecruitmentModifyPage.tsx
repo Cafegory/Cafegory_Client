@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
@@ -9,6 +9,7 @@ import ko from 'date-fns/locale/ko';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 import {
   Title,
@@ -56,6 +57,9 @@ import {
 } from './CafeRecruitmentModifyPage.hooks';
 
 const CafeRecruitmentModify: React.FC = () => {
+  const { studyOnceId } = useParams();
+  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  const [members, setMembers] = useState([]);
   const {
     name,
     setName,
@@ -104,36 +108,29 @@ const CafeRecruitmentModify: React.FC = () => {
 
   const cafeStudyDelete = () => {};
 
-  const API: any = [
-    {
-      joinedMembers: [
-        {
-          memberId: 1,
-          name: '박소정',
-          thumbnailImg: '/assets/cafe-recruitment-modify-profile.png',
-        },
-        {
-          memberId: 2,
-          name: '김수연',
-          thumbnailImg: '/assets/cafe-recruitment-modify-profile.png',
-        },
-        {
-          memberId: 3,
-          name: '임수빈',
-          thumbnailImg: '/assets/cafe-recruitment-modify-profile.png',
-        },
-        {
-          memberId: 4,
-          name: '김동현',
-          thumbnailImg: '/assets/cafe-recruitment-modify-profile.png',
-        },
-      ],
-    },
-  ];
-
   const handleCanTalkOptionClick = (value: 'TRUE' | 'FALSE') => {
     setSelectedCanStudy(value);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `/study/once//${studyOnceId}/member/list`,
+          {
+            headers: {
+              Authorization: accessToken,
+            },
+          },
+        );
+        setMembers(response.data.joinedMembers);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [studyOnceId]);
 
   return (
     <Screen>
@@ -262,8 +259,8 @@ const CafeRecruitmentModify: React.FC = () => {
             </CanTalk>
             <MemberManagement>
               <DetailName>구성원 관리</DetailName>
-              {API[0].joinedMembers.map((member, index) => (
-                <div key={member.memberId}>
+              {members.map((member, index) => (
+                <div key={index}>
                   <ManagementContainer>
                     <ProfileImg src={member.thumbnailImg} />
                     <MemberDetail>
@@ -275,7 +272,7 @@ const CafeRecruitmentModify: React.FC = () => {
                     )}
                   </ManagementContainer>
 
-                  {index < API[0].joinedMembers.length && <Underline />}
+                  {index < members[0].length && <Underline />}
                 </div>
               ))}
             </MemberManagement>
