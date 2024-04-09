@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import {
   OptionContentList,
   DateTimeCombine,
+  OptionState,
 } from './CafeCreateRecruitmentPage.type';
 
 export const OptionContent = create<OptionContentList>((set) => ({
@@ -31,4 +32,9 @@ export const DateTime = create<DateTimeCombine>((set) => ({
 
   endDateTime: 'yyyy-MM-ddThh:mm:ss',
   setEndDateTime: (value) => set({ endDateTime: value }),
+}));
+
+export const useOption = create<OptionState>((set) => ({
+  isSelectedCanStudy: 'TRUE',
+  setSelectedCanStudy: (value) => set({ isSelectedCanStudy: value }),
 }));

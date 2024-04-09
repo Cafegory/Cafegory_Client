@@ -40,7 +40,11 @@ import {
   Warning,
 } from './CafeCreateRecruitmentPage.style';
 
-import { OptionContent, DateTime } from './CafeCreateRecruitmentPage.hooks';
+import {
+  OptionContent,
+  DateTime,
+  useOption,
+} from './CafeCreateRecruitmentPage.hooks';
 
 const CafeCreateRecruitment: React.FC = () => {
   const {
@@ -59,6 +63,7 @@ const CafeCreateRecruitment: React.FC = () => {
   } = OptionContent();
   const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
     DateTime();
+  const { isSelectedCanStudy, setSelectedCanStudy } = useOption();
 
   const navigate = useNavigate();
   const handleGoBack = () => {
@@ -108,6 +113,10 @@ const CafeCreateRecruitment: React.FC = () => {
 
   const CreateMeetingClick = () => {
     createMeeting();
+  };
+
+  const handleCanTalkOptionClick = (value: 'TRUE' | 'FALSE') => {
+    setSelectedCanStudy(value);
   };
 
   return (
@@ -214,14 +223,28 @@ const CafeCreateRecruitment: React.FC = () => {
               <CanTalkButtonContainer>
                 <CanTalkButton
                   onClick={() => {
+                    handleCanTalkOptionClick('TRUE');
                     setCanTalk(true);
+                  }}
+                  style={{
+                    backgroundColor:
+                      isSelectedCanStudy === 'TRUE'
+                        ? 'rgba(0, 0, 0, 0.2)'
+                        : 'rgba(0, 0, 0, 0.05)',
                   }}
                 >
                   가능
                 </CanTalkButton>
                 <CanTalkButton
                   onClick={() => {
+                    handleCanTalkOptionClick('FALSE');
                     setCanTalk(false);
+                  }}
+                  style={{
+                    backgroundColor:
+                      isSelectedCanStudy === 'FALSE'
+                        ? 'rgba(0, 0, 0, 0.2)'
+                        : 'rgba(0, 0, 0, 0.05)',
                   }}
                 >
                   불가

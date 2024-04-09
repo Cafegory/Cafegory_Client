@@ -52,6 +52,7 @@ import {
   OptionContent,
   DateTime,
   Member,
+  useOption,
 } from './CafeRecruitmentModifyPage.hooks';
 
 const CafeRecruitmentModify: React.FC = () => {
@@ -73,6 +74,8 @@ const CafeRecruitmentModify: React.FC = () => {
     DateTime();
 
   const { memberName, setMemberName, thumbnailImg, setThumbnailImg } = Member();
+
+  const { isSelectedCanStudy, setSelectedCanStudy } = useOption();
 
   const navigate = useNavigate();
 
@@ -96,30 +99,6 @@ const CafeRecruitmentModify: React.FC = () => {
     setStartDateTime(newStarDateTime);
     setEndDateTime(newEndDateTime);
   }, [selectedDate, startTime, selectedDate, endTime]);
-
-  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
-
-  const sendData = {
-    cafeId: 1,
-    name: name,
-    startDateTime: startDateTime,
-    endDateTime: endDateTime,
-    maxMemberCount: maxMemberCount,
-    canTalk: canTalk,
-  };
-
-  const createMeeting = async () => {
-    try {
-      const response = await axios.post('/study/once', sendData, {
-        headers: {
-          Authorization: accessToken,
-        },
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const cafeStudyModifyClick = () => {};
 
@@ -151,6 +130,10 @@ const CafeRecruitmentModify: React.FC = () => {
       ],
     },
   ];
+
+  const handleCanTalkOptionClick = (value: 'TRUE' | 'FALSE') => {
+    setSelectedCanStudy(value);
+  };
 
   return (
     <Screen>
@@ -249,14 +232,28 @@ const CafeRecruitmentModify: React.FC = () => {
               <CanTalkButtonContainer>
                 <CanTalkButton
                   onClick={() => {
+                    handleCanTalkOptionClick('TRUE');
                     setCanTalk(true);
+                  }}
+                  style={{
+                    backgroundColor:
+                      isSelectedCanStudy === 'TRUE'
+                        ? 'rgba(0, 0, 0, 0.2)'
+                        : 'rgba(0, 0, 0, 0.05)',
                   }}
                 >
                   가능
                 </CanTalkButton>
                 <CanTalkButton
                   onClick={() => {
+                    handleCanTalkOptionClick('FALSE');
                     setCanTalk(false);
+                  }}
+                  style={{
+                    backgroundColor:
+                      isSelectedCanStudy === 'FALSE'
+                        ? 'rgba(0, 0, 0, 0.2)'
+                        : 'rgba(0, 0, 0, 0.05)',
                   }}
                 >
                   불가
