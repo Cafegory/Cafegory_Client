@@ -20,7 +20,7 @@ export const Detail = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 70rem;
+  height: 80rem;
 `;
 
 export const DetailName = styled.div`
@@ -198,6 +198,7 @@ export const ManagementContainer = styled.div`
   display: flex;
   gap: 1%;
   padding: 2%;
+  align-items: center;
 `;
 
 export const MemberDetail = styled.div`
@@ -208,7 +209,8 @@ export const MemberDetail = styled.div`
 `;
 
 export const MemberName = styled.div`
-  font-size: 1.4rem;
+  font-size: 1.3rem;
+  font-weight: 550;
 `;
 
 export const MemberPart = styled.div`
@@ -217,5 +219,14 @@ export const MemberPart = styled.div`
 `;
 
 export const Underline = styled.div`
-  border-bottom: 2px solid #f2f2f2;
+  border-bottom: 3px solid #f2f2f2;
+`;
+
+export const ManagementIcon = styled.img`
+  height: 2rem;
+  margin-left: auto;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
 `;

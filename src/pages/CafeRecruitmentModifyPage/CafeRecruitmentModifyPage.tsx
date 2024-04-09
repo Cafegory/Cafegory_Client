@@ -45,6 +45,7 @@ import {
   MemberName,
   MemberPart,
   Underline,
+  ManagementIcon,
 } from './CafeRecruitmentModifyPage.style';
 
 import {
@@ -120,9 +121,9 @@ const CafeRecruitmentModify: React.FC = () => {
     }
   };
 
-  const CreateMeetingClick = () => {
-    createMeeting();
-  };
+  const cafeStudyModifyClick = () => {};
+
+  const cafeStudyDelete = () => {};
 
   const API: any = [
     {
@@ -262,34 +263,41 @@ const CafeRecruitmentModify: React.FC = () => {
                 </CanTalkButton>
               </CanTalkButtonContainer>
             </CanTalk>
-            {API[0].joinedMembers.map((member, index) => (
-              <div key={member.memberId}>
-                <ManagementContainer>
-                  <ProfileImg src={member.thumbnailImg} />
-                  <MemberDetail>
-                    <MemberName>{member.name}</MemberName>
-                    <MemberPart>{index === 0 ? '팀장' : '팀원'}</MemberPart>
-                  </MemberDetail>
-                </ManagementContainer>
-                {index < API[0].joinedMembers.length - 1 && <Underline />}
-              </div>
-            ))}
+            <MemberManagement>
+              <DetailName>구성원 관리</DetailName>
+              {API[0].joinedMembers.map((member, index) => (
+                <div key={member.memberId}>
+                  <ManagementContainer>
+                    <ProfileImg src={member.thumbnailImg} />
+                    <MemberDetail>
+                      <MemberName>{member.name}</MemberName>
+                      <MemberPart>{index === 0 ? '팀장' : '팀원'}</MemberPart>
+                    </MemberDetail>
+                    {index !== 0 && (
+                      <ManagementIcon src="/assets/management-icon.png" />
+                    )}
+                  </ManagementContainer>
+
+                  {index < API[0].joinedMembers.length && <Underline />}
+                </div>
+              ))}
+            </MemberManagement>
           </Detail>
           <ButtonContainer>
             <LongButton
               color="black"
               message="저장 및 적용"
-              onClick={CreateMeetingClick}
+              onClick={cafeStudyModifyClick}
             />
             <LongButton
               color="gray"
               message="뒤로가기"
-              onClick={createMeeting}
+              onClick={handleGoBack}
             />
             <LongButton
               color="red"
               message="그룹 삭제하기"
-              onClick={createMeeting}
+              onClick={cafeStudyDelete}
             />
           </ButtonContainer>
         </ContainerDetail>
