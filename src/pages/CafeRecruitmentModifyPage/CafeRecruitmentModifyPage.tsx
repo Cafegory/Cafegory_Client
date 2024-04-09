@@ -116,7 +116,7 @@ const CafeRecruitmentModify: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `/study/once//${studyOnceId}/member/list`,
+          `/study/once/${studyOnceId}/member/list`,
           {
             headers: {
               Authorization: accessToken,
