@@ -7,6 +7,7 @@ import {
   RightDiv,
   LoginSignupLink,
   WelcomeMessageBox,
+  HambergerButton,
 } from './Header.style';
 import Login from '../LoginModal';
 import { HeaderProps } from './Header.types';
@@ -28,14 +29,18 @@ const Header: React.FC<HeaderProps> = () => {
   return (
     <>
       <HeaderContainer>
-        <LogoDiv
-          onClick={() => {
-            navigate('/');
-          }}
-        >
-          <LogoImage src="/assets/logo.jpg" alt="로고" />
+        <LogoDiv>
+          <HambergerButton src="/assets/hamberger-button.png" alt="햄버거" />
+          <LogoImage
+            onClick={() => {
+              navigate('/');
+            }}
+            src="/assets/logo.jpg"
+            alt="로고"
+          />
           <LogoFont>Cafegory.</LogoFont>
         </LogoDiv>
+
         <RightDiv>
           {isLoggedIn ? (
             <>

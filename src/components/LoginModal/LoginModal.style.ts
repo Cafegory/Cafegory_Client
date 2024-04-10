@@ -6,6 +6,7 @@ export const LoginModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  min-width:16rem;
   width: 30%;
   height: 31%;
   background-color: white;
@@ -43,11 +44,12 @@ export const LoginButtonContainer = styled.div`
 `;
 
 export const LoginButton = styled.div<LoginButtonProps & FontColorProps>`
-  height: 2.6rem;
-  width: 45%;
-  font-size: 0.8rem;
+  height: 4rem;
+  min-width:14rem;
+  width: 55%;
+  font-size: 1.1rem;
   background-color: ${(props) => props.backgroundColor || 'black'};
-  border-radius: 8px;
+  border-radius: 15px;
   display:flex;
   align-items:center;
   justify-content:center;

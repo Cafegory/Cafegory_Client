@@ -20,7 +20,16 @@ export const LogoDiv = styled.div`
   justify-content: space-around;
   cursor: pointer;
   border-radius: 20px;
-  margin-left: 1rem;
+
+  @media screen and (max-width: 768px) {
+    margin-left: 0.5rem;
+    gap:0.5rem;
+    
+  }
+
+  @media screen and (min-width: 769px) {
+    margin-left: 1rem;
+  }
 `;
 
 export const LogoImage = styled.img`
@@ -29,32 +38,66 @@ export const LogoImage = styled.img`
   height: 1.9rem;
 `;
 
+export const HambergerButton = styled.img`
+  width: 1.1rem;
+  height: 1.1rem;
+
+  @media screen and (min-width: 769px) {
+    display: none; 
+ }
+`;
+
 export const LogoFont = styled.div`
   display: flex;
   font-size: 1.4rem;
   font-weight: 450;
+
+  @media screen and (max-width: 768px) {
+     display: none; 
+  }
 `;
 
 export const RightDiv = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 2rem;
   height: 100%;
-  gap: 2rem;
+
+  @media screen and (max-width: 768px) {
+    gap: 0.5rem;
+    margin-right: 1rem;
+  }
+
+  @media screen and (min-width: 769px) {
+    gap: 2rem;
+    margin-right: 2rem;
+  }
 `;
 
 export const LoginSignupLink = styled.div`
-  font-size: 0.85rem;
   display: flex;
   height: 50%;
   align-items: center;
   border-radius: 20px;
   cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    font-size:0.75rem;
+  }
+  @media screen and (min-width: 769px) {
+    font-size:0.85rem;
+  }
 `;
 
 export const WelcomeMessageBox = styled.div`
   font-size: 0.85rem;
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 768px) {
+    font-size:0.75rem;
+  }
+  @media screen and (min-width: 769px) {
+    font-size:0.85rem;
+  }
 `;
 

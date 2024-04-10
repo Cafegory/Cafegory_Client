@@ -7,7 +7,7 @@ import Container from 'components/Basic/Container';
 const Main: React.FC = () => {
   return (
     <Screen>
-      <Sidebar buttonColors={[, ,]}></Sidebar>
+      {/* <Sidebar buttonColors={[, ,]}></Sidebar> */}
       <Container></Container>
       <Header></Header>
     </Screen>
