@@ -21,13 +21,6 @@ export const LogoDiv = styled.div`
   cursor: pointer;
   border-radius: 20px;
   margin-left: 1rem;
-
-  &:hover {
-    background-color: lightgray;
-  }
-  &:active {
-    background-color: gray;
-  }
 `;
 
 export const LogoImage = styled.img`
@@ -57,13 +50,6 @@ export const LoginSignupLink = styled.div`
   align-items: center;
   border-radius: 20px;
   cursor: pointer;
-
-  &:hover {
-    background-color: lightgray;
-  }
-  &:active {
-    background-color: gray;
-  }
 `;
 
 export const WelcomeMessageBox = styled.div`
