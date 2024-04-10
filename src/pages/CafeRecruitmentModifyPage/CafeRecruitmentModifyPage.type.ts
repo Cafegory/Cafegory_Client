@@ -26,7 +26,10 @@ export interface DateTimeCombine {
   setEndDateTime: (value: string) => void;
 }
 
-export interface OptionState {
-  isSelectedCanStudy: string;
-  setSelectedCanStudy: (value: string) => void;
+export interface MemberList {
+  memberName: string;
+  setMemberName: (value: string) => void;
+
+  thumbnailImg: string;
+  setThumbnailImg: (value: string) => void;
 }

@@ -284,3 +284,8 @@ export const NoContentContainer = styled.div`
 export const NoContentText = styled.div`
   width:100%;
 `
+export const LongButtonContainer = styled.div`
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+`
