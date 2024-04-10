@@ -38,7 +38,7 @@ export const LogoFont = styled.div`
 export const RightDiv = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 1rem;
+  margin-right: 2rem;
   height: 100%;
   gap: 2rem;
 `;
@@ -58,27 +58,3 @@ export const WelcomeMessageBox = styled.div`
   align-items: center;
 `;
 
-export const InputContainer = styled.div`
-  width: 11rem;
-  height: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-`;
-
-export const InputField = styled.input`
-  width: 100%;
-  border: none;
-  font-size: 0.7rem;
-  &:focus {
-    outline: none;
-  }
-`;
-
-export const SearchImg = styled.img`
-  width: 1.3rem;
-  height: 1.3rem;
-  cursor: pointer;
-`;

@@ -6,9 +6,6 @@ import {
   LogoFont,
   RightDiv,
   LoginSignupLink,
-  InputContainer,
-  InputField,
-  SearchImg,
   WelcomeMessageBox,
 } from './Header.style';
 import Login from '../LoginModal';
@@ -48,10 +45,6 @@ const Header: React.FC<HeaderProps> = () => {
           ) : (
             <LoginSignupLink onClick={toggleLoginModal}>로그인</LoginSignupLink>
           )}
-          <InputContainer>
-            <InputField type="text" placeholder="검색하기" />
-            <SearchImg src="/assets/search-icon.png" alt="검색 아이콘" />
-          </InputContainer>
         </RightDiv>
       </HeaderContainer>
       {isLoginModalOpen && <Login />}
