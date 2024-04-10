@@ -3,8 +3,8 @@ import { create } from 'zustand';
 import {
   OptionContentList,
   DateTimeCombine,
-  OptionState,
-} from './CafeCreateRecruitmentPage.type';
+  MemberList,
+} from './CafeRecruitmentModifyPage.type';
 
 export const OptionContent = create<OptionContentList>((set) => ({
   name: '',
@@ -34,7 +34,10 @@ export const DateTime = create<DateTimeCombine>((set) => ({
   setEndDateTime: (value) => set({ endDateTime: value }),
 }));
 
-export const useOption = create<OptionState>((set) => ({
-  isSelectedCanStudy: 'TRUE',
-  setSelectedCanStudy: (value) => set({ isSelectedCanStudy: value }),
+export const Member = create<MemberList>((set) => ({
+  memberName: '',
+  setMemberName: (value) => set({ memberName: value }),
+
+  thumbnailImg: '',
+  setThumbnailImg: (value) => set({ thumbnailImg: value }),
 }));

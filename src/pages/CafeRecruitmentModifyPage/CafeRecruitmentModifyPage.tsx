@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
@@ -9,7 +9,8 @@ import ko from 'date-fns/locale/ko';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import axios from 'axios';
-
+import { useParams } from 'react-router-dom';
+import { parseISO } from 'date-fns';
 import {
   Title,
   Detail,
@@ -38,15 +39,26 @@ import {
   CanTalkButton,
   CanTalkButtonContainer,
   Warning,
-} from './CafeCreateRecruitmentPage.style';
+  MemberManagement,
+  ProfileImg,
+  ManagementContainer,
+  MemberDetail,
+  MemberName,
+  MemberPart,
+  Underline,
+  ManagementIcon,
+} from './CafeRecruitmentModifyPage.style';
 
 import {
   OptionContent,
   DateTime,
-  useOption,
-} from './CafeCreateRecruitmentPage.hooks';
+  Member,
+} from './CafeRecruitmentModifyPage.hooks';
 
-const CafeCreateRecruitment: React.FC = () => {
+const CafeRecruitmentModify: React.FC = () => {
+  const { studyOnceId } = useParams();
+  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  const [members, setMembers] = useState([]);
   const {
     name,
     setName,
@@ -63,9 +75,11 @@ const CafeCreateRecruitment: React.FC = () => {
   } = OptionContent();
   const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
     DateTime();
-  const { isSelectedCanStudy, setSelectedCanStudy } = useOption();
+
+  const { memberName, setMemberName, thumbnailImg, setThumbnailImg } = Member();
 
   const navigate = useNavigate();
+
   const handleGoBack = () => {
     navigate(-1);
   };
@@ -87,43 +101,61 @@ const CafeCreateRecruitment: React.FC = () => {
     setEndDateTime(newEndDateTime);
   }, [selectedDate, startTime, selectedDate, endTime]);
 
-  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  const cafeStudyModifyClick = () => {};
 
-  const sendData = {
-    cafeId: 1,
-    name: name,
-    startDateTime: startDateTime,
-    endDateTime: endDateTime,
-    maxMemberCount: maxMemberCount,
-    canTalk: canTalk,
-  };
+  const cafeStudyDelete = () => {};
 
-  const createMeeting = async () => {
-    try {
-      const response = await axios.post('/study/once', sendData, {
-        headers: {
-          Authorization: accessToken,
-        },
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `/study/once/${studyOnceId}/member/list`,
+          {
+            headers: {
+              Authorization: accessToken,
+            },
+          },
+        );
+        setMembers(response.data.joinedMembers);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  const CreateMeetingClick = () => {
-    createMeeting();
-  };
+    fetchData();
+  }, [studyOnceId]);
 
-  const handleCanTalkOptionClick = (value: 'TRUE' | 'FALSE') => {
-    setSelectedCanStudy(value);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/study/once/${studyOnceId}`, {
+          headers: {
+            Authorization: accessToken,
+          },
+        });
+        console.log(`그룹 정보 불러오기:`, response.data);
+        setName(response.data.name);
+        setMaxMemberCount(parseInt(response.data.maxMemberCount));
+        setCanTalk(response.data.canTalk);
+        setSelectedDate(parseISO(response.data.startDateTime));
+        const startTimePart = response.data.startDateTime.split('T')[1];
+        const startTime = parseInt(startTimePart.split(':')[0]);
+        setStartTime(startTime);
+        const endTimePart = response.data.endDateTime.split('T')[1];
+        const endTime = parseInt(endTimePart.split(':')[0]);
+        setEndTime(endTime);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <Screen>
       <Container>
         <ContainerDetail>
-          <Title>그룹 생성하기</Title>
+          <Title>그룹 정보 수정</Title>
           <Detail>
             <GroupName>
               <DetailName>그룹명</DetailName>
@@ -142,13 +174,6 @@ const CafeCreateRecruitment: React.FC = () => {
                 </Warning>
               )}
             </GroupName>
-            <Location>
-              <DetailName>장소</DetailName>
-              <CafeInfo>
-                <CafeImg src="/assets/cafe-img.png" alt="임시 카페 사진" />
-                <CafeName>스타벅스 강남R점</CafeName>
-              </CafeInfo>
-            </Location>
             <Date>
               <DetailName>날짜</DetailName>
               <DateContatiner>
@@ -198,7 +223,7 @@ const CafeCreateRecruitment: React.FC = () => {
               <MaximumInputContainer>
                 <MaximumInput
                   type="number"
-                  defaultValue={0}
+                  value={maxMemberCount || '0'}
                   min={minMember}
                   max={maxMember}
                   onChange={(e) => {
@@ -223,45 +248,65 @@ const CafeCreateRecruitment: React.FC = () => {
               <CanTalkButtonContainer>
                 <CanTalkButton
                   onClick={() => {
-                    handleCanTalkOptionClick('TRUE');
                     setCanTalk(true);
                   }}
                   style={{
-                    backgroundColor:
-                      isSelectedCanStudy === 'TRUE'
-                        ? 'rgba(0, 0, 0, 0.2)'
-                        : 'rgba(0, 0, 0, 0.05)',
+                    backgroundColor: canTalk
+                      ? 'rgba(0, 0, 0, 0.2)'
+                      : 'rgba(0, 0, 0, 0.05)',
                   }}
                 >
                   가능
                 </CanTalkButton>
                 <CanTalkButton
                   onClick={() => {
-                    handleCanTalkOptionClick('FALSE');
                     setCanTalk(false);
                   }}
                   style={{
-                    backgroundColor:
-                      isSelectedCanStudy === 'FALSE'
-                        ? 'rgba(0, 0, 0, 0.2)'
-                        : 'rgba(0, 0, 0, 0.05)',
+                    backgroundColor: !canTalk
+                      ? 'rgba(0, 0, 0, 0.2)'
+                      : 'rgba(0, 0, 0, 0.05)',
                   }}
                 >
                   불가
                 </CanTalkButton>
               </CanTalkButtonContainer>
             </CanTalk>
+            <MemberManagement>
+              <DetailName>구성원 관리</DetailName>
+              {members.map((member, index) => (
+                <div key={index}>
+                  <ManagementContainer>
+                    <ProfileImg src={member.thumbnailImg} />
+                    <MemberDetail>
+                      <MemberName>{member.name}</MemberName>
+                      <MemberPart>{index === 0 ? '팀장' : '팀원'}</MemberPart>
+                    </MemberDetail>
+                    {index !== 0 && (
+                      <ManagementIcon src="/assets/management-icon.png" />
+                    )}
+                  </ManagementContainer>
+
+                  {index < members[0].length && <Underline />}
+                </div>
+              ))}
+            </MemberManagement>
           </Detail>
           <ButtonContainer>
             <LongButton
               color="black"
-              message="그룹 생성하기"
-              onClick={CreateMeetingClick}
+              message="저장 및 적용"
+              onClick={cafeStudyModifyClick}
+            />
+            <LongButton
+              color="gray"
+              message="뒤로가기"
+              onClick={handleGoBack}
             />
             <LongButton
               color="red"
-              message="뒤로가기"
-              onClick={createMeeting}
+              message="그룹 삭제하기"
+              onClick={cafeStudyDelete}
             />
           </ButtonContainer>
         </ContainerDetail>
@@ -272,4 +317,4 @@ const CafeCreateRecruitment: React.FC = () => {
   );
 };
 
-export default CafeCreateRecruitment;
+export default CafeRecruitmentModify;
