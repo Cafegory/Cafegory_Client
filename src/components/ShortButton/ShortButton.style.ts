@@ -23,6 +23,11 @@ export const ButtonStyle = styled.div<ShortButtonProps>`
   &:active {
     background-color: darkgray;
   }
+
+  @media (max-width: 768px) {
+    height: 2.5rem;
+    width: 40%;
+  }
 `;
 
 export const Font = styled.div<{ color: 'white' | 'black' }>`
