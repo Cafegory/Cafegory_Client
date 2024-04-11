@@ -9,15 +9,8 @@ export const CafeSearch = styled.div`
   gap: 7%;
 
   @media (max-width: 768px) {
-    height: 18rem;
+    height: 20rem;
     justify-content: center;
-    // display: flex;
-    // width: 100%;
-    // align-items: center;
-    // flex-direction: column;
-    // height: 17rem;
-    // justify-content: center;
-    // gap: 7%;
   }
 `;
 
@@ -118,7 +111,7 @@ export const FitterContainer = styled.div`
 
   @media (max-width: 768px) {
     justify-content: space-around;
-    height: 36rem;
+    height: 40rem;
   }
 `;
 
@@ -153,7 +146,7 @@ export const StudyAvailability = styled.div`
   flex-direction: column;
 
   @media (max-width: 768px) {
-    gap: 3%;
+    gap: 20%;
   }
 `;
 
