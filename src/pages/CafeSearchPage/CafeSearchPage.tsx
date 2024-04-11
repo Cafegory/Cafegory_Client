@@ -95,27 +95,23 @@ const CafeSearchPage: React.FC = () => {
   ];
 
   const renderDrinkPriceOptions = () => {
-    return (
-      <Choose>
-        {drinkPrices.map((price, index) => (
-          <Option
-            key={index}
-            onClick={() => {
-              setSelectedMinBeveragePrice(index);
-              setMinBeveragePriceState(index);
-            }}
-            style={{
-              backgroundColor:
-                isSelectedMinBeveragePrice === index
-                  ? 'rgba(0, 0, 0, 0.2)'
-                  : 'rgba(0, 0, 0, 0.05)',
-            }}
-          >
-            {price}
-          </Option>
-        ))}
-      </Choose>
-    );
+    return drinkPrices.map((price, index) => (
+      <Option
+        key={index}
+        onClick={() => {
+          setSelectedMinBeveragePrice(index);
+          setMinBeveragePriceState(index);
+        }}
+        style={{
+          backgroundColor:
+            isSelectedMinBeveragePrice === index
+              ? 'rgba(0, 0, 0, 0.2)'
+              : 'rgba(0, 0, 0, 0.05)',
+        }}
+      >
+        {price}
+      </Option>
+    ));
   };
 
   const renderUsageTimeOptions = () => {
@@ -162,7 +158,7 @@ const CafeSearchPage: React.FC = () => {
           <InputContainer>
             <InputField
               type="text"
-              placeholder="검색어를 입력하세요 (예: 역삼동)"
+              placeholder="검색어를 입력하세요 (예: 역삼동, 서초동)"
               value={area}
               onChange={(e) => setArea(e.target.value)}
             />
@@ -272,7 +268,7 @@ const CafeSearchPage: React.FC = () => {
           </FitterContainer>
         )}
       </Container>
-      {/* <Sidebar buttonColors={['white', ,]} /> */}
+      <Sidebar buttonColors={['white', ,]} />
       <Header />
     </Screen>
   );
