@@ -7,21 +7,11 @@ export const CafeSearch = styled.div`
   flex-direction: column;
   height: 25rem;
   gap: 7%;
-
-  @media (max-width: 768px) {
-    height: 20rem;
-    justify-content: center;
-  }
 `;
 
 export const TitleFont = styled.div`
   font-size: 2.3rem;
   font-weight: 550;
-
-  @media (max-width: 768px) {
-    font-size: 1.8rem;
-    font-weight: 550;
-  }
 `;
 
 export const InputContainer = styled.div`
@@ -34,15 +24,6 @@ export const InputContainer = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
-
-  @media (max-width: 768px) {
-    display: flex;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    width: 90%;
-    height: 15%;
-    justify-content: space-around;
-  }
 `;
 
 export const InputField = styled.input`
@@ -57,16 +38,6 @@ export const InputField = styled.input`
     font-size: 1rem;
   }
   display: flex;
-
-  @media (max-width: 768px) {
-    &::placeholder {
-      font-size: 0.8rem;
-    }
-    border: none;
-    &:focus {
-      outline: none;
-    }
-  }
 `;
 
 export const ButtonContainer = styled.div`
@@ -74,12 +45,6 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 1%;
-
-  @media (max-width: 768px) {
-    display: flex;
-    justify-content: center;
-    gap: 5%;
-  }
 `;
 
 export const FitterContainer = styled.div`
@@ -90,21 +55,12 @@ export const FitterContainer = styled.div`
   width: 100%;
   gap: 3%;
   margin-bottom: 5rem;
-
-  @media (max-width: 768px) {
-    height: 28rem;
-    gap: 5%;
-    justify-content: space-around;
 `;
 
 export const FitterTitle = styled.div`
   margin-bottom: 2.5rem;
   font-size: 2.3rem;
   font-weight: 550;
-
-  @media (max-width: 768px) {
-    font-size: 1.8rem;
-  }
 `;
 
 export const ChooseOption = styled.div`
@@ -113,15 +69,6 @@ export const ChooseOption = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5%;
-
-  @media (max-width: 768px) {
-    width: 90%;
-    gap: 15%;
-    margin-bottom: 2rem;
-    justify-content: center;
-    height: 37%;
-    align-items: center;
-  }
 `;
 
 export const StudyAvailability = styled.div`
@@ -129,19 +76,11 @@ export const StudyAvailability = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-
-  @media (max-width: 768px) {
-    gap: 3%;
-  }
 `;
 
 export const ChooseFont = styled.div`
   font-size: 0.9rem;
   font-weight: bold;
-
-  @media (max-width: 768px) {
-    font-size: 1.1rem;
-  }
 `;
 
 export const Choose = styled.div`
@@ -150,21 +89,15 @@ export const Choose = styled.div`
   height: 100%;
   gap: 1%;
   align-items: center;
-
-  @media (max-width: 768px) {
-    flex-wrap: wrap;
-    gap: 3%;
-  }
 `;
 
 export const Option = styled.div`
-  padding: 1%;
   display: flex;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;
   justify-content: center;
-  width: auto;
-  height: auto;
+  width: 13%;
+  height: 70%;
   font-weight: bold;
   align-items: center;
   font-size: 0.9rem;
@@ -176,14 +109,6 @@ export const Option = styled.div`
   }
   &:active {
     background-color: darkgray;
-  }
-
-  @media (max-width: 1024px) {
-    font-size: 1rem;
-    height: auto;
-    width: auto;
-    padding: 3%;
-    margin-bottom: 1%;
   }
 `;
 
@@ -202,17 +127,10 @@ export const MaximumInput = styled.input`
   &:focus {
     outline: none;
   }
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   padding: 1%;
   font-size: 1.1rem;
-
-  @media (max-width: 1024px) {
-    font-size: 1rem;
-    height: auto;
-    width: auto;
-    padding: 3%;
-  }
 `;
 
 export const Warning = styled.span`

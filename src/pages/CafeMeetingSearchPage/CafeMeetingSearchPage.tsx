@@ -162,7 +162,7 @@ const CafeCreateRecruitment: React.FC = () => {
                   />
                   명
                   {maxMemberCount === null && (
-                    <Warning>1~10 사이의 숫자로 입력해주세요.</Warning>
+                    <Warning>1~10 이하의 숫자로 입력해주세요.</Warning>
                   )}
                 </MaximumInputContainer>
               </StudyAvailability>
@@ -218,7 +218,7 @@ const CafeCreateRecruitment: React.FC = () => {
           </FitterContainer>
         )}
       </Container>
-      {/* <Sidebar buttonColors={[, 'white']} /> */}
+      <Sidebar buttonColors={[, 'white']} />
       <Header />
     </Screen>
   );
