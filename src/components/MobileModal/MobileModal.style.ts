@@ -60,14 +60,4 @@ export const Button = styled.div`
   flex-direction:column;
   justify-content:center;
   font-size:1.1rem;
-  border-bottom: 1px solid lightgray;
-`
-
-export const LastButton = styled.div`
-  width:100%;
-  height:33.3%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  font-size:1.1rem;
 `

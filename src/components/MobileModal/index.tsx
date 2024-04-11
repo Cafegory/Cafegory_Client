@@ -5,7 +5,6 @@ import {
   ButtonContainer,
   CloseButton,
   Header,
-  LastButton,
   ModalBackdrop,
   ModalContainer,
 } from './MobileModal.style';
@@ -42,14 +41,14 @@ const MobileModal: React.FC = () => {
           >
             ☕ 카공 모임 검색
           </Button>
-          <LastButton
+          <Button
             onClick={() => {
               closeModal();
               navigate('/my');
             }}
           >
             📌 마이페이지
-          </LastButton>
+          </Button>
         </ButtonContainer>
       </ModalContainer>
       <ModalBackdrop></ModalBackdrop>
