@@ -6,7 +6,6 @@ export const LoginModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width:16rem;
   width: 30%;
   height: 31%;
   background-color: white;
@@ -16,6 +15,10 @@ export const LoginModal = styled.div`
   flex-direction: column;
   border-radius: 20px;
   gap: 1rem;
+
+  @media screen and (max-width: 768px) {
+    width:90%;
+  }
 `;
 
 export const ModalBackdrop = styled.div`
@@ -45,7 +48,6 @@ export const LoginButtonContainer = styled.div`
 
 export const LoginButton = styled.div<LoginButtonProps & FontColorProps>`
   height: 4rem;
-  min-width:14rem;
   width: 55%;
   font-size: 1.1rem;
   background-color: ${(props) => props.backgroundColor || 'black'};
@@ -63,6 +65,10 @@ export const LoginButton = styled.div<LoginButtonProps & FontColorProps>`
   }
   &:active {
     background-color:gray;
+  }
+
+  @media screen and (max-width: 768px) {
+    width:85%;
   }
 `;
 

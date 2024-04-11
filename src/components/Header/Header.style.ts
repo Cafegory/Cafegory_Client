@@ -20,15 +20,12 @@ export const LogoDiv = styled.div`
   justify-content: space-around;
   cursor: pointer;
   border-radius: 20px;
+  margin-left: 1rem;
 
   @media screen and (max-width: 768px) {
     margin-left: 0.5rem;
     gap:0.5rem;
     
-  }
-
-  @media screen and (min-width: 769px) {
-    margin-left: 1rem;
   }
 `;
 
@@ -61,15 +58,12 @@ export const RightDiv = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
+  gap: 2rem;
+  margin-right: 2rem;
 
   @media screen and (max-width: 768px) {
     gap: 0.5rem;
     margin-right: 1rem;
-  }
-
-  @media screen and (min-width: 769px) {
-    gap: 2rem;
-    margin-right: 2rem;
   }
 `;
 
@@ -79,12 +73,10 @@ export const LoginSignupLink = styled.div`
   align-items: center;
   border-radius: 20px;
   cursor: pointer;
+  font-size:0.85rem;
 
   @media screen and (max-width: 768px) {
     font-size:0.75rem;
-  }
-  @media screen and (min-width: 769px) {
-    font-size:0.85rem;
   }
 `;
 
@@ -92,12 +84,10 @@ export const WelcomeMessageBox = styled.div`
   font-size: 0.85rem;
   display: flex;
   align-items: center;
+  font-size:0.85rem;
 
   @media screen and (max-width: 768px) {
     font-size:0.75rem;
-  }
-  @media screen and (min-width: 769px) {
-    font-size:0.85rem;
   }
 `;
 
