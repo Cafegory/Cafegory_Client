@@ -218,7 +218,7 @@ const CafeCreateRecruitment: React.FC = () => {
           </FitterContainer>
         )}
       </Container>
-      <Sidebar buttonColors={[, 'white']} />
+      {/* <Sidebar buttonColors={[, 'white']} /> */}
       <Header />
     </Screen>
   );
