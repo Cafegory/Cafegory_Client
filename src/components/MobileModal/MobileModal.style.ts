@@ -14,7 +14,7 @@ align-items:Center;
 flex-direction: column;
 border-radius: 20px;
 
-@media screen and (min-width: 760px) {
+@media screen and (min-width: 769px) {
   display:none;
 }
 `;
@@ -26,6 +26,10 @@ export const ModalBackdrop = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.25);
+
+  @media screen and (min-width: 768px) {
+    display:none;
+  }
 `;
 
 export const Header = styled.div`
@@ -55,7 +59,6 @@ export const Button = styled.div`
   display:flex;
   flex-direction:column;
   justify-content:center;
-  align-items:center;
   font-size:1.1rem;
   border-bottom: 1px solid lightgray;
 `
@@ -66,6 +69,5 @@ export const LastButton = styled.div`
   display:flex;
   flex-direction:column;
   justify-content:center;
-  align-items:center;
   font-size:1.1rem;
 `
