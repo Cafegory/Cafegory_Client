@@ -14,13 +14,19 @@ import { HeaderProps } from './Header.types';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../LoginModal/LoginModal.hooks';
 import { useUser } from '../../store/users/store';
+import MobileModal from 'components/MobileModal';
+import { useStoreMobile } from '../MobileModal/MobileModal.hooks';
 
 const Header: React.FC<HeaderProps> = () => {
   const navigate = useNavigate();
   const userName = '박소정';
+
   const isLoginModalOpen = useStore((state) => state.isLoginModalOpen);
   const toggleLoginModal = useStore((state) => state.toggleLoginModal);
   const { isLoggedIn, setIsLoggedIn } = useUser();
+
+  const isMobileModalOpen = useStoreMobile((state) => state.isMobileModalOpen);
+  const toggleMobileModal = useStoreMobile((state) => state.toggleMobileModal);
 
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -30,7 +36,11 @@ const Header: React.FC<HeaderProps> = () => {
     <>
       <HeaderContainer>
         <LogoDiv>
-          <HambergerButton src="/assets/hamberger-button.png" alt="햄버거" />
+          <HambergerButton
+            src="/assets/hamberger-button.png"
+            alt="햄버거"
+            onClick={toggleMobileModal}
+          />
           <LogoImage
             onClick={() => {
               navigate('/');
@@ -53,6 +63,7 @@ const Header: React.FC<HeaderProps> = () => {
         </RightDiv>
       </HeaderContainer>
       {isLoginModalOpen && <Login />}
+      {isMobileModalOpen && <MobileModal />}
     </>
   );
 };
