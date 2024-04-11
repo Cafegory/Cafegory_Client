@@ -6,14 +6,13 @@ top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
 width: 90%;
-height: 15rem;
+height: 14rem;
 background-color: white;
 z-index: 100;
 display: flex;
 align-items:Center;
 flex-direction: column;
 border-radius: 20px;
-gap: 1rem;
 
 @media screen and (min-width: 760px) {
   display:none;
@@ -43,4 +42,30 @@ export const CloseButton = styled.div`
   display:flex;
   align-items:center;
   font-weight:100;
+`
+
+export const ButtonContainer = styled.div`
+  width:70%;
+  height:70%;
+`
+
+export const Button = styled.div`
+  width:100%;
+  height:33.3%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  font-size:1.1rem;
+  border-bottom: 1px solid lightgray;
+`
+
+export const LastButton = styled.div`
+  width:100%;
+  height:33.3%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  font-size:1.1rem;
 `
