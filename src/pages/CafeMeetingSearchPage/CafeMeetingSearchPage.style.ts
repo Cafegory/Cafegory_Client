@@ -9,8 +9,7 @@ export const CafeSearch = styled.div`
   gap: 7%;
 
   @media (max-width: 768px) {
-    height: 20rem;
-    justify-content: center;
+    height: 15rem;
   }
 `;
 

@@ -9,8 +9,7 @@ export const CafeSearch = styled.div`
   gap: 7%;
 
   @media (max-width: 768px) {
-    height: 20rem;
-    justify-content: center;
+    height: 15rem;
   }
 `;
 
@@ -58,16 +57,6 @@ export const InputField = styled.input`
   }
   &::placeholder {
     font-size: 1rem;
-  }
-
-  @media (max-width: 768px) {
-    &::placeholder {
-      font-size: 0.8rem;
-    }
-    border: none;
-    &:focus {
-      outline: none;
-    }
   }
 `;
 
