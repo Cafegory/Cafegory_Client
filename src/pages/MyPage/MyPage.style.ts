@@ -7,10 +7,6 @@ export const MypageContainer = styled.div`
   gap:1.2rem;
   width:100%;
   align-items:center;
-  
-  @media (max-width: 768px) {
-    margin-top:5rem;
-  }
 `
 
 export const TitleFont = styled.div`

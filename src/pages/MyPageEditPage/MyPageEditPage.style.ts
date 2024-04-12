@@ -9,7 +9,6 @@ export const MypageEditContainer = styled.div`
   align-items:center;
 
   @media (max-width: 768px) {
-    margin-top:5rem;
     gap:0.5rem;
   }
 `

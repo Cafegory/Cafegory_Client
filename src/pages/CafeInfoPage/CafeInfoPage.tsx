@@ -100,7 +100,7 @@ const CafeInfo: React.FC = () => {
         },
         rate: 4,
         content:
-          '깔끔하고 친절해용!ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+          '깔끔하고 친절해용!ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
       },
       {
         id: 1,
