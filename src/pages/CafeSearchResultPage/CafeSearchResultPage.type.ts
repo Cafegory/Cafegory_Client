@@ -1,3 +1,5 @@
+import { BooleanLiteral } from 'typescript';
+
 export interface FilterState {
   showFitter: boolean;
   setShowFitter: (show: boolean) => void;
@@ -53,4 +55,12 @@ export interface OptionState {
 
   isSelectedMaxTime: number;
   setSelectedMaxTime: (value: number) => void;
+}
+
+export interface DetailModalState {
+  adressModalState: boolean[];
+  setAdressModalState: (value: boolean[]) => void;
+
+  businessHourModalState: boolean[];
+  setBusinessHourModalState: (value: boolean[]) => void;
 }

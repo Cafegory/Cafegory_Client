@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
@@ -31,6 +31,12 @@ import {
   ChooseFont,
   Choose,
   Option,
+  DetailModal,
+  AdressContainer,
+  AdressDetailModalContent,
+  BusinessHoursContainer,
+  BusinessHourDetailModalContent,
+  ModalBackdrop,
   SelectContainer as StyledSelectContainer,
 } from './CafeSearchResultPage.style';
 import ShortButton from 'components/ShortButton';
@@ -39,7 +45,10 @@ import {
   updateContent,
   search,
   useOption,
+  useDetailModalStates,
 } from './CafeSearchResultPage.hooks';
+
+import { useStore } from 'components/LoginModal/LoginModal.hooks';
 
 const CafeSearchResult: React.FC = () => {
   const AREA = '역삼동';
@@ -77,63 +86,19 @@ const CafeSearchResult: React.FC = () => {
     isSelectedMaxTime,
     setSelectedMaxTime,
   } = useOption();
+
+  const {
+    adressModalState,
+    setAdressModalState,
+    businessHourModalState,
+    setBusinessHourModalState,
+  } = useDetailModalStates();
+
   const handleFilterButtonClick = () => {
     setShowFitter(!showFitter);
   };
 
   const API: any = [
-    {
-      name: '로빈카페',
-      address: '경기도 용인시 수지구 풍덕천로 52 ...',
-      businessHours: [
-        {
-          day: '월',
-          startTime: '09:00',
-          endTime: '22:00',
-        },
-        {
-          day: '화',
-          startTime: '09:00',
-          endTime: '22:00',
-        },
-        {
-          day: '수',
-          startTime: '09:00',
-          endTime: '22:00',
-        },
-        {
-          day: '목',
-          startTime: '09:00',
-          endTime: '22:00',
-        },
-        {
-          day: '금',
-          startTime: '09:00',
-          endTime: '22:00',
-        },
-        {
-          day: '토',
-          startTime: '09:00',
-          endTime: '22:00',
-        },
-        {
-          day: '일',
-          startTime: '09:00',
-          endTime: '22:00',
-        },
-      ],
-      isOpen: true,
-      sns: [
-        {
-          name: 'instagram',
-          url: 'https://~~~',
-        },
-      ],
-      phone: '010-1234-5678',
-      minBeveragePrice: 3000,
-      maxTime: 3,
-      avgReviewRate: 4.1,
-    },
     {
       name: '카페 아메리카노',
       address: '서울특별시 강남구 역삼동 123-45',
@@ -203,7 +168,7 @@ const CafeSearchResult: React.FC = () => {
         {
           day: '수',
           startTime: '10:00',
-          endTime: '20:00',
+          endTime: '23:00',
         },
         {
           day: '목',
@@ -217,13 +182,13 @@ const CafeSearchResult: React.FC = () => {
         },
         {
           day: '토',
-          startTime: '12:00',
-          endTime: '18:00',
+          startTime: '10:00',
+          endTime: '20:00',
         },
         {
           day: '일',
-          startTime: '12:00',
-          endTime: '18:00',
+          startTime: '10:00',
+          endTime: '20:00',
         },
       ],
       isOpen: false,
@@ -240,32 +205,76 @@ const CafeSearchResult: React.FC = () => {
     },
   ];
 
-  const formatBusinessHours = (businessHours: any[]) => {
-    const dayHours: { [key: string]: string[] } = {};
+  //원래 코드(콤마로 구분)
+  // const formatBusinessHours = (businessHours: any[]) => {
+  //   const dayHours: { [key: string]: string[] } = {};
 
-    businessHours.forEach((hours) => {
-      const timeRange = `${hours.startTime}-${hours.endTime}`;
-      if (!dayHours[timeRange]) {
-        dayHours[timeRange] = [];
+  //   businessHours.forEach((hours) => {
+  //     const timeRange = `${hours.startTime}-${hours.endTime}`;
+  //     if (!dayHours[timeRange]) {
+  //       dayHours[timeRange] = [];
+  //     }
+  //     dayHours[timeRange].push(hours.day);
+  //   });
+
+  //   const allSameHours = Object.keys(dayHours).length === 1;
+
+  //   if (allSameHours) {
+  //     const [timeRange] = Object.keys(dayHours);
+  //     return `매일 ${timeRange}`;
+  //   } else {
+  //     const formattedHours = Object.keys(dayHours)
+  //       .map((timeRange) => {
+  //         const days = dayHours[timeRange].join(', ');
+  //         return `${days} ${timeRange}`;
+  //       })
+  //       .join('\n');
+
+  //     return formattedHours;
+  //   }
+  // };
+
+  const formatBusinessHours = (businessHours) => {
+    const daysOfWeek = ['월', '화', '수', '목', '금', '토', '일'];
+    let formattedHoursArray = [];
+
+    let sameHoursCount = 1;
+    let sameHours = false;
+    let startDayIndex = 0;
+
+    let currentFormattedHours = '';
+
+    for (let i = 0; i < businessHours.length; i++) {
+      const currentDayIndex = daysOfWeek.indexOf(businessHours[i].day);
+      const nextDayIndex = daysOfWeek.indexOf(businessHours[i + 1]?.day);
+
+      if (
+        nextDayIndex === currentDayIndex + 1 &&
+        businessHours[i].startTime === businessHours[i + 1].startTime &&
+        businessHours[i].endTime === businessHours[i + 1].endTime
+      ) {
+        sameHoursCount++;
+        sameHours = true;
+        if (sameHoursCount === 2) {
+          startDayIndex = currentDayIndex;
+        }
+      } else {
+        if (sameHours) {
+          currentFormattedHours += `${daysOfWeek[startDayIndex]}~${daysOfWeek[currentDayIndex]} ${businessHours[i].startTime}-${businessHours[i].endTime}\n`;
+          sameHours = false;
+          sameHoursCount = 1;
+        } else {
+          currentFormattedHours += `${businessHours[i].day} ${businessHours[i].startTime}-${businessHours[i].endTime}\n`;
+        }
+
+        formattedHoursArray.push(currentFormattedHours);
+
+        currentFormattedHours = '';
       }
-      dayHours[timeRange].push(hours.day);
-    });
-
-    const allSameHours = Object.keys(dayHours).length === 1;
-
-    if (allSameHours) {
-      const [timeRange] = Object.keys(dayHours);
-      return `매일 ${timeRange}`;
-    } else {
-      const formattedHours = Object.keys(dayHours)
-        .map((timeRange) => {
-          const days = dayHours[timeRange].join(', ');
-          return `${days} ${timeRange}`;
-        })
-        .join('\n');
-
-      return formattedHours;
     }
+
+    console.log(`출력: ${formattedHoursArray}`);
+    return formattedHoursArray;
   };
 
   const NOT_SPECIFIED = '무관';
@@ -345,12 +354,22 @@ const CafeSearchResult: React.FC = () => {
     setShowFitter(false);
   };
 
-  useEffect(() => {
-    console.log('시작 출력:', startTime);
-    console.log('끝 출력:', endTime);
-    console.log('가장 저렴한 음료:', minBeveragePrice);
-    console.log('최대 이용 시간:', maxTime);
-  }, [startTime, endTime, minBeveragePrice, maxTime]);
+  const handleAdressDetailModalClick = (index) => {
+    const updatedStates = [...adressModalState];
+    updatedStates[index] = !updatedStates[index];
+    setAdressModalState(updatedStates);
+  };
+
+  const handleBusinessHourDetailModalClick = (index) => {
+    const updatedStates = [...businessHourModalState];
+    updatedStates[index] = !updatedStates[index];
+    setBusinessHourModalState(updatedStates);
+  };
+
+  const closeModal = () => {
+    setAdressModalState(adressModalState.map(() => false));
+    setBusinessHourModalState(businessHourModalState.map(() => false));
+  };
 
   return (
     <Screen>
@@ -460,18 +479,61 @@ const CafeSearchResult: React.FC = () => {
           </FitterContainer>
         )}
         <CafeList>
-          {API.map((cafe) => (
-            <List>
+          {API.map((cafe, index) => (
+            <List key={index}>
               {cafe.isOpen ? (
                 <IsOpenImg src="/assets/isOpen.png" alt="영업중" />
               ) : null}
               <CafeImg src="/assets/cafeSearch-result.png" alt="카페로고" />
               <Detail>
                 <Name>{cafe.name}</Name>
-                <Adress>{cafe.address}</Adress>
-                <BusinessHours>
-                  {formatBusinessHours(cafe.businessHours)}
-                </BusinessHours>
+                <AdressContainer>
+                  <Adress>
+                    {window.innerWidth <= 768
+                      ? cafe.address.split(' ').slice(0, 3).join(' ')
+                      : cafe.address}
+                  </Adress>
+                  <DetailModal
+                    src={
+                      adressModalState[index]
+                        ? '/assets/detail-icon.png'
+                        : '/assets/detailv-icon.png'
+                    }
+                    onClick={() => handleAdressDetailModalClick(index)}
+                  />
+                </AdressContainer>
+                {adressModalState[index] && (
+                  <>
+                    <AdressDetailModalContent>
+                      {cafe.address}
+                    </AdressDetailModalContent>
+                    <ModalBackdrop onClick={closeModal}></ModalBackdrop>
+                  </>
+                )}
+                <div onClick={closeModal}></div>
+                <BusinessHoursContainer>
+                  <BusinessHours>
+                    {window.innerWidth <= 768
+                      ? formatBusinessHours(cafe.businessHours)[0]
+                      : formatBusinessHours(cafe.businessHours)}
+                  </BusinessHours>
+                  <DetailModal
+                    src={
+                      businessHourModalState[index]
+                        ? '/assets/detail-icon.png'
+                        : '/assets/detailv-icon.png'
+                    }
+                    onClick={() => handleBusinessHourDetailModalClick(index)}
+                  />
+                </BusinessHoursContainer>
+                {businessHourModalState[index] && (
+                  <>
+                    <BusinessHourDetailModalContent>
+                      {formatBusinessHours(cafe.businessHours)}
+                    </BusinessHourDetailModalContent>
+                    <ModalBackdrop onClick={closeModal}></ModalBackdrop>
+                  </>
+                )}
                 <MinBeveragePrice>
                   가장 저렴함 음료 {cafe.minBeveragePrice}원
                 </MinBeveragePrice>
