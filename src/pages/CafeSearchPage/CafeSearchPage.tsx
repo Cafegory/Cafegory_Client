@@ -95,23 +95,27 @@ const CafeSearchPage: React.FC = () => {
   ];
 
   const renderDrinkPriceOptions = () => {
-    return drinkPrices.map((price, index) => (
-      <Option
-        key={index}
-        onClick={() => {
-          setSelectedMinBeveragePrice(index);
-          setMinBeveragePriceState(index);
-        }}
-        style={{
-          backgroundColor:
-            isSelectedMinBeveragePrice === index
-              ? 'rgba(0, 0, 0, 0.2)'
-              : 'rgba(0, 0, 0, 0.05)',
-        }}
-      >
-        {price}
-      </Option>
-    ));
+    return (
+      <Choose>
+        {drinkPrices.map((price, index) => (
+          <Option
+            key={index}
+            onClick={() => {
+              setSelectedMinBeveragePrice(index);
+              setMinBeveragePriceState(index);
+            }}
+            style={{
+              backgroundColor:
+                isSelectedMinBeveragePrice === index
+                  ? 'rgba(0, 0, 0, 0.2)'
+                  : 'rgba(0, 0, 0, 0.05)',
+            }}
+          >
+            {price}
+          </Option>
+        ))}
+      </Choose>
+    );
   };
 
   const renderUsageTimeOptions = () => {
@@ -158,7 +162,7 @@ const CafeSearchPage: React.FC = () => {
           <InputContainer>
             <InputField
               type="text"
-              placeholder="검색어를 입력하세요 (예: 역삼동, 서초동)"
+              placeholder="검색어를 입력하세요 (예: 역삼동)"
               value={area}
               onChange={(e) => setArea(e.target.value)}
             />

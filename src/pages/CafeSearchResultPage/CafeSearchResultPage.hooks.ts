@@ -4,6 +4,7 @@ import {
   UpdateFilterContent,
   SearchContent,
   OptionState,
+  DetailModalState,
 } from './CafeSearchResultPage.type';
 
 export const useFilter = create<FilterState>((set) => ({
@@ -58,4 +59,12 @@ export const useOption = create<OptionState>((set) => ({
 
   isSelectedMaxTime: 0,
   setSelectedMaxTime: (value) => set({ isSelectedMaxTime: value }),
+}));
+
+export const useDetailModalStates = create<DetailModalState>((set) => ({
+  adressModalState: Array(0).fill(false),
+  setAdressModalState: (value) => set({ adressModalState: value }),
+
+  businessHourModalState: Array(0).fill(false),
+  setBusinessHourModalState: (value) => set({ businessHourModalState: value }),
 }));

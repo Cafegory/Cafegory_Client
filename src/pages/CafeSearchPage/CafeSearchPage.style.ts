@@ -7,15 +7,28 @@ export const CafeSearch = styled.div`
   flex-direction: column;
   height: 25rem;
   gap: 7%;
+
+  @media (max-width: 768px) {
+    height: 15rem;
+  }
 `;
 
 export const TitleFont = styled.div`
   font-size: 2.3rem;
   font-weight: 550;
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    font-weight: 550;
+  }
 `;
 
 export const SideFont = styled.div`
   font-size: 0.8 rem;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -27,6 +40,11 @@ export const InputContainer = styled.div`
   justify-content: space-around;
   background-color: #ffffff;
   align-items: center;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    height: 15%;
+  }
 `;
 
 export const InputField = styled.input`
@@ -53,6 +71,10 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 1%;
+
+  @media (max-width: 768px) {
+    gap: 5%;
+  }
 `;
 
 export const FitterContainer = styled.div`
@@ -63,12 +85,20 @@ export const FitterContainer = styled.div`
   width: 100%;
   gap: 3%;
   margin-bottom: 5rem;
+
+  @media (max-width: 768px) {
+    justify-content: space-around;
+    height: 40rem;
+  }
 `;
 
 export const FitterTitle = styled.div`
-  margin-bottom: 2.5rem;
   font-size: 2.3rem;
   font-weight: 550;
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
 `;
 
 export const ChooseOption = styled.div`
@@ -77,6 +107,13 @@ export const ChooseOption = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5%;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    gap: 7%;
+    margin-bottom: 2rem;
+    justify-content: space-between;
+  }
 `;
 
 export const StudyAvailability = styled.div`
@@ -84,11 +121,19 @@ export const StudyAvailability = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 768px) {
+    gap: 10%;
+  }
 `;
 
 export const ChooseFont = styled.div`
   font-size: 0.9rem;
   font-weight: bold;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
 `;
 
 export const Choose = styled.div`
@@ -97,15 +142,22 @@ export const Choose = styled.div`
   height: 100%;
   gap: 1%;
   align-items: center;
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    gap:3%
+}
+  }
 `;
 
 export const Option = styled.div`
+  padding: 1%;
   display: flex;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;
   justify-content: center;
-  width: 13%;
-  height: 70%;
+  width: auto;
+  height: auto;
   font-weight: bold;
   align-items: center;
   font-size: 0.9rem;
@@ -118,10 +170,16 @@ export const Option = styled.div`
   &:active {
     background-color: darkgray;
   }
+
+  @media (max-width: 1024px) {
+    font-size: 1rem;
+    padding: 3%;
+    margin-bottom: 1%;
+  }
 `;
 
 export const SelectContainer = styled.select`
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.05);
   border: none;
   width: 13%;
   height: 70%;
@@ -133,5 +191,13 @@ export const SelectContainer = styled.select`
   font-size: 0.9rem;
   &:active {
     background-color: darkgray;
+  }
+
+  @media (max-width: 1024px) {
+    width: 25%;
+    font-size: 1rem;
+    width: auto;
+    height: 2.5rem;
+    padding: 0.5%;
   }
 `;

@@ -35,3 +35,11 @@ export interface OptionState {
   isSelecteCanTalk: string;
   setSelectedCanTalk: (value: string) => void;
 }
+
+export interface DetailModalState {
+  adressModalState: boolean[];
+  setAdressModalState: (value: boolean[]) => void;
+
+  businessHourModalState: boolean[];
+  setBusinessHourModalState: (value: boolean[]) => void;
+}

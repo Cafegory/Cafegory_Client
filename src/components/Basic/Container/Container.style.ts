@@ -9,4 +9,10 @@ export const ContainerStyle = styled.div`
   display:flex;
   flex-direction:column;
   align-items:center;
-`
+
+  @media (max-width: 768px) {
+    width:100%;
+    margin-left:0%;
+    margin-top:5rem;
+  }
+`;

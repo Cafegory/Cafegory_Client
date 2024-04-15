@@ -21,11 +21,23 @@ export const ButtonStyle = styled.div`
   }};
   cursor: pointer;
   transition: opacity 0.3s;
-  &:hover {
-    opacity: 0.8;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  @media (max-width: 768px) {
+    height: 50px;
+    width: 100%;
   }
 `;
 export const Font = styled.div`
   font-size: 1.6rem;
   color: #ffffff;
+
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
 `;
