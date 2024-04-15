@@ -9,7 +9,8 @@ import {
   CheckImg,
   DateFont,
   LeftContainer,
-  MemberContainer,
+  MemberBox,
+  MemberBoxContainer,
   MemberInfoContainer,
   NameFont,
   PositionFont,
@@ -58,21 +59,23 @@ const Attendance: React.FC = () => {
             {year}년 {month}월 {day}일 {dayOfWeekString}요일
           </DateFont>
           <TitleFont>출결 관리</TitleFont>
-          {api.states.map((item) => (
-            <MemberContainer>
-              <LeftContainer>
-                <ThumbnailImg src="../assets/cafe-img.png"></ThumbnailImg>
-                <MemberInfoContainer>
-                  <NameFont>수빈</NameFont>
-                  <PositionFont>팀장</PositionFont>
-                </MemberInfoContainer>
-              </LeftContainer>
-              <AttendanceStateContainer>
-                <CheckImg src="../assets/check-false.png"></CheckImg>
-                <CheckImg src="../assets/x-true.png"></CheckImg>
-              </AttendanceStateContainer>
-            </MemberContainer>
-          ))}
+          <MemberBoxContainer>
+            {api.states.map((item) => (
+              <MemberBox>
+                <LeftContainer>
+                  <ThumbnailImg src="../assets/cafe-img.png"></ThumbnailImg>
+                  <MemberInfoContainer>
+                    <NameFont>수빈</NameFont>
+                    <PositionFont>팀장</PositionFont>
+                  </MemberInfoContainer>
+                </LeftContainer>
+                <AttendanceStateContainer>
+                  <CheckImg src="../assets/check-false.png"></CheckImg>
+                  <CheckImg src="../assets/x-true.png"></CheckImg>
+                </AttendanceStateContainer>
+              </MemberBox>
+            ))}
+          </MemberBoxContainer>
           <LongButton
             message="출석부 저장"
             color="black"
