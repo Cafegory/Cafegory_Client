@@ -1,23 +1,5 @@
 import styled from 'styled-components';
 
-// export const MainScreen = styled.div`
-//   background-color: white;
-//   min-height: 100vh;
-//   width: 100%;
-//   display: flex;
-//   overflow-y: auto;
-// `;
-
-// export const Container = styled.div`
-//   width: 83.9%;
-//   height: 100%;
-//   margin-left: 16%;
-//   margin-top: 7%;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// `;
-
 export const TitleTextContainer = styled.div`
   width: 100%;
   height: 4rem;
@@ -165,30 +147,31 @@ export const Choose = styled.div`
 `;
 
 export const Option = styled.div`
-padding: 1%;
-display: flex;
-background-color: rgba(0, 0, 0, 0.05);
-border-radius: 0.5rem;
-justify-content: center;
-width: auto;
-height: auto;
-font-weight: bold;
-align-items: center;
-font-size: 0.9rem;
-cursor: pointer;
-transition: background-color 0.3s;
-&:hover,
-&.selected {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-&:active {
-  background-color: darkgray;
-}
+  padding: 1%;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  font-weight: bold;
+  align-items: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  &:hover,
+  &.selected {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  &:active {
+    background-color: darkgray;
+  }
 
-@media (max-width: 1024px) {
-  font-size: 1rem;
-  padding: 3%;
-  margin-bottom: 1%;
+  @media (max-width: 1024px) {
+    font-size: 1rem;
+    padding: 3%;
+    margin-bottom: 1%;
+  }
 `;
 
 export const CafeSearch = styled.div`
