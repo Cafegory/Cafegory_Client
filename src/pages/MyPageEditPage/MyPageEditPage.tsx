@@ -25,7 +25,7 @@ const MyPageEdit: React.FC = () => {
   const { name, setName } = useNameStore();
   const { introduction, setIntroduction } = useIntroductionStore();
   const maxNameLength = 8;
-  const maxIntroductionLength = 50;
+  const maxIntroductionLength = 300;
   const { profilePicture, setProfilePicture } = useProfileStore();
   const onChange = (e) => {
     if (e.target.files[0]) {
@@ -74,7 +74,7 @@ const MyPageEdit: React.FC = () => {
           </InputContainer>
           <ButtonContainer>
             <ShortButton
-              message="프로필 사진 변경"
+              message="사진 변경"
               color="white"
               onClick={() => {
                 fileInput.current.click();

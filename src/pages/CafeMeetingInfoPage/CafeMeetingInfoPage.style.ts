@@ -6,6 +6,11 @@ export const CafeMeetingInfoContainer = styled.div`
   flex-direction: column;
   gap: 3rem;
   padding-bottom: 5rem;
+
+  @media screen and (max-width: 768px) {
+    width:90%;
+    gap:2.5rem;
+  }
 `;
 
 export const MeetingNameContainer = styled.div`
@@ -21,6 +26,10 @@ export const MeetingNameFont = styled.div`
   font-size: 1.55rem;
   font-weight: 550;
   width: 100%;
+
+@media screen and (max-width: 768px) {
+  font-size:1.5rem;
+  }
 `;
 
 export const AddressFont = styled.div`
@@ -39,6 +48,10 @@ export const TitleFont = styled.div`
   font-size: 1.6rem;
   font-weight: 550;
   width: 100%;
+
+  @media screen and (max-width: 768px) {
+    font-size:1.3rem;
+    }
 `;
 
 export const MemberCountContainer = styled.div`
@@ -62,6 +75,10 @@ export const CanJoinFont = styled.div`
   width: fit-content;
   padding: 0.2rem 0.5rem 0.2rem 0.5rem;
   border-radius: 10px;
+
+  @media screen and (max-width: 768px) {
+    font-size:0.8rem;
+    }
 `;
 
 export const CannotJoinMemberCount = styled.div`
@@ -79,12 +96,20 @@ export const CannotJoinFont = styled.div`
   width: fit-content;
   padding: 0.2rem 0.5rem 0.2rem 0.5rem;
   border-radius: 10px;
+
+  @media screen and (max-width: 768px) {
+    font-size:0.9rem;
+    }
 `;
 
 export const GrayFont = styled.div`
   width: 100%;
   color: gray;
   font-size: 1.2rem;
+
+  @media screen and (max-width: 768px) {
+    font-size:1.1rem;
+    }
 `;
 
 export const ButtonContainer = styled.div`
@@ -98,7 +123,9 @@ export const QuestionBoxContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.8rem;
+  padding-bottom:1.5rem;
+  border-bottom:1px solid lightgray;
 `;
 export const QuestionBox = styled.div`
   width: 100%;
@@ -117,22 +144,39 @@ export const QuestionBoxUser = styled.div`
 export const ProfileImg = styled.img`
   width: 1.2rem;
   height: 1.2rem;
+
+  @media screen and (max-width: 768px) {
+    width:1rem;
+    height:1rem;
+    }
 `;
 
 export const UserNameFont = styled.div`
   color: gray;
   font-size: 1.2rem;
+
+  @media screen and (max-width: 768px) {
+    font-size:1.1rem;
+    }
 `;
 export const QuestionContentFont = styled.div`
   font-size: 1.1rem;
   display: flex;
   gap: 1rem;
+
+  @media screen and (max-width: 768px) {
+    font-size:1.05rem;
+    }
 `;
 
 export const ReplyBox = styled.div`
   font-size: 1.1rem;
   display: flex;
   gap: 1rem;
+
+  @media screen and (max-width: 768px) {
+    font-size:1.05rem;
+    }
 `;
 
 export const QuestGenerate = styled.div`
@@ -177,28 +221,4 @@ export const AnswerDelete = styled.div`
   cursor: pointer;
 `;
 
-export const Reply = styled.div`
-  cursor: pointer;
-  font-size: 0.8rem;
-`;
 
-export const ReplyContainer = styled.div`
-  width: 50%;
-  display: flex;
-  justify-content: space-between;
-  gap: 0.5rem;
-`;
-
-export const ReplyInput = styled.input`
-  width: 100%;
-  &:focus {
-    outline: none;
-  }
-  border: none;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  &::placeholder {
-    font-size: 1rem;
-  }
-  padding: 1%;
-`;

@@ -7,12 +7,20 @@ export const MypageEditContainer = styled.div`
   gap:1.2rem;
   width:100%;
   align-items:center;
+
+  @media (max-width: 768px) {
+    gap:0.5rem;
+  }
 `
 
 export const TitleFont = styled.div`
   font-weight:550;
   font-size:1.7rem;
   padding-bottom:1rem;
+
+  @media (max-width: 768px) {
+    padding-bottom:0.5rem;
+  }
 `;
 
 
@@ -21,6 +29,10 @@ export const InputContainer =styled.div`
   display:flex;
   flex-direction:column;
   gap:0.3rem;
+
+  @media (max-width: 768px) {
+    width:65%;
+  }
 `
 
 export const InputLabelFont = styled.div`
@@ -31,6 +43,10 @@ export const NameInput = styled.textarea`
   height:1.5rem;
   font-size:0.9rem;
   resize: none;
+
+  @media (max-width: 768px) {
+    width:100%;
+  }
 `
 
 export const IntroductionInput = styled.textarea`
@@ -38,6 +54,11 @@ export const IntroductionInput = styled.textarea`
   height:4rem;
   font-size:0.9rem;
   resize: none;
+
+  @media (max-width: 768px) {
+    width:100%;
+    height:6rem;
+  }
 `
 
 export const ButtonContainer = styled.div`
@@ -46,6 +67,12 @@ export const ButtonContainer = styled.div`
   gap:0.5rem;
   justify-content:center;
   padding-top:1.5rem;
+
+  @media (max-width: 768px) {
+    flex-direction:column;
+    align-items:center;
+    padding-top:1rem;
+  }
 `
 
 export const AlertFont = styled.div`

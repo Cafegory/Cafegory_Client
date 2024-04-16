@@ -12,6 +12,11 @@ export const StudyModal = styled.div`
   display:flex;
   flex-direction:column;
   padding:0 0 1.5rem 0;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    height: 70%;
+    }
 `;
 
 export const ModalBackdrop = styled.div`
@@ -34,6 +39,10 @@ export const StudyBoxContainer = styled.div`
   padding:0.5rem 0 1.5rem 0;
   flex-wrap: wrap;
   padding:0 3% 0 3%;
+
+  @media screen and (max-width: 768px) {
+    gap:0;
+  }
 `
 
 export const TitleContainer = styled.div`
@@ -65,6 +74,11 @@ export const StudyBox = styled.div`
   padding:1.5rem 1.5rem 1.3rem 1.5rem;
   border:solid 1px lightgray;
   margin-bottom:1.5rem;
+
+  @media screen and (max-width: 768px) {
+    width:85%;
+    height:10rem;
+  }
 `
 
 export const StudyName = styled.div`

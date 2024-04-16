@@ -22,11 +22,10 @@ export const LogoDiv = styled.div`
   border-radius: 20px;
   margin-left: 1rem;
 
-  &:hover {
-    background-color: lightgray;
-  }
-  &:active {
-    background-color: gray;
+  @media screen and (max-width: 768px) {
+    margin-left: 0.5rem;
+    gap:0.5rem;
+    
   }
 `;
 
@@ -36,33 +35,48 @@ export const LogoImage = styled.img`
   height: 1.9rem;
 `;
 
+export const HambergerButton = styled.img`
+  width: 1.1rem;
+  height: 1.1rem;
+
+  @media screen and (min-width: 769px) {
+    display: none; 
+ }
+`;
+
 export const LogoFont = styled.div`
   display: flex;
   font-size: 1.4rem;
   font-weight: 450;
+
+  @media screen and (max-width: 768px) {
+     display: none; 
+  }
 `;
 
 export const RightDiv = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 1rem;
   height: 100%;
   gap: 2rem;
+  margin-right: 2rem;
+
+  @media screen and (max-width: 768px) {
+    gap: 0.5rem;
+    margin-right: 1rem;
+  }
 `;
 
 export const LoginSignupLink = styled.div`
-  font-size: 0.85rem;
   display: flex;
   height: 50%;
   align-items: center;
   border-radius: 20px;
   cursor: pointer;
+  font-size:0.85rem;
 
-  &:hover {
-    background-color: lightgray;
-  }
-  &:active {
-    background-color: gray;
+  @media screen and (max-width: 768px) {
+    font-size:0.75rem;
   }
 `;
 
@@ -70,29 +84,10 @@ export const WelcomeMessageBox = styled.div`
   font-size: 0.85rem;
   display: flex;
   align-items: center;
-`;
+  font-size:0.85rem;
 
-export const InputContainer = styled.div`
-  width: 11rem;
-  height: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-`;
-
-export const InputField = styled.input`
-  width: 100%;
-  border: none;
-  font-size: 0.7rem;
-  &:focus {
-    outline: none;
+  @media screen and (max-width: 768px) {
+    font-size:0.75rem;
   }
 `;
 
-export const SearchImg = styled.img`
-  width: 1.3rem;
-  height: 1.3rem;
-  cursor: pointer;
-`;

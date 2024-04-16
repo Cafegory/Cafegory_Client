@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const AttendanceConatiner = styled.div`
   width:80%;
   height:100%;
+
+  @media screen and (max-width: 768px) {
+    width:85%;
+  }
 `;
 
 export const TitleFont = styled.div`
@@ -21,14 +25,30 @@ export const LeftContainer = styled.div`
   width:8rem;
   align-items:center;
   justify-content:space-between;
+
+  
+ @media screen and (max-width: 768px) {
+ width:6rem;
+}
 `
 
-export const MemberContainer = styled.div`
+export const MemberBoxContainer = styled.div`
+  width:100%;
+  height:fit-content;
+  margin:0.5rem 0 2.5rem 0;
+`
+
+export const MemberBox = styled.div`
   width:100%;
   height:6rem;
   border-bottom: solid 1px lightgray;
   display:flex;
   justify-content:space-between;
+
+  
+ @media screen and (max-width: 768px) {
+  height:3.6rem;
+}
 `
 
 export const ThumbnailImg = styled.img`
@@ -36,6 +56,12 @@ export const ThumbnailImg = styled.img`
   height:3.5rem;
   border-radius: 50%;
   overflow: hidden;
+
+  
+ @media screen and (max-width: 768px) {
+  width:2.5rem;
+  height:2.5rem;
+}
 `
 
 export const MemberInfoContainer = styled.div`
@@ -46,6 +72,12 @@ export const MemberInfoContainer = styled.div`
   justify-content:center;
   align-items:center;
   gap:0.2rem;
+
+  
+ @media screen and (max-width: 768px) {
+  width:3rem;
+  gap:0;
+}
 `
 
 export const AttendanceStateContainer = styled.div`
@@ -54,18 +86,36 @@ export const AttendanceStateContainer = styled.div`
  display:flex;
  align-items:center;
  justify-content:space-between;
+
+ @media screen and (max-width: 768px) {
+  width:4rem;
+}
 `
 
 export const NameFont = styled.div`
   font-size:1.3rem;
+
+ @media screen and (max-width: 768px) {
+  font-size:1rem;
+}
 `
 
 export const PositionFont = styled.div`
   font-size:1.1rem;
-  color:gray
+  color:gray;
+
+  
+ @media screen and (max-width: 768px) {
+  font-size:0.9rem;
+}
 `
 
 export const CheckImg = styled.img`
   width:2.5rem;
   height:2rem;
+
+  @media screen and (max-width: 768px) {
+    width:1.8rem;
+    height:1.5rem;
+  }
 `

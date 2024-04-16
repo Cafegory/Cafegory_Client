@@ -15,6 +15,10 @@ export const LoginModal = styled.div`
   flex-direction: column;
   border-radius: 20px;
   gap: 1rem;
+
+  @media screen and (max-width: 768px) {
+    width:90%;
+  }
 `;
 
 export const ModalBackdrop = styled.div`
@@ -43,11 +47,11 @@ export const LoginButtonContainer = styled.div`
 `;
 
 export const LoginButton = styled.div<LoginButtonProps & FontColorProps>`
-  height: 2.6rem;
-  width: 45%;
-  font-size: 0.8rem;
+  height: 4rem;
+  width: 55%;
+  font-size: 1.1rem;
   background-color: ${(props) => props.backgroundColor || 'black'};
-  border-radius: 8px;
+  border-radius: 15px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -61,6 +65,10 @@ export const LoginButton = styled.div<LoginButtonProps & FontColorProps>`
   }
   &:active {
     background-color:gray;
+  }
+
+  @media screen and (max-width: 768px) {
+    width:85%;
   }
 `;
 
