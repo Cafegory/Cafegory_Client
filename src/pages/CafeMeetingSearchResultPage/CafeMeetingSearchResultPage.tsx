@@ -28,6 +28,10 @@ import {
   MaximumInputContainer,
   MaximumInput,
   Warning,
+  DetailModal,
+  ModalBackdrop,
+  BusinessHoursContainer,
+  BusinessHourDetailModalContent,
 } from './CafeMeetingSearchResultPage.style';
 
 import {
@@ -35,6 +39,7 @@ import {
   updateContent,
   search,
   useOption,
+  useDetailModalStates,
 } from './CafeMeetingSearchResultPage.hooks';
 
 import ShortButton from 'components/ShortButton';
@@ -63,6 +68,13 @@ const CafeMeetingSearchResultPage: React.FC = () => {
   } = updateContent();
 
   const { area, setArea } = search();
+
+  const {
+    adressModalState,
+    setAdressModalState,
+    businessHourModalState,
+    setBusinessHourModalState,
+  } = useDetailModalStates();
 
   const handleFilterButtonClick = () => {
     setShowFitter(!showFitter);
@@ -95,10 +107,11 @@ const CafeMeetingSearchResultPage: React.FC = () => {
   const API: any = [
     {
       cafeId: 1,
+      cafeName: '귀차나',
       id: 1,
       name: '알아서 공부하자',
-      startDateTime: 'yyyy-MM-ddThh:mm:ss',
-      endDateTime: 'yyyy-MM-ddThh:mm:ss',
+      startDateTime: '2024-07-14T14:00:00',
+      endDateTime: '2024-07-14T17:00:00',
       maxMemberCount: 7,
       nowMemberCount: 3,
       canTalk: true,
@@ -107,10 +120,11 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     },
     {
       cafeId: 2,
+      cafeName: '할게너무 많아',
       id: 1,
       name: '알아서 공부하자',
-      startDateTime: 'yyyy-MM-ddThh:mm:ss',
-      endDateTime: 'yyyy-MM-ddThh:mm:ss',
+      startDateTime: '2025-05-01T11:00:00',
+      endDateTime: '2025-05-01T15:00:00',
       maxMemberCount: 7,
       nowMemberCount: 3,
       canTalk: true,
@@ -119,10 +133,11 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     },
     {
       cafeId: 3,
+      cafeName: '불닭먹을까?',
       id: 1,
       name: '알아서 공부하자',
-      startDateTime: 'yyyy-MM-ddThh:mm:ss',
-      endDateTime: 'yyyy-MM-ddThh:mm:ss',
+      startDateTime: '2024-04-15T09:00:00',
+      endDateTime: '2024-04-15T13:00:00',
       maxMemberCount: 7,
       nowMemberCount: 3,
       canTalk: true,
@@ -133,6 +148,23 @@ const CafeMeetingSearchResultPage: React.FC = () => {
 
   const maxMember = 10;
   const minMember = 0;
+
+  const closeModal = () => {
+    setAdressModalState(adressModalState.map(() => false));
+    setBusinessHourModalState(businessHourModalState.map(() => false));
+  };
+
+  const handleAdressDetailModalClick = (index) => {
+    const updatedStates = [...adressModalState];
+    updatedStates[index] = !updatedStates[index];
+    setAdressModalState(updatedStates);
+  };
+
+  const handleBusinessHourDetailModalClick = (index) => {
+    const updatedStates = [...businessHourModalState];
+    updatedStates[index] = !updatedStates[index];
+    setBusinessHourModalState(updatedStates);
+  };
 
   return (
     <Screen>
@@ -269,12 +301,42 @@ const CafeMeetingSearchResultPage: React.FC = () => {
           </FitterContainer>
         )}
         <CafeList>
-          {API.map((study) => (
+          {API.map((study, index) => (
             <List>
               <Detail>
                 <Name>{study.name}</Name>
-                <Adress>서울 강남구 역삼동 스타벅스 강남R점</Adress>
-                <BusinessHours>매주 주말 09:00~18:00</BusinessHours>
+                <Adress>{study.cafeName}</Adress>
+                <BusinessHoursContainer>
+                  <BusinessHours>
+                    {window.innerWidth <= 768 ? (
+                      '시작 시간'
+                    ) : (
+                      <>
+                        {'시작: ' + study.startDateTime.replace('T', ' ')}
+                        <br />
+                        {'끝: ' + study.endDateTime.replace('T', ' ')}
+                      </>
+                    )}
+                  </BusinessHours>
+                  <DetailModal
+                    src={
+                      businessHourModalState[index]
+                        ? '/assets/detail-icon.png'
+                        : '/assets/detailv-icon.png'
+                    }
+                    onClick={() => handleBusinessHourDetailModalClick(index)}
+                  />
+                </BusinessHoursContainer>
+                {businessHourModalState[index] && (
+                  <>
+                    <BusinessHourDetailModalContent>
+                      시작: {study.startDateTime.replace('T', ' ')}
+                      <br />
+                      끝: {study.endDateTime.replace('T', ' ')}
+                    </BusinessHourDetailModalContent>
+                    <ModalBackdrop onClick={closeModal}></ModalBackdrop>
+                  </>
+                )}
                 <MinBeveragePrice>상세 정보 ▷</MinBeveragePrice>
               </Detail>
             </List>
