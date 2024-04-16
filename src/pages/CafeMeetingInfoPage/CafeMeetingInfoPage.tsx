@@ -31,9 +31,6 @@ import {
   QuestionDelete,
   AnswerModify,
   AnswerDelete,
-  Reply,
-  ReplyContainer,
-  ReplyInput,
 } from './CafeMeetingInfoPage.style';
 import LongButton from 'components/LongButton';
 import ShortButton from 'components/ShortButton';
@@ -164,7 +161,7 @@ const CafeMeetingInfo: React.FC = () => {
               <QuestInput placeholder="궁금한 점이 있나요?" />
               <ShortButton
                 color="black"
-                message="질문 작성"
+                message="작성"
                 onClick={QuestGenerateOnClick}
               />
             </QuestGenerate>
@@ -196,14 +193,14 @@ const CafeMeetingInfo: React.FC = () => {
                     <AnswerDelete>삭제</AnswerDelete>
                   </State>
                 </ReplyBox>
-                <ReplyContainer>
-                  <ReplyInput placeholder="답글을 작성해주세요"></ReplyInput>
+                <QuestGenerate>
+                  <QuestInput placeholder="답글을 작성해주세요." />
                   <ShortButton
                     color="black"
-                    message="답글 작성"
+                    message="작성"
                     onClick={ReplyGenerateOnClick}
                   />
-                </ReplyContainer>
+                </QuestGenerate>
               </QuestionBoxContainer>
             ))}
           </TitleContainer>
