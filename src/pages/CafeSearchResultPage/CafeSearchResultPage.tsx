@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
@@ -48,18 +50,10 @@ import {
   useDetailModalStates,
   usePage,
 } from './CafeSearchResultPage.hooks';
-
-import { useStore } from 'components/LoginModal/LoginModal.hooks';
 import axios from 'axios';
 import { Pagination } from '@mui/material';
 
 const CafeSearchResult: React.FC = () => {
-  const [cafes, setCafes] = useState([]);
-
-  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
-
-  const { showFitter, setShowFitter } = useFilter();
-
   const {
     canStudy,
     setCanStudy,
@@ -82,7 +76,6 @@ const CafeSearchResult: React.FC = () => {
     maxTimeState,
     setMaxTimeState,
   } = updateContent();
-  const { area, setArea } = search();
   const {
     isSelectedCanStudy,
     setSelectedCanStudy,
@@ -91,39 +84,88 @@ const CafeSearchResult: React.FC = () => {
     isSelectedMaxTime,
     setSelectedMaxTime,
   } = useOption();
-
   const {
     adressModalState,
     setAdressModalState,
     businessHourModalState,
     setBusinessHourModalState,
   } = useDetailModalStates();
-
   const { nowPage, setNowPage, maxPage, setMaxPage, pageSize, setPageSize } =
     usePage();
+  const { showFitter, setShowFitter } = useFilter();
 
-  const handleFilterButtonClick = () => {
-    setShowFitter(!showFitter);
-  };
+  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  const navigate = useNavigate();
+
+  const [cafes, setCafes] = useState([]);
+
+  const {
+    area: routeArea,
+    minBeveragePrice: routeMinBeveragePrice,
+    startTime: routeStartTime,
+    endTime: routeEndTime,
+    maxTime: routeMaxTime,
+  } = useParams();
+
+  console.log(`efhwafew${routeMinBeveragePrice}`);
+  const [area, setArea] = useState(routeArea);
+  const [inputArea, setInputArea] = useState(routeArea);
+  // const { area, setArea } = search();
 
   useEffect(() => {
     axios
-      .get('/cafe/list?area=역삼동&page=1&canStudy=true', {
-        headers: {
-          Authorization: accessToken,
+      .get(
+        `/cafe/list?page=1&area=${area}&canStudy=${canStudy}&startTime=${routeStartTime}&endTime=${routeEndTime}&minBeveragePrice=${routeMinBeveragePrice}&maxTime=${routeMaxTime}`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
         },
-      })
+      )
       .then((response) => {
         setCafes(response.data.list);
         setNowPage(response.data.nowPage);
         setMaxPage(response.data.maxPage);
         setPageSize(response.data.pageSize);
-        setArea(response.data.list[0].area);
       })
       .catch((error) => {
         console.error('요청 중 에러 발생:', error);
       });
-  });
+  }, [
+    area,
+    canStudy,
+    routeStartTime,
+    routeEndTime,
+    routeMinBeveragePrice,
+    routeMaxTime,
+    accessToken,
+  ]);
+
+  const handleSearchClick = () => {
+    axios
+      .get(
+        `/cafe/list?page=1&area=${inputArea}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
+      )
+      .then((response) => {
+        setCafes(response.data.list);
+        setNowPage(1);
+        setMaxPage(response.data.maxPage);
+        setPageSize(response.data.pageSize);
+      })
+      .catch((error) => {
+        console.error('요청 중 에러 발생:', error);
+      });
+
+    setArea(inputArea);
+    navigate(
+      `/cafeSearchResult/1/${encodeURIComponent(inputArea)}/${canStudy}/${startTime}/${endTime}/${minBeveragePrice}/${maxTime}`,
+    );
+  };
 
   const formatBusinessHours = (businessHours) => {
     const daysOfWeek = [
@@ -172,8 +214,11 @@ const CafeSearchResult: React.FC = () => {
       }
     }
 
-    console.log(`출력: ${formattedHoursArray}`);
     return formattedHoursArray;
+  };
+
+  const handleFilterButtonClick = () => {
+    setShowFitter(!showFitter);
   };
 
   const NOT_SPECIFIED = '무관';
@@ -182,22 +227,28 @@ const CafeSearchResult: React.FC = () => {
 
   const drinkPrices = [
     NOT_SPECIFIED,
-    '1,000원',
-    '2,000원',
-    '3,000원',
-    '4,000원',
-    '5,000원',
-    '10,000원 이상',
+    '~1,000원',
+    '~2,000원',
+    '~3,000원',
+    '~4,000원',
+    '~5,000원',
+    '~6,000원',
+    '~7,000원',
+    '~8,000원',
+    '~9,000원',
+    '~10,000원',
+    '10,000원~',
   ];
 
   const usageTimes = [
     NOT_SPECIFIED,
-    '1시간',
-    '2시간',
-    '3시간',
-    '4시간',
-    '5시간',
-    '6시간 이상',
+    '~1시간',
+    '~2시간',
+    '~3시간',
+    '~4시간',
+    '~5시간',
+    '~6시간',
+    '6시간~',
   ];
 
   const renderDrinkPriceOptions = () => {
@@ -283,7 +334,11 @@ const CafeSearchResult: React.FC = () => {
         </TitleTextContainer>
         <ResearchContainer>
           <InputContainer>
-            <InputField placeholder={area}></InputField>
+            <InputField
+              placeholder={routeArea}
+              value={inputArea}
+              onChange={(e) => setInputArea(e.target.value)}
+            ></InputField>
             <PlaceImg src="/assets/place-icon.png"></PlaceImg>
           </InputContainer>
           <ShortButton
@@ -291,7 +346,11 @@ const CafeSearchResult: React.FC = () => {
             color="white"
             onClick={handleFilterButtonClick}
           />
-          <ShortButton message="검색" color="black" />
+          <ShortButton
+            message="검색"
+            color="black"
+            onClick={handleSearchClick}
+          />
         </ResearchContainer>
         {showFitter && (
           <FitterContainer>

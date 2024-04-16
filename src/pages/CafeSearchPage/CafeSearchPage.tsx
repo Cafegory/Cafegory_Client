@@ -76,22 +76,28 @@ const CafeSearchPage: React.FC = () => {
 
   const drinkPrices = [
     NOT_SPECIFIED,
-    '1,000원',
-    '2,000원',
-    '3,000원',
-    '4,000원',
-    '5,000원',
-    '10,000원 이상',
+    '~1,000원',
+    '~2,000원',
+    '~3,000원',
+    '~4,000원',
+    '~5,000원',
+    '~6,000원',
+    '~7,000원',
+    '~8,000원',
+    '~9,000원',
+    '~10,000원',
+    '10,000원~',
   ];
 
   const usageTimes = [
     NOT_SPECIFIED,
-    '1시간',
-    '2시간',
-    '3시간',
-    '4시간',
-    '5시간',
-    '6시간 이상',
+    '~1시간',
+    '~2시간',
+    '~3시간',
+    '~4시간',
+    '~5시간',
+    '~6시간',
+    '6시간~',
   ];
 
   const renderDrinkPriceOptions = () => {
@@ -153,6 +159,12 @@ const CafeSearchPage: React.FC = () => {
 
   useEffect(() => {}, [startTime, endTime, minBeveragePrice, maxTime]);
 
+  const handleSearchClick = () => {
+    navigate(
+      `/cafeSearchResult/1/${encodeURIComponent(area)}/${canStudy}/${startTime}/${endTime}/${minBeveragePrice}/${maxTime}`,
+    );
+  };
+
   return (
     <Screen>
       <Container>
@@ -177,9 +189,7 @@ const CafeSearchPage: React.FC = () => {
             <ShortButton
               message="검색"
               color="black"
-              onClick={() => {
-                navigate('/cafeSearchResult');
-              }}
+              onClick={handleSearchClick}
             />
           </ButtonContainer>
         </CafeSearch>

@@ -22,7 +22,10 @@ const Router: React.FC = () => {
         <Route path="/main" element={<Main />} />
         <Route path="/my" element={<My />} />
         <Route path="/cafe" element={<CafeSearch />} />
-        <Route path="/cafeSearchResult" element={<CafeSearchResultPage />} />
+        <Route
+          path="/cafeSearchResult/:page/:area/:canStudy?/:startTime?/:endTime?/:minBeveragePrice?/:maxTime"
+          element={<CafeSearchResultPage />}
+        />
         <Route
           path="/studyRecruiting"
           element={<CafeCreateRecruitmentPage />}
