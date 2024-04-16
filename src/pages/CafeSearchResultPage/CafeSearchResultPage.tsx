@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
@@ -46,12 +46,17 @@ import {
   search,
   useOption,
   useDetailModalStates,
+  usePage,
 } from './CafeSearchResultPage.hooks';
 
 import { useStore } from 'components/LoginModal/LoginModal.hooks';
+import axios from 'axios';
+import { Pagination } from '@mui/material';
 
 const CafeSearchResult: React.FC = () => {
-  const AREA = '역삼동';
+  const [cafes, setCafes] = useState([]);
+
+  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
   const { showFitter, setShowFitter } = useFilter();
 
@@ -94,148 +99,42 @@ const CafeSearchResult: React.FC = () => {
     setBusinessHourModalState,
   } = useDetailModalStates();
 
+  const { nowPage, setNowPage, maxPage, setMaxPage, pageSize, setPageSize } =
+    usePage();
+
   const handleFilterButtonClick = () => {
     setShowFitter(!showFitter);
   };
 
-  const API: any = [
-    {
-      name: '카페 아메리카노',
-      address: '서울특별시 강남구 역삼동 123-45',
-      businessHours: [
-        {
-          day: '월',
-          startTime: '08:00',
-          endTime: '21:00',
+  useEffect(() => {
+    axios
+      .get('/cafe/list?area=역삼동&page=1&canStudy=true', {
+        headers: {
+          Authorization: accessToken,
         },
-        {
-          day: '화',
-          startTime: '08:00',
-          endTime: '21:00',
-        },
-        {
-          day: '수',
-          startTime: '08:00',
-          endTime: '21:00',
-        },
-        {
-          day: '목',
-          startTime: '08:00',
-          endTime: '21:00',
-        },
-        {
-          day: '금',
-          startTime: '08:00',
-          endTime: '21:00',
-        },
-        {
-          day: '토',
-          startTime: '08:00',
-          endTime: '21:00',
-        },
-        {
-          day: '일',
-          startTime: '09:00',
-          endTime: '20:00',
-        },
-      ],
-      isOpen: true,
-      sns: [
-        {
-          name: 'facebook',
-          url: 'https://~~~',
-        },
-      ],
-      phone: '010-9876-5432',
-      minBeveragePrice: 3500,
-      maxTime: 2,
-      avgReviewRate: 4.5,
-    },
-    {
-      name: '알베르',
-      address: '부산광역시 해운대구 우동 456-78',
-      businessHours: [
-        {
-          day: '월',
-          startTime: '10:00',
-          endTime: '20:00',
-        },
-        {
-          day: '화',
-          startTime: '10:00',
-          endTime: '20:00',
-        },
-        {
-          day: '수',
-          startTime: '10:00',
-          endTime: '23:00',
-        },
-        {
-          day: '목',
-          startTime: '10:00',
-          endTime: '20:00',
-        },
-        {
-          day: '금',
-          startTime: '10:00',
-          endTime: '20:00',
-        },
-        {
-          day: '토',
-          startTime: '10:00',
-          endTime: '20:00',
-        },
-        {
-          day: '일',
-          startTime: '10:00',
-          endTime: '20:00',
-        },
-      ],
-      isOpen: false,
-      sns: [
-        {
-          name: 'twitter',
-          url: 'https://~~~',
-        },
-      ],
-      phone: '010-5555-1234',
-      minBeveragePrice: 3200,
-      maxTime: 1,
-      avgReviewRate: 4.0,
-    },
-  ];
-
-  //원래 코드(콤마로 구분)
-  // const formatBusinessHours = (businessHours: any[]) => {
-  //   const dayHours: { [key: string]: string[] } = {};
-
-  //   businessHours.forEach((hours) => {
-  //     const timeRange = `${hours.startTime}-${hours.endTime}`;
-  //     if (!dayHours[timeRange]) {
-  //       dayHours[timeRange] = [];
-  //     }
-  //     dayHours[timeRange].push(hours.day);
-  //   });
-
-  //   const allSameHours = Object.keys(dayHours).length === 1;
-
-  //   if (allSameHours) {
-  //     const [timeRange] = Object.keys(dayHours);
-  //     return `매일 ${timeRange}`;
-  //   } else {
-  //     const formattedHours = Object.keys(dayHours)
-  //       .map((timeRange) => {
-  //         const days = dayHours[timeRange].join(', ');
-  //         return `${days} ${timeRange}`;
-  //       })
-  //       .join('\n');
-
-  //     return formattedHours;
-  //   }
-  // };
+      })
+      .then((response) => {
+        setCafes(response.data.list);
+        setNowPage(response.data.nowPage);
+        setMaxPage(response.data.maxPage);
+        setPageSize(response.data.pageSize);
+        setArea(response.data.list[0].area);
+      })
+      .catch((error) => {
+        console.error('요청 중 에러 발생:', error);
+      });
+  });
 
   const formatBusinessHours = (businessHours) => {
-    const daysOfWeek = ['월', '화', '수', '목', '금', '토', '일'];
+    const daysOfWeek = [
+      'MONDAY',
+      'TUESDAY',
+      'WEDNESDAY',
+      'THURSDAY',
+      'FRIDAY',
+      'SATURDAY',
+      'SUNDAY',
+    ];
     let formattedHoursArray = [];
 
     let sameHoursCount = 1;
@@ -371,16 +270,20 @@ const CafeSearchResult: React.FC = () => {
     setBusinessHourModalState(businessHourModalState.map(() => false));
   };
 
+  const handlePageChange = (newPage) => {
+    setNowPage(newPage);
+  };
+
   return (
     <Screen>
       <Container>
         <TitleTextContainer>
-          <AreaTextFont>{AREA}</AreaTextFont>
+          <AreaTextFont>{area}</AreaTextFont>
           <ResultTextFont>기반 카페 검색 결과</ResultTextFont>
         </TitleTextContainer>
         <ResearchContainer>
           <InputContainer>
-            <InputField placeholder={AREA}></InputField>
+            <InputField placeholder={area}></InputField>
             <PlaceImg src="/assets/place-icon.png"></PlaceImg>
           </InputContainer>
           <ShortButton
@@ -479,7 +382,7 @@ const CafeSearchResult: React.FC = () => {
           </FitterContainer>
         )}
         <CafeList>
-          {API.map((cafe, index) => (
+          {cafes.map((cafe, index) => (
             <List key={index}>
               {cafe.isOpen ? (
                 <IsOpenImg src="/assets/isOpen.png" alt="영업중" />
@@ -541,6 +444,11 @@ const CafeSearchResult: React.FC = () => {
             </List>
           ))}
         </CafeList>
+        <Pagination
+          count={Math.ceil(cafes.length / pageSize)}
+          page={nowPage}
+          onChange={handlePageChange}
+        />
       </Container>
       <Sidebar buttonColors={['white', ,]} />
       <Header />
