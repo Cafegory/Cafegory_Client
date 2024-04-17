@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
@@ -46,15 +48,12 @@ import {
   search,
   useOption,
   useDetailModalStates,
+  usePage,
 } from './CafeSearchResultPage.hooks';
-
-import { useStore } from 'components/LoginModal/LoginModal.hooks';
+import axios from 'axios';
+import { Pagination } from '@mui/material';
 
 const CafeSearchResult: React.FC = () => {
-  const AREA = '역삼동';
-
-  const { showFitter, setShowFitter } = useFilter();
-
   const {
     canStudy,
     setCanStudy,
@@ -77,7 +76,6 @@ const CafeSearchResult: React.FC = () => {
     maxTimeState,
     setMaxTimeState,
   } = updateContent();
-  const { area, setArea } = search();
   const {
     isSelectedCanStudy,
     setSelectedCanStudy,
@@ -86,156 +84,98 @@ const CafeSearchResult: React.FC = () => {
     isSelectedMaxTime,
     setSelectedMaxTime,
   } = useOption();
-
   const {
     adressModalState,
     setAdressModalState,
     businessHourModalState,
     setBusinessHourModalState,
   } = useDetailModalStates();
+  const { nowPage, setNowPage, maxPage, setMaxPage, pageSize, setPageSize } =
+    usePage();
+  const { showFitter, setShowFitter } = useFilter();
 
-  const handleFilterButtonClick = () => {
-    setShowFitter(!showFitter);
+  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  const navigate = useNavigate();
+
+  const [cafes, setCafes] = useState([]);
+
+  const {
+    area: routeArea,
+    minBeveragePrice: routeMinBeveragePrice,
+    startTime: routeStartTime,
+    endTime: routeEndTime,
+    maxTime: routeMaxTime,
+  } = useParams();
+
+  console.log(`efhwafew${routeMinBeveragePrice}`);
+  const [area, setArea] = useState(routeArea);
+  const [inputArea, setInputArea] = useState(routeArea);
+
+  useEffect(() => {
+    axios
+      .get(
+        `/cafe/list?page=1&area=${area}&canStudy=${canStudy}&startTime=${routeStartTime}&endTime=${routeEndTime}&minBeveragePrice=${routeMinBeveragePrice}&maxTime=${routeMaxTime}&sizePerPage=5`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
+      )
+      .then((response) => {
+        setCafes(response.data.list);
+        setNowPage(response.data.nowPage);
+        setMaxPage(response.data.maxPage);
+        setPageSize(response.data.pageSize);
+      })
+      .catch((error) => {
+        console.error('요청 중 에러 발생:', error);
+      });
+  }, [
+    area,
+    canStudy,
+    routeStartTime,
+    routeEndTime,
+    routeMinBeveragePrice,
+    routeMaxTime,
+    accessToken,
+  ]);
+
+  const handleSearchClick = () => {
+    axios
+      .get(
+        `/cafe/list?page=1&area=${inputArea}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=5`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
+      )
+      .then((response) => {
+        setCafes(response.data.list);
+        setNowPage(response.data.nowPage);
+        setMaxPage(response.data.maxPage);
+        setPageSize(response.data.pageSize);
+      })
+      .catch((error) => {
+        console.error('요청 중 에러 발생:', error);
+      });
+
+    setArea(inputArea);
+    navigate(
+      `/cafeSearchResult/1/${encodeURIComponent(inputArea)}/${canStudy}/${startTime}/${endTime}/${minBeveragePrice}/${maxTime}`,
+    );
   };
 
-  const API: any = [
-    {
-      name: '카페 아메리카노',
-      address: '서울특별시 강남구 역삼동 123-45',
-      businessHours: [
-        {
-          day: '월',
-          startTime: '08:00',
-          endTime: '21:00',
-        },
-        {
-          day: '화',
-          startTime: '08:00',
-          endTime: '21:00',
-        },
-        {
-          day: '수',
-          startTime: '08:00',
-          endTime: '21:00',
-        },
-        {
-          day: '목',
-          startTime: '08:00',
-          endTime: '21:00',
-        },
-        {
-          day: '금',
-          startTime: '08:00',
-          endTime: '21:00',
-        },
-        {
-          day: '토',
-          startTime: '08:00',
-          endTime: '21:00',
-        },
-        {
-          day: '일',
-          startTime: '09:00',
-          endTime: '20:00',
-        },
-      ],
-      isOpen: true,
-      sns: [
-        {
-          name: 'facebook',
-          url: 'https://~~~',
-        },
-      ],
-      phone: '010-9876-5432',
-      minBeveragePrice: 3500,
-      maxTime: 2,
-      avgReviewRate: 4.5,
-    },
-    {
-      name: '알베르',
-      address: '부산광역시 해운대구 우동 456-78',
-      businessHours: [
-        {
-          day: '월',
-          startTime: '10:00',
-          endTime: '20:00',
-        },
-        {
-          day: '화',
-          startTime: '10:00',
-          endTime: '20:00',
-        },
-        {
-          day: '수',
-          startTime: '10:00',
-          endTime: '23:00',
-        },
-        {
-          day: '목',
-          startTime: '10:00',
-          endTime: '20:00',
-        },
-        {
-          day: '금',
-          startTime: '10:00',
-          endTime: '20:00',
-        },
-        {
-          day: '토',
-          startTime: '10:00',
-          endTime: '20:00',
-        },
-        {
-          day: '일',
-          startTime: '10:00',
-          endTime: '20:00',
-        },
-      ],
-      isOpen: false,
-      sns: [
-        {
-          name: 'twitter',
-          url: 'https://~~~',
-        },
-      ],
-      phone: '010-5555-1234',
-      minBeveragePrice: 3200,
-      maxTime: 1,
-      avgReviewRate: 4.0,
-    },
-  ];
-
-  //원래 코드(콤마로 구분)
-  // const formatBusinessHours = (businessHours: any[]) => {
-  //   const dayHours: { [key: string]: string[] } = {};
-
-  //   businessHours.forEach((hours) => {
-  //     const timeRange = `${hours.startTime}-${hours.endTime}`;
-  //     if (!dayHours[timeRange]) {
-  //       dayHours[timeRange] = [];
-  //     }
-  //     dayHours[timeRange].push(hours.day);
-  //   });
-
-  //   const allSameHours = Object.keys(dayHours).length === 1;
-
-  //   if (allSameHours) {
-  //     const [timeRange] = Object.keys(dayHours);
-  //     return `매일 ${timeRange}`;
-  //   } else {
-  //     const formattedHours = Object.keys(dayHours)
-  //       .map((timeRange) => {
-  //         const days = dayHours[timeRange].join(', ');
-  //         return `${days} ${timeRange}`;
-  //       })
-  //       .join('\n');
-
-  //     return formattedHours;
-  //   }
-  // };
-
   const formatBusinessHours = (businessHours) => {
-    const daysOfWeek = ['월', '화', '수', '목', '금', '토', '일'];
+    const daysOfWeek = [
+      'MONDAY',
+      'TUESDAY',
+      'WEDNESDAY',
+      'THURSDAY',
+      'FRIDAY',
+      'SATURDAY',
+      'SUNDAY',
+    ];
     let formattedHoursArray = [];
 
     let sameHoursCount = 1;
@@ -273,8 +213,11 @@ const CafeSearchResult: React.FC = () => {
       }
     }
 
-    console.log(`출력: ${formattedHoursArray}`);
     return formattedHoursArray;
+  };
+
+  const handleFilterButtonClick = () => {
+    setShowFitter(!showFitter);
   };
 
   const NOT_SPECIFIED = '무관';
@@ -283,22 +226,28 @@ const CafeSearchResult: React.FC = () => {
 
   const drinkPrices = [
     NOT_SPECIFIED,
-    '1,000원',
-    '2,000원',
-    '3,000원',
-    '4,000원',
-    '5,000원',
-    '10,000원 이상',
+    '~1,000원',
+    '~2,000원',
+    '~3,000원',
+    '~4,000원',
+    '~5,000원',
+    '~6,000원',
+    '~7,000원',
+    '~8,000원',
+    '~9,000원',
+    '~10,000원',
+    '10,000원~',
   ];
 
   const usageTimes = [
     NOT_SPECIFIED,
-    '1시간',
-    '2시간',
-    '3시간',
-    '4시간',
-    '5시간',
-    '6시간 이상',
+    '~1시간',
+    '~2시간',
+    '~3시간',
+    '~4시간',
+    '~5시간',
+    '~6시간',
+    '6시간~',
   ];
 
   const renderDrinkPriceOptions = () => {
@@ -371,16 +320,42 @@ const CafeSearchResult: React.FC = () => {
     setBusinessHourModalState(businessHourModalState.map(() => false));
   };
 
+  const handlePageChange = (event, newPage) => {
+    setNowPage(newPage);
+
+    axios
+      .get(
+        `/cafe/list?page=${newPage}&area=${area}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=5`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
+      )
+      .then((response) => {
+        setCafes(response.data.list);
+        setMaxPage(response.data.maxPage);
+        setPageSize(response.data.pageSize);
+      })
+      .catch((error) => {
+        console.error('요청 중 에러 발생:', error);
+      });
+  };
+
   return (
     <Screen>
       <Container>
         <TitleTextContainer>
-          <AreaTextFont>{AREA}</AreaTextFont>
+          <AreaTextFont>{area}</AreaTextFont>
           <ResultTextFont>기반 카페 검색 결과</ResultTextFont>
         </TitleTextContainer>
         <ResearchContainer>
           <InputContainer>
-            <InputField placeholder={AREA}></InputField>
+            <InputField
+              placeholder={routeArea}
+              value={inputArea}
+              onChange={(e) => setInputArea(e.target.value)}
+            ></InputField>
             <PlaceImg src="/assets/place-icon.png"></PlaceImg>
           </InputContainer>
           <ShortButton
@@ -388,7 +363,11 @@ const CafeSearchResult: React.FC = () => {
             color="white"
             onClick={handleFilterButtonClick}
           />
-          <ShortButton message="검색" color="black" />
+          <ShortButton
+            message="검색"
+            color="black"
+            onClick={handleSearchClick}
+          />
         </ResearchContainer>
         {showFitter && (
           <FitterContainer>
@@ -479,7 +458,7 @@ const CafeSearchResult: React.FC = () => {
           </FitterContainer>
         )}
         <CafeList>
-          {API.map((cafe, index) => (
+          {cafes.map((cafe, index) => (
             <List key={index}>
               {cafe.isOpen ? (
                 <IsOpenImg src="/assets/isOpen.png" alt="영업중" />
@@ -541,6 +520,11 @@ const CafeSearchResult: React.FC = () => {
             </List>
           ))}
         </CafeList>
+        <Pagination
+          count={maxPage}
+          page={nowPage}
+          onChange={handlePageChange}
+        />
       </Container>
       <Sidebar buttonColors={['white', ,]} />
       <Header />

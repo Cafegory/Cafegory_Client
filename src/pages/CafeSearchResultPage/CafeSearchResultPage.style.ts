@@ -74,17 +74,16 @@ export const PlaceImg = styled.img`
 `;
 
 export const FitterContainer = styled.div`
-  height: 55rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
-  gap: 3%;
-  margin: 5rem;
+  align-items: center;
+  height: 55rem;
+  justify-content: space-around;
 
   @media (max-width: 768px) {
-    justify-content: space-between;
-    height: 40rem;
+    justify-content: space-around;
+    height: 50rem;
   }
 `;
 
@@ -100,23 +99,21 @@ export const FitterTitle = styled.div`
 `;
 
 export const ChooseOption = styled.div`
-  width: 60%;
-  height: 70%;
   display: flex;
   flex-direction: column;
-  gap: 5%;
+  height: 70%;
+  justify-content: space-around;
 
   @media (max-width: 768px) {
+    height: 50%;
     width: 90%;
-    gap: 8%;
+    gap: 7%;
     margin-bottom: 2rem;
-    justify-content: space-between;
+    justify-content: center;
   }
 `;
 
 export const StudyAvailability = styled.div`
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
 
@@ -135,8 +132,7 @@ export const ChooseFont = styled.div`
 `;
 export const Choose = styled.div`
   display: flex;
-  width: 100%;
-  height: 100%;
+  flex-wrap: wrap;
   gap: 1%;
   align-items: center;
 
@@ -147,25 +143,16 @@ export const Choose = styled.div`
 `;
 
 export const Option = styled.div`
-  padding: 1%;
-  display: flex;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 0.5rem;
-  justify-content: center;
+  padding: 2%;
   width: auto;
-  height: auto;
-  font-weight: bold;
+  height: 1rem;
+  display: flex;
   align-items: center;
+  border-radius: 0.5rem;
   font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  &:hover,
-  &.selected {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-  &:active {
-    background-color: darkgray;
-  }
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  margin-top: 0.1rem;
 
   @media (max-width: 1024px) {
     font-size: 1rem;
@@ -238,7 +225,6 @@ export const Detail = styled.div`
   height: 8rem;
 
   @media (max-width: 768px) {
-    // height: 7rem;
     width: 100%;
     height: auto;
   }
@@ -257,11 +243,6 @@ export const BusinessHours = styled.div`
   white-space: pre-line;
   font-size: 1rem;
   font-weight: 650;
-
-  @media (max-width: 768px) {
-    // display: none;
-    // width: 100%;
-  }
 `;
 
 export const MinBeveragePrice = styled.div`
@@ -293,20 +274,12 @@ export const ButtonContainer = styled.div`
 `;
 
 export const SelectContainer = styled.select`
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.05);
   border: none;
-  width: 13%;
-  height: 70%;
   border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
+  padding: 2%;
   font-size: 0.9rem;
-  &:active {
-    background-color: darkgray;
-  }
-
+  font-weight: bold;
   @media (max-width: 1024px) {
     width: 25%;
     font-size: 1rem;
@@ -339,8 +312,6 @@ export const AdressDetailModalContent = styled.div`
     position: absolute;
     display: flex;
     top: 50%;
-    // left: 52%;
-    // transform: translate(0%, 100%);
     width: 45%;
     font-size: 0.7rem;
     border: 1px solid rgba(204, 204, 204, 0.5);
@@ -367,8 +338,6 @@ export const BusinessHourDetailModalContent = styled.div`
     position: absolute;
     display: flex;
     top: 70%;
-    // left: 52%;
-    // transform: translate(0%, 100%);
     width: 45%;
     font-size: 0.7rem;
     border: 1px solid rgba(204, 204, 204, 0.5);
