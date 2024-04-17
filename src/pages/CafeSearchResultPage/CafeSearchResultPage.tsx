@@ -110,12 +110,11 @@ const CafeSearchResult: React.FC = () => {
   console.log(`efhwafew${routeMinBeveragePrice}`);
   const [area, setArea] = useState(routeArea);
   const [inputArea, setInputArea] = useState(routeArea);
-  // const { area, setArea } = search();
 
   useEffect(() => {
     axios
       .get(
-        `/cafe/list?page=1&area=${area}&canStudy=${canStudy}&startTime=${routeStartTime}&endTime=${routeEndTime}&minBeveragePrice=${routeMinBeveragePrice}&maxTime=${routeMaxTime}`,
+        `/cafe/list?page=1&area=${area}&canStudy=${canStudy}&startTime=${routeStartTime}&endTime=${routeEndTime}&minBeveragePrice=${routeMinBeveragePrice}&maxTime=${routeMaxTime}&sizePerPage=5`,
         {
           headers: {
             Authorization: accessToken,
@@ -144,7 +143,7 @@ const CafeSearchResult: React.FC = () => {
   const handleSearchClick = () => {
     axios
       .get(
-        `/cafe/list?page=1&area=${inputArea}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}`,
+        `/cafe/list?page=1&area=${inputArea}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=5`,
         {
           headers: {
             Authorization: accessToken,
@@ -153,7 +152,7 @@ const CafeSearchResult: React.FC = () => {
       )
       .then((response) => {
         setCafes(response.data.list);
-        setNowPage(1);
+        setNowPage(response.data.nowPage);
         setMaxPage(response.data.maxPage);
         setPageSize(response.data.pageSize);
       })
@@ -321,8 +320,26 @@ const CafeSearchResult: React.FC = () => {
     setBusinessHourModalState(businessHourModalState.map(() => false));
   };
 
-  const handlePageChange = (newPage) => {
+  const handlePageChange = (event, newPage) => {
     setNowPage(newPage);
+
+    axios
+      .get(
+        `/cafe/list?page=${newPage}&area=${area}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=5`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
+      )
+      .then((response) => {
+        setCafes(response.data.list);
+        setMaxPage(response.data.maxPage);
+        setPageSize(response.data.pageSize);
+      })
+      .catch((error) => {
+        console.error('요청 중 에러 발생:', error);
+      });
   };
 
   return (
@@ -504,7 +521,7 @@ const CafeSearchResult: React.FC = () => {
           ))}
         </CafeList>
         <Pagination
-          count={Math.ceil(cafes.length / pageSize)}
+          count={maxPage}
           page={nowPage}
           onChange={handlePageChange}
         />

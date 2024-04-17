@@ -161,7 +161,7 @@ const CafeSearchPage: React.FC = () => {
 
   const handleSearchClick = () => {
     navigate(
-      `/cafeSearchResult/1/${encodeURIComponent(area)}/${canStudy}/${startTime}/${endTime}/${minBeveragePrice}/${maxTime}`,
+      `/cafeSearchResult/1/${encodeURIComponent(area)}/${canStudy}/${startTime}/${endTime}/${minBeveragePrice}/${maxTime}/5`,
     );
   };
 
