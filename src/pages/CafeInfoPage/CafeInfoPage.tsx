@@ -51,6 +51,7 @@ import LongButton from 'components/LongButton';
 import { reviewUseStore } from 'components/ReviewModal/ReviewModal.hooks';
 import { studyUseStore } from 'components/StudyModal/StudyModal.hooks';
 import { useNavigate } from 'react-router-dom';
+import { reviewApiStore } from 'components/ReviewModal/ReviewModal.hooks';
 
 const CafeInfo: React.FC = () => {
   const isReviewModalOpen = reviewUseStore((state) => state.isReviewModalOpen);
@@ -60,6 +61,12 @@ const CafeInfo: React.FC = () => {
   const toggleStudyModal = studyUseStore((state) => state.toggleStudyModal);
 
   const navigate = useNavigate();
+
+  const { reviews, fetchReviews } = reviewApiStore();
+
+  React.useEffect(() => {
+    fetchReviews();
+  }, []);
 
   const api = {
     basicInfo: {
@@ -231,21 +238,24 @@ const CafeInfo: React.FC = () => {
               <StarImg src="/assets/star-icon.png" alt="별 아이콘" />
               {api.basicInfo.avgReviewRate}
             </TitleFont>
-            {api.reviews.length === 0 && (
+            {reviews.length === 0 && (
               <NoContentContainer>
                 <NoContentText>작성된 리뷰가 없습니다.</NoContentText>
               </NoContentContainer>
             )}
             <ReviewsBoxContainer>
-              {api.reviews.slice(0, 2).map((review, index) => (
+              {reviews.slice(0, 2).map((review, index) => (
                 <ReviewsBox key={index}>
                   <ReviewsUpContainer>
                     <ReviewsUserContainer>
-                      <ProfileImg src="/assets/profile-image.png" alt="프사" />
-                      {review.writer.name}({review.writer.id})
+                      <ProfileImg
+                        src={reviews[index].writer.thumbnailImg}
+                        alt="프사"
+                      />
+                      {reviews[index].writer.name}
                     </ReviewsUserContainer>
                     <RateContainer>
-                      {[...Array(review.rate)].map((_, i) => (
+                      {[...Array(reviews[index].rate)].map((_, i) => (
                         <StarImg
                           key={i}
                           src="/assets/star-icon.png"
@@ -260,9 +270,9 @@ const CafeInfo: React.FC = () => {
                 </ReviewsBox>
               ))}
             </ReviewsBoxContainer>
-            {api.reviews.length > 2 && (
+            {reviews.length > 2 && (
               <MoreButton onClick={toggleReviewModal}>
-                {api.reviews.length - 2}건 더보기
+                {reviews.length - 2}건 더보기
               </MoreButton>
             )}
           </ReviewsContainer>
