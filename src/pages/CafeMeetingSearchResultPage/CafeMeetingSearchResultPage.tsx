@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
@@ -40,18 +42,31 @@ import {
   search,
   useOption,
   useDetailModalStates,
+  usePage,
+  DateTime,
 } from './CafeMeetingSearchResultPage.hooks';
-
+import axios from 'axios';
+import { Pagination } from '@mui/material';
 import ShortButton from 'components/ShortButton';
 
 const CafeMeetingSearchResultPage: React.FC = () => {
+  const {
+    area: routeArea,
+    onlyJoinAble: routeOnlyJoinAble,
+    maxMemberCount: routeMaxMemberCount,
+    canTalk: routeCanTalk,
+  } = useParams();
+  const [cafeStudys, setCafeStudys] = useState([]);
+  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  const [area, setArea] = useState(routeArea);
+  const [inputArea, setInputArea] = useState(routeArea);
+
+  const navigate = useNavigate();
   const NOT_SPECIFIED = '무관';
   const Possibility = '가능';
   const Impossibility = '불가능';
-  const AREA = '역삼동';
 
   const { showFitter, setShowFitter } = useFilter();
-
   const {
     onlyJoinAble,
     setOnlyJoinAble,
@@ -66,15 +81,21 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     canTalkState,
     setCanTalkState,
   } = updateContent();
-
-  const { area, setArea } = search();
-
   const {
     adressModalState,
     setAdressModalState,
     businessHourModalState,
     setBusinessHourModalState,
   } = useDetailModalStates();
+  const { nowPage, setNowPage, maxPage, setMaxPage, pageSize, setPageSize } =
+    usePage();
+  const {
+    isSelectedOnlyJoinAble,
+    setSelectedOptionOnlyJoinAble,
+    isSelecteCanTalk,
+    setSelectedCanTalk,
+  } = useOption();
+  const { setStartDateTime, setEndDateTime } = DateTime();
 
   const handleFilterButtonClick = () => {
     setShowFitter(!showFitter);
@@ -87,13 +108,6 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     setCanTalk(canTalkState);
   };
 
-  const {
-    isSelectedOnlyJoinAble,
-    setSelectedOptionOnlyJoinAble,
-    isSelecteCanTalk,
-    setSelectedCanTalk,
-  } = useOption();
-
   const handleOnlyJoinAbleOptionClick = (value: 'TRUE' | 'FALSE') => {
     setSelectedOptionOnlyJoinAble(value);
   };
@@ -103,48 +117,6 @@ const CafeMeetingSearchResultPage: React.FC = () => {
   };
 
   useEffect(() => {}, [onlyJoinAble, maxMemberCount, canTalk, area]);
-
-  const API: any = [
-    {
-      cafeId: 1,
-      cafeName: '귀차나',
-      id: 1,
-      name: '알아서 공부하자',
-      startDateTime: '2024-07-14T14:00:00',
-      endDateTime: '2024-07-14T17:00:00',
-      maxMemberCount: 7,
-      nowMemberCount: 3,
-      canTalk: true,
-      canJoin: true,
-      isEnd: false,
-    },
-    {
-      cafeId: 2,
-      cafeName: '할게너무 많아',
-      id: 1,
-      name: '알아서 공부하자',
-      startDateTime: '2025-05-01T11:00:00',
-      endDateTime: '2025-05-01T15:00:00',
-      maxMemberCount: 7,
-      nowMemberCount: 3,
-      canTalk: true,
-      canJoin: true,
-      isEnd: false,
-    },
-    {
-      cafeId: 3,
-      cafeName: '불닭먹을까?',
-      id: 1,
-      name: '알아서 공부하자',
-      startDateTime: '2024-04-15T09:00:00',
-      endDateTime: '2024-04-15T13:00:00',
-      maxMemberCount: 7,
-      nowMemberCount: 3,
-      canTalk: true,
-      canJoin: true,
-      isEnd: false,
-    },
-  ];
 
   const maxMember = 10;
   const minMember = 0;
@@ -166,19 +138,86 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     setBusinessHourModalState(updatedStates);
   };
 
+  useEffect(() => {
+    axios
+      .get(
+        `/study/once/list?page=1&area=${routeArea}&onlyJoinAble=${routeOnlyJoinAble}&maxMemberCount=${routeMaxMemberCount}&canTalk=${routeCanTalk}&sizePerPage=5`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
+      )
+      .then((response) => {
+        setCafeStudys(response.data.list);
+        setNowPage(response.data.nowPage);
+        setMaxPage(response.data.maxPage);
+        setPageSize(response.data.pageSize);
+      })
+      .catch((error) => {
+        console.error('요청 중 에러 발생:', error);
+      });
+  }, [area, onlyJoinAble, maxMemberCount, canTalk, accessToken]);
+
+  const handlePageChange = (event, newPage) => {
+    setNowPage(newPage);
+    axios
+      .get(
+        `/study/once/list?page=${newPage}&area=${area}&onlyJoinAble=${onlyJoinAble}&maxMemberCount=${maxMemberCount}&canTalk=${canTalk}&sizePerPage=5`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
+      )
+      .then((response) => {
+        setCafeStudys(response.data.list);
+        setMaxPage(response.data.maxPage);
+        setPageSize(response.data.pageSize);
+      })
+      .catch((error) => {
+        console.error('요청 중 에러 발생:', error);
+      });
+  };
+
+  const handleSearchClick = () => {
+    axios
+      .get(
+        `/study/once/list?page=1&area=${inputArea}&onlyJoinAble=${onlyJoinAble}&maxMemberCount=${maxMemberCount}&canTalk=${canTalk}&sizePerPage=5`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
+      )
+      .then((response) => {
+        setCafeStudys(response.data.list);
+        setNowPage(response.data.nowPage);
+        setMaxPage(response.data.maxPage);
+        setPageSize(response.data.pageSize);
+      })
+      .catch((error) => {
+        console.error('요청 중 에러 발생:', error);
+      });
+
+    setArea(inputArea);
+    navigate(
+      `/cafeMeetingSearchResult/1/${encodeURIComponent(area)}/${onlyJoinAble}/${maxMemberCount}/${canTalk}/5`,
+    );
+  };
   return (
     <Screen>
       <Container>
         <TitleTextContainer>
-          <AreaTextFont>{AREA}</AreaTextFont>
+          <AreaTextFont>{area}</AreaTextFont>
           <ResultTextFont>기반 카공 모임 검색 결과</ResultTextFont>
         </TitleTextContainer>
         <ResearchContainer>
           <InputContainer>
             <InputField
-              placeholder={AREA}
-              value={area}
-              onChange={(e) => setArea(e.target.value)}
+              placeholder={routeArea}
+              value={inputArea}
+              onChange={(e) => setInputArea(e.target.value)}
             ></InputField>
             <PlaceImg src="/assets/place-icon.png"></PlaceImg>
           </InputContainer>
@@ -187,7 +226,11 @@ const CafeMeetingSearchResultPage: React.FC = () => {
             color="white"
             onClick={handleFilterButtonClick}
           />
-          <ShortButton message="검색" color="black" />
+          <ShortButton
+            message="검색"
+            color="black"
+            onClick={handleSearchClick}
+          />
         </ResearchContainer>
         {showFitter && (
           <FitterContainer>
@@ -301,8 +344,8 @@ const CafeMeetingSearchResultPage: React.FC = () => {
           </FitterContainer>
         )}
         <CafeList>
-          {API.map((study, index) => (
-            <List>
+          {cafeStudys.map((study, index) => (
+            <List key={index}>
               <Detail>
                 <Name>{study.name}</Name>
                 <Adress>{study.cafeName}</Adress>
@@ -342,6 +385,11 @@ const CafeMeetingSearchResultPage: React.FC = () => {
             </List>
           ))}
         </CafeList>
+        <Pagination
+          count={maxPage}
+          page={nowPage}
+          onChange={handlePageChange}
+        />
       </Container>
       <Sidebar buttonColors={[, 'white', ,]} />
       <Header />

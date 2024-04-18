@@ -5,6 +5,8 @@ import {
   SearchContent,
   OptionState,
   DetailModalState,
+  PageState,
+  DateTimeCombine,
 } from './CafeMeetingSearchResultPage.type';
 
 export const useFilter = create<FilterState>((set) => ({
@@ -52,4 +54,23 @@ export const useDetailModalStates = create<DetailModalState>((set) => ({
 
   businessHourModalState: Array(0).fill(false),
   setBusinessHourModalState: (value) => set({ businessHourModalState: value }),
+}));
+
+export const usePage = create<PageState>((set) => ({
+  nowPage: 0,
+  setNowPage: (value) => set({ nowPage: value }),
+
+  maxPage: 0,
+  setMaxPage: (value) => set({ maxPage: value }),
+
+  pageSize: 0,
+  setPageSize: (value) => set({ pageSize: value }),
+}));
+
+export const DateTime = create<DateTimeCombine>((set) => ({
+  startDateTime: 'yyyy-MM-ddThh:mm:ss',
+  setStartDateTime: (value) => set({ startDateTime: value }),
+
+  endDateTime: 'yyyy-MM-ddThh:mm:ss',
+  setEndDateTime: (value) => set({ endDateTime: value }),
 }));
