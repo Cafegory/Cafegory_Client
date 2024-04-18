@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
 import Container from 'components/Basic/Container';
 import ShortButton from 'components/ShortButton';
+import { useNavigate } from 'react-router-dom';
 import {
   CafeSearch,
   TitleFont,
@@ -30,6 +31,7 @@ import {
 } from './CafeMeetingSearchPage.hooks';
 
 const CafeCreateRecruitment: React.FC = () => {
+  const navigate = useNavigate();
   const NOT_SPECIFIED = '무관';
   const Possibility = '가능';
   const Impossibility = '불가능';
@@ -84,6 +86,17 @@ const CafeCreateRecruitment: React.FC = () => {
   const maxMember = 10;
   const minMember = 0;
 
+  const handleSearchClick = () => {
+    if (area.trim() === '') {
+      // 경고 메시지 띄우기
+      alert('검색어를 입력해주세요.');
+      return; // 함수 종료
+    }
+    navigate(
+      `/cafeMeetingSearchResult/1/${encodeURIComponent(area)}/${onlyJoinAble}/${maxMemberCount}/${canTalk}/5`,
+    );
+  };
+
   return (
     <Screen>
       <Container>
@@ -103,7 +116,11 @@ const CafeCreateRecruitment: React.FC = () => {
               color="white"
               onClick={handleFilterButtonClick}
             />
-            <ShortButton message="검색" color="black" onClick={() => {}} />
+            <ShortButton
+              message="검색"
+              color="black"
+              onClick={handleSearchClick}
+            />
           </ButtonContainer>
         </CafeSearch>
         {showFitter && (

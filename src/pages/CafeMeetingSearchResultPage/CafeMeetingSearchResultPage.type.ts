@@ -43,3 +43,22 @@ export interface DetailModalState {
   businessHourModalState: boolean[];
   setBusinessHourModalState: (value: boolean[]) => void;
 }
+
+export interface PageState {
+  nowPage: number;
+  setNowPage: (value: number) => void;
+
+  maxPage: number;
+  setMaxPage: (value: number) => void;
+
+  pageSize: number;
+  setPageSize: (value: number) => void;
+}
+
+export interface DateTimeCombine {
+  startDateTime: string;
+  setStartDateTime: (value: string) => void;
+
+  endDateTime: string;
+  setEndDateTime: (value: string) => void;
+}
