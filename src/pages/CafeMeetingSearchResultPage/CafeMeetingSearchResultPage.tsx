@@ -181,6 +181,9 @@ const CafeMeetingSearchResultPage: React.FC = () => {
   };
 
   const handleSearchClick = () => {
+    if (inputArea.trim() === '') {
+      alert('검색어를 입력해주세요.');
+    }
     axios
       .get(
         `/study/once/list?page=1&area=${inputArea}&onlyJoinAble=${onlyJoinAble}&maxMemberCount=${maxMemberCount}&canTalk=${canTalk}&sizePerPage=5`,
@@ -205,6 +208,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
       `/cafeMeetingSearchResult/1/${encodeURIComponent(area)}/${onlyJoinAble}/${maxMemberCount}/${canTalk}/5`,
     );
   };
+
   return (
     <Screen>
       <Container>
