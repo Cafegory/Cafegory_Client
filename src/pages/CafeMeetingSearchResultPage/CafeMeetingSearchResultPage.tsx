@@ -157,7 +157,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
       .catch((error) => {
         console.error('요청 중 에러 발생:', error);
       });
-  }, [area, onlyJoinAble, maxMemberCount, canTalk, accessToken]);
+  }, [area, routeOnlyJoinAble, routeMaxMemberCount, routeCanTalk]);
 
   const handlePageChange = (event, newPage) => {
     setNowPage(newPage);
@@ -183,6 +183,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
   const handleSearchClick = () => {
     if (inputArea.trim() === '') {
       alert('검색어를 입력해주세요.');
+      return;
     }
     axios
       .get(
@@ -219,7 +220,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
         <ResearchContainer>
           <InputContainer>
             <InputField
-              placeholder={routeArea}
+              placeholder={area}
               value={inputArea}
               onChange={(e) => setInputArea(e.target.value)}
             ></InputField>

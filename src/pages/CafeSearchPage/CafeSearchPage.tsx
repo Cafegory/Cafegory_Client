@@ -157,9 +157,11 @@ const CafeSearchPage: React.FC = () => {
     setShowFitter(false);
   };
 
-  useEffect(() => {}, [startTime, endTime, minBeveragePrice, maxTime]);
-
   const handleSearchClick = () => {
+    if (area.trim() === '') {
+      alert('검색어를 입력해주세요.');
+      return;
+    }
     navigate(
       `/cafeSearchResult/1/${encodeURIComponent(area)}/${canStudy}/${startTime}/${endTime}/${minBeveragePrice}/${maxTime}/5`,
     );

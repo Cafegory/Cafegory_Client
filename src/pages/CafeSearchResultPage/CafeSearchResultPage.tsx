@@ -107,7 +107,6 @@ const CafeSearchResult: React.FC = () => {
     maxTime: routeMaxTime,
   } = useParams();
 
-  console.log(`efhwafew${routeMinBeveragePrice}`);
   const [area, setArea] = useState(routeArea);
   const [inputArea, setInputArea] = useState(routeArea);
 
@@ -130,17 +129,13 @@ const CafeSearchResult: React.FC = () => {
       .catch((error) => {
         console.error('요청 중 에러 발생:', error);
       });
-  }, [
-    area,
-    canStudy,
-    routeStartTime,
-    routeEndTime,
-    routeMinBeveragePrice,
-    routeMaxTime,
-    accessToken,
-  ]);
+  }, [area, routeStartTime, routeEndTime, routeMinBeveragePrice, routeMaxTime]);
 
   const handleSearchClick = () => {
+    if (inputArea.trim() === '') {
+      alert('검색어를 입력해주세요.');
+      return;
+    }
     axios
       .get(
         `/cafe/list?page=1&area=${inputArea}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=5`,
@@ -162,7 +157,7 @@ const CafeSearchResult: React.FC = () => {
 
     setArea(inputArea);
     navigate(
-      `/cafeSearchResult/1/${encodeURIComponent(inputArea)}/${canStudy}/${startTime}/${endTime}/${minBeveragePrice}/${maxTime}`,
+      `/cafeSearchResult/1/${encodeURIComponent(inputArea)}/${canStudy}/${startTime}/${endTime}/${minBeveragePrice}/${maxTime}/5`,
     );
   };
 

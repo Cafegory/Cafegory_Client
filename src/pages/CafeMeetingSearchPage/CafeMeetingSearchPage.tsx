@@ -88,9 +88,8 @@ const CafeCreateRecruitment: React.FC = () => {
 
   const handleSearchClick = () => {
     if (area.trim() === '') {
-      // 경고 메시지 띄우기
       alert('검색어를 입력해주세요.');
-      return; // 함수 종료
+      return;
     }
     navigate(
       `/cafeMeetingSearchResult/1/${encodeURIComponent(area)}/${onlyJoinAble}/${maxMemberCount}/${canTalk}/5`,
