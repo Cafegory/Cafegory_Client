@@ -14,6 +14,7 @@ import CafeRecruitmentModify from '../pages/CafeRecruitmentModifyPage/CafeRecrui
 import WriteReview from '../pages/WriteReviewPage/WriteReviewPage';
 import MyPageEdit from 'pages/MyPageEditPage/MyPageEditPage';
 import LoginState from 'pages/Login/LoginState';
+import axios from 'axios';
 
 const Router: React.FC = () => {
   return (
@@ -27,7 +28,7 @@ const Router: React.FC = () => {
           element={<CafeSearchResultPage />}
         />
         <Route
-          path="/studyRecruiting"
+          path="/studyRecruiting/:cafeId"
           element={<CafeCreateRecruitmentPage />}
         />
         <Route path="/cafeInfo" element={<CafeInfo />} />

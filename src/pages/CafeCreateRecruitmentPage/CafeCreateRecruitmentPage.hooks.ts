@@ -4,6 +4,7 @@ import {
   OptionContentList,
   DateTimeCombine,
   OptionState,
+  Cafe,
 } from './CafeCreateRecruitmentPage.type';
 
 export const OptionContent = create<OptionContentList>((set) => ({
@@ -37,4 +38,9 @@ export const DateTime = create<DateTimeCombine>((set) => ({
 export const useOption = create<OptionState>((set) => ({
   isSelectedCanStudy: 'TRUE',
   setSelectedCanStudy: (value) => set({ isSelectedCanStudy: value }),
+}));
+
+export const cafeinfo = create<Cafe>((set) => ({
+  cafeName: '',
+  setCafeName: (value) => set({ cafeName: value }),
 }));

@@ -30,3 +30,8 @@ export interface OptionState {
   isSelectedCanStudy: string;
   setSelectedCanStudy: (value: string) => void;
 }
+
+export interface Cafe {
+  cafeName: string;
+  setCafeName: (value: string) => void;
+}
