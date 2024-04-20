@@ -251,9 +251,9 @@ export const MinBeveragePrice = styled.div`
 `;
 
 export const IsOpenImg = styled.img`
-  position: absolute;
   width: 3rem;
   height: 2rem;
+  margin-left: auto;
 `;
 
 export const TitleFont = styled.div`
