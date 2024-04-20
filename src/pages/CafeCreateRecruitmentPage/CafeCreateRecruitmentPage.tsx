@@ -103,16 +103,14 @@ const CafeCreateRecruitment: React.FC = () => {
 
   const CreateMeetingClick = async () => {
     try {
-      const response = await axios.post(`/study/once`, sendData, {
+      await axios.post('/study/once', sendData, {
         headers: {
           Authorization: accessToken,
         },
       });
-      console.log(response.data);
-      console.log(`샌드데이터${JSON.stringify(sendData)}`);
-      console.log('성공?');
+      console.log('요청 성공');
     } catch (error) {
-      console.error(error);
+      alert(`${error.response.data.errorMessage}`);
     }
   };
 
@@ -131,7 +129,7 @@ const CafeCreateRecruitment: React.FC = () => {
         setCafeName(response.data.basicInfo.name);
       })
       .catch((error) => {
-        console.error('요청 중 에러 발생:', error);
+        console.error(error.response.data.errorMessage);
       });
   }, []);
 
