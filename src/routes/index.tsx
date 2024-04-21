@@ -15,6 +15,7 @@ import WriteReview from '../pages/WriteReviewPage/WriteReviewPage';
 import MyPageEdit from 'pages/MyPageEditPage/MyPageEditPage';
 import LoginState from 'pages/Login/LoginState';
 import axios from 'axios';
+import Kakao from 'components/Kakao';
 
 const Router: React.FC = () => {
   return (
@@ -46,6 +47,7 @@ const Router: React.FC = () => {
         <Route path="/writeReview" element={<WriteReview />} />
         <Route path="/mypageEdit" element={<MyPageEdit />} />
         <Route path="/" element={<LoginState />} />
+        <Route path="/kakao" element={<Kakao />} />
       </Routes>
     </BrowserRouter>
   );
