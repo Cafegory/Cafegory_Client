@@ -265,7 +265,7 @@ const CafeInfo: React.FC = () => {
                     </RateContainer>
                   </ReviewsUpContainer>
                   <ReviewsContentContainer>
-                    {review.content}
+                    {reviews[index].content}
                   </ReviewsContentContainer>
                 </ReviewsBox>
               ))}
