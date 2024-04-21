@@ -7,8 +7,9 @@ import LongButton from 'components/LongButton';
 import 'react-datepicker/dist/react-datepicker.css';
 import ko from 'date-fns/locale/ko';
 import { useNavigate } from 'react-router-dom';
-import { format } from 'date-fns';
+import { constructFrom, format } from 'date-fns';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 import {
   Title,
@@ -44,6 +45,7 @@ import {
   OptionContent,
   DateTime,
   useOption,
+  cafeinfo,
 } from './CafeCreateRecruitmentPage.hooks';
 
 const CafeCreateRecruitment: React.FC = () => {
@@ -64,7 +66,7 @@ const CafeCreateRecruitment: React.FC = () => {
   const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
     DateTime();
   const { isSelectedCanStudy, setSelectedCanStudy } = useOption();
-
+  const { cafeName, setCafeName } = cafeinfo();
   const navigate = useNavigate();
   const handleGoBack = () => {
     navigate(-1);
@@ -88,9 +90,10 @@ const CafeCreateRecruitment: React.FC = () => {
   }, [selectedDate, startTime, selectedDate, endTime]);
 
   const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  const { cafeId: routeCafeId } = useParams();
 
   const sendData = {
-    cafeId: 1,
+    cafeId: routeCafeId,
     name: name,
     startDateTime: startDateTime,
     endDateTime: endDateTime,
@@ -98,26 +101,37 @@ const CafeCreateRecruitment: React.FC = () => {
     canTalk: canTalk,
   };
 
-  const createMeeting = async () => {
+  const CreateMeetingClick = async () => {
     try {
-      const response = await axios.post('/study/once', sendData, {
+      await axios.post('/study/once', sendData, {
         headers: {
           Authorization: accessToken,
         },
       });
-      console.log(response.data);
+      console.log('요청 성공');
     } catch (error) {
-      console.error(error);
+      alert(`${error.response.data.errorMessage}`);
     }
-  };
-
-  const CreateMeetingClick = () => {
-    createMeeting();
   };
 
   const handleCanTalkOptionClick = (value: 'TRUE' | 'FALSE') => {
     setSelectedCanStudy(value);
   };
+
+  useEffect(() => {
+    axios
+      .get(`/cafe/${routeCafeId}`, {
+        headers: {
+          Authorization: accessToken,
+        },
+      })
+      .then((response) => {
+        setCafeName(response.data.basicInfo.name);
+      })
+      .catch((error) => {
+        console.error(error.response.data.errorMessage);
+      });
+  }, []);
 
   return (
     <Screen>
@@ -145,8 +159,7 @@ const CafeCreateRecruitment: React.FC = () => {
             <Location>
               <DetailName>장소</DetailName>
               <CafeInfo>
-                <CafeImg src="/assets/cafe-img.png" alt="임시 카페 사진" />
-                <CafeName>스타벅스 강남R점</CafeName>
+                <CafeName>{cafeName}</CafeName>
               </CafeInfo>
             </Location>
             <Date>
@@ -258,11 +271,7 @@ const CafeCreateRecruitment: React.FC = () => {
               message="그룹 생성하기"
               onClick={CreateMeetingClick}
             />
-            <LongButton
-              color="red"
-              message="뒤로가기"
-              onClick={createMeeting}
-            />
+            <LongButton color="red" message="뒤로가기" onClick={handleGoBack} />
           </ButtonContainer>
         </ContainerDetail>
       </Container>

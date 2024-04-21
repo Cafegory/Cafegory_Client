@@ -455,10 +455,6 @@ const CafeSearchResult: React.FC = () => {
         <CafeList>
           {cafes.map((cafe, index) => (
             <List key={index}>
-              {cafe.isOpen ? (
-                <IsOpenImg src="/assets/isOpen.png" alt="영업중" />
-              ) : null}
-              <CafeImg src="/assets/cafeSearch-result.png" alt="카페로고" />
               <Detail>
                 <Name>{cafe.name}</Name>
                 <AdressContainer>
@@ -512,6 +508,9 @@ const CafeSearchResult: React.FC = () => {
                   가장 저렴함 음료 {cafe.minBeveragePrice}원
                 </MinBeveragePrice>
               </Detail>
+              {cafe.isOpen ? (
+                <IsOpenImg src="/assets/isOpen.png" alt="영업중" />
+              ) : null}
             </List>
           ))}
         </CafeList>
