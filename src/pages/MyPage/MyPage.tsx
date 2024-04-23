@@ -12,14 +12,14 @@ import {
 } from './MyPage.style';
 import ShortButton from 'components/ShortButton';
 import { useNavigate } from 'react-router-dom';
+import { profileApiStore } from './MyPage.hooks';
 
 const My: React.FC = () => {
-  const api = {
-    name: '취준생',
-    thumbnailImg: 'https://~~',
-    introduction: '안녕하세요 수연이에요 ',
-  };
-
+  const { name, introduction, thumbnailingImg, fetchProfile } =
+    profileApiStore();
+  React.useEffect(() => {
+    fetchProfile();
+  }, []);
   const navigate = useNavigate();
 
   return (
@@ -27,9 +27,16 @@ const My: React.FC = () => {
       <Container>
         <MypageContainer>
           <TitleFont>마이페이지</TitleFont>
-          <ProfileImg src={api.thumbnailImg} alt="프로필 사진"></ProfileImg>
-          <NameFont>{api.name}</NameFont>
-          <IntroduceFont>{api.introduction}</IntroduceFont>
+          <ProfileImg src={thumbnailingImg} alt="프로필 사진"></ProfileImg>
+          <NameFont>{name}</NameFont>
+
+          {introduction === null ? (
+            <IntroduceFont>
+              수정하기를 눌러 자기소개를 작성해주세요.
+            </IntroduceFont>
+          ) : (
+            <IntroduceFont>{introduction}</IntroduceFont>
+          )}
           <ShortButton
             message="수정하기"
             color="black"

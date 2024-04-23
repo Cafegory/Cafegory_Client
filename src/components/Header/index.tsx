@@ -29,7 +29,11 @@ const Header: React.FC<HeaderProps> = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreashToken');
+    localStorage.removeItem('memberId');
+    localStorage.removeItem('name');
     setIsLoggedIn(false);
+    window.location.reload();
   };
 
   return (
@@ -60,7 +64,7 @@ const Header: React.FC<HeaderProps> = () => {
           </RightDiv>
         </HeaderContainer>
       )}
-      {!isLoggedIn && ( // isLoggedIn이 false일 때만 LoginSignupLink를 렌더링
+      {!isLoggedIn && (
         <HeaderContainer>
           <LogoDiv>
             <HambergerButton
