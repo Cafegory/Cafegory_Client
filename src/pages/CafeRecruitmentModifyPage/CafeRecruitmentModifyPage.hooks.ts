@@ -4,6 +4,7 @@ import {
   OptionContentList,
   DateTimeCombine,
   MemberList,
+  Cafe,
 } from './CafeRecruitmentModifyPage.type';
 
 export const OptionContent = create<OptionContentList>((set) => ({
@@ -40,4 +41,9 @@ export const Member = create<MemberList>((set) => ({
 
   thumbnailImg: '',
   setThumbnailImg: (value) => set({ thumbnailImg: value }),
+}));
+
+export const cafeinfo = create<Cafe>((set) => ({
+  cafeName: '',
+  setCafeName: (value) => set({ cafeName: value }),
 }));

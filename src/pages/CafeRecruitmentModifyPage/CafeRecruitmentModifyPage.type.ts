@@ -33,3 +33,8 @@ export interface MemberList {
   thumbnailImg: string;
   setThumbnailImg: (value: string) => void;
 }
+
+export interface Cafe {
+  cafeName: string;
+  setCafeName: (value: string) => void;
+}

@@ -53,6 +53,7 @@ import {
   OptionContent,
   DateTime,
   Member,
+  cafeinfo,
 } from './CafeRecruitmentModifyPage.hooks';
 
 const CafeRecruitmentModify: React.FC = () => {
@@ -75,7 +76,7 @@ const CafeRecruitmentModify: React.FC = () => {
   } = OptionContent();
   const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
     DateTime();
-
+  const { cafeName, setCafeName } = cafeinfo();
   const { memberName, setMemberName, thumbnailImg, setThumbnailImg } = Member();
 
   const navigate = useNavigate();
@@ -174,6 +175,12 @@ const CafeRecruitmentModify: React.FC = () => {
                 </Warning>
               )}
             </GroupName>
+            <Location>
+              <DetailName>장소</DetailName>
+              <CafeInfo>
+                <CafeName>{cafeName}</CafeName>
+              </CafeInfo>
+            </Location>
             <Date>
               <DetailName>날짜</DetailName>
               <DateContatiner>
