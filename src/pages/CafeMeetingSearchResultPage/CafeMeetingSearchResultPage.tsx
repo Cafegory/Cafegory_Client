@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
 import Container from '../../components/Basic/Container';
+import Kakao from 'components/Kakao';
 import {
   AreaTextFont,
   InputContainer,
@@ -348,6 +349,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
             <ShortButton message="적용" color="black" onClick={ApplyFilter} />
           </FitterContainer>
         )}
+        <Kakao addresses={cafeStudys.map((study) => study.address)} />
         <CafeList>
           {cafeStudys.map((study, index) => (
             <List key={index}>
