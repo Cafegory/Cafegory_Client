@@ -13,19 +13,25 @@ import {
   TitleFont,
   CloseButton,
   ReviewBoxContainer,
+  ReviewsDeleteContainer,
 } from './ReviewModal.style';
 import { reviewUseStore } from './ReviewModal.hooks';
 import { reviewApiStore } from './ReviewModal.hooks';
 
 const Review: React.FC = () => {
+  const id = JSON.parse(localStorage.getItem('memberId'));
   const toggleReviewModal = reviewUseStore((state) => state.toggleReviewModal);
 
   const closeModal = () => {
     toggleReviewModal();
   };
 
-  const { reviews, fetchReviews } = reviewApiStore();
+  const { reviews, fetchReviews, deleteReview } = reviewApiStore();
 
+  const handleDeleteReview = async (reviewId: number) => {
+    await deleteReview(reviewId);
+    await fetchReviews();
+  };
   React.useEffect(() => {
     fetchReviews();
   }, []);
@@ -54,10 +60,16 @@ const Review: React.FC = () => {
                   ))}
                 </RateContainer>
               </ReviewsUpContainer>
-
               <ReviewsContentContainer>
                 {reviews[index].content}
               </ReviewsContentContainer>
+              {id === reviews[index].writer.memberId && (
+                <ReviewsDeleteContainer
+                  onClick={() => handleDeleteReview(reviews[index].reviewId)}
+                >
+                  삭제
+                </ReviewsDeleteContainer>
+              )}
             </ReviewsBox>
           ))}
         </ReviewBoxContainer>

@@ -46,7 +46,7 @@ const LoginState: React.FC = () => {
 
   const decodedPayload = decodeJWT(accessToken);
   const memberId = decodedPayload ? decodedPayload.memberId : null;
-  localStorage.setItem('', memberId);
+  localStorage.setItem('memberId', memberId);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +59,6 @@ const LoginState: React.FC = () => {
         console.log(response.data);
         const { name } = response.data;
         localStorage.setItem('userName', name);
-        console.log(localStorage.getItem('userName'));
       } catch (error) {
         console.error('요청 중 에러 발생:', error);
       }

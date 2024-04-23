@@ -17,7 +17,6 @@ import {
   useContentStore,
   postReview,
 } from './WriteReviewPage.hooks';
-import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const WriteReview: React.FC = () => {

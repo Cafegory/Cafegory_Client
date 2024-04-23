@@ -16,9 +16,6 @@ export const useContentStore = create<ContentState>((set) => ({
 const apiUrl = '/cafe/1/review';
 const accessToken =JSON.parse(localStorage.getItem('accessToken'));
 
-
-
-
 export const postReview = async () => {
   const reviewData = {
     content: useContentStore.getState().content,

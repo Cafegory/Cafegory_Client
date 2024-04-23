@@ -133,3 +133,14 @@ word-wrap: break-word;
     font-size:1rem;
   }
 `
+export const ReviewsDeleteContainer = styled.div`
+  width:100%;
+  font-size:1rem;
+  display:flex;
+  justify-content:Center;
+  cursor:pointer;
+
+  @media (max-width: 768px) {
+    font-size:0.9rem;
+  }
+`
