@@ -14,35 +14,30 @@ import {
   TitleFont,
 } from './MyPageEditPage.style';
 import ShortButton from 'components/ShortButton';
-import {
-  useNameStore,
-  useIntroductionStore,
-  useProfileStore,
-} from './MyPageEdit.hooks';
 import { ProfileImg } from 'pages/MyPage/MyPage.style';
+import { profileApiStore } from 'pages/MyPage/MyPage.hooks';
+import { useNavigate } from 'react-router-dom';
 
 const MyPageEdit: React.FC = () => {
-  const { name, setName } = useNameStore();
-  const { introduction, setIntroduction } = useIntroductionStore();
+  const navigate = useNavigate();
   const maxNameLength = 8;
   const maxIntroductionLength = 300;
-  const { profilePicture, setProfilePicture } = useProfileStore();
-  const onChange = (e) => {
-    if (e.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setProfilePicture(reader.result as string);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
+
   const fileInput = React.useRef(null);
+  const { name, setName, setIntroduction, introduction, patchProfile } =
+    profileApiStore();
+
+  const handleProfileEdit = async () => {
+    await patchProfile();
+    navigate('/my');
+  };
+
   return (
     <Screen>
       <Container>
         <MypageEditContainer>
           <TitleFont>수정하기</TitleFont>
-          <ProfileImg src={profilePicture} alt="프로필 사진"></ProfileImg>
+          {/* <ProfileImg src={profilePicture} alt="프로필 사진"></ProfileImg> */}
           <InputContainer>
             <InputLabelFont>이름</InputLabelFont>
             <NameInput
@@ -66,14 +61,15 @@ const MyPageEdit: React.FC = () => {
               onChange={(e) => setIntroduction(e.target.value)}
               maxLength={maxIntroductionLength}
             ></IntroductionInput>
-            {introduction.length >= maxIntroductionLength && (
-              <AlertFont>
-                * 자기 소개를 {maxIntroductionLength}글자 이하로 작성해주세요.
-              </AlertFont>
-            )}
+            {introduction !== null &&
+              introduction.length >= maxIntroductionLength && (
+                <AlertFont>
+                  * 자기 소개를 {maxIntroductionLength}글자 이하로 작성해주세요.
+                </AlertFont>
+              )}
           </InputContainer>
           <ButtonContainer>
-            <ShortButton
+            {/* <ShortButton
               message="사진 변경"
               color="white"
               onClick={() => {
@@ -87,8 +83,12 @@ const MyPageEdit: React.FC = () => {
               name="profile_img"
               onChange={onChange}
               ref={fileInput}
-            />
-            <ShortButton message="완료" color="black"></ShortButton>
+            /> */}
+            <ShortButton
+              message="완료"
+              color="black"
+              onClick={handleProfileEdit}
+            ></ShortButton>
           </ButtonContainer>
         </MypageEditContainer>
       </Container>

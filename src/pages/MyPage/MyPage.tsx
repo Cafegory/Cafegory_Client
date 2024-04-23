@@ -15,7 +15,8 @@ import { useNavigate } from 'react-router-dom';
 import { profileApiStore } from './MyPage.hooks';
 
 const My: React.FC = () => {
-  const { profile, fetchProfile } = profileApiStore();
+  const { name, introduction, thumbnailingImg, fetchProfile } =
+    profileApiStore();
   React.useEffect(() => {
     fetchProfile();
   }, []);
@@ -26,15 +27,15 @@ const My: React.FC = () => {
       <Container>
         <MypageContainer>
           <TitleFont>마이페이지</TitleFont>
-          <ProfileImg src={profile.thumbnailImg} alt="프로필 사진"></ProfileImg>
-          <NameFont>{profile.name}</NameFont>
+          <ProfileImg src={thumbnailingImg} alt="프로필 사진"></ProfileImg>
+          <NameFont>{name}</NameFont>
 
-          {profile.introduction === null ? (
+          {introduction === null ? (
             <IntroduceFont>
               수정하기를 눌러 자기소개를 작성해주세요.
             </IntroduceFont>
           ) : (
-            <IntroduceFont>{profile.introduction}</IntroduceFont>
+            <IntroduceFont>{introduction}</IntroduceFont>
           )}
           <ShortButton
             message="수정하기"
