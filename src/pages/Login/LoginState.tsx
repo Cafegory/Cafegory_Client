@@ -22,6 +22,7 @@ const LoginState: React.FC = () => {
         );
         setIsLoggedIn(true);
         navigate('/main');
+        window.location.reload();
       } catch (error) {
         console.error(error);
         console.log('실패?');
