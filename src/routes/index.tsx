@@ -14,7 +14,6 @@ import CafeRecruitmentModify from '../pages/CafeRecruitmentModifyPage/CafeRecrui
 import WriteReview from '../pages/WriteReviewPage/WriteReviewPage';
 import MyPageEdit from 'pages/MyPageEditPage/MyPageEditPage';
 import LoginState from 'pages/Login/LoginState';
-import axios from 'axios';
 
 const Router: React.FC = () => {
   return (
