@@ -13,20 +13,22 @@ export const useContentStore = create<ContentState>((set) => ({
   }));
 
 
-const apiUrl = 'http://52.78.210.204/cafe/1/review';
+const apiUrl = '/cafe/1/review';
 const accessToken =JSON.parse(localStorage.getItem('accessToken'));
 
-const reviewData = {
-  content: useContentStore.getState().content,
-  rate: useRatingStore.getState().rating
-};
+
 
 
 export const postReview = async () => {
+  const reviewData = {
+    content: useContentStore.getState().content,
+    rate: useRatingStore.getState().rating
+  };
+
   try {
     const response = await axios.post(apiUrl, reviewData, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: accessToken,
       }
     });
     console.log('Response:', response.data);
