@@ -1,6 +1,12 @@
 import create from 'zustand';
-import { RatingState, ContentState } from './WriteReviewPage.type';
+import { RatingState, ContentState, ReviewEditState } from './WriteReviewPage.type';
 import axios from 'axios';
+
+export const ReviewEditStore = create<ReviewEditState>((set) => ({
+  isEditing: false,
+  toggleEditing: () => set((state) => ({ isEditing: !state.isEditing })),
+}));
+
 
 export const useRatingStore = create<RatingState>((set) => ({
   rating: 0,

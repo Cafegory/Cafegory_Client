@@ -133,11 +133,15 @@ word-wrap: break-word;
     font-size:1rem;
   }
 `
-export const ReviewsDeleteContainer = styled.div`
+export const ReviewsEditContainer = styled.div`
   width:100%;
-  font-size:1rem;
   display:flex;
   justify-content:Center;
+  gap:0.8rem;
+`
+
+export const ReviewsEditFont = styled.div`
+  font-size:1rem;
   cursor:pointer;
 
   @media (max-width: 768px) {

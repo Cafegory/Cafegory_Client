@@ -16,6 +16,7 @@ import {
   useRatingStore,
   useContentStore,
   postReview,
+  ReviewEditStore,
 } from './WriteReviewPage.hooks';
 import { useNavigate } from 'react-router-dom';
 
@@ -37,8 +38,12 @@ const WriteReview: React.FC = () => {
   const handlePostReview = () => {
     postReview();
     Navigate('/cafeInfo');
+    setRating(0);
+    setContent('');
   };
+  const handleEditReview = () => {};
   const Navigate = useNavigate();
+  const { isEditing } = ReviewEditStore();
 
   return (
     <Screen>
@@ -66,11 +71,20 @@ const WriteReview: React.FC = () => {
             <AlertFont>* {maxContentLength}글자 이하로 작성해주세요.</AlertFont>
           )}
           <ButtonContainer>
-            <ShortButton
-              message="작성하기"
-              color="black"
-              onClick={handlePostReview}
-            />
+            {!isEditing && (
+              <ShortButton
+                message="작성하기"
+                color="black"
+                onClick={handleEditReview}
+              />
+            )}
+            {isEditing && (
+              <ShortButton
+                message="수정하기"
+                color="black"
+                onClick={handlePostReview}
+              />
+            )}
             <ShortButton message="취소" color="white" onClick={cancel} />
           </ButtonContainer>
         </WriteReviewContainer>

@@ -13,14 +13,22 @@ import {
   TitleFont,
   CloseButton,
   ReviewBoxContainer,
-  ReviewsDeleteContainer,
+  ReviewsEditContainer,
+  ReviewsEditFont,
 } from './ReviewModal.style';
 import { reviewUseStore } from './ReviewModal.hooks';
 import { reviewApiStore } from './ReviewModal.hooks';
+import {
+  useRatingStore,
+  useContentStore,
+  ReviewEditStore,
+} from 'pages/WriteReviewPage/WriteReviewPage.hooks';
+import { useNavigate } from 'react-router-dom';
 
 const Review: React.FC = () => {
   const id = JSON.parse(localStorage.getItem('memberId'));
   const toggleReviewModal = reviewUseStore((state) => state.toggleReviewModal);
+  const navigate = useNavigate();
 
   const closeModal = () => {
     toggleReviewModal();
@@ -35,6 +43,18 @@ const Review: React.FC = () => {
   React.useEffect(() => {
     fetchReviews();
   }, []);
+
+  const { setContent } = useContentStore();
+  const { setRating } = useRatingStore();
+  const { toggleEditing } = ReviewEditStore();
+
+  const handleReviewEdit = (content, rate) => {
+    setRating(rate);
+    setContent(content);
+    toggleEditing(true);
+
+    navigate('/writeReview');
+  };
 
   return (
     <>
@@ -64,11 +84,24 @@ const Review: React.FC = () => {
                 {reviews[index].content}
               </ReviewsContentContainer>
               {id === reviews[index].writer.memberId && (
-                <ReviewsDeleteContainer
-                  onClick={() => handleDeleteReview(reviews[index].reviewId)}
-                >
-                  삭제
-                </ReviewsDeleteContainer>
+                <ReviewsEditContainer>
+                  <ReviewsEditFont
+                    onClick={() =>
+                      handleReviewEdit(
+                        reviews[index].content,
+                        reviews[index].rate,
+                      )
+                    }
+                  >
+                    수정
+                  </ReviewsEditFont>
+                  <ReviewsEditFont>|</ReviewsEditFont>
+                  <ReviewsEditFont
+                    onClick={() => handleDeleteReview(reviews[index].reviewId)}
+                  >
+                    삭제
+                  </ReviewsEditFont>
+                </ReviewsEditContainer>
               )}
             </ReviewsBox>
           ))}

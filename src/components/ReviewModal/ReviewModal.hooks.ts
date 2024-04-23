@@ -1,5 +1,4 @@
-import {StoreState} from './ReviewModal.types';
-import {ApiStoreState} from './ReviewModal.types';
+import {StoreState,  ApiStoreState} from './ReviewModal.types';
 import create from 'zustand';
 import axios from 'axios';
 
@@ -7,6 +6,7 @@ export const reviewUseStore = create<StoreState>((set) => ({
   isReviewModalOpen: false,
   toggleReviewModal: () => set((state) => ({ isReviewModalOpen: !state.isReviewModalOpen })),
 }));
+
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 
