@@ -12,7 +12,14 @@ const LoginState: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`/oauth2/kakao?code=${code}`);
-        console.log(response.data);
+        localStorage.setItem(
+          'accessToken',
+          JSON.stringify(response.data.accessToken),
+        );
+        localStorage.setItem(
+          'refreashToken',
+          JSON.stringify(response.data.refreshToken),
+        );
         setIsLoggedIn(true);
         navigate('/main');
       } catch (error) {
@@ -23,6 +30,42 @@ const LoginState: React.FC = () => {
 
     fetchData();
   }, []);
+
+  const accessToken = JSON.parse(localStorage.getItem('accessToken'));
+
+  function decodeJWT(token) {
+    try {
+      const tokenParts = token.split('.');
+      const payload = JSON.parse(atob(tokenParts[1]));
+      return payload;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
+    }
+  }
+
+  const decodedPayload = decodeJWT(accessToken);
+  const memberId = decodedPayload ? decodedPayload.memberId : null;
+  localStorage.setItem('memberId', memberId);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`profile/${memberId}`, {
+          headers: {
+            Authorization: accessToken,
+          },
+        });
+        console.log(response.data);
+        const { name } = response.data;
+        localStorage.setItem('userName', name);
+      } catch (error) {
+        console.error('요청 중 에러 발생:', error);
+      }
+    };
+
+    fetchData();
+  }, [accessToken]);
 
   return <></>;
 };

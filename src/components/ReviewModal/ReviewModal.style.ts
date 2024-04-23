@@ -133,3 +133,18 @@ word-wrap: break-word;
     font-size:1rem;
   }
 `
+export const ReviewsEditContainer = styled.div`
+  width:100%;
+  display:flex;
+  justify-content:Center;
+  gap:0.8rem;
+`
+
+export const ReviewsEditFont = styled.div`
+  font-size:1rem;
+  cursor:pointer;
+
+  @media (max-width: 768px) {
+    font-size:0.9rem;
+  }
+`

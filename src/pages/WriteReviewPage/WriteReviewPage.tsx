@@ -12,7 +12,14 @@ import {
   WriteReviewContainer,
   AlertFont,
 } from './WriteReviewPage.style';
-import { useRatingStore, useContentStore } from './WriteReviewPage.hooks';
+import {
+  useRatingStore,
+  useContentStore,
+  postReview,
+  patchReview,
+  ReviewEditStore,
+} from './WriteReviewPage.hooks';
+import { useNavigate } from 'react-router-dom';
 
 const WriteReview: React.FC = () => {
   const { content, setContent } = useContentStore();
@@ -21,6 +28,8 @@ const WriteReview: React.FC = () => {
     window.history.back();
   };
   const { rating, setRating } = useRatingStore();
+  const { toggleEditing } = ReviewEditStore();
+
   const handleRatingClick = (newRating: number) => {
     if (newRating === rating) {
       setRating(0);
@@ -28,6 +37,22 @@ const WriteReview: React.FC = () => {
       setRating(newRating);
     }
   };
+
+  const handlePostReview = () => {
+    postReview();
+    Navigate('/cafeInfo');
+    setRating(0);
+    setContent('');
+  };
+  const handleEditReview = () => {
+    patchReview();
+    setRating(0);
+    setContent('');
+    toggleEditing(false);
+    Navigate('/cafeInfo');
+  };
+  const Navigate = useNavigate();
+  const { isEditing } = ReviewEditStore();
 
   return (
     <Screen>
@@ -55,7 +80,20 @@ const WriteReview: React.FC = () => {
             <AlertFont>* {maxContentLength}글자 이하로 작성해주세요.</AlertFont>
           )}
           <ButtonContainer>
-            <ShortButton message="작성하기" color="black" />
+            {!isEditing && (
+              <ShortButton
+                message="작성하기"
+                color="black"
+                onClick={handlePostReview}
+              />
+            )}
+            {isEditing && (
+              <ShortButton
+                message="수정하기"
+                color="black"
+                onClick={handleEditReview}
+              />
+            )}
             <ShortButton message="취소" color="white" onClick={cancel} />
           </ButtonContainer>
         </WriteReviewContainer>

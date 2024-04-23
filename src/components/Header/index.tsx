@@ -19,7 +19,6 @@ import { useStoreMobile } from '../MobileModal/MobileModal.hooks';
 
 const Header: React.FC<HeaderProps> = () => {
   const navigate = useNavigate();
-  const userName = '박소정';
 
   const isLoginModalOpen = useStore((state) => state.isLoginModalOpen);
   const toggleLoginModal = useStore((state) => state.toggleLoginModal);
@@ -29,39 +28,61 @@ const Header: React.FC<HeaderProps> = () => {
   const toggleMobileModal = useStoreMobile((state) => state.toggleMobileModal);
 
   const handleLogout = () => {
+    localStorage.removeItem('accessToken');
     setIsLoggedIn(false);
   };
 
   return (
     <>
-      <HeaderContainer>
-        <LogoDiv>
-          <HambergerButton
-            src="/assets/hamberger-button.png"
-            alt="햄버거"
-            onClick={toggleMobileModal}
-          />
-          <LogoImage
-            onClick={() => {
-              navigate('/');
-            }}
-            src="/assets/logo.jpg"
-            alt="로고"
-          />
-          <LogoFont>Cafegory.</LogoFont>
-        </LogoDiv>
+      {isLoggedIn && (
+        <HeaderContainer>
+          <LogoDiv>
+            <HambergerButton
+              src="/assets/hamberger-button.png"
+              alt="햄버거"
+              onClick={toggleMobileModal}
+            />
+            <LogoImage
+              onClick={() => {
+                navigate('/');
+              }}
+              src="/assets/logo.jpg"
+              alt="로고"
+            />
+            <LogoFont>Cafegory.</LogoFont>
+          </LogoDiv>
 
-        <RightDiv>
-          {isLoggedIn ? (
-            <>
-              <WelcomeMessageBox>{`${userName}님 환영합니다!`}</WelcomeMessageBox>
-              <LoginSignupLink onClick={handleLogout}>로그아웃</LoginSignupLink>
-            </>
-          ) : (
+          <RightDiv>
+            <WelcomeMessageBox>{`${localStorage.getItem(
+              'userName',
+            )}님 환영합니다!`}</WelcomeMessageBox>
+            <LoginSignupLink onClick={handleLogout}>로그아웃</LoginSignupLink>
+          </RightDiv>
+        </HeaderContainer>
+      )}
+      {!isLoggedIn && ( // isLoggedIn이 false일 때만 LoginSignupLink를 렌더링
+        <HeaderContainer>
+          <LogoDiv>
+            <HambergerButton
+              src="/assets/hamberger-button.png"
+              alt="햄버거"
+              onClick={toggleMobileModal}
+            />
+            <LogoImage
+              onClick={() => {
+                navigate('/');
+              }}
+              src="/assets/logo.jpg"
+              alt="로고"
+            />
+            <LogoFont>Cafegory.</LogoFont>
+          </LogoDiv>
+
+          <RightDiv>
             <LoginSignupLink onClick={toggleLoginModal}>로그인</LoginSignupLink>
-          )}
-        </RightDiv>
-      </HeaderContainer>
+          </RightDiv>
+        </HeaderContainer>
+      )}
       {isLoginModalOpen && <Login />}
       {isMobileModalOpen && <MobileModal />}
     </>
