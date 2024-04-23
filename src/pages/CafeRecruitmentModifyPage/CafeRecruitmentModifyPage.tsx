@@ -76,7 +76,7 @@ const CafeRecruitmentModify: React.FC = () => {
   } = OptionContent();
   const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
     DateTime();
-  const { cafeName, setCafeName } = cafeinfo();
+  const { cafeName, setCafeName, cafeId, setCafeId } = cafeinfo();
   const { memberName, setMemberName, thumbnailImg, setThumbnailImg } = Member();
 
   const navigate = useNavigate();
@@ -145,6 +145,23 @@ const CafeRecruitmentModify: React.FC = () => {
         const endTimePart = response.data.endDateTime.split('T')[1];
         const endTime = parseInt(endTimePart.split(':')[0]);
         setEndTime(endTime);
+        setCafeId(response.data.cafeId);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/cafe/${cafeId}`, {
+          headers: {
+            Authorization: accessToken,
+          },
+        });
+        setCafeName(response.data.basicInfo.address);
       } catch (error) {
         console.error(error);
       }

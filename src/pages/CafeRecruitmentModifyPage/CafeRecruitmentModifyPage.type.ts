@@ -1,3 +1,5 @@
+import { NumberLiteralType } from 'typescript';
+
 export interface OptionContentList {
   name: string;
   setName: (value: string) => void;
@@ -37,4 +39,7 @@ export interface MemberList {
 export interface Cafe {
   cafeName: string;
   setCafeName: (value: string) => void;
+
+  cafeId: Number;
+  setCafeId: (value: number) => void;
 }

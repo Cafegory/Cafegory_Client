@@ -46,4 +46,7 @@ export const Member = create<MemberList>((set) => ({
 export const cafeinfo = create<Cafe>((set) => ({
   cafeName: '',
   setCafeName: (value) => set({ cafeName: value }),
+
+  cafeId: 1,
+  setCafeId: (value) => set({ cafeId: value }),
 }));
