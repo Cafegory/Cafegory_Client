@@ -11,4 +11,6 @@ export interface ContentState {
   export interface ReviewEditState {
     isEditing: boolean;
     toggleEditing: (value: boolean) => void;
+    editReviewId:number;
+    getReviewId: (value: number) => void;
   }

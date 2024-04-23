@@ -46,12 +46,13 @@ const Review: React.FC = () => {
 
   const { setContent } = useContentStore();
   const { setRating } = useRatingStore();
-  const { toggleEditing } = ReviewEditStore();
+  const { toggleEditing, getReviewId } = ReviewEditStore();
 
-  const handleReviewEdit = (content, rate) => {
+  const handleReviewEdit = (content, rate, id) => {
     setRating(rate);
     setContent(content);
     toggleEditing(true);
+    getReviewId(id);
 
     navigate('/writeReview');
   };
@@ -90,6 +91,7 @@ const Review: React.FC = () => {
                       handleReviewEdit(
                         reviews[index].content,
                         reviews[index].rate,
+                        reviews[index].reviewId,
                       )
                     }
                   >

@@ -16,6 +16,7 @@ import {
   useRatingStore,
   useContentStore,
   postReview,
+  patchReview,
   ReviewEditStore,
 } from './WriteReviewPage.hooks';
 import { useNavigate } from 'react-router-dom';
@@ -27,6 +28,8 @@ const WriteReview: React.FC = () => {
     window.history.back();
   };
   const { rating, setRating } = useRatingStore();
+  const { toggleEditing } = ReviewEditStore();
+
   const handleRatingClick = (newRating: number) => {
     if (newRating === rating) {
       setRating(0);
@@ -41,7 +44,13 @@ const WriteReview: React.FC = () => {
     setRating(0);
     setContent('');
   };
-  const handleEditReview = () => {};
+  const handleEditReview = () => {
+    patchReview();
+    setRating(0);
+    setContent('');
+    toggleEditing(false);
+    Navigate('/cafeInfo');
+  };
   const Navigate = useNavigate();
   const { isEditing } = ReviewEditStore();
 
@@ -75,14 +84,14 @@ const WriteReview: React.FC = () => {
               <ShortButton
                 message="작성하기"
                 color="black"
-                onClick={handleEditReview}
+                onClick={handlePostReview}
               />
             )}
             {isEditing && (
               <ShortButton
                 message="수정하기"
                 color="black"
-                onClick={handlePostReview}
+                onClick={handleEditReview}
               />
             )}
             <ShortButton message="취소" color="white" onClick={cancel} />

@@ -5,6 +5,8 @@ import axios from 'axios';
 export const ReviewEditStore = create<ReviewEditState>((set) => ({
   isEditing: false,
   toggleEditing: () => set((state) => ({ isEditing: !state.isEditing })),
+  editReviewId : 0,
+  getReviewId :  (id) => set({ editReviewId:id }),
 }));
 
 
@@ -18,8 +20,6 @@ export const useContentStore = create<ContentState>((set) => ({
     setContent: (newContent) => set({ content: newContent }),
   }));
 
-
-const apiUrl = '/cafe/1/review';
 const accessToken =JSON.parse(localStorage.getItem('accessToken'));
 
 export const postReview = async () => {
@@ -29,12 +29,29 @@ export const postReview = async () => {
   };
 
   try {
-    const response = await axios.post(apiUrl, reviewData, {
+    await axios.post('/cafe/1/review', reviewData, {
       headers: {
         Authorization: accessToken,
       }
     });
-    console.log('Response:', response.data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+export const patchReview = async () => {
+  const reviewData = {
+    content: useContentStore.getState().content,
+    rate: useRatingStore.getState().rating
+  };
+  
+  try {
+    const id = ReviewEditStore.getState().editReviewId;
+    await axios.patch(`/cafe/review/${id}`,reviewData, {
+      headers: {
+        Authorization: accessToken,
+      }
+    });
   } catch (error) {
     console.error('Error:', error);
   }
