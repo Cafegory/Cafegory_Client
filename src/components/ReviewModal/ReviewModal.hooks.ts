@@ -9,7 +9,7 @@ export const reviewUseStore = create<StoreState>((set) => ({
 }));
 
 const apiUrl = 'http://52.78.210.204/cafe/1/review/list';
-const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTMzMzMxODcsImV4cCI6MTcxMzMzNjc4NywibWVtYmVySWQiOjIxLCJ0b2tlblR5cGUiOiJhY2Nlc3MifQ.hPWxH0SeDDXJ_EdQY5rPs7vnHgPE846kAWGTvFUjwAyTCTLOgvchh1gRkNaymUEarTPetYjK_x4QVTWVWyHmMg'
+const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 
 export const reviewApiStore = create<ApiStoreState>((set) => ({
   reviews: [],

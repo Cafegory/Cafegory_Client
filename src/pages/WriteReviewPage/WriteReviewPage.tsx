@@ -12,7 +12,13 @@ import {
   WriteReviewContainer,
   AlertFont,
 } from './WriteReviewPage.style';
-import { useRatingStore, useContentStore } from './WriteReviewPage.hooks';
+import {
+  useRatingStore,
+  useContentStore,
+  postReview,
+} from './WriteReviewPage.hooks';
+import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const WriteReview: React.FC = () => {
   const { content, setContent } = useContentStore();
@@ -28,6 +34,12 @@ const WriteReview: React.FC = () => {
       setRating(newRating);
     }
   };
+
+  const handlePostReview = () => {
+    postReview();
+    Navigate('/cafeInfo');
+  };
+  const Navigate = useNavigate();
 
   return (
     <Screen>
@@ -55,7 +67,11 @@ const WriteReview: React.FC = () => {
             <AlertFont>* {maxContentLength}글자 이하로 작성해주세요.</AlertFont>
           )}
           <ButtonContainer>
-            <ShortButton message="작성하기" color="black" />
+            <ShortButton
+              message="작성하기"
+              color="black"
+              onClick={handlePostReview}
+            />
             <ShortButton message="취소" color="white" onClick={cancel} />
           </ButtonContainer>
         </WriteReviewContainer>
