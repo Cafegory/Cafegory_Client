@@ -58,3 +58,9 @@ export interface qnaStoreState {
   },
   fetchQna: (studyOnceId:string) => Promise<void>;
 }
+
+export interface QuestionStoreState {
+  questionContent: string;
+  setQuestionContent: (value: string) => void;
+  postQuestion:(studyOnceId:number) => Promise<void>;
+}

@@ -35,8 +35,12 @@ import {
 import LongButton from 'components/LongButton';
 import ShortButton from 'components/ShortButton';
 import { useParams } from 'react-router-dom';
-import { createQuestion, createAnswer } from './CafeMeetingInfoPage.hook';
-import { cafeMeetingInfoApiStore } from './CafeMeetingInfoPage.hook';
+import {
+  createQuestion,
+  createAnswer,
+  cafeMeetingInfoApiStore,
+  questionApiStore,
+} from './CafeMeetingInfoPage.hook';
 import { cafeInfoApiStore } from 'pages/CafeInfoPage/CafeInfo.hooks';
 import { qnaApiStore } from './CafeMeetingInfoPage.hook';
 
@@ -64,8 +68,6 @@ const CafeMeetingInfo: React.FC = () => {
     fetchQna(studyOnceId);
   }, []);
 
-  // console.log(qna.comments[1].replies);
-
   const formatDate = (dateTimeString) => {
     const dateTime = new Date(dateTimeString);
     const year = dateTime.getFullYear();
@@ -82,9 +84,16 @@ const CafeMeetingInfo: React.FC = () => {
 
   const hi = () => {};
 
-  const QuestGenerateOnClick = () => {};
-
   const ReplyGenerateOnClick = () => {};
+
+  const { setQuestionContent, postQuestion } = questionApiStore();
+
+  const QuestGenerateOnClick = () => {
+    postQuestion(Number(studyOnceId));
+    setQuestionContent('');
+    window.location.reload();
+  };
+
   return (
     <Screen>
       <Container>
@@ -161,7 +170,10 @@ const CafeMeetingInfo: React.FC = () => {
             <TitleFont>QnA</TitleFont>
             {memberId !== qna.replyWriter.memberId && (
               <QuestGenerate>
-                <QuestInput placeholder="궁금한 점이 있나요?" />
+                <QuestInput
+                  placeholder="궁금한 점이 있나요?"
+                  onChange={(e) => setQuestionContent(e.target.value)}
+                />
                 <ShortButton
                   color="black"
                   message="작성"

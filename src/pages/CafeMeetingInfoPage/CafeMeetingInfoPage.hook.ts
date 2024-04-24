@@ -1,8 +1,7 @@
 import { create } from 'zustand';
 import { Question, Answer } from './CafeMeetingInfoPage.type';
 import axios from 'axios';
-import { ApiStoreState } from './CafeMeetingInfoPage.type';
-import { qnaStoreState } from './CafeMeetingInfoPage.type';
+import {ApiStoreState , qnaStoreState , QuestionStoreState} from './CafeMeetingInfoPage.type';
 
 export const createQuestion = create<Question>((set) => ({
   question: '',
@@ -84,6 +83,24 @@ export const qnaApiStore = create<qnaStoreState>((set) => ({
         },
       });
       set({ qna: response.data });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  },
+}));
+
+export const questionApiStore = create<QuestionStoreState>((set) => ({
+  questionContent: "",
+  setQuestionContent: (newContent) => set({ questionContent: newContent }),
+
+  postQuestion: async (studyOnceId) => {
+    const data = {content: questionApiStore.getState().questionContent}
+    try {
+      await axios.post(`/study/once/${studyOnceId}/question`,data, {
+        headers: {
+          Authorization: accessToken,
+        },
+      });
     } catch (error) {
       console.error('Error fetching data:', error);
     }
