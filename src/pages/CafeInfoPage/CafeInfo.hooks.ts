@@ -17,9 +17,9 @@ export const cafeInfoApiStore = create((set) => ({
     reviews: [],
     meetings: [],
   },
-  fetchInfo: async () => {
+  fetchInfo: async (cafeId) => {
     try {
-      const response = await axios.get(`/cafe/1`, {
+      const response = await axios.get(`/cafe/${cafeId}`, {
         headers: {
           Authorization: accessToken,
         },

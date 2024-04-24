@@ -3,6 +3,7 @@ import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from 'components/Basic/Screen';
 import Container from 'components/Basic/Container';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   CafeProfileContainer,
   CafeImg,
@@ -51,7 +52,6 @@ import Study from 'components/StudyModal';
 import LongButton from 'components/LongButton';
 import { reviewUseStore } from 'components/ReviewModal/ReviewModal.hooks';
 import { studyUseStore } from 'components/StudyModal/StudyModal.hooks';
-import { useNavigate } from 'react-router-dom';
 import { reviewApiStore } from 'components/ReviewModal/ReviewModal.hooks';
 import { cafeInfoApiStore } from './CafeInfo.hooks';
 
@@ -72,10 +72,11 @@ const CafeInfo: React.FC = () => {
 
   const { info, fetchInfo } = cafeInfoApiStore();
 
-  React.useEffect(() => {
-    fetchInfo();
-  }, []);
+  const { cafeId } = useParams<{ cafeId: string }>();
 
+  React.useEffect(() => {
+    fetchInfo(cafeId);
+  }, [cafeId]);
   const CreateGroup = () => {};
 
   const handleMoveHomePage = (link) => {

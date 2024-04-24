@@ -111,6 +111,11 @@ const CafeSearchResult: React.FC = () => {
   const [area, setArea] = useState(routeArea);
   const [inputArea, setInputArea] = useState(routeArea);
 
+  const viewCafeInfo = (id) => {
+    const cafe = id;
+    navigate(`/cafeInfo/${cafe}`);
+  };
+
   useEffect(() => {
     axios
       .get(
@@ -457,7 +462,7 @@ const CafeSearchResult: React.FC = () => {
         <CafeList>
           {cafes.map((cafe, index) => (
             <List key={index}>
-              <Detail>
+              <Detail onClick={() => viewCafeInfo(cafe.cafeId)}>
                 <Name>{cafe.name}</Name>
                 <AdressContainer>
                   <Adress>
