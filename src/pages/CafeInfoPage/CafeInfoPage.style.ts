@@ -361,3 +361,7 @@ export const LongButtonContainer = styled.div`
   flex-direction:column;
   gap:1rem;
 `
+
+export const HomePageLinkFont = styled.div`
+text-decoration: underline;
+`
