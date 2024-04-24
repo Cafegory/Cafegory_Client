@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { Question, Answer } from './CafeMeetingInfoPage.type';
 import axios from 'axios';
-import {ApiStoreState , qnaStoreState , QuestionStoreState} from './CafeMeetingInfoPage.type';
+import {ApiStoreState , qnaStoreState , QuestionStoreState, AnswerStoreState} from './CafeMeetingInfoPage.type';
 
 export const createQuestion = create<Question>((set) => ({
   question: '',
@@ -97,6 +97,24 @@ export const questionApiStore = create<QuestionStoreState>((set) => ({
     const data = {content: questionApiStore.getState().questionContent}
     try {
       await axios.post(`/study/once/${studyOnceId}/question`,data, {
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  },
+}));
+
+export const answerApiStore = create<AnswerStoreState>((set) => ({
+  answerContent: "",
+  setAnswerContent: (newContent) => set({ answerContent: newContent }),
+
+  postAnswer: async (studyOnceId, parentCommentId) => {
+    const data = {content: answerApiStore.getState().answerContent}
+    try {
+      await axios.post(`/study/once/${studyOnceId}/question/${parentCommentId}/reply`,data, {
         headers: {
           Authorization: accessToken,
         },

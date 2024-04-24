@@ -64,3 +64,9 @@ export interface QuestionStoreState {
   setQuestionContent: (value: string) => void;
   postQuestion:(studyOnceId:number) => Promise<void>;
 }
+
+export interface AnswerStoreState {
+  answerContent: string;
+  setAnswerContent: (value: string) => void;
+  postAnswer:(studyOnceId:number, parentCommentId:number) => Promise<void>;
+}

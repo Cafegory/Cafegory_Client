@@ -40,6 +40,7 @@ import {
   createAnswer,
   cafeMeetingInfoApiStore,
   questionApiStore,
+  answerApiStore,
 } from './CafeMeetingInfoPage.hook';
 import { cafeInfoApiStore } from 'pages/CafeInfoPage/CafeInfo.hooks';
 import { qnaApiStore } from './CafeMeetingInfoPage.hook';
@@ -79,18 +80,23 @@ const CafeMeetingInfo: React.FC = () => {
     return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
   };
 
-  const accessToken = JSON.parse(localStorage.getItem('accessToken'));
   const memberId = JSON.parse(localStorage.getItem('memberId'));
 
   const hi = () => {};
-
-  const ReplyGenerateOnClick = () => {};
 
   const { setQuestionContent, postQuestion } = questionApiStore();
 
   const QuestGenerateOnClick = () => {
     postQuestion(Number(studyOnceId));
     setQuestionContent('');
+    window.location.reload();
+  };
+
+  const { setAnswerContent, postAnswer } = answerApiStore();
+
+  const ReplyGenerateOnClick = (parrentCommentId) => {
+    postAnswer(Number(studyOnceId), parrentCommentId);
+    setAnswerContent('');
     window.location.reload();
   };
 
@@ -226,11 +232,18 @@ const CafeMeetingInfo: React.FC = () => {
                 {memberId === qna.replyWriter.memberId &&
                   qna.comments[index].replies.length === 0 && (
                     <QuestGenerate>
-                      <QuestInput placeholder="답글을 작성해주세요." />
+                      <QuestInput
+                        placeholder="답글을 작성해주세요."
+                        onChange={(e) => setAnswerContent(e.target.value)}
+                      />
                       <ShortButton
                         color="black"
                         message="작성"
-                        onClick={ReplyGenerateOnClick}
+                        onClick={() =>
+                          ReplyGenerateOnClick(
+                            qna.comments[index].questionInfo.commentId,
+                          )
+                        }
                       />
                     </QuestGenerate>
                   )}
