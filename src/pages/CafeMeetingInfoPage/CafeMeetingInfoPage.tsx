@@ -64,7 +64,7 @@ const CafeMeetingInfo: React.FC = () => {
     fetchQna(studyOnceId);
   }, []);
 
-  console.log(qna.comments[0].replies[0].comment);
+  // console.log(qna.comments[1].replies);
 
   const formatDate = (dateTimeString) => {
     const dateTime = new Date(dateTimeString);
@@ -77,43 +77,8 @@ const CafeMeetingInfo: React.FC = () => {
     return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
   };
 
-  const qnaApi = {
-    replyWriter: {
-      memberId: 2,
-    },
-    questions: [
-      {
-        questionWriter: {
-          memberId: 1,
-          name: '취준생',
-          thumbnailImg: 'https://~~',
-        },
-        questionInfo: {
-          questionId: 1,
-          content: '조금 늦어도 될까요?',
-        },
-        reply: {
-          replyId: 1,
-          content: '아니요! 웬만하면 정시에 시작하려고 합니다',
-        },
-      },
-      {
-        questionWriter: {
-          memberId: 1,
-          name: '취준생',
-          thumbnailImg: 'https://~~',
-        },
-        questionInfo: {
-          questionId: 1,
-          content: '조금 늦어도 될까요?',
-        },
-        reply: {
-          replyId: 1,
-          content: '아니요! 웬만하면 정시에 시작하려고 합니다',
-        },
-      },
-    ],
-  };
+  const accessToken = JSON.parse(localStorage.getItem('accessToken'));
+  const memberId = JSON.parse(localStorage.getItem('memberId'));
 
   const hi = () => {};
 
@@ -164,28 +129,46 @@ const CafeMeetingInfo: React.FC = () => {
             <TitleFont>오픈 채팅방 주소</TitleFont>
             <GrayFont>오픈 채팅방 주소</GrayFont>
           </TitleContainer>
-          <ButtonContainer>
-            <LongButton
-              message="그룹 정보 수정"
-              onClick={hi}
-              color="black"
-            ></LongButton>
-            <LongButton
-              message="모집 마감"
-              onClick={hi}
-              color="red"
-            ></LongButton>
-          </ButtonContainer>
+          {memberId === info.creatorId && (
+            <ButtonContainer>
+              <LongButton
+                message="그룹 정보 수정"
+                onClick={hi}
+                color="black"
+              ></LongButton>
+              <LongButton
+                message="모집 마감"
+                onClick={hi}
+                color="red"
+              ></LongButton>
+            </ButtonContainer>
+          )}
+          {memberId !== info.creatorId && (
+            <ButtonContainer>
+              <LongButton
+                message="카공 참여하기"
+                onClick={hi}
+                color="black"
+              ></LongButton>
+              <LongButton
+                message="카공 참여 취소"
+                onClick={hi}
+                color="red"
+              ></LongButton>
+            </ButtonContainer>
+          )}
           <TitleContainer>
             <TitleFont>QnA</TitleFont>
-            <QuestGenerate>
-              <QuestInput placeholder="궁금한 점이 있나요?" />
-              <ShortButton
-                color="black"
-                message="작성"
-                onClick={QuestGenerateOnClick}
-              />
-            </QuestGenerate>
+            {memberId !== qna.replyWriter.memberId && (
+              <QuestGenerate>
+                <QuestInput placeholder="궁금한 점이 있나요?" />
+                <ShortButton
+                  color="black"
+                  message="작성"
+                  onClick={QuestGenerateOnClick}
+                />
+              </QuestGenerate>
+            )}
             {qna.comments.map((question, index) => (
               <QuestionBoxContainer>
                 <QuestionBox>
@@ -200,35 +183,45 @@ const CafeMeetingInfo: React.FC = () => {
                   </QuestionBoxUser>
                   <QuestionContentFont>
                     {qna.comments[index].questionInfo.comment}
-                    <State>
-                      <QuestionModify>수정</QuestionModify>|
-                      <QuestionDelete>삭제</QuestionDelete>
-                    </State>
+                    {memberId ===
+                      qna.comments[index].questionWriter.memberId && (
+                      <State>
+                        <QuestionModify>수정</QuestionModify>|
+                        <QuestionDelete>삭제</QuestionDelete>
+                      </State>
+                    )}
                   </QuestionContentFont>
                 </QuestionBox>
-                <ReplyBox>
-                  <div>↳</div>
-                  <QuestionBoxUser>
-                    <ProfileImg
-                      src={qna.replyWriter.thumbnailImg}
-                      alt="프로필 사진"
-                    ></ProfileImg>
-                    <UserNameFont>{qna.replyWriter.name}</UserNameFont>
-                  </QuestionBoxUser>
-                  <div>{qna.comments[0].replies[0].comment}</div>
-                  <State>
-                    <AnswerModify>수정</AnswerModify>|
-                    <AnswerDelete>삭제</AnswerDelete>
-                  </State>
-                </ReplyBox>
-                <QuestGenerate>
-                  <QuestInput placeholder="답글을 작성해주세요." />
-                  <ShortButton
-                    color="black"
-                    message="작성"
-                    onClick={ReplyGenerateOnClick}
-                  />
-                </QuestGenerate>
+                {qna.comments[index].replies.length !== 0 && (
+                  <ReplyBox>
+                    <div>↳</div>
+                    <QuestionBoxUser>
+                      <ProfileImg
+                        src={qna.replyWriter.thumbnailImg}
+                        alt="프로필 사진"
+                      ></ProfileImg>
+                      <UserNameFont>{qna.replyWriter.name}</UserNameFont>
+                    </QuestionBoxUser>
+                    <div>{qna.comments[index].replies[0].comment}</div>
+                    {memberId === qna.replyWriter.memberId && (
+                      <State>
+                        <AnswerModify>수정</AnswerModify>|
+                        <AnswerDelete>삭제</AnswerDelete>
+                      </State>
+                    )}
+                  </ReplyBox>
+                )}
+                {memberId === qna.replyWriter.memberId &&
+                  qna.comments[index].replies.length === 0 && (
+                    <QuestGenerate>
+                      <QuestInput placeholder="답글을 작성해주세요." />
+                      <ShortButton
+                        color="black"
+                        message="작성"
+                        onClick={ReplyGenerateOnClick}
+                      />
+                    </QuestGenerate>
+                  )}
               </QuestionBoxContainer>
             ))}
           </TitleContainer>

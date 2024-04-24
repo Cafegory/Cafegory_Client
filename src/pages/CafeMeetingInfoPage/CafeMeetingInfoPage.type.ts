@@ -11,6 +11,7 @@ export interface Answer {
 export interface ApiStoreState {
   info: {
     "cafeId" : number,
+    creatorId :number,
     "cafeName" : string,
     "area" : string,
     "studyOnceId" : number,

@@ -20,6 +20,7 @@ const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 export const cafeMeetingInfoApiStore = create<ApiStoreState>((set) => ({
   info: {
     cafeId: 0,
+    creatorId:0,
     cafeName: "",
     area: "",
     studyOnceId: 0,
