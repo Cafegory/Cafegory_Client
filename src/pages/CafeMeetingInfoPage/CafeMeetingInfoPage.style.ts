@@ -123,7 +123,7 @@ export const QuestionBoxContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1rem;
   padding-bottom:1.5rem;
   border-bottom:1px solid lightgray;
 `;
@@ -135,7 +135,7 @@ export const QuestionBox = styled.div`
 `;
 
 export const QuestionBoxUser = styled.div`
-  width: 100%;
+  width: fit-content;
   display: flex;
   align-items: center;
   gap: 1rem;

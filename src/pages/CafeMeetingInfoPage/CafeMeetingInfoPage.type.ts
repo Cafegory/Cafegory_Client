@@ -25,3 +25,35 @@ export interface ApiStoreState {
   }
   fetchInfo: (studyOnceId:string) => Promise<void>;
 }
+
+export interface qnaStoreState {
+  qna:  {
+    "replyWriter" : {
+      "memberId" : number,
+      "name" : string,
+      "thumbnailImg" : string,
+    },
+    "comments" : [
+      {
+        "questionWriter" : {
+            "memberId" : number,
+            "name" : string,
+            "thumbnailImg" : string
+        },
+        "questionInfo" : {
+            "commentId" : number,
+            "comment" : string
+        },
+        "replies" : [ 
+          {
+            "replyInfo" : {
+              "commentId" : number,
+              "comment" : string
+            } 
+          }
+        ]
+      }, 
+    ]
+  },
+  fetchQna: (studyOnceId:string) => Promise<void>;
+}

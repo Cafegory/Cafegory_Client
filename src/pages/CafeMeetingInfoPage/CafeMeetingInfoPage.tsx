@@ -38,6 +38,7 @@ import { useParams } from 'react-router-dom';
 import { createQuestion, createAnswer } from './CafeMeetingInfoPage.hook';
 import { cafeMeetingInfoApiStore } from './CafeMeetingInfoPage.hook';
 import { cafeInfoApiStore } from 'pages/CafeInfoPage/CafeInfo.hooks';
+import { qnaApiStore } from './CafeMeetingInfoPage.hook';
 
 const CafeMeetingInfo: React.FC = () => {
   const { question, setQuestion } = createQuestion();
@@ -56,6 +57,14 @@ const CafeMeetingInfo: React.FC = () => {
   React.useEffect(() => {
     cafeFetchInfo(info.cafeId);
   }, []);
+
+  const { qna, fetchQna } = qnaApiStore();
+
+  React.useEffect(() => {
+    fetchQna(studyOnceId);
+  }, []);
+
+  console.log(qna.comments[0].replies[0].comment);
 
   const formatDate = (dateTimeString) => {
     const dateTime = new Date(dateTimeString);
@@ -107,8 +116,6 @@ const CafeMeetingInfo: React.FC = () => {
   };
 
   const hi = () => {};
-
-  console.log(info.startDateTime);
 
   const QuestGenerateOnClick = () => {};
 
@@ -179,20 +186,20 @@ const CafeMeetingInfo: React.FC = () => {
                 onClick={QuestGenerateOnClick}
               />
             </QuestGenerate>
-            {qnaApi.questions.map((question, index) => (
+            {qna.comments.map((question, index) => (
               <QuestionBoxContainer>
                 <QuestionBox>
                   <QuestionBoxUser>
                     <ProfileImg
-                      src={qnaApi.questions[index].questionWriter.thumbnailImg}
+                      src={qna.comments[index].questionWriter.thumbnailImg}
                       alt="프로필 사진"
                     ></ProfileImg>
                     <UserNameFont>
-                      {qnaApi.questions[index].questionWriter.name}
+                      {qna.comments[index].questionWriter.name}
                     </UserNameFont>
                   </QuestionBoxUser>
                   <QuestionContentFont>
-                    {qnaApi.questions[index].questionInfo.content}{' '}
+                    {qna.comments[index].questionInfo.comment}
                     <State>
                       <QuestionModify>수정</QuestionModify>|
                       <QuestionDelete>삭제</QuestionDelete>
@@ -201,7 +208,14 @@ const CafeMeetingInfo: React.FC = () => {
                 </QuestionBox>
                 <ReplyBox>
                   <div>↳</div>
-                  <div>{qnaApi.questions[index].reply.content}</div>
+                  <QuestionBoxUser>
+                    <ProfileImg
+                      src={qna.replyWriter.thumbnailImg}
+                      alt="프로필 사진"
+                    ></ProfileImg>
+                    <UserNameFont>{qna.replyWriter.name}</UserNameFont>
+                  </QuestionBoxUser>
+                  <div>{qna.comments[0].replies[0].comment}</div>
                   <State>
                     <AnswerModify>수정</AnswerModify>|
                     <AnswerDelete>삭제</AnswerDelete>
