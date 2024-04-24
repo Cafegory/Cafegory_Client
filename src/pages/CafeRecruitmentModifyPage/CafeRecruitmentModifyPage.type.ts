@@ -28,14 +28,6 @@ export interface DateTimeCombine {
   setEndDateTime: (value: string) => void;
 }
 
-export interface MemberList {
-  memberName: string;
-  setMemberName: (value: string) => void;
-
-  thumbnailImg: string;
-  setThumbnailImg: (value: string) => void;
-}
-
 export interface Cafe {
   cafeName: string;
   setCafeName: (value: string) => void;
@@ -47,4 +39,9 @@ export interface Cafe {
 export interface CafeChangeState {
   showCafeSearch: boolean;
   setShowCafeSearch: (show: boolean) => void;
+}
+
+export interface MemberInfo {
+  memberIds: [];
+  setMemberIds: (value: number) => void;
 }

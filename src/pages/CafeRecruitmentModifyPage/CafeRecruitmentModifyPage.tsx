@@ -47,21 +47,17 @@ import {
   MemberName,
   MemberPart,
   Underline,
-  ManagementIcon,
   CafeChangeButton,
-  CafeSearchContainer,
 } from './CafeRecruitmentModifyPage.style';
 
 import {
   OptionContent,
   DateTime,
-  Member,
   cafeinfo,
   cafeChange,
 } from './CafeRecruitmentModifyPage.hooks';
-import { start } from 'repl';
 
-const CafeRecruitmentModify: React.FC<{}> = ({}) => {
+const CafeRecruitmentModify: React.FC = () => {
   const { studyOnceId } = useParams();
   const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
   const [members, setMembers] = useState([]);
@@ -82,9 +78,9 @@ const CafeRecruitmentModify: React.FC<{}> = ({}) => {
   const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
     DateTime();
   const { cafeName, setCafeName, cafeId, setCafeId } = cafeinfo();
-  const { memberName, setMemberName, thumbnailImg, setThumbnailImg } = Member();
   const { showCafeSearch, setShowCafeSearch } = cafeChange();
-
+  const [currentCafeId, setCurrentCafeId] = useState(cafeId);
+  const [memberIds, setMemberIds] = useState<number[]>([]);
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -119,7 +115,11 @@ const CafeRecruitmentModify: React.FC<{}> = ({}) => {
             },
           },
         );
+        const ids = response.data.joinedMembers.map(
+          (member) => member.memberId,
+        );
         setMembers(response.data.joinedMembers);
+        setMemberIds(ids);
         console.log('멤버 출력', JSON.stringify(response.data.joinedMembers));
       } catch (error) {
         console.error(error);
@@ -137,7 +137,7 @@ const CafeRecruitmentModify: React.FC<{}> = ({}) => {
             Authorization: accessToken,
           },
         });
-        console.log(`dfdf그룹 정보 불러오기:`, response.data);
+        console.log(`그룹 정보 불러오기:`, response.data);
         setName(response.data.name);
         setMaxMemberCount(parseInt(response.data.maxMemberCount));
         setCanTalk(response.data.canTalk);
@@ -149,6 +149,7 @@ const CafeRecruitmentModify: React.FC<{}> = ({}) => {
         const endTime = parseInt(endTimePart.split(':')[0]);
         setEndTime(endTime);
         setCafeId(response.data.cafeId);
+        setCurrentCafeId(response.data.cafeId);
       } catch (error) {
         console.error(error);
       }
@@ -189,6 +190,20 @@ const CafeRecruitmentModify: React.FC<{}> = ({}) => {
 
   const cafeStudyModifyClick = async () => {
     try {
+      if (currentCafeId !== cafeId) {
+        await axios.post(
+          `/email`,
+          {
+            messageType: 'STUDYONCE_LOCATION_CHANGED',
+            memberIds: memberIds,
+          },
+          {
+            headers: {
+              Authorization: accessToken,
+            },
+          },
+        );
+      }
       await axios.patch(`/study/once/${studyOnceId}`, sendData, {
         headers: {
           Authorization: accessToken,
@@ -346,7 +361,9 @@ const CafeRecruitmentModify: React.FC<{}> = ({}) => {
                     <ProfileImg src={member.thumbnailImg} />
                     <MemberDetail>
                       <MemberName>{member.name}</MemberName>
-                      <MemberPart>{index === 0 ? '팀장' : '팀원'}</MemberPart>
+                      <MemberPart>
+                        {index === members.length - 1 ? '팀장' : '팀원'}
+                      </MemberPart>
                     </MemberDetail>
                   </ManagementContainer>
                   {index < members[0].length && <Underline />}

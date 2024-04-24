@@ -231,15 +231,6 @@ export const Underline = styled.div`
   border-bottom: 3px solid #f2f2f2;
 `;
 
-export const ManagementIcon = styled.img`
-  height: 2rem;
-  margin-left: auto;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.7;
-  }
-`;
-
 export const Detail = styled.div`
   display: flex;
   flex-direction: column;
@@ -285,8 +276,4 @@ export const CafeChangeButton = styled.div`
   font-size: 0.8rem;
   cursor: pointer;
   font-weight: bold;
-`;
-
-export const CafeSearchContainer = styled.div`
-  position: fixed;
 `;
