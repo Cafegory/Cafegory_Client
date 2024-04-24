@@ -84,11 +84,17 @@ const CafeMeetingInfo: React.FC = () => {
 
   const hi = () => {};
 
-  const { setQuestionContent, postQuestion } = questionApiStore();
+  const { setQuestionContent, postQuestion, deleteQuestion } =
+    questionApiStore();
 
   const QuestGenerateOnClick = () => {
     postQuestion(Number(studyOnceId));
     setQuestionContent('');
+    window.location.reload();
+  };
+
+  const handleDeleteQuestion = (id) => {
+    deleteQuestion(id);
     window.location.reload();
   };
 
@@ -210,7 +216,15 @@ const CafeMeetingInfo: React.FC = () => {
                       qna.comments[index].questionWriter.memberId && (
                       <State>
                         <QuestionModify>수정</QuestionModify>|
-                        <QuestionDelete>삭제</QuestionDelete>
+                        <QuestionDelete
+                          onClick={() =>
+                            handleDeleteQuestion(
+                              qna.comments[index].questionInfo.commentId,
+                            )
+                          }
+                        >
+                          삭제
+                        </QuestionDelete>
                       </State>
                     )}
                   </QuestionContentFont>

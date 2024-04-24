@@ -63,6 +63,7 @@ export interface QuestionStoreState {
   questionContent: string;
   setQuestionContent: (value: string) => void;
   postQuestion:(studyOnceId:number) => Promise<void>;
+  deleteQuestion:(commentId:number) => Promise<void>;
 }
 
 export interface AnswerStoreState {
