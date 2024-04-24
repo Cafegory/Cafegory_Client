@@ -123,4 +123,16 @@ export const answerApiStore = create<AnswerStoreState>((set) => ({
       console.error('Error fetching data:', error);
     }
   },
+
+  deleteAnswer: async (commentId) => {
+    try {
+      await axios.delete(`/study/once/reply/${commentId}`, {
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  },
 }));

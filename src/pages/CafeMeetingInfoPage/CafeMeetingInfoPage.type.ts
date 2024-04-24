@@ -69,4 +69,5 @@ export interface AnswerStoreState {
   answerContent: string;
   setAnswerContent: (value: string) => void;
   postAnswer:(studyOnceId:number, parentCommentId:number) => Promise<void>;
+  deleteAnswer:(commentId:number) => Promise<void>;
 }

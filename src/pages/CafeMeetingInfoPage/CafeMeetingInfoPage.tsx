@@ -92,11 +92,16 @@ const CafeMeetingInfo: React.FC = () => {
     window.location.reload();
   };
 
-  const { setAnswerContent, postAnswer } = answerApiStore();
+  const { setAnswerContent, postAnswer, deleteAnswer } = answerApiStore();
 
   const ReplyGenerateOnClick = (parrentCommentId) => {
     postAnswer(Number(studyOnceId), parrentCommentId);
     setAnswerContent('');
+    window.location.reload();
+  };
+
+  const handleDeleteAnswer = (id) => {
+    deleteAnswer(id);
     window.location.reload();
   };
 
@@ -224,7 +229,15 @@ const CafeMeetingInfo: React.FC = () => {
                     {memberId === qna.replyWriter.memberId && (
                       <State>
                         <AnswerModify>수정</AnswerModify>|
-                        <AnswerDelete>삭제</AnswerDelete>
+                        <AnswerDelete
+                          onClick={() =>
+                            handleDeleteAnswer(
+                              qna.comments[index].replies[0].commentId,
+                            )
+                          }
+                        >
+                          삭제
+                        </AnswerDelete>
                       </State>
                     )}
                   </ReplyBox>
