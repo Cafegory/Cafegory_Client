@@ -34,26 +34,34 @@ import {
 } from './CafeMeetingInfoPage.style';
 import LongButton from 'components/LongButton';
 import ShortButton from 'components/ShortButton';
-import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import { createQuestion, createAnswer } from './CafeMeetingInfoPage.hook';
+import { cafeMeetingInfoApiStore } from './CafeMeetingInfoPage.hook';
+import { cafeInfoApiStore } from 'pages/CafeInfoPage/CafeInfo.hooks';
 
 const CafeMeetingInfo: React.FC = () => {
-  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
-
   const { question, setQuestion } = createQuestion();
   const { answer, setAnswer } = createAnswer();
 
-  const api = {
-    cafeId: 1,
-    id: 1,
-    name: '알아서 공부하자',
-    startDateTime: 'yyyy-MM-ddThh:mm:ss',
-    endDateTime: 'yyyy-MM-ddThh:mm:ss',
-    maxMemberCount: 7,
-    nowMemberCount: 3,
-    canTalk: true,
-    canJoin: true,
-    isEnd: false,
+  const { info, fetchInfo } = cafeMeetingInfoApiStore();
+
+  const { studyOnceId } = useParams<{ studyOnceId: string }>();
+
+  React.useEffect(() => {
+    fetchInfo(studyOnceId);
+  }, []);
+
+  const { info: cafeInfo, fetchInfo: cafeFetchInfo } = cafeInfoApiStore();
+
+  React.useEffect(() => {
+    cafeFetchInfo(info.cafeId);
+  }, []);
+
+  const formatDate = (dateTimeString) => {
+    const [date, time] = dateTimeString.split('T');
+    const [year, month, day] = date.split('-');
+    const [hour, minute] = time.split(':');
+    return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
   };
 
   const qnaApi = {
@@ -104,22 +112,22 @@ const CafeMeetingInfo: React.FC = () => {
       <Container>
         <CafeMeetingInfoContainer>
           <MeetingNameContainer>
-            <MeetingNameFont>{api.name}</MeetingNameFont>
-            <AddressFont>스타벅스 강남R점</AddressFont>
+            <MeetingNameFont>{info.name}</MeetingNameFont>
+            <AddressFont>{cafeInfo.basicInfo.name}</AddressFont>
           </MeetingNameContainer>
           <TitleContainer>
             <TitleFont>모집 현황</TitleFont>
-            {api.canJoin ? (
+            {info.canJoin ? (
               <MemberCountContainer>
                 <CanJoinMemberCount>
-                  {api.nowMemberCount}명 / {api.maxMemberCount}명
+                  {info.nowMemberCount}명 / {info.maxMemberCount}명
                 </CanJoinMemberCount>
                 <CanJoinFont>모집중</CanJoinFont>
               </MemberCountContainer>
             ) : (
               <MemberCountContainer>
                 <CannotJoinMemberCount>
-                  {api.nowMemberCount}명 / {api.maxMemberCount}명
+                  {info.nowMemberCount}명 / {info.maxMemberCount}명
                 </CannotJoinMemberCount>
                 <CannotJoinFont>모집 마감</CannotJoinFont>
               </MemberCountContainer>
@@ -128,12 +136,12 @@ const CafeMeetingInfo: React.FC = () => {
           <TitleContainer>
             <TitleFont>시간</TitleFont>
             <GrayFont>
-              {api.startDateTime}~{api.endDateTime}
+              {formatDate(info.startDateTime)} ~ {formatDate(info.endDateTime)}
             </GrayFont>
           </TitleContainer>
           <TitleContainer>
             <TitleFont>구성원 간 소통 여부</TitleFont>
-            {api.canTalk ? (
+            {info.canTalk ? (
               <GrayFont>가능</GrayFont>
             ) : (
               <GrayFont>불가능</GrayFont>

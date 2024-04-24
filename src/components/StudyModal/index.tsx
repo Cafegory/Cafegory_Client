@@ -16,9 +16,11 @@ import {
 } from './StudyModal.style';
 import { studyUseStore } from './StudyModal.hooks';
 import { cafeInfoApiStore } from 'pages/CafeInfoPage/CafeInfo.hooks';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const Study: React.FC = () => {
+  const navigate = useNavigate();
+
   const toggleStudyModal = studyUseStore((state) => state.toggleStudyModal);
 
   const closeModal = () => {
@@ -74,7 +76,13 @@ const Study: React.FC = () => {
                 {formatDate(meeting.startDateTime)} ~{' '}
                 {formatDate(meeting.endDateTime)}
               </StudyDate>
-              <DetailButton>상세 정보</DetailButton>
+              <DetailButton
+                onClick={() => {
+                  navigate(`/cafeMeetingInfo/${meeting.studyOnceId}`);
+                }}
+              >
+                상세 정보
+              </DetailButton>
             </StudyBox>
           ))}
         </StudyBoxContainer>
