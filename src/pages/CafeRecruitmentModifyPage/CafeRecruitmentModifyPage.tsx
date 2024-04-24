@@ -4,6 +4,7 @@ import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
 import Container from 'components/Basic/Container';
 import LongButton from 'components/LongButton';
+import CafeSearchModal from 'components/CafeSearchModal';
 import 'react-datepicker/dist/react-datepicker.css';
 import ko from 'date-fns/locale/ko';
 import { useNavigate } from 'react-router-dom';
@@ -47,6 +48,8 @@ import {
   MemberPart,
   Underline,
   ManagementIcon,
+  CafeChangeButton,
+  CafeSearchContainer,
 } from './CafeRecruitmentModifyPage.style';
 
 import {
@@ -54,9 +57,11 @@ import {
   DateTime,
   Member,
   cafeinfo,
+  cafeChange,
 } from './CafeRecruitmentModifyPage.hooks';
+import { start } from 'repl';
 
-const CafeRecruitmentModify: React.FC = () => {
+const CafeRecruitmentModify: React.FC<{}> = ({}) => {
   const { studyOnceId } = useParams();
   const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
   const [members, setMembers] = useState([]);
@@ -78,6 +83,7 @@ const CafeRecruitmentModify: React.FC = () => {
     DateTime();
   const { cafeName, setCafeName, cafeId, setCafeId } = cafeinfo();
   const { memberName, setMemberName, thumbnailImg, setThumbnailImg } = Member();
+  const { showCafeSearch, setShowCafeSearch } = cafeChange();
 
   const navigate = useNavigate();
 
@@ -101,10 +107,6 @@ const CafeRecruitmentModify: React.FC = () => {
     setStartDateTime(newStarDateTime);
     setEndDateTime(newEndDateTime);
   }, [selectedDate, startTime, selectedDate, endTime]);
-
-  const cafeStudyModifyClick = () => {};
-
-  const cafeStudyDelete = () => {};
 
   useEffect(() => {
     const fetchData = async () => {
@@ -161,13 +163,45 @@ const CafeRecruitmentModify: React.FC = () => {
             Authorization: accessToken,
           },
         });
-        setCafeName(response.data.basicInfo.address);
+        setCafeName(response.data.basicInfo.name);
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
-  }, []);
+  }, [cafeId]);
+
+  const handleCafeSelect = (cafeId) => {
+    console.log(`넘겨받은 카페 아이디 ${cafeId}`);
+    setCafeId(cafeId);
+    setShowCafeSearch(false);
+  };
+
+  const sendData = {
+    cafeId: cafeId,
+    name: name,
+    startDateTime: startDateTime,
+    endDateTime: endDateTime,
+    maxMemberCount: maxMemberCount,
+    canTalk: canTalk,
+  };
+
+  const cafeStudyModifyClick = async () => {
+    try {
+      await axios.patch(`/study/once/${studyOnceId}`, sendData, {
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+      console.log('요청 성공');
+    } catch (error) {
+      console.error('요청 중 에러 발생:', error);
+    }
+  };
+
+  const handleFilterButtonClick = () => {
+    setShowCafeSearch(!showCafeSearch);
+  };
 
   return (
     <Screen>
@@ -196,8 +230,14 @@ const CafeRecruitmentModify: React.FC = () => {
               <DetailName>장소</DetailName>
               <CafeInfo>
                 <CafeName>{cafeName}</CafeName>
+                <CafeChangeButton onClick={handleFilterButtonClick}>
+                  장소변경
+                </CafeChangeButton>
               </CafeInfo>
             </Location>
+            {showCafeSearch && (
+              <CafeSearchModal onSelectCafe={handleCafeSelect} />
+            )}
             <Date>
               <DetailName>날짜</DetailName>
               <DateContatiner>
@@ -310,7 +350,6 @@ const CafeRecruitmentModify: React.FC = () => {
                       <ManagementIcon src="/assets/management-icon.png" />
                     )}
                   </ManagementContainer>
-
                   {index < members[0].length && <Underline />}
                 </div>
               ))}
@@ -326,11 +365,6 @@ const CafeRecruitmentModify: React.FC = () => {
               color="gray"
               message="뒤로가기"
               onClick={handleGoBack}
-            />
-            <LongButton
-              color="red"
-              message="그룹 삭제하기"
-              onClick={cafeStudyDelete}
             />
           </ButtonContainer>
         </ContainerDetail>

@@ -5,6 +5,7 @@ import {
   DateTimeCombine,
   MemberList,
   Cafe,
+  CafeChangeState,
 } from './CafeRecruitmentModifyPage.type';
 
 export const OptionContent = create<OptionContentList>((set) => ({
@@ -49,4 +50,9 @@ export const cafeinfo = create<Cafe>((set) => ({
 
   cafeId: 1,
   setCafeId: (value) => set({ cafeId: value }),
+}));
+
+export const cafeChange = create<CafeChangeState>((set) => ({
+  showCafeSearch: false,
+  setShowCafeSearch: (value) => set({ showCafeSearch: value }),
 }));

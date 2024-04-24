@@ -256,12 +256,12 @@ export const ButtonContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: 15rem;
+  height: 10rem;
   padding: 4%;
 
   @media (max-width: 768px) {
     padding: 0%;
-    height: 12rem;
+    height: 7rem;
   }
 `;
 
@@ -275,4 +275,18 @@ export const ContainerDetail = styled.div`
   @media (max-width: 768px) {
     height: auto;
   }
+`;
+
+export const CafeChangeButton = styled.div`
+  background-color: red;
+  color: white;
+  border-radius: 20px;
+  padding: 0.5%;
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-weight: bold;
+`;
+
+export const CafeSearchContainer = styled.div`
+  position: fixed;
 `;

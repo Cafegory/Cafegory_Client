@@ -43,3 +43,8 @@ export interface Cafe {
   cafeId: Number;
   setCafeId: (value: number) => void;
 }
+
+export interface CafeChangeState {
+  showCafeSearch: boolean;
+  setShowCafeSearch: (show: boolean) => void;
+}
