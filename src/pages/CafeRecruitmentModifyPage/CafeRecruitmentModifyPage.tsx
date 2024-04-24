@@ -55,6 +55,7 @@ import {
   DateTime,
   cafeinfo,
   cafeChange,
+  member,
 } from './CafeRecruitmentModifyPage.hooks';
 
 const CafeRecruitmentModify: React.FC = () => {
@@ -79,6 +80,8 @@ const CafeRecruitmentModify: React.FC = () => {
     DateTime();
   const { cafeName, setCafeName, cafeId, setCafeId } = cafeinfo();
   const { showCafeSearch, setShowCafeSearch } = cafeChange();
+  const { creatorId, setCreatorId } = member();
+
   const [currentCafeId, setCurrentCafeId] = useState(cafeId);
   const [memberIds, setMemberIds] = useState<number[]>([]);
   const navigate = useNavigate();
@@ -118,9 +121,9 @@ const CafeRecruitmentModify: React.FC = () => {
         const ids = response.data.joinedMembers.map(
           (member) => member.memberId,
         );
-        setMembers(response.data.joinedMembers);
+        setMembers(response.data.joinedMembers.reverse());
         setMemberIds(ids);
-        console.log('멤버 출력', JSON.stringify(response.data.joinedMembers));
+        console.log('멤버 출력', JSON.stringify(response.data));
       } catch (error) {
         console.error(error);
       }
@@ -150,10 +153,12 @@ const CafeRecruitmentModify: React.FC = () => {
         setEndTime(endTime);
         setCafeId(response.data.cafeId);
         setCurrentCafeId(response.data.cafeId);
+        setCreatorId(response.data.creatorId);
       } catch (error) {
         console.error(error);
       }
     };
+
     fetchData();
   }, []);
 
@@ -362,11 +367,11 @@ const CafeRecruitmentModify: React.FC = () => {
                     <MemberDetail>
                       <MemberName>{member.name}</MemberName>
                       <MemberPart>
-                        {index === members.length - 1 ? '팀장' : '팀원'}
+                        {member.memberId === creatorId ? '팀장' : '팀원'}
                       </MemberPart>
                     </MemberDetail>
                   </ManagementContainer>
-                  {index < members[0].length && <Underline />}
+                  <Underline />
                 </div>
               ))}
             </MemberManagement>

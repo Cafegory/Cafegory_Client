@@ -48,3 +48,8 @@ export const cafeChange = create<CafeChangeState>((set) => ({
   showCafeSearch: false,
   setShowCafeSearch: (value) => set({ showCafeSearch: value }),
 }));
+
+export const member = create<MemberInfo>((set) => ({
+  creatorId: 1,
+  setCreatorId: (value) => set({ creatorId: value }),
+}));

@@ -42,6 +42,6 @@ export interface CafeChangeState {
 }
 
 export interface MemberInfo {
-  memberIds: [];
-  setMemberIds: (value: number) => void;
+  creatorId: Number;
+  setCreatorId: (value: number) => void;
 }
