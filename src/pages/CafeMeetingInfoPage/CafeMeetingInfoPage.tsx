@@ -58,9 +58,13 @@ const CafeMeetingInfo: React.FC = () => {
   }, []);
 
   const formatDate = (dateTimeString) => {
-    const [date, time] = dateTimeString.split('T');
-    const [year, month, day] = date.split('-');
-    const [hour, minute] = time.split(':');
+    const dateTime = new Date(dateTimeString);
+    const year = dateTime.getFullYear();
+    const month = String(dateTime.getMonth() + 1).padStart(2, '0');
+    const day = String(dateTime.getDate()).padStart(2, '0');
+    const hour = String(dateTime.getHours()).padStart(2, '0');
+    const minute = String(dateTime.getMinutes()).padStart(2, '0');
+
     return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
   };
 
@@ -103,6 +107,8 @@ const CafeMeetingInfo: React.FC = () => {
   };
 
   const hi = () => {};
+
+  console.log(info.startDateTime);
 
   const QuestGenerateOnClick = () => {};
 
