@@ -2,27 +2,19 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   CafeSearchModalContainer,
-  AreaTextFont,
   InputContainer,
   InputField,
   PlaceImg,
   ResearchContainer,
-  ResultTextFont,
-  TitleTextContainer,
   CafeList,
   List,
-  CafeImg,
   Name,
   Detail,
   Adress,
   BusinessHours,
   MinBeveragePrice,
   IsOpenImg,
-  CafeSearch,
   FitterContainer,
-  TitleFont,
-  SideFont,
-  ButtonContainer,
   FitterTitle,
   ChooseOption,
   StudyAvailability,
@@ -305,7 +297,7 @@ const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
 
   const handleCafeSelect = (cafeId) => {
     console.log(`넘겨줄 카페 아이디${cafeId}`);
-    onSelectCafe(cafeId); // 변경된 prop 이름 사용
+    onSelectCafe(cafeId);
   };
 
   return (

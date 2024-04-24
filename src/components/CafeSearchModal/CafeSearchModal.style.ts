@@ -2,42 +2,27 @@ import styled from 'styled-components';
 
 export const CafeSearchModalContainer = styled.div`
   position: fixed;
-  width: 50%;
+  width: 70%;
   background-color: white;
-  height: 100%;
+  height: 80%;
   display: flex;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   flex-direction: column;
   z-index: 9999;
-`;
-
-export const TitleTextContainer = styled.div`
-  width: 100%;
-  height: 4rem;
-  display: flex;
-  justify-content: center;
-  border: 0.5px solid transparent;
-  border-bottom-color: lightgray;
-  gap: 1%;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-export const AreaTextFont = styled.div`
-  font-size: 2.3rem;
-  font-weight: 550;
-`;
-
-export const ResultTextFont = styled.div`
-  font-size: 2.3rem;
-  font-weight: 360;
+  // justify-content: space-between;
+  align-items: center;
+  gap: 30%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-40%, -50%);
+  overflow-y: auto;
+  padding: 2%;
 `;
 
 export const ResearchContainer = styled.div`
   display: flex;
-  height: 20rem;
+  // height: 20rem;
+  height: 10%;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -54,7 +39,8 @@ export const InputContainer = styled.div`
   border-radius: 10px;
   border: 1px solid #ccc;
   width: 32%;
-  height: 3rem;
+  // height: 3rem;
+  height: 80%;
   justify-content: space-around;
   background-color: #ffffff;
   align-items: center;
@@ -89,7 +75,8 @@ export const FitterContainer = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: center;
-  height: 55rem;
+  // height: 55rem;
+  height: auto;
   justify-content: space-around;
 
   @media (max-width: 768px) {
@@ -156,7 +143,8 @@ export const Choose = styled.div`
 export const Option = styled.div`
   padding: 2%;
   width: auto;
-  height: 1rem;
+  // height: 1rem;
+  height: 1%;
   display: flex;
   align-items: center;
   border-radius: 0.5rem;
@@ -171,19 +159,10 @@ export const Option = styled.div`
     margin-bottom: 1%;
   }
 `;
-
-export const CafeSearch = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  flex-direction: column;
-  height: 25rem;
-  gap: 7%;
-`;
-
 export const CafeList = styled.div`
   width: 80%;
-  height: 100%;
+  // height: 100%;
+  height: 30%;
 
   @media (max-width: 768px) {
     width: 90%;
@@ -218,23 +197,12 @@ export const List = styled.div`
   }
 `;
 
-export const CafeImg = styled.img`
-  width: 6.5rem;
-  height: 6.5rem;
-
-  @media (max-width: 768px) {
-    width: 7rem;
-    height: 7rem;
-    border-radius: 10px;
-  }
-`;
-
 export const Detail = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 8rem;
-
+  // height: 8rem;
+  height: 8%;
   @media (max-width: 768px) {
     width: 100%;
     height: auto;
@@ -267,28 +235,11 @@ export const IsOpenImg = styled.img`
   margin-left: auto;
 `;
 
-export const TitleFont = styled.div`
-  margin-bottom: 2.5rem;
-  font-size: 2.3rem;
-  font-weight: 550;
-`;
-
-export const SideFont = styled.div`
-  font-size: 0.8 rem;
-`;
-
-export const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 1%;
-`;
-
 export const SelectContainer = styled.select`
   background-color: rgba(0, 0, 0, 0.05);
   border: none;
   border-radius: 0.5rem;
-  padding: 2%;
+  padding: 1%;
   font-size: 0.9rem;
   font-weight: bold;
   @media (max-width: 1024px) {
@@ -302,8 +253,7 @@ export const SelectContainer = styled.select`
 
 export const DetailModal = styled.img`
   display: none;
-
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     display: block;
     height: 1rem;
     width: 1rem;

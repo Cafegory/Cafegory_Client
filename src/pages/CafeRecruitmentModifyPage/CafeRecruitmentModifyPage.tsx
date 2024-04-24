@@ -120,6 +120,7 @@ const CafeRecruitmentModify: React.FC<{}> = ({}) => {
           },
         );
         setMembers(response.data.joinedMembers);
+        console.log('멤버 출력', JSON.stringify(response.data.joinedMembers));
       } catch (error) {
         console.error(error);
       }
@@ -136,7 +137,7 @@ const CafeRecruitmentModify: React.FC<{}> = ({}) => {
             Authorization: accessToken,
           },
         });
-        console.log(`그룹 정보 불러오기:`, response.data);
+        console.log(`dfdf그룹 정보 불러오기:`, response.data);
         setName(response.data.name);
         setMaxMemberCount(parseInt(response.data.maxMemberCount));
         setCanTalk(response.data.canTalk);
@@ -194,6 +195,7 @@ const CafeRecruitmentModify: React.FC<{}> = ({}) => {
         },
       });
       console.log('요청 성공');
+      console.log('sendData 출력', JSON.stringify(sendData));
     } catch (error) {
       console.error('요청 중 에러 발생:', error);
     }
@@ -346,9 +348,6 @@ const CafeRecruitmentModify: React.FC<{}> = ({}) => {
                       <MemberName>{member.name}</MemberName>
                       <MemberPart>{index === 0 ? '팀장' : '팀원'}</MemberPart>
                     </MemberDetail>
-                    {index !== 0 && (
-                      <ManagementIcon src="/assets/management-icon.png" />
-                    )}
                   </ManagementContainer>
                   {index < members[0].length && <Underline />}
                 </div>
