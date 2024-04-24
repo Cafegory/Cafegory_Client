@@ -83,12 +83,18 @@ const CafeInfo: React.FC = () => {
     window.location.href = link;
   };
 
+  const formatDate = (dateTimeString) => {
+    const [date, time] = dateTimeString.split('T');
+    const [year, month, day] = date.split('-');
+    const [hour, minute] = time.split(':');
+    return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
+  };
+
   return (
     <Screen>
       <Container>
         <CafeInfoContainer>
           <CafeProfileContainer>
-            {/* <CafeImg src="/assets/profile-image.png" alt="카페 프사" /> */}
             <CafeNameContainer>
               <CafeNameFont>{info.basicInfo.name}</CafeNameFont>
               <AddressFont>{info.basicInfo.address}</AddressFont>
@@ -192,7 +198,7 @@ const CafeInfo: React.FC = () => {
                 <StudyBox key={index}>
                   <StudyNameBox>
                     <StudyName>{meeting.name}</StudyName>
-                    {meeting.isEnd ? (
+                    {meeting.end ? (
                       <>
                         <IsEndTrue>
                           {meeting.nowMemberCount}/{meeting.maxMemberCount}
@@ -209,7 +215,8 @@ const CafeInfo: React.FC = () => {
                     )}
                   </StudyNameBox>
                   <StudyDateFont>
-                    {meeting.startDateTime}~{meeting.endDateTime}
+                    {formatDate(meeting.startDateTime)} ~{' '}
+                    {formatDate(meeting.endDateTime)}
                   </StudyDateFont>
                 </StudyBox>
               ))}
