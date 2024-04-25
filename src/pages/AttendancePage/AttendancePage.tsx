@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from 'components/Basic/Screen';
 import Container from 'components/Basic/Container';
+import axios from 'axios';
 import {
   AttendanceConatiner,
   AttendanceStateContainer,
@@ -18,23 +20,9 @@ import {
   TitleFont,
 } from './AttendancePage.style';
 import LongButton from 'components/LongButton';
+import { member, AttendanceState } from './AttendancePage.hook';
 
 const Attendance: React.FC = () => {
-  const api = {
-    states: [
-      {
-        memberId: 1,
-        attendance: false,
-        lastUpdateTime: 'yyyy-MM-ddThh:mm:ss',
-      },
-      {
-        memberId: 2,
-        attendance: false,
-        lastUpdateTime: 'yyyy-MM-ddThh:mm:ss',
-      },
-    ],
-  };
-
   let today = new Date();
   let year = today.getFullYear();
   let month = today.getMonth() + 1;
@@ -47,7 +35,94 @@ const Attendance: React.FC = () => {
     return days[dayOfWeek];
   }
 
-  const clickSave = () => {};
+  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  const { studyOnceId: routeStudyOnceId } = useParams();
+  const [members, setMembers] = useState([]);
+
+  const { creatorId, setCreatorId } = member();
+  const { attendance, setAttendance } = AttendanceState();
+  const [memberIds, setMemberIds] = useState<number[]>([]);
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleClick = () => {
+    setIsChecked(!isChecked);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `/study/once/${routeStudyOnceId}/member/list`,
+          {
+            headers: {
+              Authorization: accessToken,
+            },
+          },
+        );
+        const ids = response.data.joinedMembers.map(
+          (member) => member.memberId,
+        );
+        setMembers(response.data.joinedMembers);
+        setMemberIds(ids);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/study/once/${routeStudyOnceId}`, {
+          headers: {
+            Authorization: accessToken,
+          },
+        });
+        setCreatorId(response.data.creatorId);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const clickSave = async () => {
+    try {
+      const data = members.map((member) => ({
+        memberId: member.memberId,
+        attendance: checkedState[member.memberId]?.check || false,
+      }));
+
+      const response = await axios.patch(
+        `/study/once/${routeStudyOnceId}/attendance`,
+        { states: data },
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
+      );
+      console.log('요청 성공!');
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const [checkedState, setCheckedState] = useState({});
+
+  const handleImageClick = (memberId) => {
+    setCheckedState((prevState) => ({
+      ...prevState,
+      [memberId]: {
+        check: !prevState[memberId]?.check,
+        x: !prevState[memberId]?.x,
+      },
+    }));
+  };
 
   return (
     <Screen>
@@ -60,18 +135,34 @@ const Attendance: React.FC = () => {
           </DateFont>
           <TitleFont>출결 관리</TitleFont>
           <MemberBoxContainer>
-            {api.states.map((item) => (
-              <MemberBox>
+            {members.map((member, index) => (
+              <MemberBox key={index}>
                 <LeftContainer>
                   <ThumbnailImg src="../assets/cafe-img.png"></ThumbnailImg>
                   <MemberInfoContainer>
-                    <NameFont>수빈</NameFont>
-                    <PositionFont>팀장</PositionFont>
+                    <NameFont>{member.name}</NameFont>
+                    <PositionFont>
+                      {member.memberId === creatorId ? '팀장' : '팀원'}
+                    </PositionFont>
                   </MemberInfoContainer>
                 </LeftContainer>
                 <AttendanceStateContainer>
-                  <CheckImg src="../assets/check-false.png"></CheckImg>
-                  <CheckImg src="../assets/x-true.png"></CheckImg>
+                  <CheckImg
+                    src={
+                      checkedState[member.memberId]?.check
+                        ? '../assets/check-true.png'
+                        : '../assets/check-false.png'
+                    }
+                    onClick={() => handleImageClick(member.memberId)}
+                  />
+                  <CheckImg
+                    src={
+                      checkedState[member.memberId]?.x
+                        ? '../assets/x-false.png'
+                        : '../assets/x-true.png'
+                    }
+                    onClick={() => handleImageClick(member.memberId)}
+                  />
                 </AttendanceStateContainer>
               </MemberBox>
             ))}
