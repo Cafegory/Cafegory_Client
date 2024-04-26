@@ -20,7 +20,11 @@ import {
   TitleFont,
 } from './AttendancePage.style';
 import LongButton from 'components/LongButton';
-import { member, AttendanceState } from './AttendancePage.hook';
+import {
+  member,
+  AttendanceState,
+  useCheckedStateStore,
+} from './AttendancePage.hook';
 
 const Attendance: React.FC = () => {
   let today = new Date();
@@ -39,14 +43,9 @@ const Attendance: React.FC = () => {
   const { studyOnceId: routeStudyOnceId } = useParams();
   const [members, setMembers] = useState([]);
 
-  const { creatorId, setCreatorId } = member();
+  const { creatorId, setCreatorId, memberIds, setMemberIds } = member();
   const { attendance, setAttendance } = AttendanceState();
-  const [memberIds, setMemberIds] = useState<number[]>([]);
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleClick = () => {
-    setIsChecked(!isChecked);
-  };
+  // const { checkedState, setCheckedState } = useCheckedStateStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,7 +62,9 @@ const Attendance: React.FC = () => {
           (member) => member.memberId,
         );
         setMembers(response.data.joinedMembers);
+        console.log(response.data.joinedMembers);
         setMemberIds(ids);
+        console.log(`출력${ids}`);
       } catch (error) {
         console.error(error);
       }
@@ -96,6 +97,8 @@ const Attendance: React.FC = () => {
         attendance: checkedState[member.memberId]?.check || false,
       }));
 
+      console.log(`출력해보기!!!! ${JSON.stringify(checkedState)}`);
+      console.log(`데이터! ${JSON.stringify(data)}`);
       const response = await axios.patch(
         `/study/once/${routeStudyOnceId}/attendance`,
         { states: data },
@@ -108,7 +111,7 @@ const Attendance: React.FC = () => {
       console.log('요청 성공!');
       console.log(response);
     } catch (error) {
-      console.error(error);
+      alert(error.response.data.errorMessage);
     }
   };
 
@@ -138,7 +141,7 @@ const Attendance: React.FC = () => {
             {members.map((member, index) => (
               <MemberBox key={index}>
                 <LeftContainer>
-                  <ThumbnailImg src="../assets/cafe-img.png"></ThumbnailImg>
+                  <ThumbnailImg src={member.thumbnailImg}></ThumbnailImg>
                   <MemberInfoContainer>
                     <NameFont>{member.name}</NameFont>
                     <PositionFont>
