@@ -15,197 +15,78 @@ import {
   IsEndContainer,
 } from './StudyModal.style';
 import { studyUseStore } from './StudyModal.hooks';
+import { cafeInfoApiStore } from 'pages/CafeInfoPage/CafeInfo.hooks';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const Study: React.FC = () => {
+  const navigate = useNavigate();
+
   const toggleStudyModal = studyUseStore((state) => state.toggleStudyModal);
 
   const closeModal = () => {
     toggleStudyModal();
   };
 
-  const api = {
-    basicInfo: {
-      id: 1,
-      name: '로빈카페',
-      address: '경기도 용인시 수지구 풍덕천로 52 ...',
-      businessHours: [
-        {
-          day: '월',
-          startTime: '09:00',
-          endTime: '22:00',
-        },
-        {
-          day: '화',
-          startTime: '09:00',
-          endTime: '22:00',
-        },
-      ],
-      isOpen: true,
-      sns: [
-        {
-          name: 'instargram',
-          url: 'https://~~~',
-        },
-      ],
-      phone: '010-1234-5678',
-      minBeveragePrice: 3000,
-      maxTime: 3,
-      avgReviewRate: 4.1,
-    },
-    reviews: [
-      {
-        id: 1,
-        writer: {
-          id: 'hihi1122',
-          name: '안뇽',
-          thumbnailImg: 'https://~~',
-        },
-        rate: 4,
-        content:
-          '깔끔하고 친절해용!ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
-      },
-      {
-        id: 1,
-        writer: {
-          id: 'hihi1122',
-          name: '안뇽',
-          thumbnailImg: 'https://~~',
-        },
-        rate: 4,
-        content: '깔끔하고 친절해용!',
-      },
-      {
-        id: 1,
-        writer: {
-          id: 'hihi1122',
-          name: '안뇽',
-          thumbnailImg: 'https://~~',
-        },
-        rate: 4,
-        content: '깔끔하고 친절해용!',
-      },
-    ],
-    meetings: [
-      {
-        cafeId: 1,
-        id: 1,
-        name: '알아서 공부하자',
-        startDateTime: 'yyyy-MM-ddThh:mm:ss',
-        endDateTime: 'yyyy-MM-ddThh:mm:ss',
-        maxMemberCount: 7,
-        nowMemberCount: 3,
-        isEnd: true,
-      },
-      {
-        cafeId: 2,
-        id: 2,
-        name: '코코모',
-        startDateTime: 'yyyy-MM-ddThh:mm:ss',
-        endDateTime: 'yyyy-MM-ddThh:mm:ss',
-        maxMemberCount: 7,
-        nowMemberCount: 7,
-        isEnd: false,
-      },
-      {
-        cafeId: 2,
-        id: 2,
-        name: '코코모',
-        startDateTime: 'yyyy-MM-ddThh:mm:ss',
-        endDateTime: 'yyyy-MM-ddThh:mm:ss',
-        maxMemberCount: 7,
-        nowMemberCount: 7,
-        isEnd: false,
-      },
-      {
-        cafeId: 2,
-        id: 2,
-        name: '코코모',
-        startDateTime: 'yyyy-MM-ddThh:mm:ss',
-        endDateTime: 'yyyy-MM-ddThh:mm:ss',
-        maxMemberCount: 7,
-        nowMemberCount: 7,
-        isEnd: false,
-      },
-      {
-        cafeId: 2,
-        id: 2,
-        name: '코코모',
-        startDateTime: 'yyyy-MM-ddThh:mm:ss',
-        endDateTime: 'yyyy-MM-ddThh:mm:ss',
-        maxMemberCount: 7,
-        nowMemberCount: 7,
-        isEnd: false,
-      },
-      {
-        cafeId: 2,
-        id: 2,
-        name: '코코모',
-        startDateTime: 'yyyy-MM-ddThh:mm:ss',
-        endDateTime: 'yyyy-MM-ddThh:mm:ss',
-        maxMemberCount: 7,
-        nowMemberCount: 7,
-        isEnd: false,
-      },
-      {
-        cafeId: 2,
-        id: 2,
-        name: '코코모',
-        startDateTime: 'yyyy-MM-ddThh:mm:ss',
-        endDateTime: 'yyyy-MM-ddThh:mm:ss',
-        maxMemberCount: 7,
-        nowMemberCount: 7,
-        isEnd: false,
-      },
-    ],
-    canMakeMeeting: [
-      {
-        startTime: '10:00',
-        endTime: '11:00',
-        maxMemberCount: 1,
-      },
-      {
-        startTime: '11:00',
-        endTime: '12:00',
-        maxMemberCount: 3,
-      },
-    ],
+  const { info, fetchInfo } = cafeInfoApiStore();
+
+  const { cafeId } = useParams<{ cafeId: string }>();
+
+  React.useEffect(() => {
+    fetchInfo(cafeId);
+  }, [cafeId]);
+
+  const formatDate = (dateTimeString) => {
+    const dateTime = new Date(dateTimeString);
+    const year = dateTime.getFullYear();
+    const month = String(dateTime.getMonth() + 1).padStart(2, '0');
+    const day = String(dateTime.getDate()).padStart(2, '0');
+    const hour = String(dateTime.getHours()).padStart(2, '0');
+    const minute = String(dateTime.getMinutes()).padStart(2, '0');
+
+    return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
   };
 
   return (
     <>
       <StudyModal>
         <TitleContainer>
-          <TitleFont>전체 카공 모임 {api.meetings.length}건</TitleFont>
+          <TitleFont>전체 카공 모임 {info.meetings.length}건</TitleFont>
           <CloseButton onClick={closeModal}>닫기</CloseButton>
         </TitleContainer>
         <StudyBoxContainer>
-          {api.meetings.map((meeting, index) => (
+          {info.meetings.map((meeting, index) => (
             <StudyBox>
-              <StudyName>{api.meetings[index].name}</StudyName>
+              <StudyName>{info.meetings[index].name}</StudyName>
               <IsEndContainer>
-                {api.meetings[index].isEnd ? (
+                {info.meetings[index].end ? (
                   <>
                     <IsEndTrue>
-                      {api.meetings[index].nowMemberCount}/
-                      {api.meetings[index].maxMemberCount}
+                      {info.meetings[index].nowMemberCount}/
+                      {info.meetings[index].maxMemberCount}
                     </IsEndTrue>
                     <IsEndTrue>모집중</IsEndTrue>
                   </>
                 ) : (
                   <>
                     <IsEndFalse>
-                      {api.meetings[index].nowMemberCount}/
-                      {api.meetings[index].maxMemberCount}
+                      {info.meetings[index].nowMemberCount}/
+                      {info.meetings[index].maxMemberCount}
                     </IsEndFalse>
                     <IsEndFalse>모집 마감</IsEndFalse>
                   </>
                 )}
               </IsEndContainer>
               <StudyDate>
-                {api.meetings[index].startDateTime}~
-                {api.meetings[index].endDateTime}
+                {formatDate(meeting.startDateTime)} ~{' '}
+                {formatDate(meeting.endDateTime)}
               </StudyDate>
-              <DetailButton>상세 정보</DetailButton>
+              <DetailButton
+                onClick={() => {
+                  navigate(`/cafeMeetingInfo/${meeting.studyOnceId}`);
+                }}
+              >
+                상세 정보
+              </DetailButton>
             </StudyBox>
           ))}
         </StudyBoxContainer>

@@ -36,7 +36,10 @@ const Router: React.FC = () => {
           path="/cafeMeetingSearchResult/:page/:area/:onlyJoinAble?/:maxMemberCount?/:canTalk?/:sizePerPage?"
           element={<CafeMeetingSearchResultPage />}
         />
-        <Route path="/cafeMeetingInfo" element={<CafeMeetingInfoPage />} />
+        <Route
+          path="/cafeMeetingInfo/:studyOnceId"
+          element={<CafeMeetingInfoPage />}
+        />
         <Route path="/attendance" element={<Attendance />} />
         <Route
           path="/studyRecruitingModify/:studyOnceId"
