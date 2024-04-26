@@ -70,7 +70,7 @@ const CafeMeetingInfo: React.FC = () => {
     fetchQna(studyOnceId);
   }, []);
 
-  const { cancelJoin } = joinApiStore();
+  const { joinCafeMeeting, cancelJoin } = joinApiStore();
 
   const formatDate = (dateTimeString) => {
     const dateTime = new Date(dateTimeString);
@@ -169,7 +169,9 @@ const CafeMeetingInfo: React.FC = () => {
             {!info.attendance && (
               <LongButton
                 message="카공 참여하기"
-                onClick={hi}
+                onClick={() => {
+                  joinCafeMeeting(info.studyOnceId);
+                }}
                 color="black"
               ></LongButton>
             )}
