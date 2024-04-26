@@ -31,14 +31,6 @@ export interface DateTimeCombine {
   setEndDateTime: (value: string) => void;
 }
 
-export interface Cafe {
-  cafeName: string;
-  setCafeName: (value: string) => void;
-
-  cafeId: Number;
-  setCafeId: (value: number) => void;
-}
-
 export interface CafeChangeState {
   showCafeSearch: boolean;
   setShowCafeSearch: (show: boolean) => void;

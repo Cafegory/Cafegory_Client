@@ -54,10 +54,11 @@ import {
 import {
   OptionContent,
   DateTime,
-  cafeinfo,
   cafeChange,
   member,
 } from './CafeRecruitmentModifyPage.hooks';
+
+import { cafeInfo } from 'pages/CafeCreateRecruitmentPage/CafeCreateRecruitmentPage.hooks';
 
 const CafeRecruitmentModify: React.FC = () => {
   const { studyOnceId } = useParams();
@@ -81,7 +82,7 @@ const CafeRecruitmentModify: React.FC = () => {
   } = OptionContent();
   const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
     DateTime();
-  const { cafeName, setCafeName, cafeId, setCafeId } = cafeinfo();
+  const { cafeName, setCafeName, cafeId, setCafeId, getCafeInfo } = cafeInfo();
   const { showCafeSearch, setShowCafeSearch } = cafeChange();
   const { creatorId, setCreatorId } = member();
 
@@ -167,19 +168,7 @@ const CafeRecruitmentModify: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`/cafe/${cafeId}`, {
-          headers: {
-            Authorization: accessToken,
-          },
-        });
-        setCafeName(response.data.basicInfo.name);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
+    getCafeInfo();
   }, [cafeId]);
 
   const handleCafeSelect = (cafeId) => {
