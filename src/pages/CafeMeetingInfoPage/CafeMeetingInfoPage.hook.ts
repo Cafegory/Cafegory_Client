@@ -150,3 +150,32 @@ export const answerApiStore = create<AnswerStoreState>((set) => ({
     }
   },
 }));
+
+export const joinApiStore = create(() => ({
+  joinCafeMeeting: async (studyOnceId) => {
+    try {
+      await axios.post(`/study/once/${studyOnceId}`,null, {
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+      alert('참여가 완료되었습니다!')
+      window.location.reload();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  },
+  cancelJoin: async (studyOnceId) => {
+    try {
+      await axios.delete(`/study/once/${studyOnceId}`, {
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+      alert('참여가 취소되었습니다.')
+      window.location.reload();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  },
+}));

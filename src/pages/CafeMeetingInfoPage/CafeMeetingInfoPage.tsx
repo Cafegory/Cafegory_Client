@@ -44,6 +44,7 @@ import {
 } from './CafeMeetingInfoPage.hook';
 import { cafeInfoApiStore } from 'pages/CafeInfoPage/CafeInfo.hooks';
 import { qnaApiStore } from './CafeMeetingInfoPage.hook';
+import { joinApiStore } from './CafeMeetingInfoPage.hook';
 
 const CafeMeetingInfo: React.FC = () => {
   const { question, setQuestion } = createQuestion();
@@ -68,6 +69,8 @@ const CafeMeetingInfo: React.FC = () => {
   React.useEffect(() => {
     fetchQna(studyOnceId);
   }, []);
+
+  const { joinCafeMeeting, cancelJoin } = joinApiStore();
 
   const formatDate = (dateTimeString) => {
     const dateTime = new Date(dateTimeString);
@@ -166,14 +169,18 @@ const CafeMeetingInfo: React.FC = () => {
             {!info.attendance && (
               <LongButton
                 message="카공 참여하기"
-                onClick={hi}
+                onClick={() => {
+                  joinCafeMeeting(info.studyOnceId);
+                }}
                 color="black"
               ></LongButton>
             )}
             {info.attendance && memberId !== info.creatorId && (
               <LongButton
                 message="카공 참여 취소"
-                onClick={hi}
+                onClick={() => {
+                  cancelJoin(info.studyOnceId);
+                }}
                 color="red"
               ></LongButton>
             )}
