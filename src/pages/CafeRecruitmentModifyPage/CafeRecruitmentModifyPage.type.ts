@@ -1,5 +1,3 @@
-import { NumberLiteralType } from 'typescript';
-
 export interface OptionContentList {
   name: string;
   setName: (value: string) => void;
@@ -37,6 +35,27 @@ export interface CafeChangeState {
 }
 
 export interface MemberInfo {
-  creatorId: Number;
+  creatorId: number;
   setCreatorId: (value: number) => void;
+}
+
+export interface StudyInfo {
+  studyOnceId: number;
+  setStudyOnceId: (value: number) => void;
+}
+
+interface Member {
+  memberId: number;
+  name: string;
+  thumbnailImg: string;
+}
+
+export interface MemberStore {
+  members: Member[];
+  setMembers: (newMembers: Member[]) => void;
+
+  memberIds: number[];
+  setMemberIds: (newMemberIds: number[]) => void;
+
+  getMemberList: () => Promise<void>;
 }

@@ -5,7 +5,6 @@ import {
   OptionState,
   Cafe,
   CafeCreateResruitmentApi,
-  CafeInfoApi,
 } from './CafeCreateRecruitmentPage.type';
 import axios from 'axios';
 
@@ -65,7 +64,7 @@ export const cafeInfo = create<Cafe>((set) => ({
         set({ cafeName: response.data.basicInfo.name });
       })
       .catch((error) => {
-        console.error(error.response.data.errorMessage);
+        console.error(error);
       });
   },
 }));
@@ -94,20 +93,3 @@ export const CafeCreateResruitmentApiContent = create<CafeCreateResruitmentApi>(
     },
   }),
 );
-
-export const CafeInfoApiContent = create<CafeInfoApi>((set) => ({
-  getCafeInfo: async () => {
-    axios
-      .get(`/cafe/${cafeInfo.getState().cafeId}`, {
-        headers: {
-          Authorization: accessToken,
-        },
-      })
-      .then((response) => {
-        set({ cafeName: response.data.basicInfo.name });
-      })
-      .catch((error) => {
-        console.error(error.response.data.errorMessage);
-      });
-  },
-}));

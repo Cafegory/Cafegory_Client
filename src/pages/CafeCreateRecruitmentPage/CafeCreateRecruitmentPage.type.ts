@@ -47,5 +47,3 @@ export interface Cafe {
 export interface CafeCreateResruitmentApi {
   postCafeCreateResruitment: () => Promise<void>;
 }
-
-export interface CafeInfoApi {}

@@ -1,11 +1,15 @@
 import { create } from 'zustand';
-
 import {
   OptionContentList,
   DateTimeCombine,
   CafeChangeState,
   MemberInfo,
+  StudyInfo,
+  MemberStore,
 } from './CafeRecruitmentModifyPage.type';
+import axios from 'axios';
+
+const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
 export const OptionContent = create<OptionContentList>((set) => ({
   name: '',
@@ -46,4 +50,36 @@ export const cafeChange = create<CafeChangeState>((set) => ({
 export const member = create<MemberInfo>((set) => ({
   creatorId: 1,
   setCreatorId: (value) => set({ creatorId: value }),
+}));
+
+export const study = create<StudyInfo>((set) => ({
+  studyOnceId: null,
+  setStudyOnceId: (value) => set({ studyOnceId: value }),
+}));
+
+export const useMemberStore = create<MemberStore>((set) => ({
+  members: [],
+  setMembers: (newMembers) => set({ members: newMembers }),
+
+  memberIds: [],
+  setMemberIds: (newMemberIds) => set({ memberIds: newMemberIds }),
+
+  getMemberList: async () => {
+    try {
+      const response = await axios.get(
+        `/study/once/${study.getState().studyOnceId}/member/list`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
+      );
+      const ids = response.data.joinedMembers.map((member) => member.memberId);
+      set({ members: response.data.joinedMembers.reverse() });
+      set({ memberIds: ids });
+      console.log('멤버 출력', JSON.stringify(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  },
 }));

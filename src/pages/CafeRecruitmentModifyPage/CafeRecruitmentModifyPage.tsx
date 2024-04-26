@@ -56,6 +56,7 @@ import {
   DateTime,
   cafeChange,
   member,
+  useMemberStore,
 } from './CafeRecruitmentModifyPage.hooks';
 
 import { cafeInfo } from 'pages/CafeCreateRecruitmentPage/CafeCreateRecruitmentPage.hooks';
@@ -63,7 +64,8 @@ import { cafeInfo } from 'pages/CafeCreateRecruitmentPage/CafeCreateRecruitmentP
 const CafeRecruitmentModify: React.FC = () => {
   const { studyOnceId } = useParams();
   const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
-  const [members, setMembers] = useState([]);
+  const { members, setMembers, memberIds, setMemberIds, getMemberList } =
+    useMemberStore();
   const {
     name,
     setName,
@@ -85,9 +87,7 @@ const CafeRecruitmentModify: React.FC = () => {
   const { cafeName, setCafeName, cafeId, setCafeId, getCafeInfo } = cafeInfo();
   const { showCafeSearch, setShowCafeSearch } = cafeChange();
   const { creatorId, setCreatorId } = member();
-
   const [currentCafeId, setCurrentCafeId] = useState(cafeId);
-  const [memberIds, setMemberIds] = useState<number[]>([]);
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -132,7 +132,6 @@ const CafeRecruitmentModify: React.FC = () => {
         console.error(error);
       }
     };
-
     fetchData();
   }, [studyOnceId]);
 
@@ -168,7 +167,9 @@ const CafeRecruitmentModify: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    getCafeInfo();
+    if (cafeId !== null) {
+      getCafeInfo();
+    }
   }, [cafeId]);
 
   const handleCafeSelect = (cafeId) => {
