@@ -287,6 +287,7 @@ export const StudyBox = styled.div`
   border-radius:8px;
   padding:1rem 1.5rem 1rem 1.5rem;
   justify-content:center;
+  cursor:pointer;
 
   @media (max-width: 768px) {
     width:90%;

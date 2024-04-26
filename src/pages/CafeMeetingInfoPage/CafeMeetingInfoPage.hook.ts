@@ -150,3 +150,19 @@ export const answerApiStore = create<AnswerStoreState>((set) => ({
     }
   },
 }));
+
+export const joinApiStore = create(() => ({
+  cancelJoin: async (studyOnceId) => {
+    try {
+      await axios.delete(`/study/once/${studyOnceId}`, {
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+      alert('참여가 취소되었습니다ㅠㅠ')
+      window.location.reload();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  },
+}));

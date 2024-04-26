@@ -199,7 +199,12 @@ const CafeInfo: React.FC = () => {
             )}
             <StudyBoxContainer>
               {info.meetings.slice(0, 2).map((meeting, index) => (
-                <StudyBox key={index}>
+                <StudyBox
+                  key={index}
+                  onClick={() => {
+                    navigate(`/cafeMeetingInfo/${meeting.studyOnceId}`);
+                  }}
+                >
                   <StudyNameBox>
                     <StudyName>{meeting.name}</StudyName>
                     {meeting.end ? (
