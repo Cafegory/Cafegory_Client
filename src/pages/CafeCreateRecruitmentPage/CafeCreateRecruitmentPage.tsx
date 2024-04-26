@@ -47,6 +47,7 @@ import {
   DateTime,
   useOption,
   cafeinfo,
+  CafeCreateResruitmentApiContent,
 } from './CafeCreateRecruitmentPage.hooks';
 
 const CafeCreateRecruitment: React.FC = () => {
@@ -69,7 +70,8 @@ const CafeCreateRecruitment: React.FC = () => {
   const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
     DateTime();
   const { isSelectedCanStudy, setSelectedCanStudy } = useOption();
-  const { cafeName, setCafeName } = cafeinfo();
+  const { cafeName, setCafeName, cafeId, setCafeId } = cafeinfo();
+  const { postCafeCreateResruitment } = CafeCreateResruitmentApiContent();
   const navigate = useNavigate();
   const handleGoBack = () => {
     navigate(-1);
@@ -93,30 +95,17 @@ const CafeCreateRecruitment: React.FC = () => {
   }, [selectedDate, startTime, selectedDate, endTime]);
 
   const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+
   const { cafeId: routeCafeId } = useParams();
-
-  const sendData = {
-    cafeId: routeCafeId,
-    name: name,
-    startDateTime: startDateTime,
-    endDateTime: endDateTime,
-    maxMemberCount: maxMemberCount,
-    canTalk: canTalk,
-    openChatUrl: openChatUrl,
-  };
-
-  const CreateMeetingClick = async () => {
-    try {
-      const response = await axios.post('/study/once', sendData, {
-        headers: {
-          Authorization: accessToken,
-        },
-      });
-      console.log('요청 성공');
-      console.log('응답 데이터:', response.data);
-    } catch (error) {
-      alert(`${error.response.data.errorMessage}`);
+  useEffect(() => {
+    if (routeCafeId) {
+      setCafeId(parseInt(routeCafeId));
+      console.log(`카페 아이디 출력 ${routeCafeId}`);
     }
+  }, [routeCafeId]);
+
+  const CreateMeetingClick = () => {
+    postCafeCreateResruitment();
   };
 
   const handleCanTalkOptionClick = (value: 'TRUE' | 'FALSE') => {

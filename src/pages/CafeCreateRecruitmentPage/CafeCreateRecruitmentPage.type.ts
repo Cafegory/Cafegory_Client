@@ -37,4 +37,11 @@ export interface OptionState {
 export interface Cafe {
   cafeName: string;
   setCafeName: (value: string) => void;
+
+  cafeId: number;
+  setCafeId: (value: number) => void;
+}
+
+export interface CafeCreateResruitmentApi {
+  postCafeCreateResruitment: () => Promise<void>;
 }

@@ -1,11 +1,14 @@
 import { create } from 'zustand';
-
+import axios from 'axios';
 import {
   OptionContentList,
   DateTimeCombine,
   OptionState,
   Cafe,
+  CafeCreateResruitmentApi,
 } from './CafeCreateRecruitmentPage.type';
+
+const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
 export const OptionContent = create<OptionContentList>((set) => ({
   name: '',
@@ -46,4 +49,34 @@ export const useOption = create<OptionState>((set) => ({
 export const cafeinfo = create<Cafe>((set) => ({
   cafeName: '',
   setCafeName: (value) => set({ cafeName: value }),
+
+  cafeId: null,
+  setCafeId: (value) => set({ cafeId: value }),
 }));
+
+export const CafeCreateResruitmentApiContent = create<CafeCreateResruitmentApi>(
+  (set) => ({
+    postCafeCreateResruitment: async () => {
+      const sendData = {
+        cafeId: cafeinfo.getState().cafeId,
+        name: OptionContent.getState().name,
+        startDateTime: DateTime.getState().startDateTime,
+        endDateTime: DateTime.getState().endDateTime,
+        maxMemberCount: OptionContent.getState().maxMemberCount,
+        canTalk: OptionContent.getState().canTalk,
+        openChatUrl: OptionContent.getState().openChatUrl,
+      };
+      try {
+        const response = await axios.post('/study/once', sendData, {
+          headers: {
+            Authorization: accessToken,
+          },
+        });
+        console.log('요청 성공');
+        console.log('응답 데이터:', response.data);
+      } catch (error) {
+        alert(`${error.response.data.errorMessage}`);
+      }
+    },
+  }),
+);
