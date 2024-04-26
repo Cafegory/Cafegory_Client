@@ -26,6 +26,9 @@ export const OptionContent = create<OptionContentList>((set) => ({
 
   selectedDate: new Date(),
   setSelectedDate: (value) => set({ selectedDate: value }),
+
+  openChatUrl: '',
+  setOpenChatUrl: (value) => set({ openChatUrl: value }),
 }));
 
 export const DateTime = create<DateTimeCombine>((set) => ({

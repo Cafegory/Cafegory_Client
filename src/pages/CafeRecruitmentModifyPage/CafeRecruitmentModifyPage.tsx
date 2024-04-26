@@ -48,6 +48,7 @@ import {
   MemberPart,
   Underline,
   CafeChangeButton,
+  OpenKakao,
 } from './CafeRecruitmentModifyPage.style';
 
 import {
@@ -75,6 +76,8 @@ const CafeRecruitmentModify: React.FC = () => {
     setEndTime,
     selectedDate,
     setSelectedDate,
+    openChatUrl,
+    setOpenChatUrl,
   } = OptionContent();
   const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
     DateTime();
@@ -154,6 +157,7 @@ const CafeRecruitmentModify: React.FC = () => {
         setCafeId(response.data.cafeId);
         setCurrentCafeId(response.data.cafeId);
         setCreatorId(response.data.creatorId);
+        setOpenChatUrl(response.data.openChatUrl);
       } catch (error) {
         console.error(error);
       }
@@ -358,6 +362,17 @@ const CafeRecruitmentModify: React.FC = () => {
                 </CanTalkButton>
               </CanTalkButtonContainer>
             </CanTalk>
+            <OpenKakao>
+              <DetailName>오픈채팅방</DetailName>
+              <InputContainer>
+                <InputField
+                  type="text"
+                  placeholder="오픈채팅방 url을 입력해주세요."
+                  value={openChatUrl}
+                  onChange={(event) => setOpenChatUrl(event.target.value)}
+                />
+              </InputContainer>
+            </OpenKakao>
             <MemberManagement>
               <DetailName>구성원 관리</DetailName>
               {members.map((member, index) => (

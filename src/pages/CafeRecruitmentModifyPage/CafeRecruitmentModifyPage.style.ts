@@ -41,6 +41,7 @@ export const InputField = styled.input`
   width: 100%;
   border: none;
   font-size: 1.1rem;
+  padding: 2.1%;
   &:focus {
     outline: none;
   }
@@ -277,3 +278,5 @@ export const CafeChangeButton = styled.div`
   cursor: pointer;
   font-weight: bold;
 `;
+
+export const OpenKakao = styled.div``;

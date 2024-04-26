@@ -107,12 +107,13 @@ const CafeCreateRecruitment: React.FC = () => {
 
   const CreateMeetingClick = async () => {
     try {
-      await axios.post('/study/once', sendData, {
+      const response = await axios.post('/study/once', sendData, {
         headers: {
           Authorization: accessToken,
         },
       });
       console.log('요청 성공');
+      console.log('응답 데이터:', response.data);
     } catch (error) {
       alert(`${error.response.data.errorMessage}`);
     }
