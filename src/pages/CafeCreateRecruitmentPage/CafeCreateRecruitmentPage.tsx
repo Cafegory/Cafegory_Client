@@ -7,10 +7,8 @@ import LongButton from 'components/LongButton';
 import 'react-datepicker/dist/react-datepicker.css';
 import ko from 'date-fns/locale/ko';
 import { useNavigate } from 'react-router-dom';
-import { constructFrom, format } from 'date-fns';
-import axios from 'axios';
+import { format } from 'date-fns';
 import { useParams } from 'react-router-dom';
-
 import {
   Title,
   Detail,
@@ -26,7 +24,6 @@ import {
   InputContainer,
   EditImg,
   InputField,
-  CafeImg,
   CafeName,
   DateContatiner,
   CafeInfo,
@@ -41,12 +38,11 @@ import {
   Warning,
   OpenKakao,
 } from './CafeCreateRecruitmentPage.style';
-
 import {
   OptionContent,
   DateTime,
   useOption,
-  cafeinfo,
+  cafeInfo,
   CafeCreateResruitmentApiContent,
 } from './CafeCreateRecruitmentPage.hooks';
 
@@ -56,7 +52,6 @@ const CafeCreateRecruitment: React.FC = () => {
     setName,
     maxMemberCount,
     setMaxMemberCount,
-    canTalk,
     setCanTalk,
     startTime,
     setStartTime,
@@ -67,11 +62,12 @@ const CafeCreateRecruitment: React.FC = () => {
     openChatUrl,
     setOpenChatUrl,
   } = OptionContent();
-  const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
-    DateTime();
+
+  const { setStartDateTime, setEndDateTime } = DateTime();
   const { isSelectedCanStudy, setSelectedCanStudy } = useOption();
-  const { cafeName, setCafeName, cafeId, setCafeId } = cafeinfo();
+  const { cafeName, setCafeName, cafeId, setCafeId, getCafeInfo } = cafeInfo();
   const { postCafeCreateResruitment } = CafeCreateResruitmentApiContent();
+
   const navigate = useNavigate();
   const handleGoBack = () => {
     navigate(-1);
@@ -94,15 +90,13 @@ const CafeCreateRecruitment: React.FC = () => {
     setEndDateTime(newEndDateTime);
   }, [selectedDate, startTime, selectedDate, endTime]);
 
-  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
-
   const { cafeId: routeCafeId } = useParams();
+
   useEffect(() => {
     if (routeCafeId) {
       setCafeId(parseInt(routeCafeId));
-      console.log(`카페 아이디 출력 ${routeCafeId}`);
     }
-  }, [routeCafeId]);
+  }, []);
 
   const CreateMeetingClick = () => {
     postCafeCreateResruitment();
@@ -113,18 +107,7 @@ const CafeCreateRecruitment: React.FC = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`/cafe/${routeCafeId}`, {
-        headers: {
-          Authorization: accessToken,
-        },
-      })
-      .then((response) => {
-        setCafeName(response.data.basicInfo.name);
-      })
-      .catch((error) => {
-        console.error(error.response.data.errorMessage);
-      });
+    getCafeInfo();
   }, []);
 
   return (

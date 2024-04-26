@@ -1,12 +1,13 @@
 import { create } from 'zustand';
-import axios from 'axios';
 import {
   OptionContentList,
   DateTimeCombine,
   OptionState,
   Cafe,
   CafeCreateResruitmentApi,
+  CafeInfoApi,
 } from './CafeCreateRecruitmentPage.type';
+import axios from 'axios';
 
 const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
@@ -46,19 +47,34 @@ export const useOption = create<OptionState>((set) => ({
   setSelectedCanStudy: (value) => set({ isSelectedCanStudy: value }),
 }));
 
-export const cafeinfo = create<Cafe>((set) => ({
+export const cafeInfo = create<Cafe>((set) => ({
   cafeName: '',
   setCafeName: (value) => set({ cafeName: value }),
 
   cafeId: null,
   setCafeId: (value) => set({ cafeId: value }),
+
+  getCafeInfo: async () => {
+    axios
+      .get(`/cafe/${cafeInfo.getState().cafeId}`, {
+        headers: {
+          Authorization: accessToken,
+        },
+      })
+      .then((response) => {
+        set({ cafeName: response.data.basicInfo.name });
+      })
+      .catch((error) => {
+        console.error(error.response.data.errorMessage);
+      });
+  },
 }));
 
 export const CafeCreateResruitmentApiContent = create<CafeCreateResruitmentApi>(
   (set) => ({
     postCafeCreateResruitment: async () => {
       const sendData = {
-        cafeId: cafeinfo.getState().cafeId,
+        cafeId: cafeInfo.getState().cafeId,
         name: OptionContent.getState().name,
         startDateTime: DateTime.getState().startDateTime,
         endDateTime: DateTime.getState().endDateTime,
@@ -72,11 +88,26 @@ export const CafeCreateResruitmentApiContent = create<CafeCreateResruitmentApi>(
             Authorization: accessToken,
           },
         });
-        console.log('요청 성공');
-        console.log('응답 데이터:', response.data);
       } catch (error) {
         alert(`${error.response.data.errorMessage}`);
       }
     },
   }),
 );
+
+export const CafeInfoApiContent = create<CafeInfoApi>((set) => ({
+  getCafeInfo: async () => {
+    axios
+      .get(`/cafe/${cafeInfo.getState().cafeId}`, {
+        headers: {
+          Authorization: accessToken,
+        },
+      })
+      .then((response) => {
+        set({ cafeName: response.data.basicInfo.name });
+      })
+      .catch((error) => {
+        console.error(error.response.data.errorMessage);
+      });
+  },
+}));

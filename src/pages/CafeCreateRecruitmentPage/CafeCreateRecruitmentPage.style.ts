@@ -81,11 +81,6 @@ export const CafeInfo = styled.div`
   align-items: center;
   gap: 1%;
 `;
-export const CafeImg = styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 100%;
-`;
 
 export const CafeName = styled.div`
   font-weight: bold;

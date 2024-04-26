@@ -40,8 +40,12 @@ export interface Cafe {
 
   cafeId: number;
   setCafeId: (value: number) => void;
+
+  getCafeInfo: () => Promise<void>;
 }
 
 export interface CafeCreateResruitmentApi {
   postCafeCreateResruitment: () => Promise<void>;
 }
+
+export interface CafeInfoApi {}
