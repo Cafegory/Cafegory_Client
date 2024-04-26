@@ -83,12 +83,22 @@ const CafeInfo: React.FC = () => {
     window.location.href = link;
   };
 
+  const formatDate = (dateTimeString) => {
+    const dateTime = new Date(dateTimeString);
+    const year = dateTime.getFullYear();
+    const month = String(dateTime.getMonth() + 1).padStart(2, '0');
+    const day = String(dateTime.getDate()).padStart(2, '0');
+    const hour = String(dateTime.getHours()).padStart(2, '0');
+    const minute = String(dateTime.getMinutes()).padStart(2, '0');
+
+    return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
+  };
+
   return (
     <Screen>
       <Container>
         <CafeInfoContainer>
           <CafeProfileContainer>
-            {/* <CafeImg src="/assets/profile-image.png" alt="카페 프사" /> */}
             <CafeNameContainer>
               <CafeNameFont>{info.basicInfo.name}</CafeNameFont>
               <AddressFont>{info.basicInfo.address}</AddressFont>
@@ -189,10 +199,15 @@ const CafeInfo: React.FC = () => {
             )}
             <StudyBoxContainer>
               {info.meetings.slice(0, 2).map((meeting, index) => (
-                <StudyBox key={index}>
+                <StudyBox
+                  key={index}
+                  onClick={() => {
+                    navigate(`/cafeMeetingInfo/${meeting.studyOnceId}`);
+                  }}
+                >
                   <StudyNameBox>
                     <StudyName>{meeting.name}</StudyName>
-                    {meeting.isEnd ? (
+                    {meeting.end ? (
                       <>
                         <IsEndTrue>
                           {meeting.nowMemberCount}/{meeting.maxMemberCount}
@@ -209,7 +224,8 @@ const CafeInfo: React.FC = () => {
                     )}
                   </StudyNameBox>
                   <StudyDateFont>
-                    {meeting.startDateTime}~{meeting.endDateTime}
+                    {formatDate(meeting.startDateTime)} ~{' '}
+                    {formatDate(meeting.endDateTime)}
                   </StudyDateFont>
                 </StudyBox>
               ))}

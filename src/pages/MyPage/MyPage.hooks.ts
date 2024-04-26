@@ -44,22 +44,3 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
         }
       },
   }));
-
-//   export const patchReview = async () => {
-//     const reviewData = {
-//       content: useContentStore.getState().content,
-//       rate: useRatingStore.getState().rating
-//     };
-    
-//     try {
-//       const id = ReviewEditStore.getState().editReviewId;
-//       await axios.patch(`/cafe/review/${id}`,reviewData, {
-//         headers: {
-//           Authorization: accessToken,
-//         }
-//       });
-//     } catch (error) {
-//       console.error('Error:', error);
-//     }
-//   }
-  

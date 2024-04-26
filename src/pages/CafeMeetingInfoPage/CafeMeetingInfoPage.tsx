@@ -34,92 +34,107 @@ import {
 } from './CafeMeetingInfoPage.style';
 import LongButton from 'components/LongButton';
 import ShortButton from 'components/ShortButton';
-import axios from 'axios';
-import { createQuestion, createAnswer } from './CafeMeetingInfoPage.hook';
+import { useParams } from 'react-router-dom';
+import {
+  createQuestion,
+  createAnswer,
+  cafeMeetingInfoApiStore,
+  questionApiStore,
+  answerApiStore,
+} from './CafeMeetingInfoPage.hook';
+import { cafeInfoApiStore } from 'pages/CafeInfoPage/CafeInfo.hooks';
+import { qnaApiStore } from './CafeMeetingInfoPage.hook';
+import { joinApiStore } from './CafeMeetingInfoPage.hook';
 
 const CafeMeetingInfo: React.FC = () => {
-  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
-
   const { question, setQuestion } = createQuestion();
   const { answer, setAnswer } = createAnswer();
 
-  const api = {
-    cafeId: 1,
-    id: 1,
-    name: '알아서 공부하자',
-    startDateTime: 'yyyy-MM-ddThh:mm:ss',
-    endDateTime: 'yyyy-MM-ddThh:mm:ss',
-    maxMemberCount: 7,
-    nowMemberCount: 3,
-    canTalk: true,
-    canJoin: true,
-    isEnd: false,
+  const { info, fetchInfo } = cafeMeetingInfoApiStore();
+
+  const { studyOnceId } = useParams<{ studyOnceId: string }>();
+
+  React.useEffect(() => {
+    fetchInfo(studyOnceId);
+  }, []);
+
+  const { info: cafeInfo, fetchInfo: cafeFetchInfo } = cafeInfoApiStore();
+
+  React.useEffect(() => {
+    cafeFetchInfo(info.cafeId);
+  }, []);
+
+  const { qna, fetchQna } = qnaApiStore();
+
+  React.useEffect(() => {
+    fetchQna(studyOnceId);
+  }, []);
+
+  const { joinCafeMeeting, cancelJoin } = joinApiStore();
+
+  const formatDate = (dateTimeString) => {
+    const dateTime = new Date(dateTimeString);
+    const year = dateTime.getFullYear();
+    const month = String(dateTime.getMonth() + 1).padStart(2, '0');
+    const day = String(dateTime.getDate()).padStart(2, '0');
+    const hour = String(dateTime.getHours()).padStart(2, '0');
+    const minute = String(dateTime.getMinutes()).padStart(2, '0');
+
+    return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
   };
 
-  const qnaApi = {
-    replyWriter: {
-      memberId: 2,
-    },
-    questions: [
-      {
-        questionWriter: {
-          memberId: 1,
-          name: '취준생',
-          thumbnailImg: 'https://~~',
-        },
-        questionInfo: {
-          questionId: 1,
-          content: '조금 늦어도 될까요?',
-        },
-        reply: {
-          replyId: 1,
-          content: '아니요! 웬만하면 정시에 시작하려고 합니다',
-        },
-      },
-      {
-        questionWriter: {
-          memberId: 1,
-          name: '취준생',
-          thumbnailImg: 'https://~~',
-        },
-        questionInfo: {
-          questionId: 1,
-          content: '조금 늦어도 될까요?',
-        },
-        reply: {
-          replyId: 1,
-          content: '아니요! 웬만하면 정시에 시작하려고 합니다',
-        },
-      },
-    ],
-  };
+  const memberId = JSON.parse(localStorage.getItem('memberId'));
 
   const hi = () => {};
 
-  const QuestGenerateOnClick = () => {};
+  const { setQuestionContent, postQuestion, deleteQuestion } =
+    questionApiStore();
 
-  const ReplyGenerateOnClick = () => {};
+  const QuestGenerateOnClick = () => {
+    postQuestion(Number(studyOnceId));
+    setQuestionContent('');
+    window.location.reload();
+  };
+
+  const handleDeleteQuestion = (id) => {
+    deleteQuestion(id);
+    window.location.reload();
+  };
+
+  const { setAnswerContent, postAnswer, deleteAnswer } = answerApiStore();
+
+  const ReplyGenerateOnClick = (parrentCommentId) => {
+    postAnswer(Number(studyOnceId), parrentCommentId);
+    setAnswerContent('');
+    window.location.reload();
+  };
+
+  const handleDeleteAnswer = (id) => {
+    deleteAnswer(id);
+    window.location.reload();
+  };
+
   return (
     <Screen>
       <Container>
         <CafeMeetingInfoContainer>
           <MeetingNameContainer>
-            <MeetingNameFont>{api.name}</MeetingNameFont>
-            <AddressFont>스타벅스 강남R점</AddressFont>
+            <MeetingNameFont>{info.name}</MeetingNameFont>
+            <AddressFont>{cafeInfo.basicInfo.name}</AddressFont>
           </MeetingNameContainer>
           <TitleContainer>
             <TitleFont>모집 현황</TitleFont>
-            {api.canJoin ? (
+            {info.canJoin ? (
               <MemberCountContainer>
                 <CanJoinMemberCount>
-                  {api.nowMemberCount}명 / {api.maxMemberCount}명
+                  {info.nowMemberCount}명 / {info.maxMemberCount}명
                 </CanJoinMemberCount>
                 <CanJoinFont>모집중</CanJoinFont>
               </MemberCountContainer>
             ) : (
               <MemberCountContainer>
                 <CannotJoinMemberCount>
-                  {api.nowMemberCount}명 / {api.maxMemberCount}명
+                  {info.nowMemberCount}명 / {info.maxMemberCount}명
                 </CannotJoinMemberCount>
                 <CannotJoinFont>모집 마감</CannotJoinFont>
               </MemberCountContainer>
@@ -128,12 +143,12 @@ const CafeMeetingInfo: React.FC = () => {
           <TitleContainer>
             <TitleFont>시간</TitleFont>
             <GrayFont>
-              {api.startDateTime}~{api.endDateTime}
+              {formatDate(info.startDateTime)} ~ {formatDate(info.endDateTime)}
             </GrayFont>
           </TitleContainer>
           <TitleContainer>
             <TitleFont>구성원 간 소통 여부</TitleFont>
-            {api.canTalk ? (
+            {info.canTalk ? (
               <GrayFont>가능</GrayFont>
             ) : (
               <GrayFont>불가능</GrayFont>
@@ -141,66 +156,126 @@ const CafeMeetingInfo: React.FC = () => {
           </TitleContainer>
           <TitleContainer>
             <TitleFont>오픈 채팅방 주소</TitleFont>
-            <GrayFont>오픈 채팅방 주소</GrayFont>
+            <GrayFont>{info.openChatUrl}</GrayFont>
           </TitleContainer>
           <ButtonContainer>
-            <LongButton
-              message="그룹 정보 수정"
-              onClick={hi}
-              color="black"
-            ></LongButton>
-            <LongButton
-              message="모집 마감"
-              onClick={hi}
-              color="red"
-            ></LongButton>
+            {memberId === info.creatorId && (
+              <LongButton
+                message="그룹 정보 수정"
+                onClick={hi}
+                color="black"
+              ></LongButton>
+            )}
+            {!info.attendance && (
+              <LongButton
+                message="카공 참여하기"
+                onClick={() => {
+                  joinCafeMeeting(info.studyOnceId);
+                }}
+                color="black"
+              ></LongButton>
+            )}
+            {info.attendance && memberId !== info.creatorId && (
+              <LongButton
+                message="카공 참여 취소"
+                onClick={() => {
+                  cancelJoin(info.studyOnceId);
+                }}
+                color="red"
+              ></LongButton>
+            )}
           </ButtonContainer>
           <TitleContainer>
             <TitleFont>QnA</TitleFont>
-            <QuestGenerate>
-              <QuestInput placeholder="궁금한 점이 있나요?" />
-              <ShortButton
-                color="black"
-                message="작성"
-                onClick={QuestGenerateOnClick}
-              />
-            </QuestGenerate>
-            {qnaApi.questions.map((question, index) => (
+            {memberId !== qna.replyWriter.memberId && (
+              <QuestGenerate>
+                <QuestInput
+                  placeholder="궁금한 점이 있나요?"
+                  onChange={(e) => setQuestionContent(e.target.value)}
+                />
+                <ShortButton
+                  color="black"
+                  message="작성"
+                  onClick={QuestGenerateOnClick}
+                />
+              </QuestGenerate>
+            )}
+            {qna.comments.map((question, index) => (
               <QuestionBoxContainer>
                 <QuestionBox>
                   <QuestionBoxUser>
                     <ProfileImg
-                      src={qnaApi.questions[index].questionWriter.thumbnailImg}
+                      src={qna.comments[index].questionWriter.thumbnailImg}
                       alt="프로필 사진"
                     ></ProfileImg>
                     <UserNameFont>
-                      {qnaApi.questions[index].questionWriter.name}
+                      {qna.comments[index].questionWriter.name}
                     </UserNameFont>
                   </QuestionBoxUser>
                   <QuestionContentFont>
-                    {qnaApi.questions[index].questionInfo.content}{' '}
-                    <State>
-                      <QuestionModify>수정</QuestionModify>|
-                      <QuestionDelete>삭제</QuestionDelete>
-                    </State>
+                    {qna.comments[index].questionInfo.comment}
+                    {memberId ===
+                      qna.comments[index].questionWriter.memberId && (
+                      <State>
+                        <QuestionModify>수정</QuestionModify>|
+                        <QuestionDelete
+                          onClick={() =>
+                            handleDeleteQuestion(
+                              qna.comments[index].questionInfo.commentId,
+                            )
+                          }
+                        >
+                          삭제
+                        </QuestionDelete>
+                      </State>
+                    )}
                   </QuestionContentFont>
                 </QuestionBox>
-                <ReplyBox>
-                  <div>↳</div>
-                  <div>{qnaApi.questions[index].reply.content}</div>
-                  <State>
-                    <AnswerModify>수정</AnswerModify>|
-                    <AnswerDelete>삭제</AnswerDelete>
-                  </State>
-                </ReplyBox>
-                <QuestGenerate>
-                  <QuestInput placeholder="답글을 작성해주세요." />
-                  <ShortButton
-                    color="black"
-                    message="작성"
-                    onClick={ReplyGenerateOnClick}
-                  />
-                </QuestGenerate>
+                {qna.comments[index].replies.length !== 0 && (
+                  <ReplyBox>
+                    <div>↳</div>
+                    <QuestionBoxUser>
+                      <ProfileImg
+                        src={qna.replyWriter.thumbnailImg}
+                        alt="프로필 사진"
+                      ></ProfileImg>
+                      <UserNameFont>{qna.replyWriter.name}</UserNameFont>
+                    </QuestionBoxUser>
+                    <div>{qna.comments[index].replies[0].comment}</div>
+                    {memberId === qna.replyWriter.memberId && (
+                      <State>
+                        <AnswerModify>수정</AnswerModify>|
+                        <AnswerDelete
+                          onClick={() =>
+                            handleDeleteAnswer(
+                              qna.comments[index].replies[0].commentId,
+                            )
+                          }
+                        >
+                          삭제
+                        </AnswerDelete>
+                      </State>
+                    )}
+                  </ReplyBox>
+                )}
+                {memberId === qna.replyWriter.memberId &&
+                  qna.comments[index].replies.length === 0 && (
+                    <QuestGenerate>
+                      <QuestInput
+                        placeholder="답글을 작성해주세요."
+                        onChange={(e) => setAnswerContent(e.target.value)}
+                      />
+                      <ShortButton
+                        color="black"
+                        message="작성"
+                        onClick={() =>
+                          ReplyGenerateOnClick(
+                            qna.comments[index].questionInfo.commentId,
+                          )
+                        }
+                      />
+                    </QuestGenerate>
+                  )}
               </QuestionBoxContainer>
             ))}
           </TitleContainer>
