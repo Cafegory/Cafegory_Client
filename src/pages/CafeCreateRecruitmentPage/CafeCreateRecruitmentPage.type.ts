@@ -16,6 +16,9 @@ export interface OptionContentList {
 
   selectedDate: Date;
   setSelectedDate: (value: Date) => void;
+
+  openChatUrl: string;
+  setOpenChatUrl: (value: string) => void;
 }
 
 export interface DateTimeCombine {

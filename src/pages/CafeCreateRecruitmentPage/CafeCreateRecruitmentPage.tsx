@@ -39,6 +39,7 @@ import {
   CanTalkButton,
   CanTalkButtonContainer,
   Warning,
+  OpenKakao,
 } from './CafeCreateRecruitmentPage.style';
 
 import {
@@ -62,6 +63,8 @@ const CafeCreateRecruitment: React.FC = () => {
     setEndTime,
     selectedDate,
     setSelectedDate,
+    openChatUrl,
+    setOpenChatUrl,
   } = OptionContent();
   const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
     DateTime();
@@ -99,6 +102,7 @@ const CafeCreateRecruitment: React.FC = () => {
     endDateTime: endDateTime,
     maxMemberCount: maxMemberCount,
     canTalk: canTalk,
+    openChatUrl: openChatUrl,
   };
 
   const CreateMeetingClick = async () => {
@@ -264,6 +268,17 @@ const CafeCreateRecruitment: React.FC = () => {
                 </CanTalkButton>
               </CanTalkButtonContainer>
             </CanTalk>
+            <OpenKakao>
+              <DetailName>오픈채팅방</DetailName>
+              <InputContainer>
+                <InputField
+                  type="text"
+                  placeholder="오픈채팅방 url을 입력해주세요."
+                  value={openChatUrl}
+                  onChange={(event) => setOpenChatUrl(event.target.value)}
+                />
+              </InputContainer>
+            </OpenKakao>
           </Detail>
           <ButtonContainer>
             <LongButton
