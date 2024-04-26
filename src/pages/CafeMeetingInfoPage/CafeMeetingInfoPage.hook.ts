@@ -30,7 +30,9 @@ export const cafeMeetingInfoApiStore = create<ApiStoreState>((set) => ({
     nowMemberCount: 0,
     canTalk: false,
     canJoin: false,
-    isEnd: false
+    isEnd: false,
+    attendance:false,
+    openChatUrl:""
   },
   fetchInfo: async (studyOnceId) => {
     try {

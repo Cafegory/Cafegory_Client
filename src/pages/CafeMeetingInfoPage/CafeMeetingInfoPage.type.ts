@@ -11,7 +11,7 @@ export interface Answer {
 export interface ApiStoreState {
   info: {
     "cafeId" : number,
-    creatorId :number,
+    "creatorId" :number,
     "cafeName" : string,
     "area" : string,
     "studyOnceId" : number,
@@ -22,7 +22,9 @@ export interface ApiStoreState {
     "nowMemberCount" : number,
     "canTalk" : boolean,
     "canJoin" : boolean,
-    "isEnd" : boolean 
+    "isEnd" : boolean ,
+    "attendance":boolean,
+    "openChatUrl":string
   }
   fetchInfo: (studyOnceId:string) => Promise<void>;
 }

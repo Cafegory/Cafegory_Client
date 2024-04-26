@@ -153,36 +153,31 @@ const CafeMeetingInfo: React.FC = () => {
           </TitleContainer>
           <TitleContainer>
             <TitleFont>오픈 채팅방 주소</TitleFont>
-            <GrayFont>오픈 채팅방 주소</GrayFont>
+            <GrayFont>{info.openChatUrl}</GrayFont>
           </TitleContainer>
-          {memberId === info.creatorId && (
-            <ButtonContainer>
+          <ButtonContainer>
+            {memberId === info.creatorId && (
               <LongButton
                 message="그룹 정보 수정"
                 onClick={hi}
                 color="black"
               ></LongButton>
-              <LongButton
-                message="모집 마감"
-                onClick={hi}
-                color="red"
-              ></LongButton>
-            </ButtonContainer>
-          )}
-          {memberId !== info.creatorId && (
-            <ButtonContainer>
+            )}
+            {!info.attendance && (
               <LongButton
                 message="카공 참여하기"
                 onClick={hi}
                 color="black"
               ></LongButton>
+            )}
+            {info.attendance && memberId !== info.creatorId && (
               <LongButton
                 message="카공 참여 취소"
                 onClick={hi}
                 color="red"
               ></LongButton>
-            </ButtonContainer>
-          )}
+            )}
+          </ButtonContainer>
           <TitleContainer>
             <TitleFont>QnA</TitleFont>
             {memberId !== qna.replyWriter.memberId && (
