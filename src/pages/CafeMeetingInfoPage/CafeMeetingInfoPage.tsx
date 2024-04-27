@@ -3,6 +3,7 @@ import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from 'components/Basic/Screen';
 import Container from 'components/Basic/Container';
+import QnaEditModal from 'components/QnaEditModal';
 import {
   CafeMeetingInfoContainer,
   MeetingNameContainer,
@@ -45,6 +46,8 @@ import {
 import { cafeInfoApiStore } from 'pages/CafeInfoPage/CafeInfo.hooks';
 import { qnaApiStore } from './CafeMeetingInfoPage.hook';
 import { joinApiStore } from './CafeMeetingInfoPage.hook';
+import { QnaEditModalStore } from 'components/QnaEditModal/QnaEditModal.hooks';
+import { QnaEditApiState } from 'components/QnaEditModal/QnaEditModal.hooks';
 
 const CafeMeetingInfo: React.FC = () => {
   const { question, setQuestion } = createQuestion();
@@ -112,6 +115,25 @@ const CafeMeetingInfo: React.FC = () => {
   const handleDeleteAnswer = (id) => {
     deleteAnswer(id);
     window.location.reload();
+  };
+
+  const isModalOpen = QnaEditModalStore((state) => state.isModalOpen);
+  const toggleModal = QnaEditModalStore((state) => state.toggleModal);
+
+  const { setEditContent, setCommentId, setIsQuestion } = QnaEditApiState();
+
+  const editAnswer = (content, commentId) => {
+    setEditContent(content);
+    toggleModal();
+    setCommentId(commentId);
+    setIsQuestion(false);
+  };
+
+  const editQuestion = (content, commentId) => {
+    setEditContent(content);
+    toggleModal();
+    setCommentId(commentId);
+    setIsQuestion(true);
   };
 
   return (
@@ -217,7 +239,17 @@ const CafeMeetingInfo: React.FC = () => {
                     {memberId ===
                       qna.comments[index].questionWriter.memberId && (
                       <State>
-                        <QuestionModify>수정</QuestionModify>|
+                        <QuestionModify
+                          onClick={() => {
+                            editQuestion(
+                              qna.comments[index].questionInfo.comment,
+                              qna.comments[index].questionInfo.commentId,
+                            );
+                          }}
+                        >
+                          수정
+                        </QuestionModify>
+                        |
                         <QuestionDelete
                           onClick={() =>
                             handleDeleteQuestion(
@@ -244,7 +276,17 @@ const CafeMeetingInfo: React.FC = () => {
                     <div>{qna.comments[index].replies[0].comment}</div>
                     {memberId === qna.replyWriter.memberId && (
                       <State>
-                        <AnswerModify>수정</AnswerModify>|
+                        <AnswerModify
+                          onClick={() => {
+                            editAnswer(
+                              qna.comments[index].replies[0].comment,
+                              qna.comments[index].replies[0].commentId,
+                            );
+                          }}
+                        >
+                          수정
+                        </AnswerModify>
+                        |
                         <AnswerDelete
                           onClick={() =>
                             handleDeleteAnswer(
@@ -283,6 +325,7 @@ const CafeMeetingInfo: React.FC = () => {
       </Container>
       <Sidebar buttonColors={[, 'white']} />
       <Header />
+      {isModalOpen && <QnaEditModal></QnaEditModal>}
     </Screen>
   );
 };
