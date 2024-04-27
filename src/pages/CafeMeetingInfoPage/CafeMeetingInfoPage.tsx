@@ -120,16 +120,20 @@ const CafeMeetingInfo: React.FC = () => {
   const isModalOpen = QnaEditModalStore((state) => state.isModalOpen);
   const toggleModal = QnaEditModalStore((state) => state.toggleModal);
 
-  const { setEditContent } = QnaEditApiState();
+  const { setEditContent, setCommentId, setIsQuestion } = QnaEditApiState();
 
-  const editAnswer = (content) => {
+  const editAnswer = (content, commentId) => {
     setEditContent(content);
     toggleModal();
+    setCommentId(commentId);
+    setIsQuestion(false);
   };
 
-  const editQuestion = (content) => {
+  const editQuestion = (content, commentId) => {
     setEditContent(content);
     toggleModal();
+    setCommentId(commentId);
+    setIsQuestion(true);
   };
 
   return (
@@ -239,6 +243,7 @@ const CafeMeetingInfo: React.FC = () => {
                           onClick={() => {
                             editQuestion(
                               qna.comments[index].questionInfo.comment,
+                              qna.comments[index].questionInfo.commentId,
                             );
                           }}
                         >
@@ -273,7 +278,10 @@ const CafeMeetingInfo: React.FC = () => {
                       <State>
                         <AnswerModify
                           onClick={() => {
-                            editAnswer(qna.comments[index].replies[0].comment);
+                            editAnswer(
+                              qna.comments[index].replies[0].comment,
+                              qna.comments[index].replies[0].commentId,
+                            );
                           }}
                         >
                           수정
