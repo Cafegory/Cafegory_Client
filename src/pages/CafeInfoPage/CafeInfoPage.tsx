@@ -207,7 +207,7 @@ const CafeInfo: React.FC = () => {
                 >
                   <StudyNameBox>
                     <StudyName>{meeting.name}</StudyName>
-                    {meeting.end ? (
+                    {!meeting.end ? (
                       <>
                         <IsEndTrue>
                           {meeting.nowMemberCount}/{meeting.maxMemberCount}

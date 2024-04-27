@@ -3,6 +3,7 @@ import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Screen from 'components/Basic/Screen';
 import Container from 'components/Basic/Container';
+import QnaEditModal from 'components/QnaEditModal';
 import {
   CafeMeetingInfoContainer,
   MeetingNameContainer,
@@ -283,6 +284,7 @@ const CafeMeetingInfo: React.FC = () => {
       </Container>
       <Sidebar buttonColors={[, 'white']} />
       <Header />
+      <QnaEditModal></QnaEditModal>
     </Screen>
   );
 };
