@@ -16,6 +16,9 @@ export interface OptionContentList {
 
   selectedDate: Date;
   setSelectedDate: (value: Date) => void;
+
+  openChatUrl: string;
+  setOpenChatUrl: (value: string) => void;
 }
 
 export interface DateTimeCombine {
@@ -26,10 +29,33 @@ export interface DateTimeCombine {
   setEndDateTime: (value: string) => void;
 }
 
-export interface MemberList {
-  memberName: string;
-  setMemberName: (value: string) => void;
+export interface CafeChangeState {
+  showCafeSearch: boolean;
+  setShowCafeSearch: (show: boolean) => void;
+}
 
+export interface MemberInfo {
+  creatorId: number;
+  setCreatorId: (value: number) => void;
+}
+
+export interface StudyInfo {
+  studyOnceId: number;
+  setStudyOnceId: (value: number) => void;
+}
+
+interface Member {
+  memberId: number;
+  name: string;
   thumbnailImg: string;
-  setThumbnailImg: (value: string) => void;
+}
+
+export interface MemberStore {
+  members: Member[];
+  setMembers: (newMembers: Member[]) => void;
+
+  memberIds: number[];
+  setMemberIds: (newMemberIds: number[]) => void;
+
+  getMemberList: () => Promise<void>;
 }

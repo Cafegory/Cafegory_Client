@@ -4,6 +4,7 @@ import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
 import Container from 'components/Basic/Container';
 import LongButton from 'components/LongButton';
+import CafeSearchModal from 'components/CafeSearchModal';
 import 'react-datepicker/dist/react-datepicker.css';
 import ko from 'date-fns/locale/ko';
 import { useNavigate } from 'react-router-dom';
@@ -46,19 +47,25 @@ import {
   MemberName,
   MemberPart,
   Underline,
-  ManagementIcon,
+  CafeChangeButton,
+  OpenKakao,
 } from './CafeRecruitmentModifyPage.style';
 
 import {
   OptionContent,
   DateTime,
-  Member,
+  cafeChange,
+  member,
+  useMemberStore,
 } from './CafeRecruitmentModifyPage.hooks';
+
+import { cafeInfo } from 'pages/CafeCreateRecruitmentPage/CafeCreateRecruitmentPage.hooks';
 
 const CafeRecruitmentModify: React.FC = () => {
   const { studyOnceId } = useParams();
   const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
-  const [members, setMembers] = useState([]);
+  const { members, setMembers, memberIds, setMemberIds, getMemberList } =
+    useMemberStore();
   const {
     name,
     setName,
@@ -72,12 +79,15 @@ const CafeRecruitmentModify: React.FC = () => {
     setEndTime,
     selectedDate,
     setSelectedDate,
+    openChatUrl,
+    setOpenChatUrl,
   } = OptionContent();
   const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
     DateTime();
-
-  const { memberName, setMemberName, thumbnailImg, setThumbnailImg } = Member();
-
+  const { cafeName, setCafeName, cafeId, setCafeId, getCafeInfo } = cafeInfo();
+  const { showCafeSearch, setShowCafeSearch } = cafeChange();
+  const { creatorId, setCreatorId } = member();
+  const [currentCafeId, setCurrentCafeId] = useState(cafeId);
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -101,10 +111,6 @@ const CafeRecruitmentModify: React.FC = () => {
     setEndDateTime(newEndDateTime);
   }, [selectedDate, startTime, selectedDate, endTime]);
 
-  const cafeStudyModifyClick = () => {};
-
-  const cafeStudyDelete = () => {};
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -116,12 +122,16 @@ const CafeRecruitmentModify: React.FC = () => {
             },
           },
         );
+        const ids = response.data.joinedMembers.map(
+          (member) => member.memberId,
+        );
         setMembers(response.data.joinedMembers);
+        setMemberIds(ids);
+        console.log('멤버 출력', JSON.stringify(response.data));
       } catch (error) {
         console.error(error);
       }
     };
-
     fetchData();
   }, [studyOnceId]);
 
@@ -144,12 +154,70 @@ const CafeRecruitmentModify: React.FC = () => {
         const endTimePart = response.data.endDateTime.split('T')[1];
         const endTime = parseInt(endTimePart.split(':')[0]);
         setEndTime(endTime);
+        setCafeId(response.data.cafeId);
+        setCurrentCafeId(response.data.cafeId);
+        setCreatorId(response.data.creatorId);
+        setOpenChatUrl(response.data.openChatUrl);
       } catch (error) {
         console.error(error);
       }
     };
+
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (cafeId !== null) {
+      getCafeInfo();
+    }
+  }, [cafeId]);
+
+  const handleCafeSelect = (cafeId) => {
+    console.log(`넘겨받은 카페 아이디 ${cafeId}`);
+    setCafeId(cafeId);
+    setShowCafeSearch(false);
+  };
+
+  const sendData = {
+    cafeId: cafeId,
+    name: name,
+    startDateTime: startDateTime,
+    endDateTime: endDateTime,
+    maxMemberCount: maxMemberCount,
+    canTalk: canTalk,
+  };
+
+  const cafeStudyModifyClick = async () => {
+    try {
+      if (currentCafeId !== cafeId) {
+        await axios.post(
+          `/email`,
+          {
+            messageType: 'STUDYONCE_LOCATION_CHANGED',
+            memberIds: memberIds,
+          },
+          {
+            headers: {
+              Authorization: accessToken,
+            },
+          },
+        );
+      }
+      await axios.patch(`/study/once/${studyOnceId}`, sendData, {
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+      console.log('요청 성공');
+      console.log('sendData 출력', JSON.stringify(sendData));
+    } catch (error) {
+      console.error('요청 중 에러 발생:', error);
+    }
+  };
+
+  const handleFilterButtonClick = () => {
+    setShowCafeSearch(!showCafeSearch);
+  };
 
   return (
     <Screen>
@@ -174,6 +242,18 @@ const CafeRecruitmentModify: React.FC = () => {
                 </Warning>
               )}
             </GroupName>
+            <Location>
+              <DetailName>장소</DetailName>
+              <CafeInfo>
+                <CafeName>{cafeName}</CafeName>
+                <CafeChangeButton onClick={handleFilterButtonClick}>
+                  장소변경
+                </CafeChangeButton>
+              </CafeInfo>
+            </Location>
+            {showCafeSearch && (
+              <CafeSearchModal onSelectCafe={handleCafeSelect} />
+            )}
             <Date>
               <DetailName>날짜</DetailName>
               <DateContatiner>
@@ -272,6 +352,17 @@ const CafeRecruitmentModify: React.FC = () => {
                 </CanTalkButton>
               </CanTalkButtonContainer>
             </CanTalk>
+            <OpenKakao>
+              <DetailName>오픈채팅방</DetailName>
+              <InputContainer>
+                <InputField
+                  type="text"
+                  placeholder="오픈채팅방 url을 입력해주세요."
+                  value={openChatUrl}
+                  onChange={(event) => setOpenChatUrl(event.target.value)}
+                />
+              </InputContainer>
+            </OpenKakao>
             <MemberManagement>
               <DetailName>구성원 관리</DetailName>
               {members.map((member, index) => (
@@ -280,14 +371,12 @@ const CafeRecruitmentModify: React.FC = () => {
                     <ProfileImg src={member.thumbnailImg} />
                     <MemberDetail>
                       <MemberName>{member.name}</MemberName>
-                      <MemberPart>{index === 0 ? '팀장' : '팀원'}</MemberPart>
+                      <MemberPart>
+                        {member.memberId === creatorId ? '팀장' : '팀원'}
+                      </MemberPart>
                     </MemberDetail>
-                    {index !== 0 && (
-                      <ManagementIcon src="/assets/management-icon.png" />
-                    )}
                   </ManagementContainer>
-
-                  {index < members[0].length && <Underline />}
+                  <Underline />
                 </div>
               ))}
             </MemberManagement>
@@ -302,11 +391,6 @@ const CafeRecruitmentModify: React.FC = () => {
               color="gray"
               message="뒤로가기"
               onClick={handleGoBack}
-            />
-            <LongButton
-              color="red"
-              message="그룹 삭제하기"
-              onClick={cafeStudyDelete}
             />
           </ButtonContainer>
         </ContainerDetail>

@@ -41,6 +41,7 @@ export const InputField = styled.input`
   width: 100%;
   border: none;
   font-size: 1.1rem;
+  padding: 2.1%;
   &:focus {
     outline: none;
   }
@@ -231,15 +232,6 @@ export const Underline = styled.div`
   border-bottom: 3px solid #f2f2f2;
 `;
 
-export const ManagementIcon = styled.img`
-  height: 2rem;
-  margin-left: auto;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.7;
-  }
-`;
-
 export const Detail = styled.div`
   display: flex;
   flex-direction: column;
@@ -256,12 +248,12 @@ export const ButtonContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: 15rem;
+  height: 10rem;
   padding: 4%;
 
   @media (max-width: 768px) {
     padding: 0%;
-    height: 12rem;
+    height: 7rem;
   }
 `;
 
@@ -276,3 +268,15 @@ export const ContainerDetail = styled.div`
     height: auto;
   }
 `;
+
+export const CafeChangeButton = styled.div`
+  background-color: red;
+  color: white;
+  border-radius: 20px;
+  padding: 0.5%;
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-weight: bold;
+`;
+
+export const OpenKakao = styled.div``;

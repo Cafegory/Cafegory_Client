@@ -16,6 +16,9 @@ export interface OptionContentList {
 
   selectedDate: Date;
   setSelectedDate: (value: Date) => void;
+
+  openChatUrl: string;
+  setOpenChatUrl: (value: string) => void;
 }
 
 export interface DateTimeCombine {
@@ -34,4 +37,13 @@ export interface OptionState {
 export interface Cafe {
   cafeName: string;
   setCafeName: (value: string) => void;
+
+  cafeId: number;
+  setCafeId: (value: number) => void;
+
+  getCafeInfo: () => Promise<void>;
+}
+
+export interface CafeCreateResruitmentApi {
+  postCafeCreateResruitment: () => Promise<void>;
 }

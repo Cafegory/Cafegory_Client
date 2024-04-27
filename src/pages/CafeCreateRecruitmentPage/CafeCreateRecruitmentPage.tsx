@@ -7,10 +7,8 @@ import LongButton from 'components/LongButton';
 import 'react-datepicker/dist/react-datepicker.css';
 import ko from 'date-fns/locale/ko';
 import { useNavigate } from 'react-router-dom';
-import { constructFrom, format } from 'date-fns';
-import axios from 'axios';
+import { format } from 'date-fns';
 import { useParams } from 'react-router-dom';
-
 import {
   Title,
   Detail,
@@ -26,7 +24,6 @@ import {
   InputContainer,
   EditImg,
   InputField,
-  CafeImg,
   CafeName,
   DateContatiner,
   CafeInfo,
@@ -39,13 +36,14 @@ import {
   CanTalkButton,
   CanTalkButtonContainer,
   Warning,
+  OpenKakao,
 } from './CafeCreateRecruitmentPage.style';
-
 import {
   OptionContent,
   DateTime,
   useOption,
-  cafeinfo,
+  cafeInfo,
+  CafeCreateResruitmentApiContent,
 } from './CafeCreateRecruitmentPage.hooks';
 
 const CafeCreateRecruitment: React.FC = () => {
@@ -54,7 +52,6 @@ const CafeCreateRecruitment: React.FC = () => {
     setName,
     maxMemberCount,
     setMaxMemberCount,
-    canTalk,
     setCanTalk,
     startTime,
     setStartTime,
@@ -62,11 +59,15 @@ const CafeCreateRecruitment: React.FC = () => {
     setEndTime,
     selectedDate,
     setSelectedDate,
+    openChatUrl,
+    setOpenChatUrl,
   } = OptionContent();
-  const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
-    DateTime();
+
+  const { setStartDateTime, setEndDateTime } = DateTime();
   const { isSelectedCanStudy, setSelectedCanStudy } = useOption();
-  const { cafeName, setCafeName } = cafeinfo();
+  const { cafeName, setCafeName, cafeId, setCafeId, getCafeInfo } = cafeInfo();
+  const { postCafeCreateResruitment } = CafeCreateResruitmentApiContent();
+
   const navigate = useNavigate();
   const handleGoBack = () => {
     navigate(-1);
@@ -89,29 +90,16 @@ const CafeCreateRecruitment: React.FC = () => {
     setEndDateTime(newEndDateTime);
   }, [selectedDate, startTime, selectedDate, endTime]);
 
-  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
   const { cafeId: routeCafeId } = useParams();
 
-  const sendData = {
-    cafeId: routeCafeId,
-    name: name,
-    startDateTime: startDateTime,
-    endDateTime: endDateTime,
-    maxMemberCount: maxMemberCount,
-    canTalk: canTalk,
-  };
-
-  const CreateMeetingClick = async () => {
-    try {
-      await axios.post('/study/once', sendData, {
-        headers: {
-          Authorization: accessToken,
-        },
-      });
-      console.log('요청 성공');
-    } catch (error) {
-      alert(`${error.response.data.errorMessage}`);
+  useEffect(() => {
+    if (routeCafeId) {
+      setCafeId(parseInt(routeCafeId));
     }
+  }, []);
+
+  const CreateMeetingClick = () => {
+    postCafeCreateResruitment();
   };
 
   const handleCanTalkOptionClick = (value: 'TRUE' | 'FALSE') => {
@@ -119,18 +107,7 @@ const CafeCreateRecruitment: React.FC = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`/cafe/${routeCafeId}`, {
-        headers: {
-          Authorization: accessToken,
-        },
-      })
-      .then((response) => {
-        setCafeName(response.data.basicInfo.name);
-      })
-      .catch((error) => {
-        console.error(error.response.data.errorMessage);
-      });
+    getCafeInfo();
   }, []);
 
   return (
@@ -264,6 +241,17 @@ const CafeCreateRecruitment: React.FC = () => {
                 </CanTalkButton>
               </CanTalkButtonContainer>
             </CanTalk>
+            <OpenKakao>
+              <DetailName>오픈채팅방</DetailName>
+              <InputContainer>
+                <InputField
+                  type="text"
+                  placeholder="오픈채팅방 url을 입력해주세요."
+                  value={openChatUrl}
+                  onChange={(event) => setOpenChatUrl(event.target.value)}
+                />
+              </InputContainer>
+            </OpenKakao>
           </Detail>
           <ButtonContainer>
             <LongButton

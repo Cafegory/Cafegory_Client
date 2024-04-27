@@ -62,6 +62,7 @@ export const InputField = styled.input`
   width: 100%;
   border: none;
   font-size: 1.1rem;
+  padding: 2.1%;
   &:focus {
     outline: none;
   }
@@ -79,11 +80,6 @@ export const CafeInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 1%;
-`;
-export const CafeImg = styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 100%;
 `;
 
 export const CafeName = styled.div`
@@ -220,3 +216,5 @@ export const Warning = styled.span`
   color: red;
   font-size: 0.9rem;
 `;
+
+export const OpenKakao = styled.div``;

@@ -1,11 +1,14 @@
 import { create } from 'zustand';
-
 import {
   OptionContentList,
   DateTimeCombine,
   OptionState,
   Cafe,
+  CafeCreateResruitmentApi,
 } from './CafeCreateRecruitmentPage.type';
+import axios from 'axios';
+
+const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
 export const OptionContent = create<OptionContentList>((set) => ({
   name: '',
@@ -25,6 +28,9 @@ export const OptionContent = create<OptionContentList>((set) => ({
 
   selectedDate: new Date(),
   setSelectedDate: (value) => set({ selectedDate: value }),
+
+  openChatUrl: '',
+  setOpenChatUrl: (value) => set({ openChatUrl: value }),
 }));
 
 export const DateTime = create<DateTimeCombine>((set) => ({
@@ -40,7 +46,50 @@ export const useOption = create<OptionState>((set) => ({
   setSelectedCanStudy: (value) => set({ isSelectedCanStudy: value }),
 }));
 
-export const cafeinfo = create<Cafe>((set) => ({
+export const cafeInfo = create<Cafe>((set) => ({
   cafeName: '',
   setCafeName: (value) => set({ cafeName: value }),
+
+  cafeId: null,
+  setCafeId: (value) => set({ cafeId: value }),
+
+  getCafeInfo: async () => {
+    axios
+      .get(`/cafe/${cafeInfo.getState().cafeId}`, {
+        headers: {
+          Authorization: accessToken,
+        },
+      })
+      .then((response) => {
+        set({ cafeName: response.data.basicInfo.name });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  },
 }));
+
+export const CafeCreateResruitmentApiContent = create<CafeCreateResruitmentApi>(
+  (set) => ({
+    postCafeCreateResruitment: async () => {
+      const sendData = {
+        cafeId: cafeInfo.getState().cafeId,
+        name: OptionContent.getState().name,
+        startDateTime: DateTime.getState().startDateTime,
+        endDateTime: DateTime.getState().endDateTime,
+        maxMemberCount: OptionContent.getState().maxMemberCount,
+        canTalk: OptionContent.getState().canTalk,
+        openChatUrl: OptionContent.getState().openChatUrl,
+      };
+      try {
+        const response = await axios.post('/study/once', sendData, {
+          headers: {
+            Authorization: accessToken,
+          },
+        });
+      } catch (error) {
+        alert(`${error.response.data.errorMessage}`);
+      }
+    },
+  }),
+);
