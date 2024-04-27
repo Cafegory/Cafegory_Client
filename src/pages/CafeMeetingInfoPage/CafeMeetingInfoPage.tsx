@@ -47,6 +47,7 @@ import { cafeInfoApiStore } from 'pages/CafeInfoPage/CafeInfo.hooks';
 import { qnaApiStore } from './CafeMeetingInfoPage.hook';
 import { joinApiStore } from './CafeMeetingInfoPage.hook';
 import { QnaEditModalStore } from 'components/QnaEditModal/QnaEditModal.hooks';
+import { QnaEditApiState } from 'components/QnaEditModal/QnaEditModal.hooks';
 
 const CafeMeetingInfo: React.FC = () => {
   const { question, setQuestion } = createQuestion();
@@ -118,6 +119,18 @@ const CafeMeetingInfo: React.FC = () => {
 
   const isModalOpen = QnaEditModalStore((state) => state.isModalOpen);
   const toggleModal = QnaEditModalStore((state) => state.toggleModal);
+
+  const { setEditContent } = QnaEditApiState();
+
+  const editAnswer = (content) => {
+    setEditContent(content);
+    toggleModal();
+  };
+
+  const editQuestion = (content) => {
+    setEditContent(content);
+    toggleModal();
+  };
 
   return (
     <Screen>
@@ -222,7 +235,13 @@ const CafeMeetingInfo: React.FC = () => {
                     {memberId ===
                       qna.comments[index].questionWriter.memberId && (
                       <State>
-                        <QuestionModify onClick={toggleModal}>
+                        <QuestionModify
+                          onClick={() => {
+                            editQuestion(
+                              qna.comments[index].questionInfo.comment,
+                            );
+                          }}
+                        >
                           수정
                         </QuestionModify>
                         |
@@ -252,7 +271,14 @@ const CafeMeetingInfo: React.FC = () => {
                     <div>{qna.comments[index].replies[0].comment}</div>
                     {memberId === qna.replyWriter.memberId && (
                       <State>
-                        <AnswerModify onClick={toggleModal}>수정</AnswerModify>|
+                        <AnswerModify
+                          onClick={() => {
+                            editAnswer(qna.comments[index].replies[0].comment);
+                          }}
+                        >
+                          수정
+                        </AnswerModify>
+                        |
                         <AnswerDelete
                           onClick={() =>
                             handleDeleteAnswer(
