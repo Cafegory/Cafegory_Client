@@ -6,8 +6,11 @@ import {
   TitleFont,
 } from './QnaEditModal.style';
 import ShortButton from 'components/ShortButton';
+import { QnaEditModalStore } from './QnaEditModal.hooks';
 
 const QnaEditModal: React.FC = () => {
+  const toggleModal = QnaEditModalStore((state) => state.toggleModal);
+
   return (
     <>
       <ModalContainer>
@@ -15,7 +18,7 @@ const QnaEditModal: React.FC = () => {
         <ContentInput></ContentInput>
         <ShortButton message="수정하기" color="black"></ShortButton>
       </ModalContainer>
-      <ModalBackdrop></ModalBackdrop>
+      <ModalBackdrop onClick={toggleModal}></ModalBackdrop>
     </>
   );
 };

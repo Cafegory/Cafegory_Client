@@ -46,6 +46,7 @@ import {
 import { cafeInfoApiStore } from 'pages/CafeInfoPage/CafeInfo.hooks';
 import { qnaApiStore } from './CafeMeetingInfoPage.hook';
 import { joinApiStore } from './CafeMeetingInfoPage.hook';
+import { QnaEditModalStore } from 'components/QnaEditModal/QnaEditModal.hooks';
 
 const CafeMeetingInfo: React.FC = () => {
   const { question, setQuestion } = createQuestion();
@@ -114,6 +115,9 @@ const CafeMeetingInfo: React.FC = () => {
     deleteAnswer(id);
     window.location.reload();
   };
+
+  const isModalOpen = QnaEditModalStore((state) => state.isModalOpen);
+  const toggleModal = QnaEditModalStore((state) => state.toggleModal);
 
   return (
     <Screen>
@@ -218,7 +222,10 @@ const CafeMeetingInfo: React.FC = () => {
                     {memberId ===
                       qna.comments[index].questionWriter.memberId && (
                       <State>
-                        <QuestionModify>수정</QuestionModify>|
+                        <QuestionModify onClick={toggleModal}>
+                          수정
+                        </QuestionModify>
+                        |
                         <QuestionDelete
                           onClick={() =>
                             handleDeleteQuestion(
@@ -245,7 +252,7 @@ const CafeMeetingInfo: React.FC = () => {
                     <div>{qna.comments[index].replies[0].comment}</div>
                     {memberId === qna.replyWriter.memberId && (
                       <State>
-                        <AnswerModify>수정</AnswerModify>|
+                        <AnswerModify onClick={toggleModal}>수정</AnswerModify>|
                         <AnswerDelete
                           onClick={() =>
                             handleDeleteAnswer(
@@ -284,7 +291,7 @@ const CafeMeetingInfo: React.FC = () => {
       </Container>
       <Sidebar buttonColors={[, 'white']} />
       <Header />
-      <QnaEditModal></QnaEditModal>
+      {isModalOpen && <QnaEditModal></QnaEditModal>}
     </Screen>
   );
 };
