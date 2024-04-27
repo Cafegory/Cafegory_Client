@@ -125,7 +125,7 @@ const CafeRecruitmentModify: React.FC = () => {
         const ids = response.data.joinedMembers.map(
           (member) => member.memberId,
         );
-        setMembers(response.data.joinedMembers.reverse());
+        setMembers(response.data.joinedMembers);
         setMemberIds(ids);
         console.log('멤버 출력', JSON.stringify(response.data));
       } catch (error) {
