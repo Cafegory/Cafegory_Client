@@ -81,7 +81,13 @@ const CafeCreateRecruitment: React.FC = () => {
     setSelectedCanTalk(value);
   };
 
-  useEffect(() => {}, [onlyJoinAble, maxMemberCount, canTalk, area]);
+  useEffect(() => {
+    const memberId = localStorage.getItem('memberId');
+    if (!memberId) {
+      alert('로그인 후 서비스를 이용해주세요!');
+    }
+    navigate('/main');
+  }, [onlyJoinAble, maxMemberCount, canTalk, area]);
 
   const maxMember = 10;
   const minMember = 0;
