@@ -461,8 +461,8 @@ const CafeSearchResult: React.FC = () => {
         <Kakao addresses={cafes.map((cafe) => cafe.address)} />
         <CafeList>
           {cafes.map((cafe, index) => (
-            <List key={index}>
-              <Detail onClick={() => viewCafeInfo(cafe.cafeId)}>
+            <List key={index} onClick={() => viewCafeInfo(cafe.cafeId)}>
+              <Detail>
                 <Name>{cafe.name}</Name>
                 <AdressContainer>
                   <Adress>
