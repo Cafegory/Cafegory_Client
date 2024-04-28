@@ -1,3 +1,4 @@
+//CafeCreateRecruitmentPage.hooks.ts
 import { create } from 'zustand';
 import {
   OptionContentList,
@@ -14,7 +15,7 @@ export const OptionContent = create<OptionContentList>((set) => ({
   name: '',
   setName: (value) => set({ name: value }),
 
-  maxMemberCount: 0,
+  maxMemberCount: 1,
   setMaxMemberCount: (value) => set({ maxMemberCount: value }),
 
   canTalk: true,
@@ -71,6 +72,11 @@ export const cafeInfo = create<Cafe>((set) => ({
 
 export const CafeCreateResruitmentApiContent = create<CafeCreateResruitmentApi>(
   (set) => ({
+    creationSuccess: false,
+    setCreationSuccess: (value) => set({ creationSuccess: value }),
+    studyOnceId: 1,
+    setStudyOnceId: (value) => set({ studyOnceId: value }),
+
     postCafeCreateResruitment: async () => {
       const sendData = {
         cafeId: cafeInfo.getState().cafeId,
@@ -87,8 +93,17 @@ export const CafeCreateResruitmentApiContent = create<CafeCreateResruitmentApi>(
             Authorization: accessToken,
           },
         });
+        console.log(response.data);
+        set({ studyOnceId: response.data.studyOnceId });
+        set({ creationSuccess: true });
       } catch (error) {
-        alert(`${error.response.data.errorMessage}`);
+        if (error.response.data.errorMessage === undefined) {
+          alert(`영업시간을 다시 확인해주세요.`);
+        } else {
+          alert(`${error.response.data.errorMessage}`);
+        }
+        set({ creationSuccess: false });
+        throw error;
       }
     },
   }),

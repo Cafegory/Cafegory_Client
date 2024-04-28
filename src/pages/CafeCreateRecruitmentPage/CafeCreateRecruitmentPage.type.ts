@@ -1,3 +1,5 @@
+import { NumberLiteralType } from 'typescript';
+
 export interface OptionContentList {
   name: string;
   setName: (value: string) => void;
@@ -45,5 +47,9 @@ export interface Cafe {
 }
 
 export interface CafeCreateResruitmentApi {
+  studyOnceId: number;
+  setStudyOnceId: (value: number) => void;
   postCafeCreateResruitment: () => Promise<void>;
+  creationSuccess: boolean;
+  setCreationSuccess: (value: boolean) => void;
 }

@@ -1,3 +1,4 @@
+//CafeCreateRecruitmentPage.tsx
 import React, { useEffect } from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
@@ -45,6 +46,7 @@ import {
   cafeInfo,
   CafeCreateResruitmentApiContent,
 } from './CafeCreateRecruitmentPage.hooks';
+import { isPrefixUnaryExpression } from 'typescript';
 
 const CafeCreateRecruitment: React.FC = () => {
   const {
@@ -66,15 +68,15 @@ const CafeCreateRecruitment: React.FC = () => {
   const { setStartDateTime, setEndDateTime } = DateTime();
   const { isSelectedCanStudy, setSelectedCanStudy } = useOption();
   const { cafeName, setCafeName, cafeId, setCafeId, getCafeInfo } = cafeInfo();
-  const { postCafeCreateResruitment } = CafeCreateResruitmentApiContent();
-
+  const { postCafeCreateResruitment, creationSuccess, setCreationSuccess } =
+    CafeCreateResruitmentApiContent();
   const navigate = useNavigate();
   const handleGoBack = () => {
     navigate(-1);
   };
 
-  const maxMember = 10;
-  const minMember = 0;
+  const maxMember = 5;
+  const minMember = 1;
   const maxLength = 10;
 
   const combineDateTime = (date: Date, time: number): string => {
@@ -98,9 +100,30 @@ const CafeCreateRecruitment: React.FC = () => {
     }
   }, []);
 
-  const CreateMeetingClick = () => {
-    postCafeCreateResruitment();
+  const CreateMeetingClick = async () => {
+    if (name.length === 0) {
+      alert('그룹명을 입력해주세요');
+    } else if (openChatUrl.length === 0) {
+      alert('오픈채팅방 url을 입력해주세요');
+    } else {
+      try {
+        await postCafeCreateResruitment();
+        setCreationSuccess(true);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
+
+  useEffect(() => {
+    if (creationSuccess) {
+      const studyOnceId =
+        CafeCreateResruitmentApiContent.getState().studyOnceId;
+      if (studyOnceId) {
+        navigate(`/cafeMeetingInfo/${studyOnceId}`);
+      }
+    }
+  }, [creationSuccess]);
 
   const handleCanTalkOptionClick = (value: 'TRUE' | 'FALSE') => {
     setSelectedCanStudy(value);
@@ -188,7 +211,7 @@ const CafeCreateRecruitment: React.FC = () => {
               <MaximumInputContainer>
                 <MaximumInput
                   type="number"
-                  defaultValue={0}
+                  defaultValue={1}
                   min={minMember}
                   max={maxMember}
                   onChange={(e) => {
@@ -201,11 +224,6 @@ const CafeCreateRecruitment: React.FC = () => {
                   }}
                 />
                 명
-                {maxMemberCount === null && (
-                  <Warning>
-                    {minMember}~{maxMember} 이하의 숫자로 입력해주세요.
-                  </Warning>
-                )}
               </MaximumInputContainer>
             </Maximum>
             <CanTalk>

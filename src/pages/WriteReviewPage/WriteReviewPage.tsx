@@ -19,9 +19,10 @@ import {
   patchReview,
   ReviewEditStore,
 } from './WriteReviewPage.hooks';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const WriteReview: React.FC = () => {
+  const { cafeId: routeCafeId } = useParams();
   const { content, setContent } = useContentStore();
   const maxContentLength = 200;
   const cancel = () => {
@@ -40,10 +41,11 @@ const WriteReview: React.FC = () => {
 
   const handlePostReview = () => {
     postReview();
-    Navigate('/cafeInfo');
+    Navigate(`/cafeInfo/${routeCafeId}`);
     setRating(0);
     setContent('');
   };
+
   const handleEditReview = () => {
     patchReview();
     setRating(0);

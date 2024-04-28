@@ -51,6 +51,7 @@ import { Pagination } from '@mui/material';
 import ShortButton from 'components/ShortButton';
 
 const CafeMeetingSearchResultPage: React.FC = () => {
+  const navigate = useNavigate();
   const {
     area: routeArea,
     onlyJoinAble: routeOnlyJoinAble,
@@ -62,7 +63,6 @@ const CafeMeetingSearchResultPage: React.FC = () => {
   const [area, setArea] = useState(routeArea);
   const [inputArea, setInputArea] = useState(routeArea);
 
-  const navigate = useNavigate();
   const NOT_SPECIFIED = '무관';
   const Possibility = '가능';
   const Impossibility = '불가능';
@@ -209,6 +209,11 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     navigate(
       `/cafeMeetingSearchResult/1/${encodeURIComponent(area)}/${onlyJoinAble}/${maxMemberCount}/${canTalk}/5`,
     );
+  };
+
+  const viewCafeMeetingInfo = (id) => {
+    const studyOnceId = id;
+    navigate(`/cafeInfo/${studyOnceId}`);
   };
 
   return (
@@ -387,7 +392,11 @@ const CafeMeetingSearchResultPage: React.FC = () => {
                     <ModalBackdrop onClick={closeModal}></ModalBackdrop>
                   </>
                 )}
-                <MinBeveragePrice>상세 정보 ▷</MinBeveragePrice>
+                <MinBeveragePrice
+                  onClick={() => viewCafeMeetingInfo(study.studyOnceId)}
+                >
+                  상세 정보 ▷
+                </MinBeveragePrice>
               </Detail>
             </List>
           ))}

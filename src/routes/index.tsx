@@ -45,7 +45,7 @@ const Router: React.FC = () => {
           path="/studyRecruitingModify/:studyOnceId"
           element={<CafeRecruitmentModify />}
         />
-        <Route path="/writeReview" element={<WriteReview />} />
+        <Route path="/writeReview/:cafeId" element={<WriteReview />} />
         <Route path="/mypageEdit" element={<MyPageEdit />} />
         <Route path="/" element={<LoginState />} />
       </Routes>

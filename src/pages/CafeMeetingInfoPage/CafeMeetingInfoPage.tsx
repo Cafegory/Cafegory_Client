@@ -4,6 +4,7 @@ import Sidebar from '../../components/Sidebar';
 import Screen from 'components/Basic/Screen';
 import Container from 'components/Basic/Container';
 import QnaEditModal from 'components/QnaEditModal';
+import { useNavigate } from 'react-router-dom';
 import {
   CafeMeetingInfoContainer,
   MeetingNameContainer,
@@ -50,6 +51,7 @@ import { QnaEditModalStore } from 'components/QnaEditModal/QnaEditModal.hooks';
 import { QnaEditApiState } from 'components/QnaEditModal/QnaEditModal.hooks';
 
 const CafeMeetingInfo: React.FC = () => {
+  const navigate = useNavigate();
   const { info, fetchInfo } = cafeMeetingInfoApiStore();
 
   const { studyOnceId } = useParams<{ studyOnceId: string }>();
@@ -84,7 +86,9 @@ const CafeMeetingInfo: React.FC = () => {
 
   const memberId = JSON.parse(localStorage.getItem('memberId'));
 
-  const hi = () => {};
+  const hi = () => {
+    navigate(`/studyRecruitingModify/${studyOnceId}`);
+  };
 
   const { setQuestionContent, postQuestion, deleteQuestion } =
     questionApiStore();
