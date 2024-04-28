@@ -81,6 +81,8 @@ const CafeRecruitmentModify: React.FC = () => {
     setSelectedDate,
     openChatUrl,
     setOpenChatUrl,
+    nowMemberCount,
+    setNowMemberCount,
   } = OptionContent();
   const { startDateTime, setStartDateTime, endDateTime, setEndDateTime } =
     DateTime();
@@ -95,7 +97,7 @@ const CafeRecruitmentModify: React.FC = () => {
   };
 
   const maxMember = 10;
-  const minMember = 0;
+  const minMember = 1;
   const maxLength = 10;
 
   const combineDateTime = (date: Date, time: number): string => {
@@ -158,6 +160,7 @@ const CafeRecruitmentModify: React.FC = () => {
         setCurrentCafeId(response.data.cafeId);
         setCreatorId(response.data.creatorId);
         setOpenChatUrl(response.data.openChatUrl);
+        setNowMemberCount(response.data.nowMemberCount);
       } catch (error) {
         console.error(error);
       }
@@ -209,9 +212,10 @@ const CafeRecruitmentModify: React.FC = () => {
         },
       });
       console.log('요청 성공');
-      console.log('sendData 출력', JSON.stringify(sendData));
+      navigate(`/cafeMeetingInfo/${studyOnceId}`);
     } catch (error) {
       console.error('요청 중 에러 발생:', error);
+      alert(error.response.data.errorMessage);
     }
   };
 
@@ -316,10 +320,8 @@ const CafeRecruitmentModify: React.FC = () => {
                   }}
                 />
                 명
-                {maxMemberCount === null && (
-                  <Warning>
-                    {minMember}~{maxMember} 이하의 숫자로 입력해주세요.
-                  </Warning>
+                {maxMemberCount < nowMemberCount && (
+                  <Warning>참여중인 인원보다 적게 설정할 수 없습니다.</Warning>
                 )}
               </MaximumInputContainer>
             </Maximum>
