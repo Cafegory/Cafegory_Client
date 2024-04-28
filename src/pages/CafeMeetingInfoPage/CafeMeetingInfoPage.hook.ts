@@ -1,7 +1,12 @@
 import { create } from 'zustand';
 import { Question, Answer } from './CafeMeetingInfoPage.type';
 import axios from 'axios';
-import {ApiStoreState , qnaStoreState , QuestionStoreState, AnswerStoreState} from './CafeMeetingInfoPage.type';
+import {
+  ApiStoreState,
+  qnaStoreState,
+  QuestionStoreState,
+  AnswerStoreState,
+} from './CafeMeetingInfoPage.type';
 
 export const createQuestion = create<Question>((set) => ({
   question: '',
@@ -13,26 +18,25 @@ export const createAnswer = create<Answer>((set) => ({
   setAnswer: (value) => set({ answer: value }),
 }));
 
-
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 
 export const cafeMeetingInfoApiStore = create<ApiStoreState>((set) => ({
   info: {
     cafeId: 0,
-    creatorId:0,
-    cafeName: "",
-    area: "",
+    creatorId: 0,
+    cafeName: '',
+    area: '',
     studyOnceId: 0,
-    name: "",
-    startDateTime: "",
-    endDateTime: "",
+    name: '',
+    startDateTime: '',
+    endDateTime: '',
     maxMemberCount: 0,
     nowMemberCount: 0,
     canTalk: false,
     canJoin: false,
     isEnd: false,
-    attendance:false,
-    openChatUrl:""
+    attendance: false,
+    openChatUrl: '',
   },
   fetchInfo: async (studyOnceId) => {
     try {
@@ -50,40 +54,43 @@ export const cafeMeetingInfoApiStore = create<ApiStoreState>((set) => ({
 
 export const qnaApiStore = create<qnaStoreState>((set) => ({
   qna: {
-    replyWriter : {
-      memberId : 0,
-      name : "",
-      thumbnailImg : "",
+    replyWriter: {
+      memberId: 0,
+      name: '',
+      thumbnailImg: '',
     },
-    comments : [
+    comments: [
       {
-        questionWriter : {
-            memberId : 0,
-            name : "",
-            thumbnailImg : ""
+        questionWriter: {
+          memberId: 0,
+          name: '',
+          thumbnailImg: '',
         },
-        questionInfo : {
-            commentId : 0,
-            comment : ""
+        questionInfo: {
+          commentId: 0,
+          comment: '',
         },
-        replies : [ 
+        replies: [
           {
-            replyInfo : {
-              commentId : 0,
-              comment : ""
-            } 
-          }
-        ]
-      }, 
-    ]
+            replyInfo: {
+              commentId: 0,
+              comment: '',
+            },
+          },
+        ],
+      },
+    ],
   },
   fetchQna: async (studyOnceId) => {
     try {
-      const response = await axios.get(`/study/once/${studyOnceId}/comment/list`, {
-        headers: {
-          Authorization: accessToken,
+      const response = await axios.get(
+        `/study/once/${studyOnceId}/comment/list`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
         },
-      });
+      );
       set({ qna: response.data });
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -92,13 +99,13 @@ export const qnaApiStore = create<qnaStoreState>((set) => ({
 }));
 
 export const questionApiStore = create<QuestionStoreState>((set) => ({
-  questionContent: "",
+  questionContent: '',
   setQuestionContent: (newContent) => set({ questionContent: newContent }),
 
   postQuestion: async (studyOnceId) => {
-    const data = {content: questionApiStore.getState().questionContent}
+    const data = { content: questionApiStore.getState().questionContent };
     try {
-      await axios.post(`/study/once/${studyOnceId}/question`,data, {
+      await axios.post(`/study/once/${studyOnceId}/question`, data, {
         headers: {
           Authorization: accessToken,
         },
@@ -122,17 +129,21 @@ export const questionApiStore = create<QuestionStoreState>((set) => ({
 }));
 
 export const answerApiStore = create<AnswerStoreState>((set) => ({
-  answerContent: "",
+  answerContent: '',
   setAnswerContent: (newContent) => set({ answerContent: newContent }),
 
   postAnswer: async (studyOnceId, parentCommentId) => {
-    const data = {content: answerApiStore.getState().answerContent}
+    const data = { content: answerApiStore.getState().answerContent };
     try {
-      await axios.post(`/study/once/${studyOnceId}/question/${parentCommentId}/reply`,data, {
-        headers: {
-          Authorization: accessToken,
+      await axios.post(
+        `/study/once/${studyOnceId}/question/${parentCommentId}/reply`,
+        data,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
         },
-      });
+      );
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -154,15 +165,16 @@ export const answerApiStore = create<AnswerStoreState>((set) => ({
 export const joinApiStore = create(() => ({
   joinCafeMeeting: async (studyOnceId) => {
     try {
-      await axios.post(`/study/once/${studyOnceId}`,null, {
+      await axios.post(`/study/once/${studyOnceId}`, null, {
         headers: {
           Authorization: accessToken,
         },
       });
-      alert('참여가 완료되었습니다!')
+      alert('참여가 완료되었습니다!');
       window.location.reload();
     } catch (error) {
       console.error('Error fetching data:', error);
+      alert(`${error.response.data.errorMessage}`);
     }
   },
   cancelJoin: async (studyOnceId) => {
@@ -172,10 +184,11 @@ export const joinApiStore = create(() => ({
           Authorization: accessToken,
         },
       });
-      alert('참여가 취소되었습니다.')
+      alert('참여가 취소되었습니다.');
       window.location.reload();
     } catch (error) {
       console.error('Error fetching data:', error);
+      alert(`${error.response.data.errorMessage}`);
     }
   },
 }));

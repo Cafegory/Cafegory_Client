@@ -87,9 +87,7 @@ const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
   const { showFitter, setShowFitter } = useFilter();
   const { area, setArea, inputArea, setInputArea } = search();
   const { cafeName, setCafeName, cafeId, setCafeId } = cafeinfo();
-
-  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
-
+  const accessToken = JSON.parse(localStorage.getItem('accessToken'));
   const handleSearchClick = () => {
     if (inputArea.trim() === '') {
       alert('검색어를 입력해주세요.');

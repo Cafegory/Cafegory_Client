@@ -39,7 +39,7 @@ const Attendance: React.FC = () => {
     return days[dayOfWeek];
   }
 
-  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  const accessToken = JSON.parse(localStorage.getItem('accessToken'));
   const { studyOnceId: routeStudyOnceId } = useParams();
   const [members, setMembers] = useState([]);
 
