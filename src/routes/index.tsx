@@ -14,6 +14,7 @@ import CafeRecruitmentModify from '../pages/CafeRecruitmentModifyPage/CafeRecrui
 import WriteReview from '../pages/WriteReviewPage/WriteReviewPage';
 import MyPageEdit from 'pages/MyPageEditPage/MyPageEditPage';
 import LoginState from 'pages/Login/LoginState';
+import TemporaryMain from 'pages/TemporaryMain/TemporaryMain';
 
 const Router: React.FC = () => {
   return (
@@ -47,7 +48,8 @@ const Router: React.FC = () => {
         />
         <Route path="/writeReview/:cafeId" element={<WriteReview />} />
         <Route path="/mypageEdit" element={<MyPageEdit />} />
-        <Route path="/" element={<LoginState />} />
+        <Route path="/oauth" element={<LoginState />} />
+        <Route path="/" element={<TemporaryMain />} />
       </Routes>
     </BrowserRouter>
   );
