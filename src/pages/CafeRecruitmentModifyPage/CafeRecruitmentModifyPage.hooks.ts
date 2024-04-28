@@ -32,6 +32,9 @@ export const OptionContent = create<OptionContentList>((set) => ({
 
   openChatUrl: '',
   setOpenChatUrl: (value) => set({ openChatUrl: value }),
+
+  nowMemberCount: 0,
+  setNowMemberCount: (value) => set({ nowMemberCount: value }),
 }));
 
 export const DateTime = create<DateTimeCombine>((set) => ({

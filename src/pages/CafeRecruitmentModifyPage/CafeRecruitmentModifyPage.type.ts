@@ -19,6 +19,9 @@ export interface OptionContentList {
 
   openChatUrl: string;
   setOpenChatUrl: (value: string) => void;
+
+  nowMemberCount: number;
+  setNowMemberCount: (value: number) => void;
 }
 
 export interface DateTimeCombine {
