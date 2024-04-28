@@ -77,7 +77,10 @@ const CafeInfo: React.FC = () => {
   React.useEffect(() => {
     fetchInfo(cafeId);
   }, [cafeId]);
-  const CreateGroup = () => {};
+
+  const CreateGroup = () => {
+    navigate(`/studyRecruiting/${cafeId}`);
+  };
 
   const handleMoveHomePage = (link) => {
     window.location.href = link;
