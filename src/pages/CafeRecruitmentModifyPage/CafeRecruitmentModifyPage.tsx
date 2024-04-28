@@ -63,7 +63,7 @@ import { cafeInfo } from 'pages/CafeCreateRecruitmentPage/CafeCreateRecruitmentP
 
 const CafeRecruitmentModify: React.FC = () => {
   const { studyOnceId } = useParams();
-  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  const accessToken = JSON.parse(localStorage.getItem('accessToken'));
   const { members, setMembers, memberIds, setMemberIds, getMemberList } =
     useMemberStore();
   const {

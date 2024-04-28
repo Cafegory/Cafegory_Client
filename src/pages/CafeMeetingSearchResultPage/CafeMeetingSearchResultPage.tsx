@@ -59,7 +59,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     canTalk: routeCanTalk,
   } = useParams();
   const [cafeStudys, setCafeStudys] = useState([]);
-  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  const accessToken = JSON.parse(localStorage.getItem('accessToken'));
   const [area, setArea] = useState(routeArea);
   const [inputArea, setInputArea] = useState(routeArea);
 

@@ -95,7 +95,7 @@ const CafeSearchResult: React.FC = () => {
     usePage();
   const { showFitter, setShowFitter } = useFilter();
 
-  const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  const accessToken = JSON.parse(localStorage.getItem('accessToken'));
   const navigate = useNavigate();
 
   const [cafes, setCafes] = useState([]);

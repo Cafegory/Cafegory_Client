@@ -1,4 +1,3 @@
-//CafeCreateRecruitmentPage.tsx
 import React, { useEffect } from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';

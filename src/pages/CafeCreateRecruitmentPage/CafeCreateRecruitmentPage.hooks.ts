@@ -9,7 +9,7 @@ import {
 } from './CafeCreateRecruitmentPage.type';
 import axios from 'axios';
 
-const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 
 export const OptionContent = create<OptionContentList>((set) => ({
   name: '',
