@@ -1,4 +1,3 @@
-//CafeCreateRecruitmentPage.hooks.ts
 import { create } from 'zustand';
 import {
   OptionContentList,

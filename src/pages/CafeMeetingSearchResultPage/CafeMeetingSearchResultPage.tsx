@@ -213,7 +213,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
 
   const viewCafeMeetingInfo = (id) => {
     const studyOnceId = id;
-    navigate(`/cafeInfo/${studyOnceId}`);
+    navigate(`/cafeMeetingInfo/${studyOnceId}`);
   };
 
   return (
