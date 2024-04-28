@@ -5,6 +5,6 @@ export interface StoreState {
 
 export interface ApiStoreState {
     reviews: any[];
-    fetchReviews: () => Promise<void>;
+    fetchReviews: (cafeId:number) => Promise<void>;
     deleteReview: (reviewId: number) => Promise<void>;
   }

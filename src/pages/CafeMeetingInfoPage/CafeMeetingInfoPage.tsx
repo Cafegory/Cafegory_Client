@@ -52,22 +52,18 @@ import { QnaEditApiState } from 'components/QnaEditModal/QnaEditModal.hooks';
 
 const CafeMeetingInfo: React.FC = () => {
   const navigate = useNavigate();
-  const { question, setQuestion } = createQuestion();
-  const { answer, setAnswer } = createAnswer();
-
   const { info, fetchInfo } = cafeMeetingInfoApiStore();
 
   const { studyOnceId } = useParams<{ studyOnceId: string }>();
-
-  React.useEffect(() => {
-    fetchInfo(studyOnceId);
-  }, []);
-
   const { info: cafeInfo, fetchInfo: cafeFetchInfo } = cafeInfoApiStore();
 
   React.useEffect(() => {
-    cafeFetchInfo(info.cafeId);
-  }, []);
+    fetchInfo(studyOnceId);
+
+    if (info.cafeId !== 0) {
+      cafeFetchInfo(info.cafeId);
+    }
+  }, [info.cafeId]);
 
   const { qna, fetchQna } = qnaApiStore();
 
