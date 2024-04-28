@@ -67,7 +67,7 @@ const CafeInfo: React.FC = () => {
   const { reviews, fetchReviews } = reviewApiStore();
 
   React.useEffect(() => {
-    fetchReviews();
+    fetchReviews(Number(cafeId));
   }, []);
 
   const { info, fetchInfo } = cafeInfoApiStore();
@@ -150,7 +150,6 @@ const CafeInfo: React.FC = () => {
             <TitleFont>
               평점
               <StarImg src="/assets/star-icon.png" alt="별 아이콘" />
-              {info.basicInfo.avgReviewRate}
             </TitleFont>
             {reviews.length === 0 && (
               <NoContentContainer>

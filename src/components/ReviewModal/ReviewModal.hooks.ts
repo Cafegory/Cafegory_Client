@@ -12,9 +12,9 @@ const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 
 export const reviewApiStore = create<ApiStoreState>((set) => ({
   reviews: [],
-  fetchReviews: async () => {
+  fetchReviews: async (cafeId) => {
     try {
-      const response = await axios.get(`cafe/1/review/list`, {
+      const response = await axios.get(`http://52.78.210.204/cafe/${cafeId}/review/list`, {
         headers: {
           Authorization: accessToken,
         },
