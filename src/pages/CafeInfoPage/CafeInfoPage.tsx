@@ -82,6 +82,10 @@ const CafeInfo: React.FC = () => {
     navigate(`/studyRecruiting/${cafeId}`);
   };
 
+  const review = () => {
+    navigate(`/writeReview/${cafeId}`);
+  };
+
   const handleMoveHomePage = (link) => {
     window.location.href = link;
   };
@@ -245,13 +249,7 @@ const CafeInfo: React.FC = () => {
               color="black"
               onClick={CreateGroup}
             />
-            <LongButton
-              message="리뷰 작성하기"
-              color="red"
-              onClick={() => {
-                navigate('/writeReview');
-              }}
-            />
+            <LongButton message="리뷰 작성하기" color="red" onClick={review} />
           </LongButtonContainer>
         </CafeInfoContainer>
       </Container>

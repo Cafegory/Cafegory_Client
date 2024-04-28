@@ -131,6 +131,7 @@ const CafeSearchResult: React.FC = () => {
         setNowPage(response.data.nowPage);
         setMaxPage(response.data.maxPage);
         setPageSize(response.data.pageSize);
+        console.log(response);
       })
       .catch((error) => {
         console.error('요청 중 에러 발생:', error);
