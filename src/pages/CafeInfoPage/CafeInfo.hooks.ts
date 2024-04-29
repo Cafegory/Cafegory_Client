@@ -26,7 +26,6 @@ export const cafeInfoApiStore = create((set) => ({
         },
       });
       set({ info: response.data });
-      refreashStore.getState().toggleRefreashModal();
     } catch (error) {
       if (error.response && error.response.status === 401 && accessToken!== null) {
         refreashStore.getState().toggleRefreashModal();
