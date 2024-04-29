@@ -1,5 +1,6 @@
 import axios from 'axios';
 import create from 'zustand';
+import { refreashStore } from '../../components/RefreashModal/RefreashModal.hooks';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 
@@ -26,7 +27,11 @@ export const cafeInfoApiStore = create((set) => ({
       });
       set({ info: response.data });
     } catch (error) {
-      console.error('Error fetching data:', error);
+      if (error.response && error.response.status === 401 && accessToken!== null) {
+        refreashStore.getState().toggleRefreashModal();
+      } else {
+        console.error('Error:', error);
+      }
     }
   },
 }));

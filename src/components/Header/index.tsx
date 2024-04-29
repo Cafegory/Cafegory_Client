@@ -16,6 +16,8 @@ import { useStore } from '../LoginModal/LoginModal.hooks';
 import { useUser } from '../../store/users/store';
 import MobileModal from 'components/MobileModal';
 import { useStoreMobile } from '../MobileModal/MobileModal.hooks';
+import Refreash from 'components/RefreashModal';
+import { refreashStore } from 'components/RefreashModal/RefreashModal.hooks';
 
 const Header: React.FC<HeaderProps> = () => {
   const navigate = useNavigate();
@@ -26,6 +28,10 @@ const Header: React.FC<HeaderProps> = () => {
 
   const isMobileModalOpen = useStoreMobile((state) => state.isMobileModalOpen);
   const toggleMobileModal = useStoreMobile((state) => state.toggleMobileModal);
+
+  const isRefreashModalOpen = refreashStore(
+    (state) => state.isRefreashModalOpen,
+  );
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
@@ -89,6 +95,7 @@ const Header: React.FC<HeaderProps> = () => {
       )}
       {isLoginModalOpen && <Login />}
       {isMobileModalOpen && <MobileModal />}
+      {isRefreashModalOpen && <Refreash />}
     </>
   );
 };
