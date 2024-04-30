@@ -38,7 +38,8 @@ const Review: React.FC = () => {
 
   const handleDeleteReview = async (reviewId: number) => {
     await deleteReview(reviewId);
-    await fetchReviews();
+    fetchReviews();
+    window.location.reload();
   };
   React.useEffect(() => {
     fetchReviews();
