@@ -33,6 +33,8 @@ const Header: React.FC<HeaderProps> = () => {
     (state) => state.isRefreashModalOpen,
   );
 
+  const { toggleRefreashModal } = refreashStore();
+
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreashToken');

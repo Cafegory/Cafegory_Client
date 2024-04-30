@@ -2,6 +2,7 @@ import StoreState  from './RefreashModal.types';
 import create from 'zustand';
 import axios from 'axios';
 
+
 export const refreashStore = create<StoreState>((set) => ({
   isRefreashModalOpen: false,
   toggleRefreashModal: () => set((state) => ({ isRefreashModalOpen: !state.isRefreashModalOpen })),
@@ -27,5 +28,15 @@ export const postToken = async () => {
       );
     } catch (error) {
         console.log("error")
+    }
+  }
+
+
+
+  export function tokenRefreash(error, isLoggedIn) {
+    if (error.response && error.response.status === 401 && isLoggedIn) {
+      refreashStore.getState().toggleRefreashModal();
+    } else {
+      console.error('Error:', error);
     }
   }
