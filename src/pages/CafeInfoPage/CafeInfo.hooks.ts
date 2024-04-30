@@ -1,6 +1,6 @@
 import axios from 'axios';
 import create from 'zustand';
-import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { tokenRefresh } from '../../components/RefreshModal/RefreshModal.hooks';
 import { useUser } from '../../store/users/store';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
@@ -31,7 +31,7 @@ export const cafeInfoApiStore = create((set) => ({
       set({ info: response.data });
     } catch (error) {
       const isLoggedIn = useUser.getState().isLoggedIn;
-      tokenRefreash(error, isLoggedIn); 
+      tokenRefresh(error, isLoggedIn); 
     }
   },
 }));

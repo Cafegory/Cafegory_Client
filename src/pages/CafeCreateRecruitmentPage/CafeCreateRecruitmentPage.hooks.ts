@@ -7,7 +7,7 @@ import {
   CafeCreateResruitmentApi,
 } from './CafeCreateRecruitmentPage.type';
 import axios from 'axios';
-import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { tokenRefresh } from '../../components/RefreshModal/RefreshModal.hooks';
 import { useUser } from '../../store/users/store';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
@@ -67,7 +67,7 @@ export const cafeInfo = create<Cafe>((set) => ({
       })
       .catch((error) => {
         const isLoggedIn = useUser.getState().isLoggedIn;
-      tokenRefreash(error, isLoggedIn); 
+      tokenRefresh(error, isLoggedIn); 
       });
   },
 }));

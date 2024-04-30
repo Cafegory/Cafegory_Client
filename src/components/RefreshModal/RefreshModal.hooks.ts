@@ -1,18 +1,17 @@
-import StoreState  from './RefreashModal.types';
+import StoreState  from './RefreshModal.types';
 import create from 'zustand';
 import axios from 'axios';
 
+export const refreshStore = create<StoreState>((set)=>({
+  isRefreshModalOpen:false,
+  toggleRefreashModal:()=> set((state) => ({ isRefreshModalOpen: !state.isRefreshModalOpen })),
+}))
 
-export const refreashStore = create<StoreState>((set) => ({
-  isRefreashModalOpen: false,
-  toggleRefreashModal: () => set((state) => ({ isRefreashModalOpen: !state.isRefreashModalOpen })),
-}));
-
-const refreashToken =JSON.parse(localStorage.getItem('refreashToken'));
+const refreshToken =JSON.parse(localStorage.getItem('refreshToken'));
 
 export const postToken = async () => {
     const reviewData = {
-        "refreshToken" : refreashToken
+        "refreshToken" : refreshToken
     }
     try {
         const response = await axios.post('/oauth2/refresh', reviewData, {
@@ -23,7 +22,7 @@ export const postToken = async () => {
         JSON.stringify(response.data.accessToken),
       );
       localStorage.setItem(
-        'refreashToken',
+        'refreshToken',
         JSON.stringify(response.data.refreshToken),
       );
     } catch (error) {
@@ -33,9 +32,9 @@ export const postToken = async () => {
 
 
 
-  export function tokenRefreash(error, isLoggedIn) {
+  export function tokenRefresh(error, isLoggedIn) {
     if (error.response && error.response.status === 401 && isLoggedIn) {
-      refreashStore.getState().toggleRefreashModal();
+      refreshStore.getState().toggleRefreashModal();
     } else {
       console.error('Error:', error);
     }

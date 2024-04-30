@@ -6,7 +6,7 @@ import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
 import Container from '../../components/Basic/Container';
 import Kakao from 'components/Kakao';
-import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { tokenRefresh } from '../../components/RefreshModal/RefreshModal.hooks';
 import { useUser } from '../../store/users/store';
 import {
   AreaTextFont,
@@ -159,7 +159,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
       })
       .catch((error) => {
         const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefreash(error, isLoggedIn);
+        tokenRefresh(error, isLoggedIn);
       });
   }, [area, routeOnlyJoinAble, routeMaxMemberCount, routeCanTalk]);
 
@@ -181,7 +181,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
       })
       .catch((error) => {
         const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefreash(error, isLoggedIn);
+        tokenRefresh(error, isLoggedIn);
       });
   };
 
@@ -207,7 +207,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
       })
       .catch((error) => {
         const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefreash(error, isLoggedIn);
+        tokenRefresh(error, isLoggedIn);
       });
 
     setArea(inputArea);

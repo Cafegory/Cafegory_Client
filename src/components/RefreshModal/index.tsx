@@ -1,40 +1,37 @@
 import React from 'react';
 import {
-  RefreashModal,
+  RefreshModal,
   ModalBackdrop,
   ButtonContainer,
   MessageFont,
   QuestionFont,
-} from './RefreashModal.style';
-import { postToken, refreashStore } from './RefreashModal.hooks';
+} from './RefreshModal.style';
+import { postToken, refreshStore } from './RefreshModal.hooks';
 import ShortButton from 'components/ShortButton';
-import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../store/users/store';
+import { useNavigate } from 'react-router-dom';
 
-const Refreash: React.FC = () => {
-  const toggleRefreashModal = refreashStore(
-    (state) => state.toggleRefreashModal,
-  );
-
-  const navigate = useNavigate();
+const Refresh: React.FC = () => {
+  const toggleRefreshModal = refreshStore((state) => state.toggleRefreashModal);
 
   const { setIsLoggedIn } = useUser();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreashToken');
+    localStorage.removeItem('refreshToken');
     localStorage.removeItem('memberId');
-    localStorage.removeItem('name');
+    localStorage.removeItem('userName');
     setIsLoggedIn(false);
     window.location.reload();
-    toggleRefreashModal();
+    toggleRefreshModal();
   };
 
   const handleTokenRefresh = async () => {
     try {
       await postToken();
       window.location.reload();
-      toggleRefreashModal();
+      toggleRefreshModal();
     } catch (error) {
       alert('토큰이 만료되었습니다. 재로그인 해주세요.');
       handleLogout();
@@ -43,7 +40,7 @@ const Refreash: React.FC = () => {
 
   return (
     <>
-      <RefreashModal>
+      <RefreshModal>
         <MessageFont>토큰이 만료되었습니다.</MessageFont>
         <QuestionFont>로그인 상태를 유지하시겠습니까?</QuestionFont>
         <ButtonContainer>
@@ -58,10 +55,10 @@ const Refreash: React.FC = () => {
             onClick={handleLogout}
           ></ShortButton>
         </ButtonContainer>
-      </RefreashModal>
+      </RefreshModal>
       <ModalBackdrop></ModalBackdrop>
     </>
   );
 };
 
-export default Refreash;
+export default Refresh;

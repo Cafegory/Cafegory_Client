@@ -25,7 +25,7 @@ import {
   AttendanceState,
   useCheckedStateStore,
 } from './AttendancePage.hook';
-import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { tokenRefresh } from '../../components/RefreshModal/RefreshModal.hooks';
 import { useUser } from '../../store/users/store';
 
 const Attendance: React.FC = () => {
@@ -69,7 +69,7 @@ const Attendance: React.FC = () => {
         console.log(`출력${ids}`);
       } catch (error) {
         const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefreash(error, isLoggedIn);
+        tokenRefresh(error, isLoggedIn);
       }
     };
 
@@ -87,7 +87,7 @@ const Attendance: React.FC = () => {
         setCreatorId(response.data.creatorId);
       } catch (error) {
         const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefreash(error, isLoggedIn);
+        tokenRefresh(error, isLoggedIn);
       }
     };
 
@@ -117,7 +117,7 @@ const Attendance: React.FC = () => {
     } catch (error) {
       alert(error.response.data.errorMessage);
       const isLoggedIn = useUser.getState().isLoggedIn;
-      tokenRefreash(error, isLoggedIn);
+      tokenRefresh(error, isLoggedIn);
     }
   };
 

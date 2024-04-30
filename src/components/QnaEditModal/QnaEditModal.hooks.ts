@@ -2,7 +2,7 @@ import { StoreState } from './QnaEditModal.types';
 import { QnaEditApiStore } from './QnaEditModal.types';
 import create from 'zustand';
 import axios from 'axios';
-import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { tokenRefresh } from '../RefreshModal/RefreshModal.hooks';
 import { useUser } from '../../store/users/store';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
@@ -35,7 +35,7 @@ export const QnaEditApiState = create<QnaEditApiStore>((set) => ({
           });
         } catch (error) {
           const isLoggedIn = useUser.getState().isLoggedIn;
-          tokenRefreash(error, isLoggedIn); 
+          tokenRefresh(error, isLoggedIn); 
         }
       },
 
@@ -51,7 +51,7 @@ export const QnaEditApiState = create<QnaEditApiStore>((set) => ({
           });
         } catch (error) {
           const isLoggedIn = useUser.getState().isLoggedIn;
-          tokenRefreash(error, isLoggedIn); 
+          tokenRefresh(error, isLoggedIn); 
         }
       },
   }));

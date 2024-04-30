@@ -1,4 +1,4 @@
 export default interface StoreState {
-    isRefreashModalOpen: boolean;
+    isRefreshModalOpen: boolean;
     toggleRefreashModal: () => void;
   }

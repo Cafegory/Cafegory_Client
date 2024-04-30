@@ -41,7 +41,7 @@ import {
   cafeinfo,
 } from './CafeSearchModal.hook';
 import { Pagination } from '@mui/material';
-import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { tokenRefresh } from '../RefreshModal/RefreshModal.hooks';
 import { useUser } from '../../store/users/store';
 
 const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
@@ -114,7 +114,7 @@ const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
       })
       .catch((error) => {
         const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefreash(error, isLoggedIn);
+        tokenRefresh(error, isLoggedIn);
       });
 
     setArea(inputArea);
@@ -156,7 +156,7 @@ const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
       })
       .catch((error) => {
         const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefreash(error, isLoggedIn);
+        tokenRefresh(error, isLoggedIn);
       });
   };
 

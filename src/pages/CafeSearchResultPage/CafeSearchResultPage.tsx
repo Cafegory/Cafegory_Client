@@ -53,7 +53,7 @@ import {
 } from './CafeSearchResultPage.hooks';
 import axios from 'axios';
 import { Pagination } from '@mui/material';
-import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { tokenRefresh } from '../../components/RefreshModal/RefreshModal.hooks';
 import { useUser } from '../../store/users/store';
 
 const CafeSearchResult: React.FC = () => {
@@ -137,7 +137,7 @@ const CafeSearchResult: React.FC = () => {
       })
       .catch((error) => {
         const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefreash(error, isLoggedIn);
+        tokenRefresh(error, isLoggedIn);
       });
   }, [area, routeStartTime, routeEndTime, routeMinBeveragePrice, routeMaxTime]);
 
@@ -163,7 +163,7 @@ const CafeSearchResult: React.FC = () => {
       })
       .catch((error) => {
         const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefreash(error, isLoggedIn);
+        tokenRefresh(error, isLoggedIn);
       });
 
     setArea(inputArea);
@@ -345,7 +345,7 @@ const CafeSearchResult: React.FC = () => {
       })
       .catch((error) => {
         const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefreash(error, isLoggedIn);
+        tokenRefresh(error, isLoggedIn);
       });
   };
 

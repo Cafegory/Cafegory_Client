@@ -8,7 +8,7 @@ import {
   MemberStore,
 } from './CafeRecruitmentModifyPage.type';
 import axios from 'axios';
-import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { tokenRefresh } from '../../components/RefreshModal/RefreshModal.hooks';
 import { useUser } from '../../store/users/store';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
@@ -85,7 +85,7 @@ export const useMemberStore = create<MemberStore>((set) => ({
       console.log('멤버 출력', JSON.stringify(response.data));
     } catch (error) {
       const isLoggedIn = useUser.getState().isLoggedIn;
-      tokenRefreash(error, isLoggedIn); 
+      tokenRefresh(error, isLoggedIn); 
     }
   },
 }));
