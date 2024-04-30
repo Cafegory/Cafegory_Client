@@ -31,7 +31,7 @@ export interface ApiStoreState {
 
 export interface qnaStoreState {
   qna:  {
-    "replyWriter" : {
+    "writerResponse" : {
       "memberId" : number,
       "name" : string,
       "thumbnailImg" : string,

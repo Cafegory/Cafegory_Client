@@ -57,7 +57,7 @@ export const cafeMeetingInfoApiStore = create<ApiStoreState>((set) => ({
 
 export const qnaApiStore = create<qnaStoreState>((set) => ({
   qna: {
-    replyWriter: {
+    writerResponse: {
       memberId: 0,
       name: '',
       thumbnailImg: '',
