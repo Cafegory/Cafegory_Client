@@ -21,7 +21,7 @@ const LoginState: React.FC = () => {
           JSON.stringify(response.data.refreshToken),
         );
         setIsLoggedIn(true);
-        navigate('/main');
+        navigate('/');
         window.location.reload();
       } catch (error) {
         console.error(error);
