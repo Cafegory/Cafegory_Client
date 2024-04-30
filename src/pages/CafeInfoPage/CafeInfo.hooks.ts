@@ -5,7 +5,6 @@ import { useUser } from '../../store/users/store';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 
-
 export const cafeInfoApiStore = create((set) => ({
   info: {
     basicInfo: {
@@ -21,7 +20,6 @@ export const cafeInfoApiStore = create((set) => ({
     meetings: [],
   },
   fetchInfo: async (cafeId) => {
-   
     try {
       const response = await axios.get(`/cafe/${cafeId}`, {
         headers: {
@@ -31,7 +29,7 @@ export const cafeInfoApiStore = create((set) => ({
       set({ info: response.data });
     } catch (error) {
       const isLoggedIn = useUser.getState().isLoggedIn;
-      tokenRefreash(error, isLoggedIn); 
+      tokenRefreash(error, isLoggedIn);
     }
   },
 }));
