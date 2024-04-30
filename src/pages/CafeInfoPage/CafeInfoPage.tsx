@@ -47,6 +47,8 @@ import {
   LongButtonContainer,
   HomePageLinkFont,
   AvgReviewRate,
+  CafeStudyPossibleContainer,
+  Possible,
 } from './CafeInfoPage.style';
 import Review from 'components/ReviewModal';
 import Study from 'components/StudyModal';
@@ -244,6 +246,10 @@ const CafeInfo: React.FC = () => {
               </MoreButton>
             )}
           </StudyContainer>
+          <CafeStudyPossibleContainer>
+            <TitleFont>카공 가능여부</TitleFont>
+            <Possible>{info.basicInfo.canStudy ? '가능' : '불가능'}</Possible>
+          </CafeStudyPossibleContainer>
           <LongButtonContainer>
             <LongButton
               message="카공 그룹 생성하기"

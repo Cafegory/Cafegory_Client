@@ -367,3 +367,20 @@ export const HomePageLinkFont = styled.div`
 `;
 
 export const AvgReviewRate = styled.div``;
+
+export const CafeStudyPossibleContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+`;
+
+export const Possible = styled.div`
+  font-size: 1rem;
+  width: 100%;
+  color: gray;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
+`;

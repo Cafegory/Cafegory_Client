@@ -15,6 +15,7 @@ export const cafeInfoApiStore = create((set) => ({
       sns: [],
       phone: '',
       avgReviewRate: 0,
+      canStudy: true,
     },
     reviews: [],
     meetings: [],
