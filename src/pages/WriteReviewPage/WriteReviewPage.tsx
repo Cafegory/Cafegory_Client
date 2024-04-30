@@ -52,7 +52,8 @@ const WriteReview: React.FC = () => {
     setRating(0);
     setContent('');
     toggleEditing(false);
-    Navigate('/cafeInfo');
+    Navigate(`/cafeInfo/${routeCafeId}`);
+    window.location.reload();
   };
   const Navigate = useNavigate();
   const { isEditing } = ReviewEditStore();
