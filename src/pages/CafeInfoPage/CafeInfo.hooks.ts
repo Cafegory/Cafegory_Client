@@ -1,7 +1,10 @@
 import axios from 'axios';
 import create from 'zustand';
+import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { useUser } from '../../store/users/store';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
+
 
 export const cafeInfoApiStore = create((set) => ({
   info: {
@@ -18,6 +21,7 @@ export const cafeInfoApiStore = create((set) => ({
     meetings: [],
   },
   fetchInfo: async (cafeId) => {
+   
     try {
       const response = await axios.get(`/cafe/${cafeId}`, {
         headers: {
@@ -26,7 +30,8 @@ export const cafeInfoApiStore = create((set) => ({
       });
       set({ info: response.data });
     } catch (error) {
-      console.error('Error fetching data:', error);
+      const isLoggedIn = useUser.getState().isLoggedIn;
+      tokenRefreash(error, isLoggedIn); 
     }
   },
 }));

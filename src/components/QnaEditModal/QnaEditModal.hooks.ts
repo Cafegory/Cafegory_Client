@@ -2,6 +2,8 @@ import { StoreState } from './QnaEditModal.types';
 import { QnaEditApiStore } from './QnaEditModal.types';
 import create from 'zustand';
 import axios from 'axios';
+import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { useUser } from '../../store/users/store';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 
@@ -32,7 +34,8 @@ export const QnaEditApiState = create<QnaEditApiStore>((set) => ({
             },
           });
         } catch (error) {
-          console.error('Error fetching data:', error);
+          const isLoggedIn = useUser.getState().isLoggedIn;
+          tokenRefreash(error, isLoggedIn); 
         }
       },
 
@@ -47,7 +50,8 @@ export const QnaEditApiState = create<QnaEditApiStore>((set) => ({
             },
           });
         } catch (error) {
-          console.error('Error fetching data:', error);
+          const isLoggedIn = useUser.getState().isLoggedIn;
+          tokenRefreash(error, isLoggedIn); 
         }
       },
   }));

@@ -17,7 +17,6 @@ export const search = create<SearchContent>((set) => ({
   setInputArea: (value) => set({ inputArea: value }),
 }));
 
-//밑에는 기존코드
 export const useFilter = create<FilterState>((set) => ({
   showFitter: false,
   setShowFitter: (show) => set((state) => ({ ...state, showFitter: show })),

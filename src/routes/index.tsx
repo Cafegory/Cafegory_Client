@@ -20,7 +20,7 @@ const Router: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/main" element={<Main />} />
+        <Route path="/" element={<Main />} />
         <Route path="/my" element={<My />} />
         <Route path="/cafe" element={<CafeSearch />} />
         <Route
@@ -49,7 +49,6 @@ const Router: React.FC = () => {
         <Route path="/writeReview/:cafeId" element={<WriteReview />} />
         <Route path="/mypageEdit" element={<MyPageEdit />} />
         <Route path="/oauth" element={<LoginState />} />
-        <Route path="/" element={<TemporaryMain />} />
       </Routes>
     </BrowserRouter>
   );

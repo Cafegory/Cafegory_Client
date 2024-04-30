@@ -41,6 +41,8 @@ import {
   cafeinfo,
 } from './CafeSearchModal.hook';
 import { Pagination } from '@mui/material';
+import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { useUser } from '../../store/users/store';
 
 const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
   onSelectCafe,
@@ -111,7 +113,8 @@ const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
         setPageSize(response.data.pageSize);
       })
       .catch((error) => {
-        console.error('요청 중 에러 발생:', error);
+        const isLoggedIn = useUser.getState().isLoggedIn;
+        tokenRefreash(error, isLoggedIn);
       });
 
     setArea(inputArea);
@@ -152,7 +155,8 @@ const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
         setPageSize(response.data.pageSize);
       })
       .catch((error) => {
-        console.error('요청 중 에러 발생:', error);
+        const isLoggedIn = useUser.getState().isLoggedIn;
+        tokenRefreash(error, isLoggedIn);
       });
   };
 

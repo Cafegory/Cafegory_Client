@@ -6,6 +6,8 @@ import Sidebar from '../../components/Sidebar';
 import Screen from '../../components/Basic/Screen';
 import Container from '../../components/Basic/Container';
 import Kakao from 'components/Kakao';
+import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { useUser } from '../../store/users/store';
 import {
   AreaTextFont,
   InputContainer,
@@ -156,7 +158,8 @@ const CafeMeetingSearchResultPage: React.FC = () => {
         setPageSize(response.data.pageSize);
       })
       .catch((error) => {
-        console.error('요청 중 에러 발생:', error);
+        const isLoggedIn = useUser.getState().isLoggedIn;
+        tokenRefreash(error, isLoggedIn);
       });
   }, [area, routeOnlyJoinAble, routeMaxMemberCount, routeCanTalk]);
 
@@ -177,7 +180,8 @@ const CafeMeetingSearchResultPage: React.FC = () => {
         setPageSize(response.data.pageSize);
       })
       .catch((error) => {
-        console.error('요청 중 에러 발생:', error);
+        const isLoggedIn = useUser.getState().isLoggedIn;
+        tokenRefreash(error, isLoggedIn);
       });
   };
 
@@ -202,7 +206,8 @@ const CafeMeetingSearchResultPage: React.FC = () => {
         setPageSize(response.data.pageSize);
       })
       .catch((error) => {
-        console.error('요청 중 에러 발생:', error);
+        const isLoggedIn = useUser.getState().isLoggedIn;
+        tokenRefreash(error, isLoggedIn);
       });
 
     setArea(inputArea);

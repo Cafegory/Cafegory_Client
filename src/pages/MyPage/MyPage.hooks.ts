@@ -1,6 +1,8 @@
 import { ApiStoreState } from './MyPage.type';
 import create from 'zustand';
 import axios from 'axios';
+import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { useUser } from '../../store/users/store';
 
 const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 const memberId = JSON.parse(localStorage.getItem('memberId'));
@@ -24,7 +26,8 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
       set({ introduction: response.data.introduction });
       set({ thumbnailingImg: response.data.thumbnailImg });
     } catch (error) {
-      console.error('Error fetching data:', error);
+      const isLoggedIn = useUser.getState().isLoggedIn;
+      tokenRefreash(error, isLoggedIn); 
     }
   },
   patchProfile: async () => {
@@ -39,7 +42,8 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
         },
       });
     } catch (error) {
-      console.error('Error fetching data:', error);
+      const isLoggedIn = useUser.getState().isLoggedIn;
+      tokenRefreash(error, isLoggedIn); 
     }
   },
 }));

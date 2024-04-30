@@ -12,6 +12,8 @@ import { format } from 'date-fns';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { parseISO } from 'date-fns';
+import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { useUser } from '../../store/users/store';
 import {
   Title,
   Detail,
@@ -131,7 +133,8 @@ const CafeRecruitmentModify: React.FC = () => {
         setMemberIds(ids);
         console.log('멤버 출력', JSON.stringify(response.data));
       } catch (error) {
-        console.error(error);
+        const isLoggedIn = useUser.getState().isLoggedIn;
+        tokenRefreash(error, isLoggedIn);
       }
     };
     fetchData();
@@ -162,7 +165,8 @@ const CafeRecruitmentModify: React.FC = () => {
         setOpenChatUrl(response.data.openChatUrl);
         setNowMemberCount(response.data.nowMemberCount);
       } catch (error) {
-        console.error(error);
+        const isLoggedIn = useUser.getState().isLoggedIn;
+        tokenRefreash(error, isLoggedIn);
       }
     };
 
@@ -214,7 +218,8 @@ const CafeRecruitmentModify: React.FC = () => {
       console.log('요청 성공');
       navigate(`/cafeMeetingInfo/${studyOnceId}`);
     } catch (error) {
-      console.error('요청 중 에러 발생:', error);
+      const isLoggedIn = useUser.getState().isLoggedIn;
+      tokenRefreash(error, isLoggedIn);
       alert(error.response.data.errorMessage);
     }
   };

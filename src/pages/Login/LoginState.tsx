@@ -21,7 +21,7 @@ const LoginState: React.FC = () => {
           JSON.stringify(response.data.refreshToken),
         );
         setIsLoggedIn(true);
-        navigate('/main');
+        navigate('/');
         window.location.reload();
       } catch (error) {
         console.error(error);
@@ -31,23 +31,6 @@ const LoginState: React.FC = () => {
 
     fetchData();
   }, []);
-
-  // useEffect(() => {
-  //   const refreshToken = localStorage.getItem('refreshToken');
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.post(`/oauth2/refresh`, {
-  //         refreshToken: refreshToken,
-  //       });
-  //       localStorage.setItem('accessToken', response.data.accessToken);
-  //       console.log('토큰 재발급 잘되는중');
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 

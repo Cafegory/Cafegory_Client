@@ -53,6 +53,8 @@ import {
 } from './CafeSearchResultPage.hooks';
 import axios from 'axios';
 import { Pagination } from '@mui/material';
+import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { useUser } from '../../store/users/store';
 
 const CafeSearchResult: React.FC = () => {
   const {
@@ -134,7 +136,8 @@ const CafeSearchResult: React.FC = () => {
         console.log(response);
       })
       .catch((error) => {
-        console.error('요청 중 에러 발생:', error);
+        const isLoggedIn = useUser.getState().isLoggedIn;
+        tokenRefreash(error, isLoggedIn);
       });
   }, [area, routeStartTime, routeEndTime, routeMinBeveragePrice, routeMaxTime]);
 
@@ -159,7 +162,8 @@ const CafeSearchResult: React.FC = () => {
         setPageSize(response.data.pageSize);
       })
       .catch((error) => {
-        console.error('요청 중 에러 발생:', error);
+        const isLoggedIn = useUser.getState().isLoggedIn;
+        tokenRefreash(error, isLoggedIn);
       });
 
     setArea(inputArea);
@@ -340,7 +344,8 @@ const CafeSearchResult: React.FC = () => {
         setPageSize(response.data.pageSize);
       })
       .catch((error) => {
-        console.error('요청 중 에러 발생:', error);
+        const isLoggedIn = useUser.getState().isLoggedIn;
+        tokenRefreash(error, isLoggedIn);
       });
   };
 

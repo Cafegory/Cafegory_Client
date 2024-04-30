@@ -85,7 +85,7 @@ const CafeCreateRecruitment: React.FC = () => {
     const memberId = localStorage.getItem('memberId');
     if (!memberId) {
       alert('로그인 후 서비스를 이용해주세요!');
-      navigate('/main');
+      navigate('/');
     }
   }, [onlyJoinAble, maxMemberCount, canTalk, area]);
 
