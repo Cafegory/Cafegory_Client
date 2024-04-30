@@ -84,7 +84,7 @@ const CafeMeetingInfo: React.FC = () => {
     return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
   };
 
-  const memberId = JSON.parse(localStorage.getItem('memberId'));
+  const memberId = Number(localStorage.getItem('memberId'));
 
   const hi = () => {
     navigate(`/studyRecruitingModify/${studyOnceId}`);
@@ -209,7 +209,7 @@ const CafeMeetingInfo: React.FC = () => {
           </ButtonContainer>
           <TitleContainer>
             <TitleFont>QnA</TitleFont>
-            {memberId !== qna.replyWriter.memberId && (
+            {memberId !== qna.writerResponse.memberId && (
               <QuestGenerate>
                 <QuestInput
                   placeholder="궁금한 점이 있나요?"
@@ -268,13 +268,13 @@ const CafeMeetingInfo: React.FC = () => {
                     <div>↳</div>
                     <QuestionBoxUser>
                       <ProfileImg
-                        src={qna.replyWriter.thumbnailImg}
+                        src={qna.writerResponse.thumbnailImg}
                         alt="프로필 사진"
                       ></ProfileImg>
-                      <UserNameFont>{qna.replyWriter.name}</UserNameFont>
+                      <UserNameFont>{qna.writerResponse.name}</UserNameFont>
                     </QuestionBoxUser>
                     <div>{qna.comments[index].replies[0].comment}</div>
-                    {memberId === qna.replyWriter.memberId && (
+                    {memberId === qna.writerResponse.memberId && (
                       <State>
                         <AnswerModify
                           onClick={() => {
@@ -300,7 +300,7 @@ const CafeMeetingInfo: React.FC = () => {
                     )}
                   </ReplyBox>
                 )}
-                {memberId === qna.replyWriter.memberId &&
+                {memberId === qna.writerResponse.memberId &&
                   qna.comments[index].replies.length === 0 && (
                     <QuestGenerate>
                       <QuestInput
