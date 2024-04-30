@@ -1,6 +1,8 @@
 import {StoreState,  ApiStoreState} from './ReviewModal.types';
 import create from 'zustand';
 import axios from 'axios';
+import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { useUser } from '../../store/users/store';
 
 export const reviewUseStore = create<StoreState>((set) => ({
   isReviewModalOpen: false,
@@ -21,7 +23,8 @@ export const reviewApiStore = create<ApiStoreState>((set) => ({
       });
       set({ reviews: response.data.list });
     } catch (error) {
-      console.error('Error fetching data:', error);
+      const isLoggedIn = useUser.getState().isLoggedIn;
+      tokenRefreash(error, isLoggedIn); 
     }
   },
   deleteReview: async (reviewId) => {
@@ -32,7 +35,8 @@ export const reviewApiStore = create<ApiStoreState>((set) => ({
         },
       });
     } catch (error) {
-      console.error('Error deleting review:', error);
+      const isLoggedIn = useUser.getState().isLoggedIn;
+      tokenRefreash(error, isLoggedIn); 
     }
   },
 }));
