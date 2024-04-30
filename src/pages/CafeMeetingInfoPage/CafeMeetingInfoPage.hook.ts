@@ -7,7 +7,7 @@ import {
   QuestionStoreState,
   AnswerStoreState,
 } from './CafeMeetingInfoPage.type';
-import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { tokenRefresh } from '../../components/RefreshModal/RefreshModal.hooks';
 import { useUser } from '../../store/users/store';
 
 export const createQuestion = create<Question>((set) => ({
@@ -50,7 +50,7 @@ export const cafeMeetingInfoApiStore = create<ApiStoreState>((set) => ({
       set({ info: response.data });
     } catch (error) {
       const isLoggedIn = useUser.getState().isLoggedIn;
-      tokenRefreash(error, isLoggedIn); 
+      tokenRefresh(error, isLoggedIn); 
     }
   },
 }));

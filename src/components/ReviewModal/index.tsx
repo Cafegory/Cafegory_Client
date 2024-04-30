@@ -23,12 +23,14 @@ import {
   useContentStore,
   ReviewEditStore,
 } from 'pages/WriteReviewPage/WriteReviewPage.hooks';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const Review: React.FC = () => {
   const id = JSON.parse(localStorage.getItem('memberId'));
   const toggleReviewModal = reviewUseStore((state) => state.toggleReviewModal);
   const navigate = useNavigate();
+
+  const { cafeId } = useParams<{ cafeId: string }>();
 
   const closeModal = () => {
     toggleReviewModal();
@@ -38,7 +40,8 @@ const Review: React.FC = () => {
 
   const handleDeleteReview = async (reviewId: number) => {
     await deleteReview(reviewId);
-    await fetchReviews();
+    fetchReviews();
+    window.location.reload();
   };
   React.useEffect(() => {
     fetchReviews();
@@ -54,7 +57,7 @@ const Review: React.FC = () => {
     toggleEditing(true);
     getReviewId(id);
 
-    navigate('/writeReview');
+    navigate(`/writeReview/${cafeId}`);
   };
 
   return (

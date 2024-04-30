@@ -17,10 +17,12 @@ const LoginState: React.FC = () => {
           JSON.stringify(response.data.accessToken),
         );
         localStorage.setItem(
-          'refreashToken',
+          'refreshToken',
           JSON.stringify(response.data.refreshToken),
         );
         setIsLoggedIn(true);
+        const accessToken = response.data.accessToken;
+        getMemberId(accessToken);
         navigate('/');
         window.location.reload();
       } catch (error) {
@@ -31,8 +33,6 @@ const LoginState: React.FC = () => {
 
     fetchData();
   }, []);
-
-  const accessToken = JSON.parse(localStorage.getItem('accessToken'));
 
   function decodeJWT(token) {
     try {
@@ -45,11 +45,14 @@ const LoginState: React.FC = () => {
     }
   }
 
-  const decodedPayload = decodeJWT(accessToken);
-  const memberId = decodedPayload ? decodedPayload.memberId : null;
-  localStorage.setItem('memberId', memberId);
+  function getMemberId(accessToken) {
+    const decodedPayload = decodeJWT(accessToken);
+    const memberId = decodedPayload ? decodedPayload.memberId : null;
+    localStorage.setItem('memberId', memberId);
+    getUserName(memberId, accessToken);
+  }
 
-  useEffect(() => {
+  function getUserName(memberId, accessToken) {
     const fetchData = async () => {
       try {
         const response = await axios.get(`profile/${memberId}`, {
@@ -66,7 +69,7 @@ const LoginState: React.FC = () => {
     };
 
     fetchData();
-  }, [accessToken]);
+  }
 
   return <></>;
 };

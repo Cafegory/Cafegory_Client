@@ -12,7 +12,7 @@ import { format } from 'date-fns';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { parseISO } from 'date-fns';
-import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
+import { tokenRefresh } from '../../components/RefreshModal/RefreshModal.hooks';
 import { useUser } from '../../store/users/store';
 import {
   Title,
@@ -134,7 +134,7 @@ const CafeRecruitmentModify: React.FC = () => {
         console.log('멤버 출력', JSON.stringify(response.data));
       } catch (error) {
         const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefreash(error, isLoggedIn);
+        tokenRefresh(error, isLoggedIn);
       }
     };
     fetchData();
@@ -166,7 +166,7 @@ const CafeRecruitmentModify: React.FC = () => {
         setNowMemberCount(response.data.nowMemberCount);
       } catch (error) {
         const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefreash(error, isLoggedIn);
+        tokenRefresh(error, isLoggedIn);
       }
     };
 
@@ -219,7 +219,7 @@ const CafeRecruitmentModify: React.FC = () => {
       navigate(`/cafeMeetingInfo/${studyOnceId}`);
     } catch (error) {
       const isLoggedIn = useUser.getState().isLoggedIn;
-      tokenRefreash(error, isLoggedIn);
+      tokenRefresh(error, isLoggedIn);
       alert(error.response.data.errorMessage);
     }
   };
