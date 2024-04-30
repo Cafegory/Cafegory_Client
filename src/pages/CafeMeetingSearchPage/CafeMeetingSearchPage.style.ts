@@ -5,7 +5,7 @@ export const CafeSearch = styled.div`
   width: 100%;
   align-items: center;
   flex-direction: column;
-  height: 25rem;
+  height: 29rem;
   gap: 7%;
 
   @media (max-width: 768px) {
@@ -41,7 +41,7 @@ export const InputContainer = styled.div`
 `;
 
 export const InputField = styled.input`
-  width: 95%;
+  width: 90%;
   border: none;
   font-size: 1rem;
   height: 80%;
@@ -102,10 +102,10 @@ export const FitterTitle = styled.div`
 
 export const ChooseOption = styled.div`
   width: 60%;
-  height: 70%;
+  height: 50%;
   display: flex;
   flex-direction: column;
-  gap: 5%;
+  justify-content: space-around;
 
   @media (max-width: 768px) {
     width: 90%;
@@ -139,8 +139,7 @@ export const ChooseFont = styled.div`
 
 export const Choose = styled.div`
   display: flex;
-  width: 100%;
-  height: 100%;
+  flex-wrap: wrap;
   gap: 1%;
   align-items: center;
 
@@ -151,25 +150,16 @@ export const Choose = styled.div`
 `;
 
 export const Option = styled.div`
-  padding: 1%;
-  display: flex;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 0.5rem;
-  justify-content: center;
+  padding: 2%;
   width: auto;
-  height: auto;
-  font-weight: bold;
+  height: 1rem;
+  display: flex;
   align-items: center;
+  border-radius: 0.5rem;
   font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  &:hover,
-  &.selected {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-  &:active {
-    background-color: darkgray;
-  }
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  margin-top: 0.1rem;
 
   @media (max-width: 1024px) {
     font-size: 1rem;
@@ -182,12 +172,12 @@ export const MaximumInputContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 1%;
-  width: 100%;
+  width: auto;
   height: 100%;
 `;
 
 export const MaximumInput = styled.input`
-  width: 5%;
+  width: auto;
   height: 40%;
   border: none;
   &:focus {
@@ -197,6 +187,7 @@ export const MaximumInput = styled.input`
   border-radius: 10px;
   padding: 1%;
   font-size: 1.1rem;
+  margin-bottom: 0.7rem;
 
   @media (max-width: 1024px) {
     font-size: 1rem;
