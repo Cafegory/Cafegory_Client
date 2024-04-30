@@ -16,9 +16,10 @@ const Kakao: React.FC<{ addresses: string[] }> = ({ addresses }) => {
     let container = document.getElementById('map');
     let options = {
       center: new kakao.maps.LatLng(37.5, 127.02),
-      level: 10,
+      level: 9,
     };
     const map = new kakao.maps.Map(container, options);
+    let bounds = new kakao.maps.LatLngBounds();
     addresses.forEach((address) => {
       axios
         .get(`https://dapi.kakao.com/v2/local/search/address.json`, {
@@ -36,6 +37,9 @@ const Kakao: React.FC<{ addresses: string[] }> = ({ addresses }) => {
             map: map,
             position: latlng,
           });
+
+          bounds.extend(latlng);
+          map.setBounds(bounds);
         })
         .catch((error) => {
           console.error(error);
