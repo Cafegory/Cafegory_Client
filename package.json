@@ -34,7 +34,10 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",
-    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build",
+    "postbuild": "cp build/index.html build/404.html"
   },
   "eslintConfig": {
     "extends": [
@@ -57,6 +60,7 @@
   "devDependencies": {
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
+    "gh-pages": "^6.1.1",
     "prettier": "^3.2.5"
   },
   "proxy": "http://52.78.210.204"
