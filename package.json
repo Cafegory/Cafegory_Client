@@ -1,5 +1,4 @@
 {
-  "homepage": "https://sojeong0302.github.io",
   "name": "cafegory_client",
   "version": "0.1.0",
   "private": true,
@@ -34,10 +33,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",
-    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-    "deploy": "gh-pages -d build",
-    "predeploy": "npm run build",
-    "postbuild": "cpy 'build/index.html' 'build/404.html'"
+    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "eslintConfig": {
     "extends": [
