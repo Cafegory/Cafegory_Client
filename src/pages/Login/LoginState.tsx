@@ -12,7 +12,7 @@ const LoginState: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://52.78.210.204/oauth2/kakao?code=${code}`,
+          `https://cafegory.robinjoon.xyz/oauth2/kakao?code=${code}`,
         );
         console.log('hi');
         console.log(response);
