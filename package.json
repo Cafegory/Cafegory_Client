@@ -37,7 +37,7 @@
     "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "deploy": "gh-pages -d build",
     "predeploy": "npm run build",
-    "postbuild": "cp build/index.html build/404.html"
+    "postbuild": "copy build/index.html build/404.html"
   },
   "eslintConfig": {
     "extends": [
