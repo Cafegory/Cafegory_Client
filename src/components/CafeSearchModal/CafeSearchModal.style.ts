@@ -22,6 +22,11 @@ export const CafeSearchModalContainer = styled.div`
   transform: translate(-40%, -50%);
   overflow-y: auto;
   padding: 2%;
+  @media (max-width: 768px) {
+    gap: 10%;
+    width: 85%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export const ResearchContainer = styled.div`
@@ -107,7 +112,7 @@ export const ChooseOption = styled.div`
   @media (max-width: 768px) {
     height: 100%;
     width: 90%;
-    gap: 7%;
+    gap: 3%;
     margin-bottom: 2rem;
     justify-content: center;
   }
@@ -116,10 +121,6 @@ export const ChooseOption = styled.div`
 export const StudyAvailability = styled.div`
   display: flex;
   flex-direction: column;
-
-  @media (max-width: 768px) {
-    gap: 10%;
-  }
 `;
 
 export const ChooseFont = styled.div`
@@ -155,8 +156,8 @@ export const Option = styled.div`
 
   @media (max-width: 1024px) {
     font-size: 1rem;
-    padding: 3%;
-    margin-bottom: 1%;
+    padding: 6%;
+    margin-bottom: 0;
   }
 `;
 export const CafeList = styled.div`
