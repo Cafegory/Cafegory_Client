@@ -11,7 +11,9 @@ const LoginState: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/oauth2/kakao?code=${code}`);
+        const response = await axios.get(
+          `https://52.78.210.204/oauth2/kakao?code=${code}`,
+        );
         console.log('hi');
         console.log(response);
         console.log(response.data);
