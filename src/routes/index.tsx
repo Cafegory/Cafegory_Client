@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+// import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import Main from '../pages/MainPage/MainPage';
 import My from '../pages/MyPage/MyPage';
 import CafeSearch from '../pages/CafeSearchPage/CafeSearchPage';
@@ -18,7 +19,7 @@ import TemporaryMain from 'pages/TemporaryMain/TemporaryMain';
 
 const Router: React.FC = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/my" element={<My />} />
@@ -50,7 +51,7 @@ const Router: React.FC = () => {
         <Route path="/mypageEdit" element={<MyPageEdit />} />
         <Route path="/oauth" element={<LoginState />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
