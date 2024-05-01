@@ -28,6 +28,7 @@ import {
   BusinessHourDetailModalContent,
   ModalBackdrop,
   SelectContainer as StyledSelectContainer,
+  Close,
 } from './CafeSearchModal.style';
 
 import ShortButton from 'components/ShortButton';
@@ -43,11 +44,13 @@ import {
 import { Pagination } from '@mui/material';
 import { tokenRefreash } from '../../components/RefreashModal/RefreashModal.hooks';
 import { useUser } from '../../store/users/store';
+import { cafeChange } from 'pages/CafeRecruitmentModifyPage/CafeRecruitmentModifyPage.hooks';
 
 const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
   onSelectCafe,
 }) => {
   const [cafes, setCafes] = useState([]);
+  const { showCafeSearch, setShowCafeSearch } = cafeChange();
   const {
     canStudy,
     setCanStudy,
@@ -298,172 +301,194 @@ const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
   };
 
   const handleCafeSelect = (cafeId) => {
-    console.log(`넘겨줄 카페 아이디${cafeId}`);
     onSelectCafe(cafeId);
   };
 
+  const handleButtonClick = () => {
+    setShowCafeSearch(!showCafeSearch);
+  };
+
   return (
-    <CafeSearchModalContainer>
-      <ResearchContainer>
-        <InputContainer>
-          <InputField
-            placeholder={'검색어를 입력해주세요'}
-            value={inputArea}
-            onChange={(e) => setInputArea(e.target.value)}
-          ></InputField>
-          <PlaceImg src="/assets/place-icon.png"></PlaceImg>
-        </InputContainer>
-        <ShortButton
-          message="필터"
-          color="white"
-          onClick={handleFilterButtonClick}
+    <>
+      <CafeSearchModalContainer>
+        <Close onClick={handleButtonClick}>x</Close>
+        <ResearchContainer>
+          <InputContainer>
+            <InputField
+              placeholder={'검색어를 입력해주세요'}
+              value={inputArea}
+              onChange={(e) => setInputArea(e.target.value)}
+            ></InputField>
+            <PlaceImg src="/assets/place-icon.png"></PlaceImg>
+          </InputContainer>
+          <ShortButton
+            message="필터"
+            color="white"
+            onClick={handleFilterButtonClick}
+          />
+          <ShortButton
+            message="검색"
+            color="black"
+            onClick={handleSearchClick}
+          />
+        </ResearchContainer>
+        {showFitter && (
+          <FitterContainer>
+            <FitterTitle>필터</FitterTitle>
+            <ChooseOption>
+              <StudyAvailability>
+                <ChooseFont>카페에서 공부?</ChooseFont>
+                <Choose>
+                  <Option
+                    onClick={() => {
+                      handleCanTalkOptionClick('TRUE');
+                      setCanStudyState(true);
+                    }}
+                    style={{
+                      backgroundColor:
+                        isSelectedCanStudy === 'TRUE'
+                          ? 'rgba(0, 0, 0, 0.2)'
+                          : 'rgba(0, 0, 0, 0.05)',
+                    }}
+                  >
+                    {Possibility}
+                  </Option>
+                  <Option
+                    onClick={() => {
+                      handleCanTalkOptionClick('FALSE');
+                      setCanStudyState(false);
+                    }}
+                    style={{
+                      backgroundColor:
+                        isSelectedCanStudy === 'FALSE'
+                          ? 'rgba(0, 0, 0, 0.2)'
+                          : 'rgba(0, 0, 0, 0.05)',
+                    }}
+                  >
+                    {Impossibility}
+                  </Option>
+                </Choose>
+              </StudyAvailability>
+              <StudyAvailability>
+                <ChooseFont>영업 시간</ChooseFont>
+                <Choose>
+                  <StyledSelectContainer
+                    value={startTimeState}
+                    onChange={(e) =>
+                      setStartTimeState(parseInt(e.target.value))
+                    }
+                  >
+                    {[...Array(25)].map((_, index) => {
+                      const hour =
+                        index === 24 ? '24' : index.toString().padStart(2, '0');
+                      return (
+                        <option
+                          key={index}
+                          value={index}
+                        >{`${hour}:00`}</option>
+                      );
+                    })}
+                  </StyledSelectContainer>
+                  부터
+                  <StyledSelectContainer
+                    value={endTimeState}
+                    onChange={(e) => setEndTimeState(parseInt(e.target.value))}
+                  >
+                    {[...Array(25)].map((_, index) => {
+                      const hour =
+                        index === 24 ? '24' : index.toString().padStart(2, '0');
+                      return (
+                        <option
+                          key={index}
+                          value={index}
+                        >{`${hour}:00`}</option>
+                      );
+                    })}
+                  </StyledSelectContainer>
+                  까지
+                </Choose>
+              </StudyAvailability>
+              <StudyAvailability>
+                <ChooseFont>음료 최저가</ChooseFont>
+                <Choose>{renderDrinkPriceOptions()}</Choose>
+              </StudyAvailability>
+              <StudyAvailability>
+                <ChooseFont>최대 이용 가능 시간</ChooseFont>
+                <Choose>{renderUsageTimeOptions()}</Choose>
+              </StudyAvailability>
+            </ChooseOption>
+            <ShortButton message="적용" color="black" onClick={ApplyFilter} />
+          </FitterContainer>
+        )}
+        <CafeList>
+          {cafes.map((cafe, index) => (
+            <List key={index} onClick={() => handleCafeSelect(cafe.cafeId)}>
+              <Detail>
+                <Name>{cafe.name}</Name>
+                <AdressContainer>
+                  <Adress>
+                    {window.innerWidth <= 768
+                      ? cafe.address.split(' ').slice(0, 3).join(' ')
+                      : cafe.address}
+                  </Adress>
+                  <DetailModal
+                    src={
+                      adressModalState[index]
+                        ? '/assets/detail-icon.png'
+                        : '/assets/detailv-icon.png'
+                    }
+                    onClick={() => handleAdressDetailModalClick(index)}
+                  />
+                </AdressContainer>
+                {adressModalState[index] && (
+                  <>
+                    <AdressDetailModalContent>
+                      {cafe.address}
+                    </AdressDetailModalContent>
+                    <ModalBackdrop onClick={closeModal}></ModalBackdrop>
+                  </>
+                )}
+                <div onClick={closeModal}></div>
+                <BusinessHoursContainer>
+                  <BusinessHours>
+                    {window.innerWidth <= 768
+                      ? formatBusinessHours(cafe.businessHours)[0]
+                      : formatBusinessHours(cafe.businessHours)}
+                  </BusinessHours>
+                  <DetailModal
+                    src={
+                      businessHourModalState[index]
+                        ? '/assets/detail-icon.png'
+                        : '/assets/detailv-icon.png'
+                    }
+                    onClick={() => handleBusinessHourDetailModalClick(index)}
+                  />
+                </BusinessHoursContainer>
+                {businessHourModalState[index] && (
+                  <>
+                    <BusinessHourDetailModalContent>
+                      {formatBusinessHours(cafe.businessHours)}
+                    </BusinessHourDetailModalContent>
+                    <ModalBackdrop onClick={closeModal}></ModalBackdrop>
+                  </>
+                )}
+                <MinBeveragePrice>
+                  가장 저렴함 음료 {cafe.minBeveragePrice}원
+                </MinBeveragePrice>
+              </Detail>
+              {cafe.isOpen ? (
+                <IsOpenImg src="/assets/isOpen.png" alt="영업중" />
+              ) : null}
+            </List>
+          ))}
+        </CafeList>
+        <Pagination
+          count={maxPage}
+          page={nowPage}
+          onChange={handlePageChange}
         />
-        <ShortButton message="검색" color="black" onClick={handleSearchClick} />
-      </ResearchContainer>
-      {showFitter && (
-        <FitterContainer>
-          <FitterTitle>필터</FitterTitle>
-          <ChooseOption>
-            <StudyAvailability>
-              <ChooseFont>카페에서 공부?</ChooseFont>
-              <Choose>
-                <Option
-                  onClick={() => {
-                    handleCanTalkOptionClick('TRUE');
-                    setCanStudyState(true);
-                  }}
-                  style={{
-                    backgroundColor:
-                      isSelectedCanStudy === 'TRUE'
-                        ? 'rgba(0, 0, 0, 0.2)'
-                        : 'rgba(0, 0, 0, 0.05)',
-                  }}
-                >
-                  {Possibility}
-                </Option>
-                <Option
-                  onClick={() => {
-                    handleCanTalkOptionClick('FALSE');
-                    setCanStudyState(false);
-                  }}
-                  style={{
-                    backgroundColor:
-                      isSelectedCanStudy === 'FALSE'
-                        ? 'rgba(0, 0, 0, 0.2)'
-                        : 'rgba(0, 0, 0, 0.05)',
-                  }}
-                >
-                  {Impossibility}
-                </Option>
-              </Choose>
-            </StudyAvailability>
-            <StudyAvailability>
-              <ChooseFont>영업 시간</ChooseFont>
-              <Choose>
-                <StyledSelectContainer
-                  value={startTimeState}
-                  onChange={(e) => setStartTimeState(parseInt(e.target.value))}
-                >
-                  {[...Array(25)].map((_, index) => {
-                    const hour =
-                      index === 24 ? '24' : index.toString().padStart(2, '0');
-                    return (
-                      <option key={index} value={index}>{`${hour}:00`}</option>
-                    );
-                  })}
-                </StyledSelectContainer>
-                부터
-                <StyledSelectContainer
-                  value={endTimeState}
-                  onChange={(e) => setEndTimeState(parseInt(e.target.value))}
-                >
-                  {[...Array(25)].map((_, index) => {
-                    const hour =
-                      index === 24 ? '24' : index.toString().padStart(2, '0');
-                    return (
-                      <option key={index} value={index}>{`${hour}:00`}</option>
-                    );
-                  })}
-                </StyledSelectContainer>
-                까지
-              </Choose>
-            </StudyAvailability>
-            <StudyAvailability>
-              <ChooseFont>음료 최저가</ChooseFont>
-              <Choose>{renderDrinkPriceOptions()}</Choose>
-            </StudyAvailability>
-            <StudyAvailability>
-              <ChooseFont>최대 이용 가능 시간</ChooseFont>
-              <Choose>{renderUsageTimeOptions()}</Choose>
-            </StudyAvailability>
-          </ChooseOption>
-          <ShortButton message="적용" color="black" onClick={ApplyFilter} />
-        </FitterContainer>
-      )}
-      <CafeList>
-        {cafes.map((cafe, index) => (
-          <List key={index} onClick={() => handleCafeSelect(cafe.cafeId)}>
-            <Detail>
-              <Name>{cafe.name}</Name>
-              <AdressContainer>
-                <Adress>
-                  {window.innerWidth <= 768
-                    ? cafe.address.split(' ').slice(0, 3).join(' ')
-                    : cafe.address}
-                </Adress>
-                <DetailModal
-                  src={
-                    adressModalState[index]
-                      ? '/assets/detail-icon.png'
-                      : '/assets/detailv-icon.png'
-                  }
-                  onClick={() => handleAdressDetailModalClick(index)}
-                />
-              </AdressContainer>
-              {adressModalState[index] && (
-                <>
-                  <AdressDetailModalContent>
-                    {cafe.address}
-                  </AdressDetailModalContent>
-                  <ModalBackdrop onClick={closeModal}></ModalBackdrop>
-                </>
-              )}
-              <div onClick={closeModal}></div>
-              <BusinessHoursContainer>
-                <BusinessHours>
-                  {window.innerWidth <= 768
-                    ? formatBusinessHours(cafe.businessHours)[0]
-                    : formatBusinessHours(cafe.businessHours)}
-                </BusinessHours>
-                <DetailModal
-                  src={
-                    businessHourModalState[index]
-                      ? '/assets/detail-icon.png'
-                      : '/assets/detailv-icon.png'
-                  }
-                  onClick={() => handleBusinessHourDetailModalClick(index)}
-                />
-              </BusinessHoursContainer>
-              {businessHourModalState[index] && (
-                <>
-                  <BusinessHourDetailModalContent>
-                    {formatBusinessHours(cafe.businessHours)}
-                  </BusinessHourDetailModalContent>
-                  <ModalBackdrop onClick={closeModal}></ModalBackdrop>
-                </>
-              )}
-              <MinBeveragePrice>
-                가장 저렴함 음료 {cafe.minBeveragePrice}원
-              </MinBeveragePrice>
-            </Detail>
-            {cafe.isOpen ? (
-              <IsOpenImg src="/assets/isOpen.png" alt="영업중" />
-            ) : null}
-          </List>
-        ))}
-      </CafeList>
-      <Pagination count={maxPage} page={nowPage} onChange={handlePageChange} />
-    </CafeSearchModalContainer>
+      </CafeSearchModalContainer>
+    </>
   );
 };
 

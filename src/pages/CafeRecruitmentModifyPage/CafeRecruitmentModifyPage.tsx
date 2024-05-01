@@ -51,6 +51,7 @@ import {
   Underline,
   CafeChangeButton,
   OpenKakao,
+  Close,
 } from './CafeRecruitmentModifyPage.style';
 
 import {
