@@ -20,7 +20,7 @@ import TemporaryMain from 'pages/TemporaryMain/TemporaryMain';
 
 const Router: React.FC = () => {
   return (
-    <BrowserRouter basename="/sojeong0302.github.io">
+    <BrowserRouter basename="">
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/my" element={<My />} />
