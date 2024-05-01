@@ -12,6 +12,8 @@ const LoginState: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`/oauth2/kakao?code=${code}`);
+        console.log(response);
+        console.log(response.data);
         localStorage.setItem(
           'accessToken',
           JSON.stringify(response.data.accessToken),
@@ -24,7 +26,7 @@ const LoginState: React.FC = () => {
         const accessToken = response.data.accessToken;
         getMemberId(accessToken);
         navigate('/');
-        window.location.reload();
+        // window.location.reload();
       } catch (error) {
         console.error(error);
         console.log('실패?');
