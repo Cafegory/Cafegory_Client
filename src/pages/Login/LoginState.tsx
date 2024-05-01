@@ -39,7 +39,10 @@ const LoginState: React.FC = () => {
 
   function decodeJWT(token) {
     try {
-      const tokenParts = token.split('.');
+      if (!token) {
+        return;
+      }
+      const tokenParts = token?.split('.');
       const payload = JSON.parse(atob(tokenParts[1]));
       return payload;
     } catch (error) {
