@@ -280,3 +280,8 @@ export const CafeChangeButton = styled.div`
 `;
 
 export const OpenKakao = styled.div``;
+
+export const Close = styled.div`
+  height: 100%;
+  width: 100%;
+`;

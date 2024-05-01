@@ -91,7 +91,6 @@ export const FitterContainer = styled.div`
 `;
 
 export const FitterTitle = styled.div`
-  margin-bottom: 2.5rem;
   font-size: 2.3rem;
   font-weight: 550;
 
@@ -102,7 +101,7 @@ export const FitterTitle = styled.div`
 
 export const ChooseOption = styled.div`
   width: 60%;
-  height: 70%;
+  height: 50%;
   display: flex;
   flex-direction: column;
   gap: 5%;
@@ -139,8 +138,7 @@ export const ChooseFont = styled.div`
 
 export const Choose = styled.div`
   display: flex;
-  width: 100%;
-  height: 100%;
+  flex-wrap: wrap;
   gap: 1%;
   align-items: center;
 
@@ -151,13 +149,13 @@ export const Choose = styled.div`
 `;
 
 export const Option = styled.div`
-  padding: 1%;
+  padding: 2%;
   display: flex;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;
   justify-content: center;
   width: auto;
-  height: auto;
+  height: 1rem;
   font-weight: bold;
   align-items: center;
   font-size: 0.9rem;
@@ -170,6 +168,8 @@ export const Option = styled.div`
   &:active {
     background-color: darkgray;
   }
+  margin-bottom: 0.5rem;
+  margin-top: 0.1rem;
 
   @media (max-width: 1024px) {
     font-size: 1rem;

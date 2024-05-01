@@ -5,7 +5,7 @@ export const CafeSearch = styled.div`
   width: 100%;
   align-items: center;
   flex-direction: column;
-  height: 25rem;
+  height: 32rem;
   gap: 7%;
 
   @media (max-width: 768px) {

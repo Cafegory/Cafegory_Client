@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+export const Close = styled.div`
+  cursor: pointer;
+  margin-left: auto;
+  font-size: 2rem;
+`;
+
 export const CafeSearchModalContainer = styled.div`
   position: fixed;
   width: 70%;
@@ -9,7 +15,6 @@ export const CafeSearchModalContainer = styled.div`
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   flex-direction: column;
   z-index: 9999;
-  // justify-content: space-between;
   align-items: center;
   gap: 30%;
   left: 50%;
@@ -17,11 +22,15 @@ export const CafeSearchModalContainer = styled.div`
   transform: translate(-40%, -50%);
   overflow-y: auto;
   padding: 2%;
+  @media (max-width: 768px) {
+    gap: 10%;
+    width: 85%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export const ResearchContainer = styled.div`
   display: flex;
-  // height: 20rem;
   height: 10%;
   width: 100%;
   justify-content: center;
@@ -39,7 +48,6 @@ export const InputContainer = styled.div`
   border-radius: 10px;
   border: 1px solid #ccc;
   width: 32%;
-  // height: 3rem;
   height: 80%;
   justify-content: space-around;
   background-color: #ffffff;
@@ -75,7 +83,6 @@ export const FitterContainer = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: center;
-  // height: 55rem;
   height: auto;
   justify-content: space-around;
 
@@ -91,8 +98,7 @@ export const FitterTitle = styled.div`
   font-weight: 550;
 
   @media (max-width: 768px) {
-    font-size: 1.8rem;
-    margin-bottom: 0rem;
+    display: none;
   }
 `;
 
@@ -100,12 +106,13 @@ export const ChooseOption = styled.div`
   display: flex;
   flex-direction: column;
   height: 70%;
-  justify-content: space-around;
-
+  gap: 3%;
+  // justify-content: space-around;
+  margin-bottom: 3rem;
   @media (max-width: 768px) {
-    height: 50%;
+    height: 100%;
     width: 90%;
-    gap: 7%;
+    gap: 3%;
     margin-bottom: 2rem;
     justify-content: center;
   }
@@ -114,10 +121,6 @@ export const ChooseOption = styled.div`
 export const StudyAvailability = styled.div`
   display: flex;
   flex-direction: column;
-
-  @media (max-width: 768px) {
-    gap: 10%;
-  }
 `;
 
 export const ChooseFont = styled.div`
@@ -143,7 +146,6 @@ export const Choose = styled.div`
 export const Option = styled.div`
   padding: 2%;
   width: auto;
-  // height: 1rem;
   height: 1%;
   display: flex;
   align-items: center;
@@ -151,12 +153,11 @@ export const Option = styled.div`
   font-size: 0.9rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
-  margin-top: 0.1rem;
 
   @media (max-width: 1024px) {
     font-size: 1rem;
-    padding: 3%;
-    margin-bottom: 1%;
+    padding: 6%;
+    margin-bottom: 0;
   }
 `;
 export const CafeList = styled.div`

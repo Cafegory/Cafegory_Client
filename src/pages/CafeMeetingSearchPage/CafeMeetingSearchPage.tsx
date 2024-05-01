@@ -89,8 +89,8 @@ const CafeCreateRecruitment: React.FC = () => {
     }
   }, [onlyJoinAble, maxMemberCount, canTalk, area]);
 
-  const maxMember = 10;
-  const minMember = 0;
+  const maxMember = 5;
+  const minMember = 1;
 
   const handleSearchClick = () => {
     if (area.trim() === '') {
@@ -110,7 +110,7 @@ const CafeCreateRecruitment: React.FC = () => {
           <InputContainer>
             <InputField
               type="text"
-              placeholder="검색어를 입력하세요 (예: 역삼동, 스타벅스 강남R점)"
+              placeholder="검색어를 입력하세요 (예: 역삼동)"
               value={area}
               onChange={(e) => setArea(e.target.value)}
             />
