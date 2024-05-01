@@ -53,7 +53,7 @@ const Attendance: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `/study/once/${routeStudyOnceId}/member/list`,
+          `https://cafegory.robinjoon.xyz/study/once/${routeStudyOnceId}/member/list`,
           {
             headers: {
               Authorization: accessToken,
@@ -79,11 +79,14 @@ const Attendance: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/study/once/${routeStudyOnceId}`, {
-          headers: {
-            Authorization: accessToken,
+        const response = await axios.get(
+          `https://cafegory.robinjoon.xyz/study/once/${routeStudyOnceId}`,
+          {
+            headers: {
+              Authorization: accessToken,
+            },
           },
-        });
+        );
         setCreatorId(response.data.creatorId);
       } catch (error) {
         const isLoggedIn = useUser.getState().isLoggedIn;
@@ -104,7 +107,7 @@ const Attendance: React.FC = () => {
       console.log(`출력해보기!!!! ${JSON.stringify(checkedState)}`);
       console.log(`데이터! ${JSON.stringify(data)}`);
       const response = await axios.patch(
-        `/study/once/${routeStudyOnceId}/attendance`,
+        `https://cafegory.robinjoon.xyz/study/once/${routeStudyOnceId}/attendance`,
         { states: data },
         {
           headers: {

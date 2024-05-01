@@ -90,7 +90,7 @@ export const CafeCreateResruitmentApiContent = create<CafeCreateResruitmentApi>(
         openChatUrl: OptionContent.getState().openChatUrl,
       };
       try {
-        const response = await axios.post('/study/once', sendData, {
+        const response = await axios.post('https://cafegory.robinjoon.xyz/study/once', sendData, {
           headers: {
             Authorization: accessToken,
           },

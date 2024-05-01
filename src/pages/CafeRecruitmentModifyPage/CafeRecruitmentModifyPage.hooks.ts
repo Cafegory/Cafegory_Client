@@ -72,7 +72,7 @@ export const useMemberStore = create<MemberStore>((set) => ({
   getMemberList: async () => {
     try {
       const response = await axios.get(
-        `/study/once/${study.getState().studyOnceId}/member/list`,
+        `https://cafegory.robinjoon.xyz/study/once/${study.getState().studyOnceId}/member/list`,
         {
           headers: {
             Authorization: accessToken,

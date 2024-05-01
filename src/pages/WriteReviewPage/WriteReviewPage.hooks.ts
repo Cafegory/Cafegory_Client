@@ -29,7 +29,7 @@ export const postReview = async () => {
   };
 
   try {
-    await axios.post('/cafe/1/review', reviewData, {
+    await axios.post('https://cafegory.robinjoon.xyz/cafe/1/review', reviewData, {
       headers: {
         Authorization: accessToken,
       }
@@ -47,7 +47,7 @@ export const patchReview = async () => {
   
   try {
     const id = ReviewEditStore.getState().editReviewId;
-    await axios.patch(`/cafe/review/${id}`,reviewData, {
+    await axios.patch(`https://cafegory.robinjoon.xyz/cafe/review/${id}`,reviewData, {
       headers: {
         Authorization: accessToken,
       }

@@ -17,7 +17,7 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
 
   fetchProfile: async () => {
     try {
-      const response = await axios.get(`/profile/${memberId}`, {
+      const response = await axios.get(`https://cafegory.robinjoon.xyz/profile/${memberId}`, {
         headers: {
           Authorization: accessToken,
         },
@@ -36,7 +36,7 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
       introduction: profileApiStore.getState().introduction,
     };
     try {
-      await axios.patch(`/profile/${memberId}`, profileData, {
+      await axios.patch(`https://cafegory.robinjoon.xyz/profile/${memberId}`, profileData, {
         headers: {
           Authorization: accessToken,
         },

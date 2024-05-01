@@ -42,7 +42,7 @@ export const cafeMeetingInfoApiStore = create<ApiStoreState>((set) => ({
   },
   fetchInfo: async (studyOnceId) => {
     try {
-      const response = await axios.get(`/study/once/${studyOnceId}`, {
+      const response = await axios.get(`https://cafegory.robinjoon.xyz/study/once/${studyOnceId}`, {
         headers: {
           Authorization: accessToken,
         },
@@ -87,7 +87,7 @@ export const qnaApiStore = create<qnaStoreState>((set) => ({
   fetchQna: async (studyOnceId) => {
     try {
       const response = await axios.get(
-        `/study/once/${studyOnceId}/comment/list`,
+        `https://cafegory.robinjoon.xyz/study/once/${studyOnceId}/comment/list`,
         {
           headers: {
             Authorization: accessToken,
@@ -108,7 +108,7 @@ export const questionApiStore = create<QuestionStoreState>((set) => ({
   postQuestion: async (studyOnceId) => {
     const data = { content: questionApiStore.getState().questionContent };
     try {
-      await axios.post(`/study/once/${studyOnceId}/question`, data, {
+      await axios.post(`https://cafegory.robinjoon.xyz/study/once/${studyOnceId}/question`, data, {
         headers: {
           Authorization: accessToken,
         },
@@ -120,7 +120,7 @@ export const questionApiStore = create<QuestionStoreState>((set) => ({
 
   deleteQuestion: async (commentId) => {
     try {
-      await axios.delete(`/study/once/question/${commentId}`, {
+      await axios.delete(`https://cafegory.robinjoon.xyz/study/once/question/${commentId}`, {
         headers: {
           Authorization: accessToken,
         },
@@ -139,7 +139,7 @@ export const answerApiStore = create<AnswerStoreState>((set) => ({
     const data = { content: answerApiStore.getState().answerContent };
     try {
       await axios.post(
-        `/study/once/${studyOnceId}/question/${parentCommentId}/reply`,
+        `https://cafegory.robinjoon.xyz/study/once/${studyOnceId}/question/${parentCommentId}/reply`,
         data,
         {
           headers: {
@@ -154,7 +154,7 @@ export const answerApiStore = create<AnswerStoreState>((set) => ({
 
   deleteAnswer: async (commentId) => {
     try {
-      await axios.delete(`/study/once/reply/${commentId}`, {
+      await axios.delete(`https://cafegory.robinjoon.xyz/study/once/reply/${commentId}`, {
         headers: {
           Authorization: accessToken,
         },
@@ -168,7 +168,7 @@ export const answerApiStore = create<AnswerStoreState>((set) => ({
 export const joinApiStore = create(() => ({
   joinCafeMeeting: async (studyOnceId) => {
     try {
-      await axios.post(`/study/once/${studyOnceId}`, null, {
+      await axios.post(`https://cafegory.robinjoon.xyz/study/once/${studyOnceId}`, null, {
         headers: {
           Authorization: accessToken,
         },
@@ -182,7 +182,7 @@ export const joinApiStore = create(() => ({
   },
   cancelJoin: async (studyOnceId) => {
     try {
-      await axios.delete(`/study/once/${studyOnceId}`, {
+      await axios.delete(`https://cafegory.robinjoon.xyz/study/once/${studyOnceId}`, {
         headers: {
           Authorization: accessToken,
         },

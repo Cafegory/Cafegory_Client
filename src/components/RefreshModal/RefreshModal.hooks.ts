@@ -14,7 +14,7 @@ export const postToken = async () => {
         "refreshToken" : refreshToken
     }
     try {
-        const response = await axios.post('/oauth2/refresh', reviewData, {
+        const response = await axios.post('https://cafegory.robinjoon.xyz/oauth2/refresh', reviewData, {
       });
       console.log(response.data)
       localStorage.setItem(

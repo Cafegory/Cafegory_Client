@@ -16,7 +16,7 @@ export const reviewApiStore = create<ApiStoreState>((set) => ({
   reviews: [],
   fetchReviews: async (cafeId) => {
     try {
-      const response = await axios.get(`http://52.78.210.204/cafe/${cafeId}/review/list`, {
+      const response = await axios.get(`https://cafegory.robinjoon.xyz/cafe/${cafeId}/review/list`, {
         headers: {
           Authorization: accessToken,
         },
@@ -29,7 +29,7 @@ export const reviewApiStore = create<ApiStoreState>((set) => ({
   },
   deleteReview: async (reviewId) => {
     try {
-      await axios.delete(`/cafe/review/${reviewId}`, {
+      await axios.delete(`https://cafegory.robinjoon.xyz/cafe/review/${reviewId}`, {
         headers: {
           Authorization: accessToken,
         },

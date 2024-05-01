@@ -120,7 +120,7 @@ const CafeRecruitmentModify: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `/study/once/${studyOnceId}/member/list`,
+          `https://cafegory.robinjoon.xyz/study/once/${studyOnceId}/member/list`,
           {
             headers: {
               Authorization: accessToken,
@@ -144,11 +144,14 @@ const CafeRecruitmentModify: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/study/once/${studyOnceId}`, {
-          headers: {
-            Authorization: accessToken,
+        const response = await axios.get(
+          `https://cafegory.robinjoon.xyz/study/once/${studyOnceId}`,
+          {
+            headers: {
+              Authorization: accessToken,
+            },
           },
-        });
+        );
         console.log(`그룹 정보 불러오기:`, response.data);
         setName(response.data.name);
         setMaxMemberCount(parseInt(response.data.maxMemberCount));
@@ -199,7 +202,7 @@ const CafeRecruitmentModify: React.FC = () => {
     try {
       if (currentCafeId !== cafeId) {
         await axios.post(
-          `/email`,
+          `https://cafegory.robinjoon.xyz/email`,
           {
             messageType: 'STUDYONCE_LOCATION_CHANGED',
             memberIds: memberIds,
@@ -211,11 +214,15 @@ const CafeRecruitmentModify: React.FC = () => {
           },
         );
       }
-      await axios.patch(`/study/once/${studyOnceId}`, sendData, {
-        headers: {
-          Authorization: accessToken,
+      await axios.patch(
+        `https://cafegory.robinjoon.xyz/study/once/${studyOnceId}`,
+        sendData,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
         },
-      });
+      );
       console.log('요청 성공');
       navigate(`/cafeMeetingInfo/${studyOnceId}`);
     } catch (error) {

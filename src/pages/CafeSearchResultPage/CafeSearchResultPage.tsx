@@ -121,7 +121,7 @@ const CafeSearchResult: React.FC = () => {
   useEffect(() => {
     axios
       .get(
-        `/cafe/list?page=1&area=${area}&canStudy=${canStudy}&startTime=${routeStartTime}&endTime=${routeEndTime}&minBeveragePrice=${routeMinBeveragePrice}&maxTime=${routeMaxTime}&sizePerPage=5`,
+        `https://cafegory.robinjoon.xyz/cafe/list?page=1&area=${area}&canStudy=${canStudy}&startTime=${routeStartTime}&endTime=${routeEndTime}&minBeveragePrice=${routeMinBeveragePrice}&maxTime=${routeMaxTime}&sizePerPage=5`,
         {
           headers: {
             Authorization: accessToken,
@@ -331,7 +331,7 @@ const CafeSearchResult: React.FC = () => {
 
     axios
       .get(
-        `/cafe/list?page=${newPage}&area=${area}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=5`,
+        `https://cafegory.robinjoon.xyz/cafe/list?page=${newPage}&area=${area}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=5`,
         {
           headers: {
             Authorization: accessToken,

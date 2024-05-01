@@ -44,7 +44,7 @@ export const QnaEditApiState = create<QnaEditApiStore>((set) => ({
         const commentId = QnaEditApiState.getState().commentId
 
         try {
-          await axios.patch(`/study/once/reply/${commentId}`,answerData,{
+          await axios.patch(`https://cafegory.robinjoon.xyz/study/once/reply/${commentId}`,answerData,{
             headers: {
               Authorization: accessToken,
             },
