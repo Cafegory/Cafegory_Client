@@ -25,10 +25,10 @@ const My: React.FC = () => {
 
   useEffect(() => {
     const memberId = localStorage.getItem('memberId');
-    if (!memberId) {
-      alert('로그인이 필요합니다.');
-      navigate('/');
-    }
+    // if (!memberId) {
+    //   alert('로그인이 필요합니다.');
+    //   navigate('/');
+    // }
   }, []);
 
   return (
