@@ -17,7 +17,7 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
     const memberId = localStorage.getItem('memberId');
 
     return axios
-      .get(`https://cafegory.robinjoon.xyz/profile/${memberId}`, {
+      .get(`/api/profile/${memberId}`, {
         headers: {
           Authorization: accessToken,
         },
