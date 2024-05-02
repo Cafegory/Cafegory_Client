@@ -18,7 +18,7 @@ import { useEffect } from 'react';
 const My: React.FC = () => {
   const { name, introduction, thumbnailingImg, fetchProfile } =
     profileApiStore();
-  React.useEffect(() => {
+  useEffect(() => {
     fetchProfile();
   }, []);
   const navigate = useNavigate();

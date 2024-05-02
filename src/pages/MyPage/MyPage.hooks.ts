@@ -4,8 +4,6 @@ import axios from 'axios';
 import { tokenRefresh } from '../../components/RefreshModal/RefreshModal.hooks';
 import { useUser } from '../../store/users/store';
 
-
-
 export const profileApiStore = create<ApiStoreState>((set) => ({
   name: '',
   introduction: '',
@@ -14,42 +12,49 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
   setIntroduction: (newIntroduction) => set({ introduction: newIntroduction }),
   setThumbnailingImg: (newImg) => set({ thumbnailingImg: newImg }),
 
-  fetchProfile: async () => {
+  fetchProfile: () => {
     const accessToken = JSON.parse(localStorage.getItem('accessToken'));
-    const memberId =localStorage.getItem('memberId');
+    const memberId = localStorage.getItem('memberId');
 
-    try {
-      const response = await axios.get(`https://cafegory.robinjoon.xyz/profile/${memberId}`, {
+    return axios
+      .get(`/profile/${memberId}`, {
         headers: {
-          Authorization:accessToken,
+          Authorization: accessToken,
         },
+      })
+      .then((response) => {
+        set({ name: response.data.name });
+        set({ introduction: response.data.introduction });
+        set({ thumbnailingImg: response.data.thumbnailImg });
+        console.log(response);
+        console.log('hi');
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log('에러?');
+        const isLoggedIn = useUser.getState().isLoggedIn;
+        tokenRefresh(error, isLoggedIn);
       });
-      set({ name: response.data.name });
-      set({ introduction: response.data.introduction });
-      set({ thumbnailingImg: response.data.thumbnailImg });
-      console.log("hihi");
-    } catch (error) {
-      const isLoggedIn = useUser.getState().isLoggedIn;
-      tokenRefresh(error, isLoggedIn); 
-    }
   },
+
   patchProfile: async () => {
     const accessToken = JSON.parse(localStorage.getItem('accessToken'));
-const memberId =localStorage.getItem('memberId');
+    const memberId = localStorage.getItem('memberId');
 
     const profileData = {
       name: profileApiStore.getState().name,
       introduction: profileApiStore.getState().introduction,
     };
     try {
-      await axios.patch(`https://cafegory.robinjoon.xyz/profile/${memberId}`, profileData, {
+      await axios.patch(`/profile/${memberId}`, profileData, {
         headers: {
           Authorization: accessToken,
         },
       });
     } catch (error) {
+      console.log('수정 에러');
       const isLoggedIn = useUser.getState().isLoggedIn;
-      tokenRefresh(error, isLoggedIn); 
+      tokenRefresh(error, isLoggedIn);
     }
   },
 }));
