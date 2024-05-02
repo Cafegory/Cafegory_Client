@@ -144,7 +144,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
   useEffect(() => {
     axios
       .get(
-        `/study/once/list?page=1&area=${routeArea}&onlyJoinAble=${routeOnlyJoinAble}&maxMemberCount=${routeMaxMemberCount}&canTalk=${routeCanTalk}&sizePerPage=5`,
+        `https://cafegory.robinjoon.xyz/study/once/list?page=1&area=${routeArea}&onlyJoinAble=${routeOnlyJoinAble}&maxMemberCount=${routeMaxMemberCount}&canTalk=${routeCanTalk}&sizePerPage=5`,
         {
           headers: {
             Authorization: accessToken,
@@ -167,7 +167,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     setNowPage(newPage);
     axios
       .get(
-        `/study/once/list?page=${newPage}&area=${area}&onlyJoinAble=${onlyJoinAble}&maxMemberCount=${maxMemberCount}&canTalk=${canTalk}&sizePerPage=5`,
+        `https://cafegory.robinjoon.xyz/study/once/list?page=${newPage}&area=${area}&onlyJoinAble=${onlyJoinAble}&maxMemberCount=${maxMemberCount}&canTalk=${canTalk}&sizePerPage=5`,
         {
           headers: {
             Authorization: accessToken,
@@ -192,7 +192,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     }
     axios
       .get(
-        `/study/once/list?page=1&area=${inputArea}&onlyJoinAble=${onlyJoinAble}&maxMemberCount=${maxMemberCount}&canTalk=${canTalk}&sizePerPage=5`,
+        `https://cafegory.robinjoon.xyz/study/once/list?page=1&area=${inputArea}&onlyJoinAble=${onlyJoinAble}&maxMemberCount=${maxMemberCount}&canTalk=${canTalk}&sizePerPage=5`,
         {
           headers: {
             Authorization: accessToken,

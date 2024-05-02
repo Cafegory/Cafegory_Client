@@ -148,7 +148,7 @@ const CafeSearchResult: React.FC = () => {
     }
     axios
       .get(
-        `/cafe/list?page=1&area=${inputArea}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=5`,
+        `https://cafegory.robinjoon.xyz/cafe/list?page=1&area=${inputArea}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=5`,
         {
           headers: {
             Authorization: accessToken,

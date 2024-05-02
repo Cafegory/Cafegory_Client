@@ -22,7 +22,7 @@ export const cafeInfoApiStore = create((set) => ({
   },
   fetchInfo: async (cafeId) => {
     try {
-      const response = await axios.get(`https://cafegory.robinjoon.xyzs/cafe/${cafeId}`, {
+      const response = await axios.get(`https://cafegory.robinjoon.xyz/cafe/${cafeId}`, {
         headers: {
           Authorization: accessToken,
         },
