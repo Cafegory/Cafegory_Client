@@ -4,8 +4,6 @@ import axios from 'axios';
 import { tokenRefresh } from '../../components/RefreshModal/RefreshModal.hooks';
 import { useUser } from '../../store/users/store';
 
-const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
-
 export const profileApiStore = create<ApiStoreState>((set) => ({
   name: '',
   introduction: '',
@@ -17,10 +15,9 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
   fetchProfile: () => {
     const accessToken = JSON.parse(localStorage.getItem('accessToken'));
     const memberId = localStorage.getItem('memberId');
-    const URL = `${PROXY}/profile/${memberId}`;
 
     return axios
-      .get(URL, {
+      .get(`https://cafegory.robinjoon.xyz/profile/${memberId}`, {
         headers: {
           Authorization: accessToken,
         },
@@ -30,7 +27,7 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
         set({ introduction: response.data.introduction });
         set({ thumbnailingImg: response.data.thumbnailImg });
         console.log(response);
-        console.log('hi');
+        console.log('마이페이지 성공');
       })
       .catch((error) => {
         console.log(error);
