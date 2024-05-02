@@ -8,7 +8,7 @@ const { kakao } = window;
 const Kakao: React.FC<{ addresses: string[] }> = ({ addresses }) => {
   useEffect(() => {
     mapscript();
-  });
+  }, []);
 
   const REST_API_KEY = 'db3b8c339275d7877f7bb2c1fdc55f0a';
 
