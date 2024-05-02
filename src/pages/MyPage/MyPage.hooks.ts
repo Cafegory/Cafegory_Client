@@ -4,6 +4,8 @@ import axios from 'axios';
 import { tokenRefresh } from '../../components/RefreshModal/RefreshModal.hooks';
 import { useUser } from '../../store/users/store';
 
+const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
+
 export const profileApiStore = create<ApiStoreState>((set) => ({
   name: '',
   introduction: '',
@@ -15,9 +17,10 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
   fetchProfile: () => {
     const accessToken = JSON.parse(localStorage.getItem('accessToken'));
     const memberId = localStorage.getItem('memberId');
+    const URL = `${PROXY}/profile/${memberId}`;
 
     return axios
-      .get(`/api/profile/${memberId}`, {
+      .get(URL, {
         headers: {
           Authorization: accessToken,
         },

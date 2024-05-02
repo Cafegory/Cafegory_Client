@@ -1,4 +1,5 @@
 [[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
+  from = "/proxy/*"
+  to = "https://cafegory.robinjoon.xyz/:splat"
+  status = 200
+  force = true
