@@ -19,7 +19,7 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
     const memberId =localStorage.getItem('memberId');
 
     try {
-      const response = await axios.get(`/profile/${memberId}`, {
+      const response = await axios.get(`https://cafegory.robinjoon.xyz/profile/${memberId}`, {
         headers: {
           Authorization:accessToken,
         },
@@ -27,6 +27,7 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
       set({ name: response.data.name });
       set({ introduction: response.data.introduction });
       set({ thumbnailingImg: response.data.thumbnailImg });
+      console.log("hihi");
     } catch (error) {
       const isLoggedIn = useUser.getState().isLoggedIn;
       tokenRefresh(error, isLoggedIn); 
