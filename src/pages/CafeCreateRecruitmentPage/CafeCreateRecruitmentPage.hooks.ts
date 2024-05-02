@@ -57,17 +57,20 @@ export const cafeInfo = create<Cafe>((set) => ({
 
   getCafeInfo: async () => {
     axios
-      .get(`/cafe/${cafeInfo.getState().cafeId}`, {
-        headers: {
-          Authorization: accessToken,
+      .get(
+        `https://cafegory.robinjoon.xyz/cafe/${cafeInfo.getState().cafeId}`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
         },
-      })
+      )
       .then((response) => {
         set({ cafeName: response.data.basicInfo.name });
       })
       .catch((error) => {
         const isLoggedIn = useUser.getState().isLoggedIn;
-      tokenRefresh(error, isLoggedIn); 
+        tokenRefresh(error, isLoggedIn);
       });
   },
 }));
@@ -90,11 +93,15 @@ export const CafeCreateResruitmentApiContent = create<CafeCreateResruitmentApi>(
         openChatUrl: OptionContent.getState().openChatUrl,
       };
       try {
-        const response = await axios.post('https://cafegory.robinjoon.xyz/study/once', sendData, {
-          headers: {
-            Authorization: accessToken,
+        const response = await axios.post(
+          'https://cafegory.robinjoon.xyz/study/once',
+          sendData,
+          {
+            headers: {
+              Authorization: accessToken,
+            },
           },
-        });
+        );
         console.log(response.data);
         set({ studyOnceId: response.data.studyOnceId });
         set({ creationSuccess: true });

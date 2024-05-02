@@ -17,7 +17,7 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
     const memberId = localStorage.getItem('memberId');
 
     return axios
-      .get(`/profile/${memberId}`, {
+      .get(`https://cafegory.robinjoon.xyz/profile/${memberId}`, {
         headers: {
           Authorization: accessToken,
         },
@@ -46,11 +46,15 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
       introduction: profileApiStore.getState().introduction,
     };
     try {
-      await axios.patch(`/profile/${memberId}`, profileData, {
-        headers: {
-          Authorization: accessToken,
+      await axios.patch(
+        `https://cafegory.robinjoon.xyz/profile/${memberId}`,
+        profileData,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
         },
-      });
+      );
     } catch (error) {
       console.log('수정 에러');
       const isLoggedIn = useUser.getState().isLoggedIn;

@@ -100,7 +100,7 @@ const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
     }
     axios
       .get(
-        `/cafe/list?page=1&area=${inputArea}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=3`,
+        `https://cafegory.robinjoon.xyz/cafe/list?page=1&area=${inputArea}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=3`,
         {
           headers: {
             Authorization: accessToken,
