@@ -19,7 +19,7 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
     const memberId =localStorage.getItem('memberId');
 
     try {
-      const response = await axios.get(`/profile/${memberId}`, {
+      const response = await axios.get(`https://cafegory.robinjoon.xyz/profile/${memberId}`, {
         headers: {
           Authorization:accessToken,
         },
