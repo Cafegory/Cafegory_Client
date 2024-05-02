@@ -359,7 +359,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
             <ShortButton message="적용" color="black" onClick={ApplyFilter} />
           </FitterContainer>
         )}
-        <Kakao addresses={cafeStudys.map((study) => study.address)} />
+        {/* <Kakao addresses={cafeStudys.map((study) => study.address)} /> */}
         <CafeList>
           {cafeStudys.map((study, index) => (
             <List key={index}>

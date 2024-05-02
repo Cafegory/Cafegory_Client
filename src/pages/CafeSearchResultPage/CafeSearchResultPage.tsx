@@ -464,7 +464,7 @@ const CafeSearchResult: React.FC = () => {
             <ShortButton message="적용" color="black" onClick={ApplyFilter} />
           </FitterContainer>
         )}
-        <Kakao addresses={cafes.map((cafe) => cafe.address)} />
+        {/* <Kakao addresses={cafes.map((cafe) => cafe.address)} /> */}
         <CafeList>
           {cafes.map((cafe, index) => (
             <List key={index} onClick={() => viewCafeInfo(cafe.cafeId)}>
