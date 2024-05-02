@@ -4,8 +4,7 @@ import axios from 'axios';
 import { tokenRefresh } from '../../components/RefreshModal/RefreshModal.hooks';
 import { useUser } from '../../store/users/store';
 
-const accessToken = JSON.parse(localStorage.getItem('accessToken'));
-const memberId = JSON.parse(localStorage.getItem('memberId'));
+
 
 export const profileApiStore = create<ApiStoreState>((set) => ({
   name: '',
@@ -16,6 +15,9 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
   setThumbnailingImg: (newImg) => set({ thumbnailingImg: newImg }),
 
   fetchProfile: async () => {
+    const accessToken = JSON.parse(localStorage.getItem('accessToken'));
+    const memberId =localStorage.getItem('memberId');
+
     try {
       const response = await axios.get(`https://cafegory.robinjoon.xyz/profile/${memberId}`, {
         headers: {
@@ -31,6 +33,9 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
     }
   },
   patchProfile: async () => {
+    const accessToken = JSON.parse(localStorage.getItem('accessToken'));
+const memberId =localStorage.getItem('memberId');
+
     const profileData = {
       name: profileApiStore.getState().name,
       introduction: profileApiStore.getState().introduction,
