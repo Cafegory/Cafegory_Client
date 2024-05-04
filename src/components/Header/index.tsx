@@ -31,8 +31,6 @@ const Header: React.FC<HeaderProps> = () => {
 
   const isRefreshModalOpen = refreshStore((state) => state.isRefreshModalOpen);
 
-  const { toggleRefreshModal } = refreshStore();
-
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');

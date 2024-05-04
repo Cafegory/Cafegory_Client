@@ -29,11 +29,9 @@ const LoginState: React.FC = () => {
         const accessToken = response.data.accessToken;
         getMemberId(accessToken);
         navigate('/');
-        // window.location.reload();
-        console.log('로그인성공!');
+        window.location.reload();
       } catch (error) {
         console.error(error);
-        console.log('실패?');
       }
     };
 
