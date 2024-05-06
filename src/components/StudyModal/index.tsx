@@ -45,6 +45,7 @@ const Study: React.FC = () => {
 
     return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
   };
+  console.log(info);
 
   return (
     <>
@@ -60,19 +61,19 @@ const Study: React.FC = () => {
               <IsEndContainer>
                 {info.meetings[index].end ? (
                   <>
-                    <IsEndTrue>
-                      {info.meetings[index].nowMemberCount}/
-                      {info.meetings[index].maxMemberCount}
-                    </IsEndTrue>
-                    <IsEndTrue>모집중</IsEndTrue>
-                  </>
-                ) : (
-                  <>
                     <IsEndFalse>
                       {info.meetings[index].nowMemberCount}/
                       {info.meetings[index].maxMemberCount}
                     </IsEndFalse>
                     <IsEndFalse>모집 마감</IsEndFalse>
+                  </>
+                ) : (
+                  <>
+                    <IsEndTrue>
+                      {info.meetings[index].nowMemberCount}/
+                      {info.meetings[index].maxMemberCount}
+                    </IsEndTrue>
+                    <IsEndTrue>모집중</IsEndTrue>
                   </>
                 )}
               </IsEndContainer>
