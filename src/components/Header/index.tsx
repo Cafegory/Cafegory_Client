@@ -3,7 +3,6 @@ import {
   HeaderContainer,
   LogoDiv,
   LogoImage,
-  LogoFont,
   RightDiv,
   LoginSignupLink,
   WelcomeMessageBox,
@@ -54,10 +53,9 @@ const Header: React.FC<HeaderProps> = () => {
               onClick={() => {
                 navigate('/');
               }}
-              src="/assets/logo.jpg"
+              src="/assets/logo.png"
               alt="로고"
             />
-            <LogoFont>Cafegory.</LogoFont>
           </LogoDiv>
 
           <RightDiv>
@@ -80,10 +78,9 @@ const Header: React.FC<HeaderProps> = () => {
               onClick={() => {
                 navigate('/');
               }}
-              src="/assets/logo.jpg"
+              src="/assets/logo.png"
               alt="로고"
             />
-            <LogoFont>Cafegory.</LogoFont>
           </LogoDiv>
 
           <RightDiv>
