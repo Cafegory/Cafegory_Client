@@ -7,6 +7,7 @@ import {
   DetailModalState,
   PageState,
   DateTimeCombine,
+  CafeStateAlias,
 } from './CafeMeetingSearchResultPage.type';
 
 export const useFilter = create<FilterState>((set) => ({
@@ -54,6 +55,9 @@ export const useDetailModalStates = create<DetailModalState>((set) => ({
 
   businessHourModalState: Array(0).fill(false),
   setBusinessHourModalState: (value) => set({ businessHourModalState: value }),
+
+  addresses: Array(0).fill(''),
+  setAddresses: (value) => set({ addresses: value }),
 }));
 
 export const usePage = create<PageState>((set) => ({
@@ -74,3 +78,5 @@ export const DateTime = create<DateTimeCombine>((set) => ({
   endDateTime: 'yyyy-MM-ddThh:mm:ss',
   setEndDateTime: (value) => set({ endDateTime: value }),
 }));
+
+export const cafeAdress = create<CafeStateAlias>((set) => ({}));

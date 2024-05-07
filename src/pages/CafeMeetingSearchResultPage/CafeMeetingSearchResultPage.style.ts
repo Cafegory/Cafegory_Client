@@ -227,18 +227,7 @@ export const List = styled.div`
   padding: 1.5%;
   gap: 1.5%;
   border-radius: 0.5rem;
-  cursor: pointer;
   margin-bottom: 1.5rem;
-
-  &:active {
-    background-color: darkgray;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.2);
-    }
-  }
 
   @media (max-width: 768px) {
     padding: 4%;
@@ -275,25 +264,7 @@ export const BusinessHours = styled.div`
 `;
 
 export const MinBeveragePrice = styled.div`
-  font-size: 0.85rem;
-  font-weight: 550;
-  border: 1px solid #000000;
-  cursor: pointer;
-  padding: 1%;
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  width: 6rem;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-  &:active {
-    background-color: darkgray;
-  }
-
-  @media (max-width: 768px) {
-    width: 5rem;
-  }
+c
 `;
 
 export const DetailModal = styled.img`
@@ -340,4 +311,26 @@ export const ModalBackdrop = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+`;
+export const DetailOnClick = styled.div`
+  font-size: 0.85rem;
+  font-weight: 550;
+  border: 1px solid #000000;
+  cursor: pointer;
+  padding: 0.3%;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  width: 6rem;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  &:active {
+    background-color: darkgray;
+  }
+
+  @media (max-width: 768px) {
+    width: 5rem;
+    padding: 1%;
+  }
 `;

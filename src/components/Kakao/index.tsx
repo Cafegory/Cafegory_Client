@@ -60,11 +60,11 @@ import axios from 'axios';
 const { kakao } = window;
 
 const Kakao: React.FC<{ addresses: string[] }> = ({ addresses }) => {
+  console.log('받은 주소' + addresses);
   useEffect(() => {
     mapscript();
-  });
+  }, [addresses]);
   const REACT_APP_MAP_REST_API_KEY = process.env.REACT_APP_MAP_REST_API_KEY;
-  console.log(REACT_APP_MAP_REST_API_KEY);
 
   const mapscript = () => {
     let container = document.getElementById('map');
@@ -96,6 +96,7 @@ const Kakao: React.FC<{ addresses: string[] }> = ({ addresses }) => {
             bounds.extend(latlng);
             map.setBounds(bounds);
           }
+          console.log('카카오 성공');
         })
         .catch((error) => {
           console.error(error);

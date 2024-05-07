@@ -37,6 +37,7 @@ import {
   ModalBackdrop,
   BusinessHoursContainer,
   BusinessHourDetailModalContent,
+  DetailOnClick,
 } from './CafeMeetingSearchResultPage.style';
 
 import {
@@ -89,6 +90,8 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     setAdressModalState,
     businessHourModalState,
     setBusinessHourModalState,
+    addresses,
+    setAddresses,
   } = useDetailModalStates();
   const { nowPage, setNowPage, maxPage, setMaxPage, pageSize, setPageSize } =
     usePage();
@@ -98,6 +101,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     isSelecteCanTalk,
     setSelectedCanTalk,
   } = useOption();
+
   const { setStartDateTime, setEndDateTime } = DateTime();
 
   const handleFilterButtonClick = () => {
@@ -119,20 +123,12 @@ const CafeMeetingSearchResultPage: React.FC = () => {
     setSelectedCanTalk(value);
   };
 
-  useEffect(() => {}, [onlyJoinAble, maxMemberCount, canTalk, area]);
-
   const maxMember = 10;
   const minMember = 0;
 
   const closeModal = () => {
     setAdressModalState(adressModalState.map(() => false));
     setBusinessHourModalState(businessHourModalState.map(() => false));
-  };
-
-  const handleAdressDetailModalClick = (index) => {
-    const updatedStates = [...adressModalState];
-    updatedStates[index] = !updatedStates[index];
-    setAdressModalState(updatedStates);
   };
 
   const handleBusinessHourDetailModalClick = (index) => {
@@ -211,15 +207,40 @@ const CafeMeetingSearchResultPage: React.FC = () => {
       });
 
     setArea(inputArea);
-    navigate(
-      `/cafeMeetingSearchResult/1/${encodeURIComponent(area)}/${onlyJoinAble}/${maxMemberCount}/${canTalk}/5`,
-    );
+    // navigate(
+    //   `/cafeMeetingSearchResult/1/${encodeURIComponent(area)}/${onlyJoinAble}/${maxMemberCount}/${canTalk}/5`,
+    // );
   };
 
   const viewCafeMeetingInfo = (id) => {
     const studyOnceId = id;
     navigate(`/cafeMeetingInfo/${studyOnceId}`);
   };
+
+  const addressesArray = [];
+
+  useEffect(() => {
+    const fetchCafeAddresses = async () => {
+      try {
+        for (const study of cafeStudys) {
+          const response = await axios.get(
+            `https://cafegory.robinjoon.xyz/cafe/${study.cafeId}`,
+            {
+              headers: {
+                Authorization: accessToken,
+              },
+            },
+          );
+          addressesArray.push(response.data.basicInfo.address);
+        }
+        setAddresses(addressesArray);
+      } catch (error) {
+        console.log('카페 아이디 실패');
+      }
+    };
+
+    fetchCafeAddresses();
+  }, [cafeStudys]);
 
   return (
     <Screen>
@@ -359,7 +380,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
             <ShortButton message="적용" color="black" onClick={ApplyFilter} />
           </FitterContainer>
         )}
-        {/* <Kakao addresses={cafeStudys.map((study) => study.address)} /> */}
+        <Kakao addresses={addresses} />
         <CafeList>
           {cafeStudys.map((study, index) => (
             <List key={index}>
@@ -397,11 +418,11 @@ const CafeMeetingSearchResultPage: React.FC = () => {
                     <ModalBackdrop onClick={closeModal}></ModalBackdrop>
                   </>
                 )}
-                <MinBeveragePrice
+                <DetailOnClick
                   onClick={() => viewCafeMeetingInfo(study.studyOnceId)}
                 >
                   상세 정보 ▷
-                </MinBeveragePrice>
+                </DetailOnClick>
               </Detail>
             </List>
           ))}

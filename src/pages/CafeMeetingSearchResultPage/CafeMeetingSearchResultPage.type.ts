@@ -42,6 +42,9 @@ export interface DetailModalState {
 
   businessHourModalState: boolean[];
   setBusinessHourModalState: (value: boolean[]) => void;
+
+  addresses: string[];
+  setAddresses: (value: string[]) => void;
 }
 
 export interface PageState {
@@ -62,3 +65,4 @@ export interface DateTimeCombine {
   endDateTime: string;
   setEndDateTime: (value: string) => void;
 }
+export interface CafeStateAlias {}
