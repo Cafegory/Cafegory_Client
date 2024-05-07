@@ -136,6 +136,10 @@ const CafeMeetingInfo: React.FC = () => {
     setIsQuestion(true);
   };
 
+  const handleAttendanceClick = () => {
+    navigate(`/attendance/${studyOnceId}`);
+  };
+
   return (
     <Screen>
       <Container>
@@ -180,6 +184,7 @@ const CafeMeetingInfo: React.FC = () => {
             <TitleFont>오픈 채팅방 주소</TitleFont>
             <GrayFont>{info.openChatUrl}</GrayFont>
           </TitleContainer>
+
           <ButtonContainer>
             {memberId === info.creatorId && (
               <LongButton
@@ -204,6 +209,13 @@ const CafeMeetingInfo: React.FC = () => {
                   cancelJoin(info.studyOnceId);
                 }}
                 color="red"
+              ></LongButton>
+            )}
+            {memberId === info.creatorId && (
+              <LongButton
+                message="출석체크"
+                onClick={handleAttendanceClick}
+                color="black"
               ></LongButton>
             )}
           </ButtonContainer>
