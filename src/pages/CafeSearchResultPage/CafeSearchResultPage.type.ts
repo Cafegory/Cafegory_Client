@@ -63,6 +63,9 @@ export interface DetailModalState {
 
   businessHourModalState: boolean[];
   setBusinessHourModalState: (value: boolean[]) => void;
+
+  addresses: string[];
+  setAddresses: (value: string[]) => void;
 }
 
 export interface PageState {

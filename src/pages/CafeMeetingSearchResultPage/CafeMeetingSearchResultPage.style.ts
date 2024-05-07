@@ -230,16 +230,6 @@ export const List = styled.div`
   cursor: pointer;
   margin-bottom: 1.5rem;
 
-  &:active {
-    background-color: darkgray;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.2);
-    }
-  }
-
   @media (max-width: 768px) {
     padding: 4%;
     gap: 4%;

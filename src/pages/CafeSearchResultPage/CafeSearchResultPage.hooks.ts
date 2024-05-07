@@ -68,6 +68,9 @@ export const useDetailModalStates = create<DetailModalState>((set) => ({
 
   businessHourModalState: Array(0).fill(false),
   setBusinessHourModalState: (value) => set({ businessHourModalState: value }),
+
+  addresses: Array(0).fill(''),
+  setAddresses: (value) => set({ addresses: value }),
 }));
 
 export const usePage = create<PageState>((set) => ({

@@ -92,6 +92,8 @@ const CafeSearchResult: React.FC = () => {
     setAdressModalState,
     businessHourModalState,
     setBusinessHourModalState,
+    addresses,
+    setAddresses,
   } = useDetailModalStates();
   const { nowPage, setNowPage, maxPage, setMaxPage, pageSize, setPageSize } =
     usePage();
@@ -133,7 +135,6 @@ const CafeSearchResult: React.FC = () => {
         setNowPage(response.data.nowPage);
         setMaxPage(response.data.maxPage);
         setPageSize(response.data.pageSize);
-        console.log(response);
       })
       .catch((error) => {
         const isLoggedIn = useUser.getState().isLoggedIn;
@@ -167,9 +168,6 @@ const CafeSearchResult: React.FC = () => {
       });
 
     setArea(inputArea);
-    navigate(
-      `/cafeSearchResult/1/${encodeURIComponent(inputArea)}/${canStudy}/${startTime}/${endTime}/${minBeveragePrice}/${maxTime}/5`,
-    );
   };
 
   const formatBusinessHours = (businessHours) => {
@@ -349,6 +347,14 @@ const CafeSearchResult: React.FC = () => {
       });
   };
 
+  useEffect(() => {
+    const addressesArray = [];
+    for (const cafe of cafes) {
+      addressesArray.push(cafe.address);
+    }
+    setAddresses(addressesArray);
+  }, [cafes]);
+
   return (
     <Screen>
       <Container>
@@ -359,7 +365,7 @@ const CafeSearchResult: React.FC = () => {
         <ResearchContainer>
           <InputContainer>
             <InputField
-              placeholder={routeArea}
+              placeholder={area}
               value={inputArea}
               onChange={(e) => setInputArea(e.target.value)}
             ></InputField>
@@ -464,7 +470,7 @@ const CafeSearchResult: React.FC = () => {
             <ShortButton message="적용" color="black" onClick={ApplyFilter} />
           </FitterContainer>
         )}
-        {/* <Kakao addresses={cafes.map((cafe) => cafe.address)} /> */}
+        <Kakao addresses={addresses} />
         <CafeList>
           {cafes.map((cafe, index) => (
             <List key={index} onClick={() => viewCafeInfo(cafe.cafeId)}>
