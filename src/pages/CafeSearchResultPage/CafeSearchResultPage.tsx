@@ -41,6 +41,7 @@ import {
   BusinessHourDetailModalContent,
   ModalBackdrop,
   SelectContainer as StyledSelectContainer,
+  DetailOnClick,
 } from './CafeSearchResultPage.style';
 import ShortButton from 'components/ShortButton';
 import {
@@ -473,14 +474,12 @@ const CafeSearchResult: React.FC = () => {
         <Kakao addresses={addresses} />
         <CafeList>
           {cafes.map((cafe, index) => (
-            <List key={index} onClick={() => viewCafeInfo(cafe.cafeId)}>
+            <List key={index}>
               <Detail>
                 <Name>{cafe.name}</Name>
                 <AdressContainer>
                   <Adress>
-                    {window.innerWidth <= 768
-                      ? cafe.address.split(' ').slice(0, 3).join(' ')
-                      : cafe.address}
+                    {cafe.address.split(' ').slice(0, 3).join(' ')}
                   </Adress>
                   <DetailModal
                     src={
@@ -502,9 +501,7 @@ const CafeSearchResult: React.FC = () => {
                 <div onClick={closeModal}></div>
                 <BusinessHoursContainer>
                   <BusinessHours>
-                    {window.innerWidth <= 768
-                      ? formatBusinessHours(cafe.businessHours)[0]
-                      : formatBusinessHours(cafe.businessHours)}
+                    {formatBusinessHours(cafe.businessHours)[0]}
                   </BusinessHours>
                   <DetailModal
                     src={
@@ -526,6 +523,9 @@ const CafeSearchResult: React.FC = () => {
                 <MinBeveragePrice>
                   가장 저렴함 음료 {cafe.minBeveragePrice}원
                 </MinBeveragePrice>
+                <DetailOnClick onClick={() => viewCafeInfo(cafe.cafeId)}>
+                  상세 정보 ▷
+                </DetailOnClick>
               </Detail>
               {cafe.isOpen ? (
                 <IsOpenImg src="/assets/isOpen.png" alt="영업중" />

@@ -37,6 +37,7 @@ import {
   ModalBackdrop,
   BusinessHoursContainer,
   BusinessHourDetailModalContent,
+  DetailOnClick,
 } from './CafeMeetingSearchResultPage.style';
 
 import {
@@ -417,11 +418,11 @@ const CafeMeetingSearchResultPage: React.FC = () => {
                     <ModalBackdrop onClick={closeModal}></ModalBackdrop>
                   </>
                 )}
-                <MinBeveragePrice
+                <DetailOnClick
                   onClick={() => viewCafeMeetingInfo(study.studyOnceId)}
                 >
                   상세 정보 ▷
-                </MinBeveragePrice>
+                </DetailOnClick>
               </Detail>
             </List>
           ))}

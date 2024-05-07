@@ -187,18 +187,7 @@ export const List = styled.div`
   padding: 1.5%;
   gap: 1.5%;
   border-radius: 0.5rem;
-  cursor: pointer;
   margin-bottom: 1.5rem;
-
-  &:active {
-    background-color: darkgray;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.2);
-    }
-  }
 
   @media (max-width: 768px) {
     padding: 4%;
@@ -223,6 +212,7 @@ export const Detail = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 8rem;
+  width: 100%;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -290,24 +280,32 @@ export const SelectContainer = styled.select`
 `;
 
 export const DetailModal = styled.img`
-  display: none;
-
-  @media (max-width: 768px) {
-    display: block;
-    height: 1rem;
-    width: 1rem;
-  }
+  display: block;
+  height: 1rem;
+  width: 1rem;
 `;
 
 export const AdressContainer = styled.div`
-  @media (max-width: 768px) {
-    display: flex;
-    gap: 3%;
-    align-items: center;
-  }
+  display: flex;
+  gap: 3%;
+  align-items: center;
 `;
 
 export const AdressDetailModalContent = styled.div`
+  position: absolute;
+  display: flex;
+  top: 40%;
+  width: 45%;
+  font-size: 0.7rem;
+  border: 1px solid rgba(204, 204, 204, 0.5);
+  background-color: white;
+  padding: 1%;
+  border-radius: 0.5rem;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.5);
+
   @media (max-width: 768px) {
     position: absolute;
     display: flex;
@@ -326,14 +324,28 @@ export const AdressDetailModalContent = styled.div`
 `;
 
 export const BusinessHoursContainer = styled.div`
-  @media (max-width: 768px) {
-    display: flex;
-    gap: 3%;
-    align-items: center;
-  }
+  display: flex;
+  gap: 3%;
+  align-items: center;
 `;
 
 export const BusinessHourDetailModalContent = styled.div`
+  position: absolute;
+  display: flex;
+  top: 60%;
+  width: 45%;
+  font-size: 0.7rem;
+  border: 1px solid rgba(204, 204, 204, 0.5);
+  background-color: white;
+  padding: 1%;
+  border-radius: 0.5rem;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.5);
+  white-space: pre-line;
+  z-index: 100;
+
   @media (max-width: 768px) {
     position: absolute;
     display: flex;
@@ -359,4 +371,27 @@ export const ModalBackdrop = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+`;
+
+export const DetailOnClick = styled.div`
+  font-size: 0.85rem;
+  font-weight: 550;
+  border: 1px solid #000000;
+  cursor: pointer;
+  padding: 0.3%;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  width: 6rem;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  &:active {
+    background-color: darkgray;
+  }
+
+  @media (max-width: 768px) {
+    width: 5rem;
+    padding: 1%;
+  }
 `;
