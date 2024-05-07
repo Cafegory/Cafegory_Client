@@ -224,6 +224,7 @@ const CafeRecruitmentModify: React.FC = () => {
         },
       );
       console.log('요청 성공');
+      console.log('보낸거!!' + sendData);
       navigate(`/cafeMeetingInfo/${studyOnceId}`);
     } catch (error) {
       const isLoggedIn = useUser.getState().isLoggedIn;
@@ -246,6 +247,7 @@ const CafeRecruitmentModify: React.FC = () => {
               <DetailName>그룹명</DetailName>
               <InputContainer>
                 <InputField
+                  disabled={nowMemberCount > 1}
                   type="text"
                   placeholder="그룹명을 입력해주세요."
                   value={name}
@@ -275,6 +277,7 @@ const CafeRecruitmentModify: React.FC = () => {
               <DetailName>날짜</DetailName>
               <DateContatiner>
                 <CustomDatePicker
+                  disabled={nowMemberCount > 1}
                   selected={selectedDate}
                   onChange={(value: Date) => setSelectedDate(value)}
                   dateFormat="yyyy년 MM월 dd일 EEEE"
@@ -288,6 +291,7 @@ const CafeRecruitmentModify: React.FC = () => {
               <DetailName>카공시간</DetailName>
               <Choose>
                 <StyledSelectContainer
+                  disabled={nowMemberCount > 1}
                   value={startTime}
                   onChange={(e) => setStartTime(parseInt(e.target.value))}
                 >
@@ -301,6 +305,7 @@ const CafeRecruitmentModify: React.FC = () => {
                 </StyledSelectContainer>
                 부터
                 <StyledSelectContainer
+                  disabled={nowMemberCount > 1}
                   value={endTime}
                   onChange={(e) => setEndTime(parseInt(e.target.value))}
                 >
@@ -343,24 +348,30 @@ const CafeRecruitmentModify: React.FC = () => {
               <CanTalkButtonContainer>
                 <CanTalkButton
                   onClick={() => {
-                    setCanTalk(true);
+                    if (nowMemberCount <= 1) {
+                      setCanTalk(true);
+                    }
                   }}
                   style={{
                     backgroundColor: canTalk
                       ? 'rgba(0, 0, 0, 0.2)'
                       : 'rgba(0, 0, 0, 0.05)',
+                    cursor: nowMemberCount > 1 ? 'disabled' : 'pointer',
                   }}
                 >
                   가능
                 </CanTalkButton>
                 <CanTalkButton
                   onClick={() => {
-                    setCanTalk(false);
+                    if (nowMemberCount <= 1) {
+                      setCanTalk(false);
+                    }
                   }}
                   style={{
                     backgroundColor: !canTalk
                       ? 'rgba(0, 0, 0, 0.2)'
                       : 'rgba(0, 0, 0, 0.05)',
+                    cursor: nowMemberCount > 1 ? 'disabled' : 'pointer',
                   }}
                 >
                   불가
@@ -371,6 +382,7 @@ const CafeRecruitmentModify: React.FC = () => {
               <DetailName>오픈채팅방</DetailName>
               <InputContainer>
                 <InputField
+                  disabled={nowMemberCount > 1}
                   type="text"
                   placeholder="오픈채팅방 url을 입력해주세요."
                   value={openChatUrl}
@@ -379,7 +391,7 @@ const CafeRecruitmentModify: React.FC = () => {
               </InputContainer>
             </OpenKakao>
             <MemberManagement>
-              <DetailName>구성원 관리</DetailName>
+              <DetailName>구성원</DetailName>
               {members.map((member, index) => (
                 <div key={index}>
                   <ManagementContainer>
