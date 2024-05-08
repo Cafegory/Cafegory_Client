@@ -17,6 +17,7 @@ import MobileModal from 'components/MobileModal';
 import { useStoreMobile } from '../MobileModal/MobileModal.hooks';
 import Refresh from 'components/RefreshModal';
 import { refreshStore } from 'components/RefreshModal/RefreshModal.hooks';
+import { profileApiStore } from 'pages/MyPage/MyPage.hooks';
 
 const Header: React.FC<HeaderProps> = () => {
   const navigate = useNavigate();
@@ -39,6 +40,11 @@ const Header: React.FC<HeaderProps> = () => {
     window.location.reload();
   };
 
+  const { name, fetchProfile } = profileApiStore();
+  React.useEffect(() => {
+    fetchProfile();
+  }, [name]);
+
   return (
     <>
       {isLoggedIn && (
@@ -59,9 +65,7 @@ const Header: React.FC<HeaderProps> = () => {
           </LogoDiv>
 
           <RightDiv>
-            <WelcomeMessageBox>{`${localStorage.getItem(
-              'userName',
-            )}님 환영합니다!`}</WelcomeMessageBox>
+            <WelcomeMessageBox>{`${name}님 환영합니다!`}</WelcomeMessageBox>
             <LoginSignupLink onClick={handleLogout}>로그아웃</LoginSignupLink>
           </RightDiv>
         </HeaderContainer>
