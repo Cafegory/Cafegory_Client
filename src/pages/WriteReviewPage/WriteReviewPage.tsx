@@ -40,7 +40,7 @@ const WriteReview: React.FC = () => {
   };
 
   const handlePostReview = () => {
-    postReview();
+    postReview(routeCafeId);
     Navigate(`/cafeInfo/${routeCafeId}`);
     window.location.reload();
     setRating(0);

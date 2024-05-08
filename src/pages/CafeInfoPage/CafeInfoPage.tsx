@@ -160,7 +160,9 @@ const CafeInfo: React.FC = () => {
             <TitleFont>
               평점
               <StarImg src="/assets/star-icon.png" alt="별 아이콘" />
-              <AvgReviewRate>{info.basicInfo.avgReviewRate}</AvgReviewRate>
+              <AvgReviewRate>
+                {info.basicInfo.avgReviewRate.toFixed(2)}
+              </AvgReviewRate>
             </TitleFont>
             {reviews.length === 0 && (
               <NoContentContainer>

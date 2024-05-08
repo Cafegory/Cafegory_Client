@@ -22,14 +22,14 @@ export const useContentStore = create<ContentState>((set) => ({
 
 const accessToken =JSON.parse(localStorage.getItem('accessToken'));
 
-export const postReview = async () => {
+export const postReview = async (cafeId) => {
   const reviewData = {
     content: useContentStore.getState().content,
     rate: useRatingStore.getState().rating
   };
 
   try {
-    await axios.post('https://cafegory.robinjoon.xyz/cafe/1/review', reviewData, {
+    await axios.post(`https://cafegory.robinjoon.xyz/cafe/${cafeId}/review`, reviewData, {
       headers: {
         Authorization: accessToken,
       }
