@@ -26,10 +26,8 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
         set({ name: response.data.name });
         set({ introduction: response.data.introduction });
         set({ thumbnailingImg: response.data.thumbnailImg });
-        console.log(response);
       })
       .catch((error) => {
-        console.log(error);
         const isLoggedIn = useUser.getState().isLoggedIn;
         tokenRefresh(error, isLoggedIn);
       });
@@ -55,7 +53,6 @@ export const profileApiStore = create<ApiStoreState>((set) => ({
       );
       localStorage.setItem('userName', profileApiStore.getState().name);
     } catch (error) {
-      console.log('수정 에러');
       const isLoggedIn = useUser.getState().isLoggedIn;
       tokenRefresh(error, isLoggedIn);
     }

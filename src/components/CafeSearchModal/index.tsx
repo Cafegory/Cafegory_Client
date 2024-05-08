@@ -108,8 +108,6 @@ const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
         },
       )
       .then((response) => {
-        console.log('요청성공?');
-        console.log(response.data);
         setCafes(response.data.list);
         setNowPage(response.data.nowPage);
         setMaxPage(response.data.maxPage);

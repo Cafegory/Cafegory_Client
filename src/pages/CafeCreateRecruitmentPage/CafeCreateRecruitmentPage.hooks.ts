@@ -102,7 +102,6 @@ export const CafeCreateResruitmentApiContent = create<CafeCreateResruitmentApi>(
             },
           },
         );
-        console.log(response.data);
         set({ studyOnceId: response.data.studyOnceId });
         set({ creationSuccess: true });
       } catch (error) {

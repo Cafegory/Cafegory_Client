@@ -14,9 +14,6 @@ const LoginState: React.FC = () => {
         const response = await axios.get(
           `https://cafegory.robinjoon.xyz/oauth2/kakao?code=${code}`,
         );
-        console.log('hi');
-        console.log(response);
-        console.log(response.data);
         localStorage.setItem(
           'accessToken',
           JSON.stringify(response.data.accessToken),

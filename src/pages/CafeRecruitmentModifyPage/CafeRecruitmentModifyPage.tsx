@@ -132,7 +132,6 @@ const CafeRecruitmentModify: React.FC = () => {
         );
         setMembers(response.data.joinedMembers);
         setMemberIds(ids);
-        console.log('멤버 출력', JSON.stringify(response.data));
       } catch (error) {
         const isLoggedIn = useUser.getState().isLoggedIn;
         tokenRefresh(error, isLoggedIn);
@@ -152,7 +151,6 @@ const CafeRecruitmentModify: React.FC = () => {
             },
           },
         );
-        console.log(`그룹 정보 불러오기:`, response.data);
         setName(response.data.name);
         setMaxMemberCount(parseInt(response.data.maxMemberCount));
         setCanTalk(response.data.canTalk);
@@ -184,7 +182,6 @@ const CafeRecruitmentModify: React.FC = () => {
   }, [cafeId]);
 
   const handleCafeSelect = (cafeId) => {
-    console.log(`넘겨받은 카페 아이디 ${cafeId}`);
     setCafeId(cafeId);
     setShowCafeSearch(false);
   };
@@ -223,8 +220,6 @@ const CafeRecruitmentModify: React.FC = () => {
           },
         },
       );
-      console.log('요청 성공');
-      console.log('보낸거!!' + sendData);
       navigate(`/cafeMeetingInfo/${studyOnceId}`);
     } catch (error) {
       const isLoggedIn = useUser.getState().isLoggedIn;

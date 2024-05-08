@@ -64,9 +64,7 @@ const Attendance: React.FC = () => {
           (member) => member.memberId,
         );
         setMembers(response.data.joinedMembers);
-        console.log(response.data.joinedMembers);
         setMemberIds(ids);
-        console.log(`출력${ids}`);
       } catch (error) {
         const isLoggedIn = useUser.getState().isLoggedIn;
         tokenRefresh(error, isLoggedIn);
@@ -103,9 +101,6 @@ const Attendance: React.FC = () => {
         memberId: member.memberId,
         attendance: checkedState[member.memberId]?.check || false,
       }));
-
-      console.log(`출력해보기!!!! ${JSON.stringify(checkedState)}`);
-      console.log(`데이터! ${JSON.stringify(data)}`);
       const response = await axios.patch(
         `https://cafegory.robinjoon.xyz/study/once/${routeStudyOnceId}/attendance`,
         { states: data },
@@ -115,8 +110,6 @@ const Attendance: React.FC = () => {
           },
         },
       );
-      console.log('요청 성공!');
-      console.log(response);
     } catch (error) {
       alert(error.response.data.errorMessage);
       const isLoggedIn = useUser.getState().isLoggedIn;

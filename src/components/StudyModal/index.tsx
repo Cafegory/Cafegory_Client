@@ -45,7 +45,6 @@ const Study: React.FC = () => {
 
     return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
   };
-  console.log(info);
 
   return (
     <>

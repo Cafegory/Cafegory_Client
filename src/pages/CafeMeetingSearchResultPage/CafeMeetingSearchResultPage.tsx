@@ -235,7 +235,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
         }
         setAddresses(addressesArray);
       } catch (error) {
-        console.log('카페 아이디 실패');
+        console.log(error);
       }
     };
 
