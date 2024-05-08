@@ -28,9 +28,12 @@ const MyPageEdit: React.FC = () => {
     profileApiStore();
 
   const handleProfileEdit = async () => {
+    setName(editName);
     await patchProfile();
     navigate('/my');
   };
+
+  const [editName, setEditName] = React.useState(name);
 
   return (
     <Screen>
@@ -41,8 +44,8 @@ const MyPageEdit: React.FC = () => {
           <InputContainer>
             <InputLabelFont>이름</InputLabelFont>
             <NameInput
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={editName}
+              onChange={(e) => setEditName(e.target.value)}
               maxLength={maxNameLength}
             />
             {name.length < 1 && (

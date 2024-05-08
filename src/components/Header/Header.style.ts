@@ -15,24 +15,20 @@ export const HeaderContainer = styled.div`
 export const LogoDiv = styled.div`
   display: flex;
   height: 70%;
-  width: 10.6%;
   align-items: center;
-  justify-content: space-around;
   cursor: pointer;
   border-radius: 20px;
-  margin-left: 1rem;
+  margin-left: 1.2rem;
 
   @media screen and (max-width: 768px) {
     margin-left: 0.5rem;
     gap:0.5rem;
-    
   }
 `;
 
 export const LogoImage = styled.img`
-  border-radius: 100%;
-  width: 1.9rem;
-  height: 1.9rem;
+  width: 6rem;
+  height: 1.4rem;
 `;
 
 export const HambergerButton = styled.img`
@@ -42,16 +38,6 @@ export const HambergerButton = styled.img`
   @media screen and (min-width: 769px) {
     display: none; 
  }
-`;
-
-export const LogoFont = styled.div`
-  display: flex;
-  font-size: 1.4rem;
-  font-weight: 450;
-
-  @media screen and (max-width: 768px) {
-     display: none; 
-  }
 `;
 
 export const RightDiv = styled.div`
