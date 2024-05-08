@@ -49,6 +49,8 @@ import {
   AvgReviewRate,
   CafeStudyPossibleContainer,
   Possible,
+  ReviewsDownContainer,
+  ReviewsDownFont,
 } from './CafeInfoPage.style';
 import Review from 'components/ReviewModal';
 import Study from 'components/StudyModal';
@@ -57,6 +59,11 @@ import { reviewUseStore } from 'components/ReviewModal/ReviewModal.hooks';
 import { studyUseStore } from 'components/StudyModal/StudyModal.hooks';
 import { reviewApiStore } from 'components/ReviewModal/ReviewModal.hooks';
 import { cafeInfoApiStore } from './CafeInfo.hooks';
+import {
+  useContentStore,
+  useRatingStore,
+  ReviewEditStore,
+} from 'pages/WriteReviewPage/WriteReviewPage.hooks';
 
 const CafeInfo: React.FC = () => {
   const isReviewModalOpen = reviewUseStore((state) => state.isReviewModalOpen);
@@ -67,7 +74,7 @@ const CafeInfo: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const { reviews, fetchReviews } = reviewApiStore();
+  const { reviews, fetchReviews, deleteReview } = reviewApiStore();
 
   React.useEffect(() => {
     fetchReviews(Number(cafeId));
@@ -102,6 +109,27 @@ const CafeInfo: React.FC = () => {
     const minute = String(dateTime.getMinutes()).padStart(2, '0');
 
     return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분`;
+  };
+
+  const id = JSON.parse(localStorage.getItem('memberId'));
+
+  const { setContent } = useContentStore();
+  const { setRating } = useRatingStore();
+  const { toggleEditing, getReviewId } = ReviewEditStore();
+
+  const handleReviewEdit = (content, rate, id) => {
+    setRating(rate);
+    setContent(content);
+    toggleEditing(true);
+    getReviewId(id);
+
+    navigate(`/writeReview/${cafeId}`);
+  };
+
+  const handleDeleteReview = async (reviewId: number) => {
+    await deleteReview(reviewId);
+    fetchReviews(Number(cafeId));
+    window.location.reload();
   };
 
   return (
@@ -193,6 +221,29 @@ const CafeInfo: React.FC = () => {
                   <ReviewsContentContainer>
                     {reviews[index].content}
                   </ReviewsContentContainer>
+                  {id === reviews[index].writer.memberId && (
+                    <ReviewsDownContainer>
+                      <ReviewsDownFont
+                        onClick={() =>
+                          handleReviewEdit(
+                            reviews[index].content,
+                            reviews[index].rate,
+                            reviews[index].reviewId,
+                          )
+                        }
+                      >
+                        수정
+                      </ReviewsDownFont>
+                      <ReviewsDownFont>|</ReviewsDownFont>
+                      <ReviewsDownFont
+                        onClick={() =>
+                          handleDeleteReview(reviews[index].reviewId)
+                        }
+                      >
+                        삭제
+                      </ReviewsDownFont>
+                    </ReviewsDownContainer>
+                  )}
                 </ReviewsBox>
               ))}
             </ReviewsBoxContainer>

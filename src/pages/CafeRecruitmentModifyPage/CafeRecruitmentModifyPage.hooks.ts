@@ -82,10 +82,9 @@ export const useMemberStore = create<MemberStore>((set) => ({
       const ids = response.data.joinedMembers.map((member) => member.memberId);
       set({ members: response.data.joinedMembers.reverse() });
       set({ memberIds: ids });
-      console.log('멤버 출력', JSON.stringify(response.data));
     } catch (error) {
       const isLoggedIn = useUser.getState().isLoggedIn;
-      tokenRefresh(error, isLoggedIn); 
+      tokenRefresh(error, isLoggedIn);
     }
   },
 }));

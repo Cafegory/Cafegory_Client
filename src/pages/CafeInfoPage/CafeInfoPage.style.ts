@@ -254,7 +254,24 @@ export const ReviewsContentContainer = styled.div`
   word-wrap: break-word;
   font-size: 1.1rem;
   width: 100%;
+  min-height:5rem;
+  height:fit-content;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
 `;
+
+export const ReviewsDownContainer = styled.div`
+  width:100%;
+  display:flex;
+  justify-content:flex-end;
+  gap:0.7rem;
+`
+
+export const ReviewsDownFont = styled.div`
+  font-size:1rem;
+  cursor:pointer;
+`
 
 export const StudyContainer = styled.div`
   width: 100%;
