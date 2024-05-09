@@ -64,7 +64,7 @@ const MyPageEdit: React.FC = () => {
               onChange={(e) => setIntroduction(e.target.value)}
               maxLength={maxIntroductionLength}
             ></IntroductionInput>
-            {introduction.length < 1 && (
+            {introduction === null && (
               <AlertFont>* 1글자 이상 입력해주세요.</AlertFont>
             )}
             {introduction !== null &&
