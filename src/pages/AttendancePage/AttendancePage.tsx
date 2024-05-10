@@ -155,16 +155,16 @@ const Attendance: React.FC = () => {
                   <CheckImg
                     src={
                       checkedState[member.memberId]?.check
-                        ? '../assets/check-true.png'
-                        : '../assets/check-false.png'
+                        ? '../assets/check-false.png'
+                        : '../assets/check-true.png'
                     }
                     onClick={() => handleImageClick(member.memberId)}
                   />
                   <CheckImg
                     src={
                       checkedState[member.memberId]?.x
-                        ? '../assets/x-false.png'
-                        : '../assets/x-true.png'
+                        ? '../assets/x-true.png'
+                        : '../assets/x-false.png'
                     }
                     onClick={() => handleImageClick(member.memberId)}
                   />
