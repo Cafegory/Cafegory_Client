@@ -132,6 +132,8 @@ const CafeInfo: React.FC = () => {
     window.location.reload();
   };
 
+  const memberId = localStorage.getItem('memberId');
+
   return (
     <Screen>
       <Container>
@@ -255,7 +257,14 @@ const CafeInfo: React.FC = () => {
           </ReviewsContainer>
           <StudyContainer>
             <TitleFont>카공 그룹</TitleFont>
-            {info.meetings.length === 0 && (
+            {memberId === null && (
+              <NoContentContainer>
+                <NoContentText>
+                  로그인 후 서비스를 이용하실 수 있습니다.
+                </NoContentText>
+              </NoContentContainer>
+            )}
+            {memberId !== null && info.meetings.length === 0 && (
               <NoContentContainer>
                 <NoContentText>생성된 카공 모임이 없습니다.</NoContentText>
               </NoContentContainer>
@@ -303,14 +312,20 @@ const CafeInfo: React.FC = () => {
             <TitleFont>카공 가능여부</TitleFont>
             <Possible>{info.basicInfo.canStudy ? '가능' : '불가능'}</Possible>
           </CafeStudyPossibleContainer>
-          <LongButtonContainer>
-            <LongButton
-              message="카공 그룹 생성하기"
-              color="black"
-              onClick={CreateGroup}
-            />
-            <LongButton message="리뷰 작성하기" color="red" onClick={review} />
-          </LongButtonContainer>
+          {memberId !== null && (
+            <LongButtonContainer>
+              <LongButton
+                message="카공 그룹 생성하기"
+                color="black"
+                onClick={CreateGroup}
+              />
+              <LongButton
+                message="리뷰 작성하기"
+                color="red"
+                onClick={review}
+              />
+            </LongButtonContainer>
+          )}
         </CafeInfoContainer>
       </Container>
       <Sidebar buttonColors={['white', ,]} />
