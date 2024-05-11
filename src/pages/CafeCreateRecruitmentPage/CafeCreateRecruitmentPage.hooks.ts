@@ -105,11 +105,7 @@ export const CafeCreateResruitmentApiContent = create<CafeCreateResruitmentApi>(
         set({ studyOnceId: response.data.studyOnceId });
         set({ creationSuccess: true });
       } catch (error) {
-        if (error.response.data.errorMessage === undefined) {
-          alert(`영업시간을 다시 확인해주세요.`);
-        } else {
-          alert(`${error.response.data.errorMessage}`);
-        }
+        alert(`${error.response.data.errorMessage}`);
         set({ creationSuccess: false });
         throw error;
       }

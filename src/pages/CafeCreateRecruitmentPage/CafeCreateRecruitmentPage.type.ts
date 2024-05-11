@@ -1,5 +1,3 @@
-import { NumberLiteralType } from 'typescript';
-
 export interface OptionContentList {
   name: string;
   setName: (value: string) => void;
