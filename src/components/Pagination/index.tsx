@@ -1,8 +1,12 @@
 import React from 'react';
-import { PageContainer } from './Pagination.style';
+import { PageButton, PageContainer } from './Pagination.style';
 
 const Pagination: React.FC = () => {
-  return <PageContainer />;
+  return (
+    <PageContainer>
+      <PageButton></PageButton>
+    </PageContainer>
+  );
 };
 
 export default Pagination;
