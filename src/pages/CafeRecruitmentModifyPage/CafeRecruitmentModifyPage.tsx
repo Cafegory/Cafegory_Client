@@ -195,10 +195,10 @@ const CafeRecruitmentModify: React.FC = () => {
     canTalk: canTalk,
   };
 
-  const cafeStudyModifyClick = async () => {
+  const cafeStudyModifyClick = () => {
     try {
       if (currentCafeId !== cafeId) {
-        await axios.post(
+        axios.post(
           `https://cafegory.robinjoon.xyz/email`,
           {
             messageType: 'STUDYONCE_LOCATION_CHANGED',
@@ -211,7 +211,7 @@ const CafeRecruitmentModify: React.FC = () => {
           },
         );
       }
-      await axios.patch(
+      axios.patch(
         `https://cafegory.robinjoon.xyz/study/once/${studyOnceId}`,
         sendData,
         {
