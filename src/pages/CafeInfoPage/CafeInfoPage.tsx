@@ -264,9 +264,16 @@ const CafeInfo: React.FC = () => {
                 </NoContentText>
               </NoContentContainer>
             )}
-            {memberId !== null && info.meetings.length === 0 && (
+            {info.basicInfo.canStudy &&
+              memberId !== null &&
+              info.meetings.length === 0 && (
+                <NoContentContainer>
+                  <NoContentText>생성된 카공 모임이 없습니다.</NoContentText>
+                </NoContentContainer>
+              )}
+            {!info.basicInfo.canStudy && (
               <NoContentContainer>
-                <NoContentText>생성된 카공 모임이 없습니다.</NoContentText>
+                <NoContentText>카공 불가능한 카페입니다.</NoContentText>
               </NoContentContainer>
             )}
             <StudyBoxContainer>
@@ -314,11 +321,14 @@ const CafeInfo: React.FC = () => {
           </CafeStudyPossibleContainer>
           {memberId !== null && (
             <LongButtonContainer>
-              <LongButton
-                message="카공 그룹 생성하기"
-                color="black"
-                onClick={CreateGroup}
-              />
+              {info.basicInfo.canStudy && (
+                <LongButton
+                  message="카공 그룹 생성하기"
+                  color="black"
+                  onClick={CreateGroup}
+                />
+              )}
+
               <LongButton
                 message="리뷰 작성하기"
                 color="red"
