@@ -24,6 +24,7 @@ import {
   ReviewEditStore,
 } from 'pages/WriteReviewPage/WriteReviewPage.hooks';
 import { useParams, useNavigate } from 'react-router-dom';
+import Pagination from 'components/Pagination';
 
 const Review: React.FC = () => {
   const id = JSON.parse(localStorage.getItem('memberId'));
@@ -111,6 +112,7 @@ const Review: React.FC = () => {
             </ReviewsBox>
           ))}
         </ReviewBoxContainer>
+        <Pagination />
       </ReviewModal>
       <ModalBackdrop onClick={closeModal}></ModalBackdrop>
     </>
