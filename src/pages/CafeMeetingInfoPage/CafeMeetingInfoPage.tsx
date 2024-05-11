@@ -182,7 +182,11 @@ const CafeMeetingInfo: React.FC = () => {
           </TitleContainer>
           <TitleContainer>
             <TitleFont>오픈 채팅방 주소</TitleFont>
-            <GrayFont>{info.openChatUrl}</GrayFont>
+            {info.attendance ? (
+              <GrayFont>{info.openChatUrl}</GrayFont>
+            ) : (
+              <GrayFont>카공 참여 시 오픈 채팅방 주소가 공개됩니다.</GrayFont>
+            )}
           </TitleContainer>
 
           <ButtonContainer>
