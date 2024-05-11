@@ -14,5 +14,24 @@ export const PageButton = styled.div`
   height:2rem;
   border-radius:50%;
   cursor:pointer;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  &:hover {
+    background-color: lightgray;
+  }
+  &:active {
+    background-color: gray;
+  }
+`
+
+export const CurrentPageButton = styled.div`
+  width:2rem;
+  height:2rem;
+  border-radius:50%;
   background-color:lightgray;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 `

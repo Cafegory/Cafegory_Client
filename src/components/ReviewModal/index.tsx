@@ -61,6 +61,12 @@ const Review: React.FC = () => {
     navigate(`/writeReview/${cafeId}`);
   };
 
+  const [currentPage, setCurrentPage] = React.useState(1);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   return (
     <>
       <ReviewModal>
@@ -112,7 +118,11 @@ const Review: React.FC = () => {
             </ReviewsBox>
           ))}
         </ReviewBoxContainer>
-        <Pagination />
+        <Pagination
+          totalPage={5}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
       </ReviewModal>
       <ModalBackdrop onClick={closeModal}></ModalBackdrop>
     </>
