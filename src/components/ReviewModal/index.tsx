@@ -45,7 +45,7 @@ const Review: React.FC = () => {
     window.location.reload();
   };
   React.useEffect(() => {
-    fetchReviews();
+    fetchReviews(Number(cafeId), currentPage, pageSize);
   }, []);
 
   const { setContent } = useContentStore();
@@ -62,9 +62,11 @@ const Review: React.FC = () => {
   };
 
   const [currentPage, setCurrentPage] = React.useState(1);
+  const pageSize = 10;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    fetchReviews(Number(cafeId), page, pageSize);
   };
 
   return (
