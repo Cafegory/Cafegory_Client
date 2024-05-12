@@ -10,6 +10,7 @@ export const HeaderContainer = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   align-items: center;
   justify-content: space-between;
+  z-index: 1;
 `;
 
 export const LogoDiv = styled.div`
@@ -22,7 +23,7 @@ export const LogoDiv = styled.div`
 
   @media screen and (max-width: 768px) {
     margin-left: 0.5rem;
-    gap:0.5rem;
+    gap: 0.5rem;
   }
 `;
 
@@ -36,8 +37,8 @@ export const HambergerButton = styled.img`
   height: 1.1rem;
 
   @media screen and (min-width: 769px) {
-    display: none; 
- }
+    display: none;
+  }
 `;
 
 export const RightDiv = styled.div`
@@ -59,10 +60,10 @@ export const LoginSignupLink = styled.div`
   align-items: center;
   border-radius: 20px;
   cursor: pointer;
-  font-size:0.85rem;
+  font-size: 0.85rem;
 
   @media screen and (max-width: 768px) {
-    font-size:0.75rem;
+    font-size: 0.75rem;
   }
 `;
 
@@ -70,10 +71,9 @@ export const WelcomeMessageBox = styled.div`
   font-size: 0.85rem;
   display: flex;
   align-items: center;
-  font-size:0.85rem;
+  font-size: 0.85rem;
 
   @media screen and (max-width: 768px) {
-    font-size:0.75rem;
+    font-size: 0.75rem;
   }
 `;
-
