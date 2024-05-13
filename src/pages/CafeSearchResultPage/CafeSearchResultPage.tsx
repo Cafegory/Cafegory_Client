@@ -122,15 +122,13 @@ const CafeSearchResult: React.FC = () => {
   };
 
   useEffect(() => {
+    const apiUrl = `https://cafegory.robinjoon.xyz/cafe/list?page=${nowPage}&area=${area}&canStudy=${canStudy}&startTime=${routeStartTime}&endTime=${routeEndTime}&minBeveragePrice=${routeMinBeveragePrice}&maxTime=${routeMaxTime}&sizePerPage=5`;
     axios
-      .get(
-        `https://cafegory.robinjoon.xyz/cafe/list?page=1&area=${area}&canStudy=${canStudy}&startTime=${routeStartTime}&endTime=${routeEndTime}&minBeveragePrice=${routeMinBeveragePrice}&maxTime=${routeMaxTime}&sizePerPage=5`,
-        {
-          headers: {
-            Authorization: accessToken,
-          },
+      .get(apiUrl, {
+        headers: {
+          Authorization: accessToken,
         },
-      )
+      })
       .then((response) => {
         setCafes(response.data.list);
         setNowPage(response.data.nowPage);
@@ -141,27 +139,27 @@ const CafeSearchResult: React.FC = () => {
         const isLoggedIn = useUser.getState().isLoggedIn;
         tokenRefresh(error, isLoggedIn);
       });
-  }, [area, routeStartTime, routeEndTime, routeMinBeveragePrice, routeMaxTime]);
+  }, [nowPage]);
 
   const handleSearchClick = () => {
     if (inputArea.trim() === '') {
       alert('검색어를 입력해주세요.');
       return;
     }
+
+    const apiUrl = `https://cafegory.robinjoon.xyz/cafe/list?page=${nowPage}&area=${inputArea}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=5`;
     axios
-      .get(
-        `https://cafegory.robinjoon.xyz/cafe/list?page=1&area=${inputArea}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=5`,
-        {
-          headers: {
-            Authorization: accessToken,
-          },
+      .get(apiUrl, {
+        headers: {
+          Authorization: accessToken,
         },
-      )
+      })
       .then((response) => {
         setCafes(response.data.list);
         setNowPage(response.data.nowPage);
         setMaxPage(response.data.maxPage);
         setPageSize(response.data.pageSize);
+        setNowPage(1);
       })
       .catch((error) => {
         const isLoggedIn = useUser.getState().isLoggedIn;
@@ -327,25 +325,6 @@ const CafeSearchResult: React.FC = () => {
 
   const handlePageChange = (event, newPage) => {
     setNowPage(newPage);
-
-    axios
-      .get(
-        `https://cafegory.robinjoon.xyz/cafe/list?page=${newPage}&area=${area}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=5`,
-        {
-          headers: {
-            Authorization: accessToken,
-          },
-        },
-      )
-      .then((response) => {
-        setCafes(response.data.list);
-        setMaxPage(response.data.maxPage);
-        setPageSize(response.data.pageSize);
-      })
-      .catch((error) => {
-        const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefresh(error, isLoggedIn);
-      });
   };
 
   useEffect(() => {
