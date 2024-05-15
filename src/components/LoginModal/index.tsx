@@ -17,8 +17,8 @@ const Login: React.FC = () => {
   };
 
   const KAKAO_REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-  const KAKAO_REDIRECT_URI = 'https://cafegory.netlify.app/oauth';
-  // const KAKAO_REDIRECT_URI = 'http://localhost:3000/oauth';
+  // const KAKAO_REDIRECT_URI = 'https://cafegory.netlify.app/oauth';
+  const KAKAO_REDIRECT_URI = 'http://localhost:3000/oauth';
   const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
 
   const kakaoLoginHandler = () => {

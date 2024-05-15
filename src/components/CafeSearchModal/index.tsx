@@ -91,8 +91,9 @@ const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
     usePage();
   const { showFitter, setShowFitter } = useFilter();
   const { area, setArea, inputArea, setInputArea } = search();
-  const { cafeName, setCafeName, cafeId, setCafeId } = cafeinfo();
+
   const accessToken = JSON.parse(localStorage.getItem('accessToken'));
+
   const handleSearchClick = () => {
     if (inputArea.trim() === '') {
       alert('검색어를 입력해주세요.');
@@ -100,7 +101,7 @@ const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
     }
     axios
       .get(
-        `https://cafegory.robinjoon.xyz/cafe/list?page=1&area=${inputArea}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=3`,
+        `https://cafegory.robinjoon.xyz/cafe/list?page=${nowPage}&area=${inputArea}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=3`,
         {
           headers: {
             Authorization: accessToken,
