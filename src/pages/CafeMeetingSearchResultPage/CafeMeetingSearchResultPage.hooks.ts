@@ -61,7 +61,7 @@ export const useDetailModalStates = create<DetailModalState>((set) => ({
 }));
 
 export const usePage = create<PageState>((set) => ({
-  nowPage: 0,
+  nowPage: 1,
   setNowPage: (value) => set({ nowPage: value }),
 
   maxPage: 0,
