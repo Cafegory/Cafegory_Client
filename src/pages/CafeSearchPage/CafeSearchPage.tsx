@@ -30,6 +30,8 @@ import {
   useOption,
 } from './CafeSearchPage.hooks';
 
+import { usePage } from '../../pages/CafeSearchResultPage/CafeSearchResultPage.hooks';
+
 const CafeSearchPage: React.FC = () => {
   const navigate = useNavigate();
 
@@ -65,6 +67,8 @@ const CafeSearchPage: React.FC = () => {
     isSelectedMaxTime,
     setSelectedMaxTime,
   } = useOption();
+  const { nowPage, setNowPage, maxPage, setMaxPage, pageSize, setPageSize } =
+    usePage();
 
   const handleFilterButtonClick = () => {
     setShowFitter(!showFitter);
@@ -163,7 +167,7 @@ const CafeSearchPage: React.FC = () => {
       return;
     }
     navigate(
-      `/cafeSearchResult/1/${encodeURIComponent(area)}/${canStudy}/${startTime}/${endTime}/${minBeveragePrice}/${maxTime}/5`,
+      `/cafeSearchResult/${nowPage}/${encodeURIComponent(area)}/${canStudy}/${startTime}/${endTime}/${minBeveragePrice}/${maxTime}/5`,
     );
   };
 
