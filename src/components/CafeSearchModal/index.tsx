@@ -304,6 +304,8 @@ const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
   };
 
   const handleButtonClick = () => {
+    setMaxPage(0);
+    setInputArea('');
     setShowCafeSearch(!showCafeSearch);
   };
 
@@ -421,7 +423,14 @@ const CafeSearchModal: React.FC<{ onSelectCafe: (cafeId: number) => void }> = ({
         )}
         <CafeList>
           {cafes.map((cafe, index) => (
-            <List key={index} onClick={() => handleCafeSelect(cafe.cafeId)}>
+            <List
+              key={index}
+              onClick={() => {
+                handleCafeSelect(cafe.cafeId);
+                setMaxPage(0);
+                setInputArea('');
+              }}
+            >
               <Detail>
                 <Name>{cafe.name}</Name>
                 <AdressContainer>
