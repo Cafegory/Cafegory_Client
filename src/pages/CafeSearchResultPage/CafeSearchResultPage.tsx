@@ -111,6 +111,7 @@ const CafeSearchResult: React.FC = () => {
     startTime: routeStartTime,
     endTime: routeEndTime,
     maxTime: routeMaxTime,
+    canStudy: routeCanStudy,
   } = useParams();
 
   const [area, setArea] = useState(routeArea);
@@ -122,7 +123,7 @@ const CafeSearchResult: React.FC = () => {
   };
 
   useEffect(() => {
-    const apiUrl = `https://cafegory.robinjoon.xyz/cafe/list?page=${nowPage}&area=${area}&canStudy=${canStudy}&startTime=${routeStartTime}&endTime=${routeEndTime}&minBeveragePrice=${routeMinBeveragePrice}&maxTime=${routeMaxTime}&sizePerPage=5`;
+    const apiUrl = `https://cafegory.robinjoon.xyz/cafe/list?page=${nowPage}&area=${routeArea}&canStudy=${routeCanStudy}&startTime=${routeStartTime}&endTime=${routeEndTime}&minBeveragePrice=${routeMinBeveragePrice}&maxTime=${routeMaxTime}&sizePerPage=5`;
     axios
       .get(apiUrl, {
         headers: {
