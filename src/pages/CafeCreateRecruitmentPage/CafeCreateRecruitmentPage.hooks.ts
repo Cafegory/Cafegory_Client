@@ -105,7 +105,14 @@ export const CafeCreateResruitmentApiContent = create<CafeCreateResruitmentApi>(
         set({ studyOnceId: response.data.studyOnceId });
         set({ creationSuccess: true });
       } catch (error) {
-        alert(`${error.response.data.errorMessage}`);
+        if (
+          error.response.data.errorMessage ===
+          '카공 생성시 시작시간과 종료시간은 카페 영업시간내에 포함되어야 합니다.'
+        ) {
+          alert('카공시간을 확인해주세요.');
+        } else {
+          alert(`${error.response.data.errorMessage}`);
+        }
         set({ creationSuccess: false });
         throw error;
       }
