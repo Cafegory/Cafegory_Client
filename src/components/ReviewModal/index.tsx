@@ -24,6 +24,8 @@ import {
   ReviewEditStore,
 } from 'pages/WriteReviewPage/WriteReviewPage.hooks';
 import { useParams, useNavigate } from 'react-router-dom';
+import Pagination from 'components/Pagination';
+import { cafeInfoApiStore } from 'pages/CafeInfoPage/CafeInfo.hooks';
 
 const Review: React.FC = () => {
   const id = JSON.parse(localStorage.getItem('memberId'));
@@ -44,7 +46,7 @@ const Review: React.FC = () => {
     window.location.reload();
   };
   React.useEffect(() => {
-    fetchReviews();
+    fetchReviews(Number(cafeId), currentPage, pageSize);
   }, []);
 
   const { setContent } = useContentStore();
@@ -60,14 +62,28 @@ const Review: React.FC = () => {
     navigate(`/writeReview/${cafeId}`);
   };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    fetchReviews(Number(cafeId), page, pageSize);
+    const modalContent = document.getElementById('ReviewBoxContainer');
+    modalContent.scrollTo(0, 0);
+  };
+
+  const { info } = cafeInfoApiStore();
+  const totalElementsOfReview = info.totalElementsOfReview;
+
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const pageSize = 10;
+  const totalPage = Math.ceil(totalElementsOfReview / pageSize);
+
   return (
     <>
       <ReviewModal>
         <TitleContainer>
-          <TitleFont>전체 리뷰 {reviews.length}건</TitleFont>
+          <TitleFont>전체 리뷰 {info.totalElementsOfReview}건</TitleFont>
           <CloseButton onClick={closeModal}>닫기</CloseButton>
         </TitleContainer>
-        <ReviewBoxContainer>
+        <ReviewBoxContainer id="ReviewBoxContainer">
           {reviews.map((review, index) => (
             <ReviewsBox>
               <ReviewsUpContainer>
@@ -111,6 +127,11 @@ const Review: React.FC = () => {
             </ReviewsBox>
           ))}
         </ReviewBoxContainer>
+        <Pagination
+          totalPage={totalPage}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
       </ReviewModal>
       <ModalBackdrop onClick={closeModal}></ModalBackdrop>
     </>
