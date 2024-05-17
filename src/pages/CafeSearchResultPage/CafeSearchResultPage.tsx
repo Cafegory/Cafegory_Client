@@ -140,7 +140,15 @@ const CafeSearchResult: React.FC = () => {
         const isLoggedIn = useUser.getState().isLoggedIn;
         tokenRefresh(error, isLoggedIn);
       });
-  }, [nowPage]);
+  }, [
+    nowPage,
+    routeArea,
+    routeCanStudy,
+    routeStartTime,
+    routeEndTime,
+    routeMinBeveragePrice,
+    routeMaxTime,
+  ]);
 
   const handleSearchClick = () => {
     if (inputArea.trim() === '') {
@@ -148,25 +156,11 @@ const CafeSearchResult: React.FC = () => {
       return;
     }
 
-    const apiUrl = `https://cafegory.robinjoon.xyz/cafe/list?page=${nowPage}&area=${inputArea}&canStudy=${canStudy}&startTime=${startTime}&endTime=${endTime}&minBeveragePrice=${minBeveragePrice}&maxTime=${maxTime}&sizePerPage=5`;
-    axios
-      .get(apiUrl, {
-        headers: {
-          Authorization: accessToken,
-        },
-      })
-      .then((response) => {
-        setCafes(response.data.list);
-        setNowPage(response.data.nowPage);
-        setMaxPage(response.data.maxPage);
-        setPageSize(response.data.pageSize);
-        setNowPage(1);
-      })
-      .catch((error) => {
-        const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefresh(error, isLoggedIn);
-      });
+    setNowPage(1);
 
+    navigate(
+      `/cafeSearchResult/${nowPage}/${encodeURIComponent(inputArea)}/${canStudy}/${startTime}/${endTime}/${minBeveragePrice}/${maxTime}/5`,
+    );
     setArea(inputArea);
   };
 
@@ -326,6 +320,10 @@ const CafeSearchResult: React.FC = () => {
 
   const handlePageChange = (event, newPage) => {
     setNowPage(newPage);
+
+    navigate(
+      `/cafeSearchResult/${newPage}/${encodeURIComponent(area)}/${canStudy}/${startTime}/${endTime}/${minBeveragePrice}/${maxTime}/5`,
+    );
   };
 
   useEffect(() => {
