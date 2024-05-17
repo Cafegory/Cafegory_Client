@@ -81,8 +81,6 @@ const CafeInfo: React.FC = () => {
   }, []);
 
   const { info, fetchInfo } = cafeInfoApiStore();
-  console.log(reviews);
-  console.log(info);
 
   const { cafeId } = useParams<{ cafeId: string }>();
 

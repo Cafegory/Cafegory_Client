@@ -72,7 +72,7 @@ const Review: React.FC = () => {
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const pageSize = 10;
-  const totalPage = Math.floor(totalElementsOfReview / pageSize + 1);
+  const totalPage = Math.ceil(totalElementsOfReview / pageSize);
 
   return (
     <>
