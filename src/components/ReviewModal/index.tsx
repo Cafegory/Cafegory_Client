@@ -65,6 +65,8 @@ const Review: React.FC = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
     fetchReviews(Number(cafeId), page, pageSize);
+    const modalContent = document.getElementById('ReviewBoxContainer');
+    modalContent.scrollTo(0, 0);
   };
 
   const { info } = cafeInfoApiStore();
@@ -81,7 +83,7 @@ const Review: React.FC = () => {
           <TitleFont>전체 리뷰 {info.totalElementsOfReview}건</TitleFont>
           <CloseButton onClick={closeModal}>닫기</CloseButton>
         </TitleContainer>
-        <ReviewBoxContainer>
+        <ReviewBoxContainer id="ReviewBoxContainer">
           {reviews.map((review, index) => (
             <ReviewsBox>
               <ReviewsUpContainer>
