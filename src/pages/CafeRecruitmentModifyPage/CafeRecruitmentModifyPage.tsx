@@ -195,36 +195,51 @@ const CafeRecruitmentModify: React.FC = () => {
     canTalk: canTalk,
   };
 
-  const cafeStudyModifyClick = () => {
-    try {
-      if (currentCafeId !== cafeId) {
-        axios.post(
-          `https://cafegory.robinjoon.xyz/email`,
-          {
-            messageType: 'STUDYONCE_LOCATION_CHANGED',
-            memberIds: memberIds,
-          },
+  const cafeStudyModifyClick = async () => {
+    if (name.length === 0) {
+      alert('그룹명을 입력해주세요.');
+    } else if (openChatUrl.length === 0) {
+      alert('오픈채팅방 url을 입력해주세요.');
+    } else {
+      try {
+        if (currentCafeId !== cafeId) {
+          await axios.post(
+            `https://cafegory.robinjoon.xyz/email`,
+            {
+              messageType: 'STUDYONCE_LOCATION_CHANGED',
+              memberIds: memberIds,
+            },
+            {
+              headers: {
+                Authorization: accessToken,
+              },
+            },
+          );
+        }
+
+        await axios.patch(
+          `https://cafegory.robinjoon.xyz/study/once/${studyOnceId}`,
+          sendData,
           {
             headers: {
               Authorization: accessToken,
             },
           },
         );
+
+        navigate(`/cafeMeetingInfo/${studyOnceId}`);
+      } catch (error) {
+        const isLoggedIn = useUser.getState().isLoggedIn;
+        tokenRefresh(error, isLoggedIn);
+        if (
+          error.response.data.errorMessage ===
+          '카공 생성시 시작시간과 종료시간은 카페 영업시간내에 포함되어야 합니다.'
+        ) {
+          alert('카공시간을 확인해주세요.');
+        } else {
+          alert(`${error.response.data.errorMessage}`);
+        }
       }
-      axios.patch(
-        `https://cafegory.robinjoon.xyz/study/once/${studyOnceId}`,
-        sendData,
-        {
-          headers: {
-            Authorization: accessToken,
-          },
-        },
-      );
-      navigate(`/cafeMeetingInfo/${studyOnceId}`);
-    } catch (error) {
-      const isLoggedIn = useUser.getState().isLoggedIn;
-      tokenRefresh(error, isLoggedIn);
-      alert(error.response.data.errorMessage);
     }
   };
 
