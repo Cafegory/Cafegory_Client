@@ -101,11 +101,17 @@ const CafeCreateRecruitment: React.FC = () => {
   }, []);
 
   const CreateMeetingClick = async () => {
-    try {
-      await postCafeCreateResruitment();
-      setCreationSuccess(true);
-    } catch (error) {
-      console.error(error);
+    if (name.length === 0) {
+      alert('그룹명을 입력해주세요.');
+    } else if (openChatUrl.length === 0) {
+      alert('오픈채팅방 url을 입력해주세요.');
+    } else {
+      try {
+        await postCafeCreateResruitment();
+        setCreationSuccess(true);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
