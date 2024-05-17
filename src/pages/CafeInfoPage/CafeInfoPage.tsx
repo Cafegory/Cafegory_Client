@@ -81,6 +81,7 @@ const CafeInfo: React.FC = () => {
   }, []);
 
   const { info, fetchInfo } = cafeInfoApiStore();
+  console.log(reviews);
   console.log(info);
 
   const { cafeId } = useParams<{ cafeId: string }>();
@@ -250,9 +251,10 @@ const CafeInfo: React.FC = () => {
                 </ReviewsBox>
               ))}
             </ReviewsBoxContainer>
-            {info.review.length > 2 && (
+            {/* 문제여기 */}
+            {info.totalElementsOfReview > 2 && (
               <MoreButton onClick={toggleReviewModal}>
-                {info.review.length - 2}건 더보기
+                {info.totalElementsOfReview - 2}건 더보기
               </MoreButton>
             )}
           </ReviewsContainer>

@@ -25,6 +25,7 @@ import {
 } from 'pages/WriteReviewPage/WriteReviewPage.hooks';
 import { useParams, useNavigate } from 'react-router-dom';
 import Pagination from 'components/Pagination';
+import { cafeInfoApiStore } from 'pages/CafeInfoPage/CafeInfo.hooks';
 
 const Review: React.FC = () => {
   const id = JSON.parse(localStorage.getItem('memberId'));
@@ -61,19 +62,23 @@ const Review: React.FC = () => {
     navigate(`/writeReview/${cafeId}`);
   };
 
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const pageSize = 10;
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
     fetchReviews(Number(cafeId), page, pageSize);
   };
 
+  const { info } = cafeInfoApiStore();
+  const totalElementsOfReview = info.totalElementsOfReview;
+
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const pageSize = 10;
+  const totalPage = Math.floor(totalElementsOfReview / pageSize + 1);
+
   return (
     <>
       <ReviewModal>
         <TitleContainer>
-          <TitleFont>전체 리뷰 {reviews.length}건</TitleFont>
+          <TitleFont>전체 리뷰 {info.totalElementsOfReview}건</TitleFont>
           <CloseButton onClick={closeModal}>닫기</CloseButton>
         </TitleContainer>
         <ReviewBoxContainer>
@@ -121,7 +126,7 @@ const Review: React.FC = () => {
           ))}
         </ReviewBoxContainer>
         <Pagination
-          totalPage={5}
+          totalPage={totalPage}
           currentPage={currentPage}
           onPageChange={handlePageChange}
         />
