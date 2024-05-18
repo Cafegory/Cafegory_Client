@@ -170,21 +170,23 @@ const CafeInfo: React.FC = () => {
               <PhoneImg src="/assets/phone-icon.png" alt="전화 아이콘" />
               {info.basicInfo.phone}
             </InfoBox>
-            <InfoBox>
-              <HomePageImg
-                src="/assets/home-page-icon.png"
-                alt="홈페이지 아이콘"
-              />
-              {info.basicInfo.sns.map((item, index) => (
-                <HomePageLinkFont
-                  onClick={() =>
-                    handleMoveHomePage(info.basicInfo.sns[index].url)
-                  }
-                >
-                  {info.basicInfo.sns[index].name}
-                </HomePageLinkFont>
-              ))}
-            </InfoBox>
+            {info.basicInfo.sns.length !== 0 && (
+              <InfoBox>
+                <HomePageImg
+                  src="/assets/home-page-icon.png"
+                  alt="홈페이지 아이콘"
+                />
+                {info.basicInfo.sns.map((item, index) => (
+                  <HomePageLinkFont
+                    onClick={() =>
+                      handleMoveHomePage(info.basicInfo.sns[index].url)
+                    }
+                  >
+                    {info.basicInfo.sns[index].name}
+                  </HomePageLinkFont>
+                ))}
+              </InfoBox>
+            )}
           </InfoBoxContainer>
           <ReviewsContainer>
             <TitleFont>
