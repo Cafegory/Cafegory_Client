@@ -43,6 +43,15 @@ const Header: React.FC<HeaderProps> = () => {
   const { name, fetchProfile } = profileApiStore();
   React.useEffect(() => {
     fetchProfile();
+
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!isLoggedIn && accessToken !== null) {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('memberId');
+      localStorage.removeItem('userName');
+    }
   }, [name]);
 
   return (
