@@ -4,6 +4,7 @@ import Sidebar from '../../components/Sidebar';
 import Screen from 'components/Basic/Screen';
 import Container from 'components/Basic/Container';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useStore } from 'components/DeleteModal/DeleteModal.hooks';
 import {
   CafeProfileContainer,
   CafeImg,
@@ -64,6 +65,7 @@ import {
   useRatingStore,
   ReviewEditStore,
 } from 'pages/WriteReviewPage/WriteReviewPage.hooks';
+import Delete from 'components/DeleteModal';
 
 const CafeInfo: React.FC = () => {
   const isReviewModalOpen = reviewUseStore((state) => state.isReviewModalOpen);
@@ -126,13 +128,16 @@ const CafeInfo: React.FC = () => {
     navigate(`/writeReview/${cafeId}`);
   };
 
-  const handleDeleteReview = async (reviewId: number) => {
-    await deleteReview(reviewId);
-    fetchReviews(Number(cafeId));
-    window.location.reload();
+  const memberId = localStorage.getItem('memberId');
+
+  const { toggleDeleteModal, setReviewId, reviewId } = useStore();
+
+  const deleteModalOpen = (id) => {
+    toggleDeleteModal();
+    setReviewId(id);
   };
 
-  const memberId = localStorage.getItem('memberId');
+  const isDeleteModalOpen = useStore((state) => state.isDeleteModalOpen);
 
   return (
     <Screen>
@@ -240,9 +245,7 @@ const CafeInfo: React.FC = () => {
                       </ReviewsDownFont>
                       <ReviewsDownFont>|</ReviewsDownFont>
                       <ReviewsDownFont
-                        onClick={() =>
-                          handleDeleteReview(reviews[index].reviewId)
-                        }
+                        onClick={() => deleteModalOpen(reviews[index].reviewId)}
                       >
                         삭제
                       </ReviewsDownFont>
@@ -344,6 +347,7 @@ const CafeInfo: React.FC = () => {
       <Header />
       {isReviewModalOpen && <Review />}
       {isStudyModalOpen && <Study />}
+      {isDeleteModalOpen && <Delete />}
     </Screen>
   );
 };
