@@ -14,6 +14,7 @@ import ShortButton from 'components/ShortButton';
 import { useNavigate } from 'react-router-dom';
 import { profileApiStore } from './MyPage.hooks';
 import { useEffect } from 'react';
+import { useUser } from '../../store/users/store';
 
 const My: React.FC = () => {
   const { name, introduction, thumbnailingImg, fetchProfile } =
@@ -24,12 +25,13 @@ const My: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const memberId = localStorage.getItem('memberId');
-    if (!memberId) {
-      alert('로그인이 필요합니다.');
+    if (!isLoggedIn) {
+      alert('로그인 후 서비스를 이용해주세요!');
       navigate('/');
     }
   }, []);
+
+  const { isLoggedIn } = useUser();
 
   return (
     <Screen>

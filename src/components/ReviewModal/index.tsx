@@ -24,6 +24,8 @@ import {
   ReviewEditStore,
 } from 'pages/WriteReviewPage/WriteReviewPage.hooks';
 import { useParams, useNavigate } from 'react-router-dom';
+import Delete from 'components/DeleteModal';
+import { useStore } from 'components/DeleteModal/DeleteModal.hooks';
 import Pagination from 'components/Pagination';
 import { cafeInfoApiStore } from 'pages/CafeInfoPage/CafeInfo.hooks';
 
@@ -38,13 +40,8 @@ const Review: React.FC = () => {
     toggleReviewModal();
   };
 
-  const { reviews, fetchReviews, deleteReview } = reviewApiStore();
+  const { reviews, fetchReviews } = reviewApiStore();
 
-  const handleDeleteReview = async (reviewId: number) => {
-    await deleteReview(reviewId);
-    fetchReviews();
-    window.location.reload();
-  };
   React.useEffect(() => {
     fetchReviews(Number(cafeId), currentPage, pageSize);
   }, []);
@@ -61,6 +58,16 @@ const Review: React.FC = () => {
 
     navigate(`/writeReview/${cafeId}`);
   };
+
+
+  const { toggleDeleteModal, setReviewId } = useStore();
+
+  const deleteModalOpen = (id) => {
+    toggleDeleteModal();
+    setReviewId(id);
+  };
+
+  const isDeleteModalOpen = useStore((state) => state.isDeleteModalOpen);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -118,7 +125,7 @@ const Review: React.FC = () => {
                   </ReviewsEditFont>
                   <ReviewsEditFont>|</ReviewsEditFont>
                   <ReviewsEditFont
-                    onClick={() => handleDeleteReview(reviews[index].reviewId)}
+                    onClick={() => deleteModalOpen(reviews[index].reviewId)}
                   >
                     삭제
                   </ReviewsEditFont>
@@ -134,6 +141,7 @@ const Review: React.FC = () => {
         />
       </ReviewModal>
       <ModalBackdrop onClick={closeModal}></ModalBackdrop>
+      {isDeleteModalOpen && <Delete />}
     </>
   );
 };
