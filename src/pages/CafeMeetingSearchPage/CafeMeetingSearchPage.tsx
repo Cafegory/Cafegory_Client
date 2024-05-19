@@ -30,6 +30,8 @@ import {
   useOption,
 } from './CafeMeetingSearchPage.hooks';
 
+import { usePage } from '../../pages/CafeSearchResultPage/CafeSearchResultPage.hooks';
+
 const CafeCreateRecruitment: React.FC = () => {
   const navigate = useNavigate();
   const NOT_SPECIFIED = '무관';
@@ -54,6 +56,9 @@ const CafeCreateRecruitment: React.FC = () => {
   } = updateContent();
 
   const { area, setArea } = search();
+
+  const { nowPage, setNowPage, maxPage, setMaxPage, pageSize, setPageSize } =
+    usePage();
 
   const handleFilterButtonClick = () => {
     setShowFitter(!showFitter);
@@ -98,7 +103,7 @@ const CafeCreateRecruitment: React.FC = () => {
       return;
     }
     navigate(
-      `/cafeMeetingSearchResult/1/${encodeURIComponent(area)}/${onlyJoinAble}/${maxMemberCount}/${canTalk}/5`,
+      `/cafeMeetingSearchResult/${nowPage}/${encodeURIComponent(area)}/${onlyJoinAble}/${maxMemberCount}/${canTalk}/5`,
     );
   };
 

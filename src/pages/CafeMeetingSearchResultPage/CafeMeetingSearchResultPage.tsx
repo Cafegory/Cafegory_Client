@@ -140,7 +140,7 @@ const CafeMeetingSearchResultPage: React.FC = () => {
   useEffect(() => {
     axios
       .get(
-        `https://cafegory.robinjoon.xyz/study/once/list?page=1&area=${routeArea}&onlyJoinAble=${routeOnlyJoinAble}&maxMemberCount=${routeMaxMemberCount}&canTalk=${routeCanTalk}&sizePerPage=5`,
+        `https://cafegory.robinjoon.xyz/study/once/list?page=${nowPage}&area=${routeArea}&onlyJoinAble=${routeOnlyJoinAble}&maxMemberCount=${routeMaxMemberCount}&canTalk=${routeCanTalk}&sizePerPage=5`,
         {
           headers: {
             Authorization: accessToken,
@@ -157,59 +157,35 @@ const CafeMeetingSearchResultPage: React.FC = () => {
         const isLoggedIn = useUser.getState().isLoggedIn;
         tokenRefresh(error, isLoggedIn);
       });
-  }, [area, routeOnlyJoinAble, routeMaxMemberCount, routeCanTalk]);
+  }, [
+    nowPage,
+    routeArea,
+    routeOnlyJoinAble,
+    routeMaxMemberCount,
+    routeCanTalk,
+  ]);
 
   const handlePageChange = (event, newPage) => {
     setNowPage(newPage);
-    axios
-      .get(
-        `https://cafegory.robinjoon.xyz/study/once/list?page=${newPage}&area=${area}&onlyJoinAble=${onlyJoinAble}&maxMemberCount=${maxMemberCount}&canTalk=${canTalk}&sizePerPage=5`,
-        {
-          headers: {
-            Authorization: accessToken,
-          },
-        },
-      )
-      .then((response) => {
-        setCafeStudys(response.data.list);
-        setMaxPage(response.data.maxPage);
-        setPageSize(response.data.pageSize);
-      })
-      .catch((error) => {
-        const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefresh(error, isLoggedIn);
-      });
+
+    navigate(
+      `/cafeMeetingSearchResult/${newPage}/${encodeURIComponent(area)}/${onlyJoinAble}/${maxMemberCount}/${canTalk}/5`,
+    );
   };
 
   const handleSearchClick = () => {
+    console.log('클릭됨');
     if (inputArea.trim() === '') {
       alert('검색어를 입력해주세요.');
       return;
     }
-    axios
-      .get(
-        `https://cafegory.robinjoon.xyz/study/once/list?page=1&area=${inputArea}&onlyJoinAble=${onlyJoinAble}&maxMemberCount=${maxMemberCount}&canTalk=${canTalk}&sizePerPage=5`,
-        {
-          headers: {
-            Authorization: accessToken,
-          },
-        },
-      )
-      .then((response) => {
-        setCafeStudys(response.data.list);
-        setNowPage(response.data.nowPage);
-        setMaxPage(response.data.maxPage);
-        setPageSize(response.data.pageSize);
-      })
-      .catch((error) => {
-        const isLoggedIn = useUser.getState().isLoggedIn;
-        tokenRefresh(error, isLoggedIn);
-      });
 
+    setNowPage(1);
+
+    navigate(
+      `/cafeMeetingSearchResult/${nowPage}/${encodeURIComponent(inputArea)}/${onlyJoinAble}/${maxMemberCount}/${canTalk}/5`,
+    );
     setArea(inputArea);
-    // navigate(
-    //   `/cafeMeetingSearchResult/1/${encodeURIComponent(area)}/${onlyJoinAble}/${maxMemberCount}/${canTalk}/5`,
-    // );
   };
 
   const viewCafeMeetingInfo = (id) => {

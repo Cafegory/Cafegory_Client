@@ -80,7 +80,8 @@ const CafeCreateRecruitment: React.FC = () => {
 
   const combineDateTime = (date: Date, time: number): string => {
     const formattedDate = format(date, 'yyyy-MM-dd');
-    const formattedTime = time.toString().padStart(2, '0') + ':00:00';
+    const formattedTime =
+      (time === 24 ? '00' : time.toString().padStart(2, '0')) + ':00:00';
     return `${formattedDate}T${formattedTime}`;
   };
 
@@ -101,9 +102,9 @@ const CafeCreateRecruitment: React.FC = () => {
 
   const CreateMeetingClick = async () => {
     if (name.length === 0) {
-      alert('그룹명을 입력해주세요');
+      alert('그룹명을 입력해주세요.');
     } else if (openChatUrl.length === 0) {
-      alert('오픈채팅방 url을 입력해주세요');
+      alert('오픈채팅방 url을 입력해주세요.');
     } else {
       try {
         await postCafeCreateResruitment();

@@ -79,7 +79,7 @@ const CafeInfo: React.FC = () => {
   const { reviews, fetchReviews, deleteReview } = reviewApiStore();
 
   React.useEffect(() => {
-    fetchReviews(Number(cafeId));
+    fetchReviews(Number(cafeId), 1, 2);
   }, []);
 
   const { info, fetchInfo } = cafeInfoApiStore();
@@ -254,9 +254,10 @@ const CafeInfo: React.FC = () => {
                 </ReviewsBox>
               ))}
             </ReviewsBoxContainer>
-            {reviews.length > 2 && (
+            {/* 문제여기 */}
+            {info.totalElementsOfReview > 2 && (
               <MoreButton onClick={toggleReviewModal}>
-                {reviews.length - 2}건 더보기
+                {info.totalElementsOfReview - 2}건 더보기
               </MoreButton>
             )}
           </ReviewsContainer>
