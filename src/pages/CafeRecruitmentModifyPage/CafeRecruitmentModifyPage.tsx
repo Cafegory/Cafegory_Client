@@ -96,7 +96,8 @@ const CafeRecruitmentModify: React.FC = () => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate(-1);
+    const redirectUrl = localStorage.getItem('goBackUrl') || '/';
+    navigate(redirectUrl);
   };
 
   const maxMember = 10;

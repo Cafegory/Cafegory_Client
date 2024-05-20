@@ -87,6 +87,8 @@ const CafeMeetingInfo: React.FC = () => {
   const memberId = Number(localStorage.getItem('memberId'));
 
   const hi = () => {
+    const goBackPath = window.location.pathname;
+    localStorage.setItem('goBackUrl', goBackPath);
     navigate(`/studyRecruitingModify/${studyOnceId}`);
   };
 
