@@ -71,7 +71,8 @@ const CafeCreateRecruitment: React.FC = () => {
     CafeCreateResruitmentApiContent();
   const navigate = useNavigate();
   const handleGoBack = () => {
-    navigate(-1);
+    const redirectUrl = localStorage.getItem('goBackUrl') || '/';
+    navigate(redirectUrl);
   };
 
   const maxMember = 5;

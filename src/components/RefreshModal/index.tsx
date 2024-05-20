@@ -28,9 +28,12 @@ const Refresh: React.FC = () => {
   };
 
   const handleTokenRefresh = async () => {
+    const currentPath = window.location.pathname;
+    localStorage.setItem('redirectUrl', currentPath);
     try {
       await postToken();
-      window.location.reload();
+      const redirectUrl = localStorage.getItem('redirectUrl') || '/';
+      navigate(redirectUrl);
       toggleRefreshModal();
     } catch (error) {
       alert('토큰이 만료되었습니다. 재로그인 해주세요.');

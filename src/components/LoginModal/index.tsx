@@ -22,6 +22,8 @@ const Login: React.FC = () => {
   const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
 
   const kakaoLoginHandler = () => {
+    const currentPath = window.location.pathname;
+    localStorage.setItem('redirectUrl', currentPath);
     window.location.href = KAKAO_URL;
   };
 

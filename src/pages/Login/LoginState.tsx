@@ -25,7 +25,9 @@ const LoginState: React.FC = () => {
         setIsLoggedIn(true);
         const accessToken = response.data.accessToken;
         getMemberId(accessToken);
-        navigate('/');
+        // navigate('/');
+        const redirectUrl = localStorage.getItem('redirectUrl') || '/';
+        navigate(redirectUrl);
         window.location.reload();
       } catch (error) {
         console.error(error);

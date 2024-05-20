@@ -89,10 +89,14 @@ const CafeInfo: React.FC = () => {
   }, [cafeId]);
 
   const CreateGroup = () => {
+    const goBackPath = window.location.pathname;
+    localStorage.setItem('goBackUrl', goBackPath);
     navigate(`/studyRecruiting/${cafeId}`);
   };
 
   const review = () => {
+    const goBackPath = window.location.pathname;
+    localStorage.setItem('goBackUrl', goBackPath);
     navigate(`/writeReview/${cafeId}`);
   };
 

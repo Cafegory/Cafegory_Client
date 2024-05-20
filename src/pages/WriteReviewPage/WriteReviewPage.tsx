@@ -22,11 +22,13 @@ import {
 import { useParams, useNavigate } from 'react-router-dom';
 
 const WriteReview: React.FC = () => {
+  const navigate = useNavigate();
   const { cafeId: routeCafeId } = useParams();
   const { content, setContent } = useContentStore();
   const maxContentLength = 200;
   const cancel = () => {
-    window.history.back();
+    const redirectUrl = localStorage.getItem('goBackUrl') || '/';
+    navigate(redirectUrl);
   };
   const { rating, setRating } = useRatingStore();
   const { toggleEditing } = ReviewEditStore();
